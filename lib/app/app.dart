@@ -1,30 +1,30 @@
-import 'dart:html';
-
-import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/theme_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
+import '../presentation/resources/routes_manager.dart';
 
 class MyApp extends StatefulWidget {
+  // named constructor
+  MyApp._internal();
 
-  MyApp._internal(); // Named constructor.
+  int appState = 0;
 
-  static final MyApp _instance = MyApp._internal(); // singleton
+  static final MyApp _instance =
+      MyApp._internal(); // singleton or single instance
 
   factory MyApp() => _instance; // factory
 
-
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: Routes.splashRoute,
       theme: getApplicationTheme(),
     );
   }
