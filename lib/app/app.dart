@@ -1,6 +1,10 @@
 import 'dart:html';
 
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
+import 'package:bank_misr/presentation/resources/theme_manager.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatefulWidget {
@@ -19,9 +23,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Mariam",),
-      
+    return MaterialApp(
+      onGenerateRoute: RouteGenerator.getRoute,
+      theme: getApplicationTheme(),
     );
   }
 }

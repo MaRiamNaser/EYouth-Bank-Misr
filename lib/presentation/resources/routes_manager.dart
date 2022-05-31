@@ -1,6 +1,8 @@
 import 'dart:html';
 
 
+import 'package:bank_misr/presentation/onboarding/onboarding_view.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -10,6 +12,7 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
+  static const String onBoardingRoute = "/onBoarding";
 }
 
 class RouteGenerator {
@@ -27,6 +30,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Container());
       case Routes.storeDetailsRoute:
         return MaterialPageRoute(builder: (_) =>Container());
+      case Routes.onBoardingRoute:
+        return MaterialPageRoute(builder: (_) => OnBoardingView());
       default:
         return unDefinedRoute();
     }
@@ -37,11 +42,11 @@ class RouteGenerator {
         builder: (_) => Scaffold(
               appBar: AppBar(
                 title: const Text(
-                    "No Route Found"), // todo move this string to strings manager
+                    AppStrings.noRouteFound), 
               ),
               body: const Center(
                   child: Text(
-                      "No Route Found")), // todo move this string to strings manager
+                      AppStrings.noRouteFound)), 
             ));
   }
 }
