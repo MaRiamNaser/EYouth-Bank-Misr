@@ -1,11 +1,14 @@
 
 
+import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
+import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/login/login_view.dart';
 import 'package:bank_misr/presentation/register/register_name_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/splash/splash_view.dart';
 import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:flutter/material.dart';
+
 
 class Routes {
   static const String splashRoute = "/";
@@ -20,7 +23,7 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splashRoute:
-        return MaterialPageRoute(builder: (_) => SplashView());
+        return MaterialPageRoute(builder: (_) => AddTask());
       case Routes.loginRoute:
         return MaterialPageRoute(builder: (_) =>LoginView());
       case Routes.registerNameRoute:
