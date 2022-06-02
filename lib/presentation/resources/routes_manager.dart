@@ -1,8 +1,9 @@
 
 
-import 'package:bank_misr/presentation/onboarding/onboarding_view.dart';
+import 'package:bank_misr/presentation/login/login_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/splash/splash_view.dart';
+import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -11,8 +12,7 @@ class Routes {
   static const String registerRoute = "/register";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
-  static const String storeDetailsRoute = "/storeDetails";
-  static const String onBoardingRoute = "/onBoarding";
+  static const String tasksRoute = "/tasks";
 }
 
 class RouteGenerator {
@@ -21,17 +21,16 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) =>Container());
+        return MaterialPageRoute(builder: (_) =>LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) =>Container());
       case Routes.forgotPasswordRoute:
         return MaterialPageRoute(builder: (_) => Container());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => Container());
-      case Routes.storeDetailsRoute:
-        return MaterialPageRoute(builder: (_) =>Container());
-      case Routes.onBoardingRoute:
-        return MaterialPageRoute(builder: (_) => OnBoardingView());
+      case Routes.tasksRoute:
+         return MaterialPageRoute(builder: (_) => TasksView());
+
       default:
         return unDefinedRoute();
     }
