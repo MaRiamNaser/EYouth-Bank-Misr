@@ -6,6 +6,8 @@ class ColorManager {
   static Color grey = const Color(0xff737477);
   static Color lightGrey = const Color(0xffF6F6F6);
 
+  static Color black = Color.fromARGB(255, 0, 0, 0);
+
   // new colors
   static Color darkPrimary = const Color(0xff1B6685);
   static Color lightPrimary = const Color(0xffE3F4F5); // color with 80% opacity
@@ -13,4 +15,5 @@ class ColorManager {
   static Color grey2 = const Color(0xff797979);
   static Color white = const Color(0xffFFFFFF);
   static Color error = const Color(0xffe61f34); // red color
+
 }
