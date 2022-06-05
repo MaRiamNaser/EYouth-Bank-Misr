@@ -39,6 +39,7 @@ dependencies:
   youtube_player_iframe:
   flutter_svg:
   lottie:
+  provider:
 
 dev_dependencies:
   flutter_test:

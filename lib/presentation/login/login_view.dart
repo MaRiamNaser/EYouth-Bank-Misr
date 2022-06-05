@@ -1,19 +1,68 @@
+import 'package:bank_misr/business_logic/registeration/registeration_logic.dart';
+import 'package:bank_misr/presentation/login/login_widgets.dart';
+import 'package:bank_misr/presentation/register/register_view.dart';
+import 'package:bank_misr/presentation/resources/assets_manager.dart';
+import 'package:bank_misr/presentation/resources/color_manager.dart';
+import 'package:bank_misr/presentation/resources/constants_manager.dart';
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:bank_misr/presentation/resources/styles_manager.dart';
+import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  State<LoginView> createState() => _RegisterNamePageState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterNamePageState extends State<LoginView> {
+  RegisterationProvider? registerationProviderRead;
+  RegisterationProvider? registerationProviderWatch;
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    registerationProviderRead = context.read<RegisterationProvider>();
+    registerationProviderWatch = context.watch<RegisterationProvider>();
+
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-      child: Text("Login page"),
-    ));
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
+          leadingWidth: AppConstants.leadingWidth,
+         /* title: Text(
+            AppStrings.loginTitle,
+            style: getSemiBoldStyle(color: ColorManager.black),
+          ),*/
+          leading: Container(
+            margin: EdgeInsets.only(left: AppMargin.m12, top: 5),
+            child: Image(image: AssetImage(ImageAssets.splashLogo)))),
+      /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+             
+            Lottie.asset(
+               ImageAssets.loginLottie),
+
+            userNameTextFormField(),
+            passwordTextFormField(),
+            forgetPasswordWidget(),
+            LoginButton(),
+            newToTheAppWidget(context),
+
+
+
+          ],
+        ),
+      ),
+    );
   }
 }

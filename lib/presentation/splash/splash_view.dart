@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.registerNameRoute);
+    Navigator.pushReplacementNamed(context, Routes.courseViewRoute);
   }
 
   @override
@@ -39,7 +39,7 @@ class _SplashViewState extends State<SplashView> {
     return  Scaffold(
       body: 
       AnimatedSplashScreen(
-        splashIconSize: AppConstants.iconSize,
+        splashIconSize: 70,
         splash: const Center(child: Image(image: AssetImage(ImageAssets.splashLogo))), 
         nextScreen: Container(),
         disableNavigation: true,
