@@ -3,7 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< Updated upstream
   url_launcher_windows
+=======
+>>>>>>> Stashed changes
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)
