@@ -18,6 +18,6 @@ class AddTask extends StatefulWidget {
 class _AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
-    return AddBody(AppStrings.addTask,ImageAssets.monkeyPhoto);
+    return AddBody(AppStrings.addTask,ImageAssets.TaskPhoto);
   }
 }

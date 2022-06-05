@@ -8,7 +8,7 @@ Container getTextField(String hintText, double height, int lines, double padding
     TextEditingController titleTextController, Null Function(dynamic text) set,) {
   return Container(
       padding: EdgeInsets.only(left: AppPadding.p12,top: padding),
-      height: height,
+      height:  height,
       width: 265.83,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topRight:Radius.circular(raduis) ,bottomLeft: Radius.circular(raduis)),
@@ -24,7 +24,7 @@ Container getTextField(String hintText, double height, int lines, double padding
           hintText: hintText,
           hintStyle:getRegularStyle(color: ColorManager.grey1),
         ),
-        style: getRegularStyle(color: ColorManager.darkGrey),
+        style: getRegularStyle(fontSize:16,color: ColorManager.darkGrey),
       )
   );
 }

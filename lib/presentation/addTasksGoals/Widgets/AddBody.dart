@@ -5,6 +5,7 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../Widgets/text_field.dart';
 
@@ -28,29 +29,27 @@ class _AddBodyState extends State<AddBody> {
   _AddBodyState(this.title,this.photo);
   @override
   Widget build(BuildContext context) {
+    var screensize=MediaQuery.of(context).size;
     return Scaffold(
+
         appBar: AppBar(
           title:  Text(title),
         ),
         body:
         SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
           child:
-          Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p50),
-            child:
             Column(
               children: [
                 Center(
-                  child: SizedBox(height:106 ,
-                      width: 113,
-                      child:Image.asset(photo)),
+                  child: SizedBox(height: 1/825 * screensize.height *222 ,
+                      width: 1/393* screensize.width * 250,
+                      child:Lottie.asset(photo)),
                 ),
-                SizedBox(height: AppSize.s20,),
+                SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
                 Container(
                   padding: EdgeInsets.all(AppPadding.p18),
-                  height:420 ,
-                  width: 300,
+                  height: 1/825 * screensize.height *420 ,
+                  width: 1/393* screensize.width * 300,
                   decoration:  BoxDecoration(
                     border: Border.all(
                         color: ColorManager.grey
@@ -61,22 +60,22 @@ class _AddBodyState extends State<AddBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text("Title"),
-                      SizedBox(height: AppSize.s8 ,),
-                      getTextField("Goal Title here....",80,1,AppPadding.p2,AppSize.s20,titleTextController,(text){
+                      SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                      getTextField("Goal Title here....",80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
                         setState(() {
                           titleTextController.text.isEmpty?color=ColorManager.lightPrimary:color=ColorManager.darkPrimary;
                           titleTextController.text.isEmpty?color2=ColorManager.grey:color2=ColorManager.white;
                         });
                       }),
-                      SizedBox(height:AppSize.s8 ,),
+                      SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                       const Text("Description"),
-                      SizedBox(height:AppSize.s8 ,),
+                      SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                       getTextField("Write Your Goal here...",180,8,AppPadding.p20,AppSize.s20,descTextController,(text){}),
-                      SizedBox(height:AppSize.s18 ,),
+                      SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
                       Center(
                         child: Container(
-                          height:46 ,
-                          width: 133,
+                          height: 1/825 * screensize.height *46 ,
+                          width: 1/393* screensize.width * 133,
                           decoration:BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: color,
@@ -89,7 +88,6 @@ class _AddBodyState extends State<AddBody> {
                                   Text("Add",style: getRegularStyle(color: color2),),
                                   Icon(Icons.add,color:  color2,)
                                 ],
-
                               )),
                         ),
                       )
@@ -99,6 +97,6 @@ class _AddBodyState extends State<AddBody> {
               ],
             ),
           ),
-        ));
+        );
   }
 }
