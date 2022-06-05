@@ -10,12 +10,12 @@ import '../Widgets/AddBody.dart';
 import '../Widgets/text_field.dart';
 
 
-class AddTask extends StatefulWidget {
+class AddTaskView extends StatefulWidget {
   @override
-  _AddTaskState createState() => _AddTaskState();
+  _AddTaskViewState createState() => _AddTaskViewState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _AddTaskViewState extends State<AddTaskView> {
   @override
   Widget build(BuildContext context) {
     return AddBody(AppStrings.addTask,ImageAssets.TaskPhoto);

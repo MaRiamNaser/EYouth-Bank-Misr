@@ -16,4 +16,12 @@ class ColorManager {
   static Color white = const Color(0xffFFFFFF);
   static Color error = const Color(0xffe61f34); // red color
 
+
+
+ 
+
+  //mariam
+   static Color green = Color.fromARGB(255, 31, 230, 74); // red color
+    static Color red = const Color(0xff862F39); 
+
 }

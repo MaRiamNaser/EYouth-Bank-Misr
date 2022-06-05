@@ -14,26 +14,26 @@ ThemeData getApplicationTheme() {
       disabledColor: ColorManager.grey1,
       // cardview theme
          cardTheme: CardTheme(
+           
           color: ColorManager.white,
           shadowColor: ColorManager.grey,
           elevation: AppSize.s4),
  // app bar theme
     appBarTheme: AppBarTheme(
-        iconTheme: IconThemeData(
-            color: Colors.black
-        ),
         centerTitle: true,
         color: ColorManager.white,
         elevation: 0,
        // shadowColor: ColorManager.lightPrimary,
-        titleTextStyle: getBoldtStyle(fontSize: FontSize.s16, color: ColorManager.black)),
+        titleTextStyle: getRegularStyle(fontSize: FontSize.s16, color: ColorManager.white)),
             
     // button theme
     buttonTheme: ButtonThemeData(
+      
         shape: const StadiumBorder(),
         disabledColor: ColorManager.grey1,
         buttonColor: ColorManager.primary,
         splashColor: ColorManager.lightPrimary),
+        
 
     // elevated button them
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -49,46 +49,54 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
 
         headline1: getSemiBoldStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s16),
+            color: ColorManager.black, fontSize: FontSize.s16),
         subtitle1: getMediumStyle(
-            color: ColorManager.lightGrey, fontSize: FontSize.s14),
-        caption: getRegularStyle(color: ColorManager.grey1),
-        bodyText1: getRegularStyle(color: ColorManager.grey)),
+            color: ColorManager.black, fontSize: FontSize.s14),
+        caption: getRegularStyle(color: ColorManager.black),
+        bodyText1: getRegularStyle(color: ColorManager.black)),
         
     // input decoration theme (text form field)
     inputDecorationTheme: InputDecorationTheme(
+      
         // content padding
+        
         contentPadding: const EdgeInsets.all(AppPadding.p8),
+
+     
+        
         // hint style
         hintStyle:
-            getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+            getRegularStyle(color: ColorManager.black, fontSize: FontSize.s14),
         labelStyle:
-            getMediumStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+            getMediumStyle(color: ColorManager.black, fontSize: FontSize.s14),
         errorStyle: getRegularStyle(color: ColorManager.error),
 
         // enabled border style
         enabledBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20))),
 
         // focused border style
         focusedBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
+                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20))),
 
         // error border style
         errorBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.error, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20))),
         // focused border style
         focusedErrorBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)))),
+            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)))),
     // label style
+
+
+
 
       );
 }

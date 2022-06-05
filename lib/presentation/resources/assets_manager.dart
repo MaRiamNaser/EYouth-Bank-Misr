@@ -14,4 +14,20 @@ class ImageAssets {
   static String goalsPhoto="assets/images/goals.png";
   static String tasksPhoto="assets/images/multitask.gif";
   static String profilePhoto="assets/images/avtar.png";
+
+    //mariam
+  static  String welcomePic = "$IMAGE_PATH/welcome.png";
+  static  String smilePic = "$IMAGE_PATH/smile.png";
+  static  String emailPic = "$IMAGE_PATH/email.png";
+  static  String passwordPic = "$IMAGE_PATH/password.png";
+  static  String boyAndGirlPic = "$IMAGE_PATH/boyAndGirl.png";
+  static  String agePic = "$IMAGE_PATH/age.png";
+   static  String passwordLottie = "$IMAGE_PATH/password_lottie.json";
+     static  String ageLottie = "$IMAGE_PATH/age_lottie.json";
+       static  String emailLottie = "$IMAGE_PATH/email_lottie.json";
+       static  String nameLottie = "$IMAGE_PATH/name_lottie.json";
+       static  String userNameLottie = "$IMAGE_PATH/user_name_lottie.json";
+       static  String loginLottie = "$IMAGE_PATH/login_lottie.json";
+       
+  
 }

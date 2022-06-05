@@ -20,7 +20,7 @@ class _VideoViewState extends State<VideoView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
       setState(() {
         _ytbPlayerController = YoutubePlayerController(
           initialVideoId:"vdMNOS-z7rc" ,
