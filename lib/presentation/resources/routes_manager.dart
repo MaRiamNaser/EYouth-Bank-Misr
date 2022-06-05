@@ -24,7 +24,6 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
   static const String tasksRoute = "/tasks";
-<<<<<<< Updated upstream
   // ahmed
   static const String homeViewRoute = "/homeViewRoute";
   static const String profileViewRoute = "/profileViewRoute";
@@ -32,12 +31,11 @@ class Routes {
   static const String videoViewRoute = "/videoViewRoute";
    static const String addTaskViewRoute = "/addTaskViewRoute";
    static const String addGoalViewRoute = "/addGoalViewRoute";
-=======
+
+
   static const String addTasksRoute = "/tasks";
   static const String addGoalRoute = "/goals";
   static const String goals= "/goals";
-
->>>>>>> Stashed changes
 }
 
 class RouteGenerator {
@@ -54,7 +52,6 @@ class RouteGenerator {
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => Container());
       case Routes.tasksRoute:
-<<<<<<< Updated upstream
         return MaterialPageRoute(builder: (_) => TasksView());
          case Routes.profileViewRoute:
         return MaterialPageRoute(builder: (_) => ProfileView());
@@ -66,8 +63,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AddTaskView());
           case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
-=======
-         return MaterialPageRoute(builder: (_) => TasksView());
       case Routes.addTasksRoute:
         return MaterialPageRoute(builder: (_) => addTasklview());
       case Routes.goals:
@@ -75,7 +70,6 @@ class RouteGenerator {
 
       case Routes.addGoalRoute:
         return MaterialPageRoute(builder: (_) => addGoalview());
->>>>>>> Stashed changes
 
       default:
         return unDefinedRoute();

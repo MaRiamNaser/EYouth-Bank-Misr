@@ -36,14 +36,11 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_image_slideshow: any
   animated_splash_screen: ^1.2.0
-<<<<<<< Updated upstream
   youtube_player_iframe:
   flutter_svg:
   lottie:
   provider:
-=======
-  lottie:
->>>>>>> Stashed changes
+
 
 dev_dependencies:
   flutter_test:

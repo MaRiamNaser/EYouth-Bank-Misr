@@ -97,15 +97,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< Updated upstream
-  flutter_inappwebview:
-    dependency: transitive
-    description:
-      name: flutter_inappwebview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.4.3+7"
-=======
   flutter_image_slideshow:
     dependency: "direct main"
     description:
@@ -113,7 +104,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
->>>>>>> Stashed changes
+  flutter_inappwebview:
+    dependency: transitive
+    description:
+      name: flutter_inappwebview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.4.3+7"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -222,7 +219,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-<<<<<<< Updated upstream
   path_drawing:
     dependency: transitive
     description:
@@ -237,8 +233,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-=======
->>>>>>> Stashed changes
   path_provider:
     dependency: transitive
     description:
