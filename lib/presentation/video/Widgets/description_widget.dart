@@ -6,6 +6,9 @@ import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
 class Description extends StatelessWidget {
+  String description;
+  Description(this.description);
+
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -22,7 +25,7 @@ class Description extends StatelessWidget {
         children: [
           Text("Description :",style: getSemiBoldStyle(color: ColorManager.white),),
           SizedBox(height: 1/825 * screensize.height * AppSize.s8,),
-          Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud" ,style: getRegularStyle(fontSize: FontSize.s14,color: ColorManager.white),),
+          Text(description ,style: getRegularStyle(fontSize: FontSize.s14,color: ColorManager.white),),
         ],
       ),
     );

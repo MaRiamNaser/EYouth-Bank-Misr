@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -10,12 +11,17 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../resources/values_manager.dart';
 
 class VideoView extends StatefulWidget {
+  Video video;
+  VideoView(this.video);
+
   @override
-  _VideoViewState createState() => _VideoViewState();
+  _VideoViewState createState() => _VideoViewState(video);
 }
 
 class _VideoViewState extends State<VideoView> {
   late YoutubePlayerController _ytbPlayerController;
+  Video video;
+  _VideoViewState(this.video);
   @override
   void initState() {
     // TODO: implement initState
@@ -60,10 +66,10 @@ class _VideoViewState extends State<VideoView> {
           )
           ,
           SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
-              Description(),
+              Description(video.description),
           SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
           Expanded(
-            child: QuizWidget(),
+            child: QuizWidget(video.quiz),
           )
         ]));
   }
