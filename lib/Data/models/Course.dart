@@ -4,32 +4,46 @@
 
 import 'dart:convert';
 
-import 'package:bank_misr/Data/models/Video.dart';
-
 Course courseFromJson(String str) => Course.fromJson(json.decode(str));
 
 String courseToJson(Course data) => json.encode(data.toJson());
 
 class Course {
   Course({
-    required this.title,
-    required this.img,
-    required this.videos,
+    required  this.id,
+    required  this.title,
+    required  this.description,
+    required  this.image,
+    required  this.createdAt,
+    required this.updatedAt,
+    required this.v,
   });
 
+  String id;
   String title;
-  String img;
-  List<Video> videos;
+  String description;
+  String image;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
+    id: json["_id"],
     title: json["title"],
-    img: json["img"],
-    videos: List<Video>.from(json["videos"].map((x) => x)),
+    description: json["description"],
+    image: json["image"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
   );
 
   Map<String, dynamic> toJson() => {
+    "_id": id,
     "title": title,
-    "img": img,
-    "videos": List<Video>.from(videos.map((x) => x)),
+    "description": description,
+    "image": image,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+    "__v": v,
   };
 }

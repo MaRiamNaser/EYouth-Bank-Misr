@@ -40,8 +40,9 @@ dependencies:
   flutter_svg:
   lottie:
   provider:
-
-
+  flutter_bloc:
+  http:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

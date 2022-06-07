@@ -11,7 +11,7 @@ class AddGoalView extends StatefulWidget {
 class _AddGoalViewState extends State<AddGoalView> {
   @override
   Widget build(BuildContext context) {
-    return AddBody(AppStrings.addGoal,ImageAssets.GoalPhoto);
+    return AddBody(AppStrings.addGoal,ImageAssets.GoalPhoto,"Goal");
   }
 
 }
