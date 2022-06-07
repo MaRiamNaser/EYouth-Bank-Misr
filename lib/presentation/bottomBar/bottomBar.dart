@@ -8,12 +8,12 @@ import '../profile/profile_view.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 
-class home_layout extends StatefulWidget{
+class BottomBar extends StatefulWidget{
   @override
-  State<home_layout> createState() => _home_layoutState();
+  State<BottomBar> createState() => _BottomBarState();
 }
 
-class _home_layoutState extends State<home_layout> {
+class _BottomBarState extends State<BottomBar> {
   int currentindex=0;
   List<Widget> screens=[
 
