@@ -4,7 +4,8 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Data/models/Categories.dart';
+import '../../../Data/models/Category.dart';
+import '../../../Data/models/Profile.dart';
 class CategoriesWidget extends StatefulWidget {
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();

@@ -23,7 +23,10 @@ class ColorManager {
  
 
   //mariam
+
    static Color green1 = Color.fromARGB(255, 31, 230, 74); // red color
+
+   static Color green = Color.fromARGB(255, 31, 230, 74); // red color
     static Color red = const Color(0xff862F39); 
 
 }
