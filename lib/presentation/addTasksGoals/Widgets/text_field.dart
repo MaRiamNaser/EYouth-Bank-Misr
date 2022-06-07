@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Container getTextField(String hintText, double height, int lines, double padding,raduis,
-    TextEditingController titleTextController, Null Function(dynamic text) set,) {
+    TextEditingController TextController, Null Function(dynamic text) set,) {
   return Container(
       padding: EdgeInsets.only(left: AppPadding.p12,top: padding),
       height:  height,
@@ -15,7 +15,7 @@ Container getTextField(String hintText, double height, int lines, double padding
           color: ColorManager.lightPrimary),
       child:  TextField(
         onChanged:set ,
-        controller: titleTextController,
+        controller: TextController,
         maxLines: lines,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(

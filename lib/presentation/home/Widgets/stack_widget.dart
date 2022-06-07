@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -5,6 +6,8 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 class StackWidget extends StatelessWidget {
+  Profile profile;
+  StackWidget(this.profile);
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -21,7 +24,7 @@ class StackWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Ahmed Mohamed",style: getSemiBoldStyle(fontSize:25,color: ColorManager.white),)
+                Text(profile.fullname,style: getSemiBoldStyle(fontSize:25,color: ColorManager.white),)
                 ,
                 SizedBox(height: 1/825 * screensize.height * 12,),
                 Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white))
@@ -32,8 +35,8 @@ class StackWidget extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left:130,top: 150),
           child: Container(
-            height: 1/825 * screensize.height * 140 ,
-            width: 1/393* screensize.width *140 ,
+            height: 140 ,
+            width: 140 ,
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color:Colors.grey),
@@ -42,8 +45,8 @@ class StackWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Container(
-                height: 1/825 * screensize.height * 125 ,
-                width: 1/393* screensize.width *125 ,
+                height:  125 ,
+                width: 125 ,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.grey),
@@ -53,7 +56,7 @@ class StackWidget extends StatelessWidget {
                     child :Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("0",style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
+                        Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
                         Text("EGP",style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
                       ],
