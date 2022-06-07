@@ -2,6 +2,9 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:flutter/material.dart';
 
+import '../courses/coursesView.dart';
+import '../home/home_view.dart';
+import '../profile/profile_view.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 
@@ -13,18 +16,17 @@ class home_layout extends StatefulWidget{
 class _home_layoutState extends State<home_layout> {
   int currentindex=0;
   List<Widget> screens=[
-    // newtasks(),
-    // donetasks(),
-    // archievetasks(),
-    settingView(),
-    settingView(),
-    settingView(),
+
+    HomeView(),
+    coursesView(),
+    ProfileView(),
     settingView(),
   ];
   List<String> titles=[
-    "Create your Tasks",
-    "Your Done Tasks",
-    "Archieve",
+    "Home",
+    "Courses",
+    "Profile",
+    "Setting",
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _home_layoutState extends State<home_layout> {
       appBar: AppBar(
 
         title: Text(
-          "Setting",
+          "${titles[currentindex]}",
           style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.black)
           ,)
         ,),

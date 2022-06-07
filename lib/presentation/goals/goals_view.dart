@@ -98,7 +98,7 @@ class _GoalViewState extends State<Goalsview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('assets/images/goals.png'),
+                image: AssetImage('assets/images/images.jpg'),
                 height: 120.0,
                 width: 160.0,
               ),

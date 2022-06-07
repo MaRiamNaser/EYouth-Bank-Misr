@@ -159,7 +159,7 @@ Widget buildtask(TasksList tasks) =>
                     ),
                   ),
                   Container(
-                    width: 190,
+                    width: 175,
                     child: Text(
 
                       '${tasks.name}',
@@ -170,7 +170,6 @@ Widget buildtask(TasksList tasks) =>
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-
                     ),
                   ),
 
