@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
@@ -25,7 +24,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.homeViewRoute);
+    Navigator.pushReplacementNamed(context, Routes.homeLayout);
   }
 
   @override
@@ -36,17 +35,16 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: 
-      AnimatedSplashScreen(
-        splashIconSize: 70,
-        splash: const Center(child: Image(image: AssetImage(ImageAssets.splashLogo))), 
-        nextScreen: Container(),
-        disableNavigation: true,
-        //splashTransition: SplashTransition.sizeTransition,
-        splashTransition: SplashTransition.rotationTransition
-       
-    ,));
+    return Scaffold(
+        body: AnimatedSplashScreen(
+      splashIconSize: 70,
+      splash:
+          const Center(child: Image(image: AssetImage(ImageAssets.splashLogo))),
+      nextScreen: Container(),
+      disableNavigation: true,
+      //splashTransition: SplashTransition.sizeTransition,
+      splashTransition: SplashTransition.rotationTransition,
+    ));
   }
 
   @override

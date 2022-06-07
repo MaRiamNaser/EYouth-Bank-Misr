@@ -4,6 +4,7 @@ import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
+import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/course/course_view.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/login/login_view.dart';
@@ -44,6 +45,8 @@ class Routes {
 
    static const String addTaskViewRoute = "/addTaskViewRoute";
    static const String addGoalViewRoute = "/addGoalViewRoute";
+  static const String homeLayout = "/homeLayout";
+
 
 
   static const String addTasksRoute = "/tasks";
@@ -134,6 +137,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AddTaskView());
       case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
+
+      case Routes.homeLayout:
+        return MaterialPageRoute(builder: (_) => BottomBar());
+
+
 
       default:
         return unDefinedRoute();
