@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:bank_misr/Data/web_services/addTask_services.dart';
+import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -6,6 +11,7 @@ import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:http/http.dart' as http;
 
 import '../Widgets/text_field.dart';
 
@@ -13,10 +19,10 @@ import '../Widgets/text_field.dart';
 class AddBody extends StatefulWidget {
   String title;
   String photo;
-
-  AddBody(this.title, this.photo);
+  String choice;
+  AddBody(this.title, this.photo, this.choice );
   @override
-  _AddBodyState createState() => _AddBodyState(this.title,this.photo);
+  _AddBodyState createState() => _AddBodyState(this.title,this.photo,choice);
 }
 
 Color color=ColorManager.lightPrimary;
@@ -26,7 +32,8 @@ class _AddBodyState extends State<AddBody> {
   var descTextController=TextEditingController();
   String title;
   String photo;
-  _AddBodyState(this.title,this.photo);
+  String choice;
+  _AddBodyState(this.title,this.photo, this.choice);
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -48,7 +55,7 @@ class _AddBodyState extends State<AddBody> {
                 SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
                 Container(
                   padding: EdgeInsets.all(AppPadding.p18),
-                  height: 1/825 * screensize.height *420 ,
+                  height: 1/825 * screensize.height *440 ,
                   width: 1/393* screensize.width * 300,
                   decoration:  BoxDecoration(
                     border: Border.all(
@@ -61,16 +68,21 @@ class _AddBodyState extends State<AddBody> {
                     children: [
                       const Text("Title"),
                       SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
-                      getTextField("Goal Title here....",80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
+                      getTextField("$choice Title here....",1/825 * screensize.height *80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
                         setState(() {
-                          titleTextController.text.isEmpty?color=ColorManager.lightPrimary:color=ColorManager.darkPrimary;
-                          titleTextController.text.isEmpty?color2=ColorManager.grey:color2=ColorManager.white;
+                          titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
+                          titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
                         });
                       }),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                       const Text("Description"),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                      getTextField("Write Your Goal here...",180,8,AppPadding.p20,AppSize.s20,descTextController,(text){}),
+                      getTextField("Write Your $choice here...",1/825 * screensize.height *180,8,AppPadding.p20,AppSize.s20,descTextController,(text){
+                        setState(() {
+                          titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
+                          titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
+                        });
+                      }),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
                       Center(
                         child: Container(
@@ -81,7 +93,17 @@ class _AddBodyState extends State<AddBody> {
                             color: color,
                           ) ,
 
-                          child: TextButton(onPressed: (){},
+                          child: TextButton(onPressed: ()async{
+                            if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
+                              if(
+                              await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
+                                {
+                                  showDialog(context: context, builder: (BuildContext context) {
+                                    return  alertdialog(choice);
+                                  });
+                                }
+                            }
+                          },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children:  [

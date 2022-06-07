@@ -4,46 +4,50 @@
 
 import 'dart:convert';
 
-import 'package:bank_misr/presentation/resources/assets_manager.dart';
-
 Video videoFromJson(String str) => Video.fromJson(json.decode(str));
 
 String videoToJson(Video data) => json.encode(data.toJson());
 
 class Video {
   Video({
-    required  this.title,
-    required this.img,
-    required this.period,
-    required this.content,
-    required this.link,
+    required this.id,
+     required this.title,
+    required  this.description,
+    required  this.courseId,
+    required  this.image,
+    required  this.createdAt,
+    required  this.updatedAt,
+    required  this.v,
   });
 
+  String id;
   String title;
-  String img;
-  String period;
-  String content;
-  String link;
+  String description;
+  String courseId;
+  String image;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
 
   factory Video.fromJson(Map<String, dynamic> json) => Video(
+    id: json["_id"],
     title: json["title"],
-    img: json["img"],
-    period: json["period"],
-    content: json["content"],
-    link: json["link"],
+    description: json["description"],
+    courseId: json["courseId"],
+    image: json["image"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
   );
 
   Map<String, dynamic> toJson() => {
+    "_id": id,
     "title": title,
-    "img": img,
-    "period": period,
-    "content": content,
-    "link": link,
+    "description": description,
+    "courseId": courseId,
+    "image": image,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+    "__v": v,
   };
 }
-List<Video>videos=[
-  Video(title: "Video 1", img: ImageAssets.videoImg1, period: "01:30 mins", content: "", link: ""),
-  Video(title: "Video 2", img: ImageAssets.videoImg2, period: "02:00 mins", content: "", link: ""),
-  Video(title: "Video 3", img: ImageAssets.videoImg3, period: "03:30 mins", content: "", link: ""),
-  Video(title: "Video 4", img: ImageAssets.videoImg4, period: "01:00 mins", content: "", link: ""),
-];
