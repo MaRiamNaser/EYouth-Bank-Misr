@@ -1,8 +1,11 @@
+import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
+import 'package:bank_misr/presentation/goals/goals_view.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:bank_misr/presentation/tasks/addTaskView.dart';
+import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,20 +15,21 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 
+import '../addTasksGoals/addTask/add_task.dart';
 import '../courses/coursesView.dart';
 import '../home/home_view.dart';
 import '../profile/profile_view.dart';
 import '../resources/assets_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
-
+ int currentindex=0;
 class BottomBar extends StatefulWidget{
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int currentindex=0;
+  
   List<Widget> screens=[
 
     BlocProvider(
@@ -44,8 +48,14 @@ class _BottomBarState extends State<BottomBar> {
 
 
     settingView(),
-    addTasklview(),
-    addGoalview(),
+    AddTaskView(),
+    AddGoalView(),
+
+    coursesView(),
+    TasksView(),
+    Goalsview()
+    
+
   ];
   List<String> titles=[
     "Home",
@@ -54,6 +64,9 @@ class _BottomBarState extends State<BottomBar> {
     "Setting",
     "Add Task",
     "Add Goal",
+    "Courses",
+    "Tasks",
+    "Goals"
   ];
 
   @override
@@ -64,16 +77,19 @@ class _BottomBarState extends State<BottomBar> {
 
         title: Text(
           "${titles[currentindex]}",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.black)
+          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
           ,),
         actions: [
-          CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.asset(
-                ImageAssets.profilePhoto,
-                fit: BoxFit.fitHeight,
-              ),
-              maxRadius: 22)
+          Padding(
+            padding: const EdgeInsets.only(right:14.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                ),
+                maxRadius: 22),
+          )
         ],
         ),
       body: screens[currentindex],
@@ -88,7 +104,7 @@ class _BottomBarState extends State<BottomBar> {
               buttons: [
 
                 DialogButton(
-                 color:ColorManager.darkPrimary,
+                 color:ColorManager.primary,
                   height: 50,
 
                   child: Text(
@@ -103,7 +119,7 @@ class _BottomBarState extends State<BottomBar> {
 
                 ),
                 DialogButton(
-                  color:ColorManager.darkPrimary,
+                  color:ColorManager.primary,
 
                   height: 50,
                   child: Text(

@@ -1,10 +1,11 @@
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 class BalanceWidget extends StatelessWidget {
-  int balance;
-  BalanceWidget(this.balance);
+  //int balance;
+  BalanceWidget(balance);
 
   @override
   Widget build(BuildContext context) {

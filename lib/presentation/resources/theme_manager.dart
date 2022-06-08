@@ -21,10 +21,12 @@ ThemeData getApplicationTheme() {
  // app bar theme
     appBarTheme: AppBarTheme(
         centerTitle: true,
-        color: ColorManager.white,
+        color: ColorManager.primary,
         elevation: 0,
        // shadowColor: ColorManager.lightPrimary,
-        titleTextStyle: getRegularStyle(fontSize: FontSize.s16, color: ColorManager.white)),
+        titleTextStyle: getRegularStyle(fontSize: FontSize.s16, color: ColorManager.white),
+        
+        iconTheme: IconThemeData(color: Colors.white),),
             
     // button theme
     buttonTheme: ButtonThemeData(

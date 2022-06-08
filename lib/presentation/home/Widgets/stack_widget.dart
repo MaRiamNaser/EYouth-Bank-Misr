@@ -1,4 +1,5 @@
 import 'package:bank_misr/Data/models/Profile.dart';
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -24,7 +25,7 @@ class StackWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(profile.fullname,style: getSemiBoldStyle(fontSize:25,color: ColorManager.white),)
+                Text(profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getSemiBoldStyle(fontSize:25,color: ColorManager.white),)
                 ,
                 SizedBox(height: 1/825 * screensize.height * 12,),
                 Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white))
@@ -56,7 +57,7 @@ class StackWidget extends StatelessWidget {
                     child :Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
+                        Text(balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
                         Text("EGP",style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
                       ],

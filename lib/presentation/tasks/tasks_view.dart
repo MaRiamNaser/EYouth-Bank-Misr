@@ -1,9 +1,11 @@
+import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:lottie/lottie.dart';
 class TasksList {
   var number;
    var name;
@@ -22,31 +24,15 @@ class _TasksViewState extends State<TasksView> {
   List<TasksList> tasks =[
     TasksList(
       number:1,
-      name:" x",
+      name:"Pray",
     ),
     TasksList(
       number:2,
-      name:" yyyyy",
+      name:"Study",
     ),
     TasksList(
       number:3,
-      name:" aaaaaa",
-    ),
-    TasksList(
-      number:4,
-      name:" yyyyyy",
-    ),
-    TasksList(
-      number:1,
-      name:" xxxxx",
-    ),
-    TasksList(
-      number:4,
-      name:" bbbbbb",
-    ),
-    TasksList(
-      number:1,
-      name:" xxxxx",
+      name:"Pass the Exam",
     ),
   ];
 
@@ -57,10 +43,9 @@ class _TasksViewState extends State<TasksView> {
     return Scaffold(
 
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back,color:ColorManager.black,size:FontSize.s20,),
         title: Text(
           "Tasks",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.black)
+          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
           ,)
         ,),
     body: Column(
@@ -90,11 +75,11 @@ class _TasksViewState extends State<TasksView> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-             Image(
-            image: AssetImage('assets/images/images.jpg'),
-            height: 110.0,
-            width: 110.0,
-        ),
+             Center(
+                  child: SizedBox(height: 190 ,
+                      width:  210,
+                      child:Lottie.asset(ImageAssets.TaskPhoto)),
+                ),
           ],
       ),
       Expanded(

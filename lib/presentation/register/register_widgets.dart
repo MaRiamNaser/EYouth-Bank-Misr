@@ -87,6 +87,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
+       obscureText:true,
       decoration: const InputDecoration(
         labelText: AppStrings.password,
         fillColor: Colors.white,

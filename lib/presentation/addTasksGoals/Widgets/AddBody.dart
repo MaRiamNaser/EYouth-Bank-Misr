@@ -39,9 +39,7 @@ class _AddBodyState extends State<AddBody> {
     var screensize=MediaQuery.of(context).size;
     return Scaffold(
 
-        appBar: AppBar(
-          title:  Text(title),
-        ),
+    
         body:
         SingleChildScrollView(
           child:
@@ -95,13 +93,14 @@ class _AddBodyState extends State<AddBody> {
 
                           child: TextButton(onPressed: ()async{
                             if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                              if(
-                              await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
-                                {
-                                  showDialog(context: context, builder: (BuildContext context) {
+                             showDialog(context: context, builder: (BuildContext context) {
                                     return  alertdialog(choice);
                                   });
-                                }
+                              // if(
+                              // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
+                              //   {
+                                  
+                              //   }
                             }
                           },
                               child: Row(

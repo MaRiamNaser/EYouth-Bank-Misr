@@ -1,3 +1,5 @@
+import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -24,7 +26,18 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            if(index == 0){
+              Navigator.pushNamed(context, Routes.courses);
+              
+            }else if(index == 1){
+             Navigator.pushNamed(context, Routes.goals);
+              
+            }else if(index == 2){
+              Navigator.pushNamed(context, Routes.tasks);
+            }
+
+          },
           child: Column(
             children: [
               Stack(

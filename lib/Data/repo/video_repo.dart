@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:bank_misr/Data/models/Video.dart';
-import 'package:bank_misr/Data/web_services/video_services.dart';
+import 'package:bank_misr/data/models/Video.dart';
+import 'package:bank_misr/data/web_services/video_services.dart';
 
 
 

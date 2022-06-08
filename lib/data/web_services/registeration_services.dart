@@ -106,6 +106,7 @@ class RegisterationWebServices {
     }
      
 */
+/*-
     try {
 
       var response =
