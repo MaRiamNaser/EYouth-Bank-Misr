@@ -1,6 +1,7 @@
-import 'package:bank_misr/Data/models/Video.dart';
+import 'package:bank_misr/data/models/Video.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
@@ -15,13 +16,18 @@ import '../../Data/models/Course.dart';
 import '../resources/routes_manager.dart';
 
 class CourseView extends StatefulWidget {
+  List<String> image;
+  CourseView(this.image);
+
   @override
-  _CourseViewState createState() => _CourseViewState();
+  _CourseViewState createState() => _CourseViewState(image);
 }
 
 class _CourseViewState extends State<CourseView> {
 
   late List<Video> AllVideos;
+List<String>  image;
+  _CourseViewState(this.image);
   @override
   void initState() {
     // TODO: implement initState
@@ -38,7 +44,7 @@ class _CourseViewState extends State<CourseView> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Course Name"),
+        title: Text(image[1]),
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Column(
@@ -56,7 +62,7 @@ class _CourseViewState extends State<CourseView> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(AppSize.s50),
                         topRight: Radius.circular(AppSize.s50))),
-                child: Image.asset(ImageAssets.CoursePageHeaderPhoto,
+                child: Image.network(image[0],
                     fit: BoxFit.cover)),
           ),
           Expanded(
@@ -72,7 +78,11 @@ class _CourseViewState extends State<CourseView> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, Routes.videoViewRoute,arguments:AllVideos[index] );
+                          balance += 15;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BlocProvider(
+            create: (context) => blocGenerator().videoCubit,
+            child: VideoView(AllVideos[index]),
+          ),));
                         },
                         child: Column(
                           children: [
@@ -80,7 +90,7 @@ class _CourseViewState extends State<CourseView> {
                               padding: EdgeInsets.only(
                                   right: AppPadding.p12, left: AppPadding.p12),
                               height: 1 / 825 * screensize.height * 110.0,
-                              width: 1 / 393 * screensize.width * 340,
+                              width: 1 / 393 * screensize.width * 360,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(AppSize.s25),
@@ -94,12 +104,7 @@ class _CourseViewState extends State<CourseView> {
                                       blurRadius: 6.0,
                                     ),
                                   ]),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
+                              child:   SizedBox(
                                     width: 1 / 393 * screensize.width * 250,
                                     child: Row(
                                       mainAxisAlignment:
@@ -119,8 +124,9 @@ class _CourseViewState extends State<CourseView> {
                                             borderRadius:
                                             BorderRadius.circular(8.0),
                                             image: DecorationImage(
-                                              image: AssetImage(
-                                                  ImageAssets.videoImg1),
+                                              image: NetworkImage(
+                                                AllVideos[index].image
+                                                  ),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -144,12 +150,12 @@ class _CourseViewState extends State<CourseView> {
                                             ),
                                           ],
                                         )
+                                        ,Icon(Icons.check_circle_outline_outlined)
                                       ],
                                     ),
                                   ),
-                                  Icon(Icons.check_circle_outline_outlined)
-                                ],
-                              ),
+                                  
+                               
                             ),
                             SizedBox(
                               height: 1 / 825 * screensize.height * AppSize.s20,

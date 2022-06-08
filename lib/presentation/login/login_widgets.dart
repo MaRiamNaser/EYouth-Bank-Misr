@@ -28,11 +28,12 @@ Widget passwordTextFormField(TextEditingController passwordController) {
     }
     return null;
   },
-
+      obscureText:true,
         controller: passwordController,
       // keyboardType: TextInputType.phone,
       decoration: const InputDecoration(
         labelText: AppStrings.password,
+      
         fillColor: Colors.white,
         filled: true,
       ),

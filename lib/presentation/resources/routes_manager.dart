@@ -1,11 +1,12 @@
-import 'package:bank_misr/Data/repo/video_repo.dart';
-import 'package:bank_misr/Data/web_services/video_services.dart';
+import 'package:bank_misr/data/repo/video_repo.dart';
+import 'package:bank_misr/data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/course/course_view.dart';
+import 'package:bank_misr/presentation/courses/coursesView.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/login/login_view.dart';
 import 'package:bank_misr/presentation/profile/profile_view.dart';
@@ -16,6 +17,8 @@ import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:bank_misr/presentation/video/video_view.dart';
 import 'package:flutter/material.dart';
 
+
+import '../../data/models/Course.dart';
 import '../../data/models/Video.dart';
 import '../goals/addGoalView.dart';
 import '../goals/goals_view.dart';
@@ -27,7 +30,6 @@ import '../../Data/repo/course_repo.dart';
 import '../../Data/repo/profile_repo.dart';
 import '../../Data/web_services/profile_services.dart';
 import '../../Data/web_services/Course_services.dart';
-import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 
 
@@ -48,11 +50,10 @@ class Routes {
    static const String addGoalViewRoute = "/addGoalViewRoute";
   static const String homeLayout = "/homeLayout";
 
-
-
-  static const String addTasksRoute = "/tasks";
-  static const String addGoalRoute = "/goals";
   static const String goals= "/goals";
+  static const String tasks= "/tasks";
+    static const String courses= "/courses";
+
 
 }
 
@@ -103,13 +104,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AddTaskView());
           case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
-      case Routes.addTasksRoute:
-        return MaterialPageRoute(builder: (_) => addTasklview());
+      case Routes.courses:
+        return MaterialPageRoute(builder: (_) => BlocProvider(
+  create: (context) => blocGenerator().courseCubit,
+    child :coursesView(),
+  ),);
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());
-
-      case Routes.addGoalRoute:
-        return MaterialPageRoute(builder: (_) => addGoalview());
+      case Routes.tasks:
+        return MaterialPageRoute(builder: (_) => TasksView());
       case Routes.profileViewRoute:
         return MaterialPageRoute(builder: (_) =>BlocProvider(
           create: (context) => blocGenerator().profileCubit,
@@ -117,10 +120,11 @@ class RouteGenerator {
         )
         );
       case Routes.courseViewRoute:
+          List<String> image = settings.arguments as List<String>;
         return MaterialPageRoute(builder: (_) =>
             BlocProvider(
               create: (context) => blocGenerator().videoCubit,
-              child: CourseView(),
+              child: CourseView(image),
             ));
       case Routes.videoViewRoute:
         Video video=settings.arguments as Video;

@@ -15,12 +15,9 @@ import '../presentation/login/login_view.dart';
 import '../presentation/profile/profile_view.dart';
 import '../presentation/register/register_view.dart';
 import '../presentation/resources/routes_manager.dart';
-import '../presentation/setting/setting.dart';
+
 import '../presentation/splash/splash_view.dart';
-import '../presentation/tasks/addTaskView.dart';
-import '../presentation/tasks/tasks_view.dart';
-import '../presentation/setting/setting.dart';
-import '../presentation/video/video_view.dart';
+
 
 class MyApp extends StatefulWidget {
   // named constructor
@@ -45,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       onGenerateRoute: RouteGenerator.getRoute,
       initialRoute: Routes.splashRoute,
       theme: getApplicationTheme(),
-      home: Goalsview(),
+      home: SplashView(),
     );
   }
 }

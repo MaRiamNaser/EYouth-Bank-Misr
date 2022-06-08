@@ -18,6 +18,7 @@ class RegisterationProvider extends ChangeNotifier {
   bool registerStatus = false;
 
   User? currentUser;
+
   String? localToken ;
 
 void setFullName(String fullName){
@@ -93,7 +94,7 @@ registerStatus =false;
     });
    
      print("*****************");
-          print(registerStatus);
+          print(localToken);
     return registerStatus;
   }
 

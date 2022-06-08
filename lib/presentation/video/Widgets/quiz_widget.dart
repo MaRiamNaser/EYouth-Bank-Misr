@@ -72,7 +72,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     ListView.builder(
                       padding: const EdgeInsets.only(top: AppPadding.p12),
                       shrinkWrap: true,
-                      itemCount: quiz.options.length,
+                      itemCount: quiz.options[2]==" "?quiz.options.length-1: quiz.options.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(

@@ -1,14 +1,18 @@
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
 import 'package:bank_misr/Data/web_services/goal_services.dart';
+import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:lottie/lottie.dart';
 
 import '../resources/color_manager.dart';
 import 'package:http/http.dart' as http;
+
+import '../tasks/tasks_view.dart';
 class GoalsList {
   var number;
   var name;
@@ -26,66 +30,46 @@ class Goalsview extends StatefulWidget {
 
 class _GoalViewState extends State<Goalsview> {
 
-  List<GoalsList> tasks =[
+  List<GoalsList> goals =[
     GoalsList(
       number:1,
-      name:" x",
+      name:"Buy headphone",
     ),
     GoalsList(
       number:2,
-      name:" yyyyy",
+      name:"Fifa 2020",
     ),
     GoalsList(
       number:1,
-      name:" x",
+      name:"Buy New Mobile",
     ),
-    GoalsList(
-      number:2,
-      name:" yyyyy",
-    ),
-    GoalsList(
-      number:1,
-      name:" x",
-    ),
-    GoalsList(
-      number:2,
-      name:" yyyyy",
-    ),
-    GoalsList(
-      number:3,
-      name:" aaaaaa",
-    ),
-    GoalsList(
-      number:4,
-      name:" yyyyyy",
-    ),
+   
 
   ];
-late List<Goal> goals=[];
+// late List<Goal> goals=[];
 @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Load();
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Load();
 
-  }
-  Load()async
-  {
-    goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
-  }
+  // }
+  // Load()async
+  // {
+  //   goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
+  // }
   @override
   Widget build(BuildContext context) {
 
 
     return Scaffold(
-
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back,color:ColorManager.black,size:FontSize.s20,),
         title: Text(
           "Goals",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.black)
+          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
           ,)
-        ,),
+        , 
+        ),
       body: Column(
         children: [
           Container(
@@ -113,11 +97,11 @@ late List<Goal> goals=[];
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(
-                image: AssetImage('assets/images/images.jpg'),
-                height: 120.0,
-                width: 160.0,
-              ),
+              Center(
+                  child: SizedBox(height: 190 ,
+                      width:  210,
+                      child:Lottie.asset(ImageAssets.GoalPhoto)),
+                ),
             ],
           ),
           Expanded(
@@ -147,105 +131,173 @@ late List<Goal> goals=[];
 
 
   }
-  Widget buildtask(Goal goal) =>
+  // Widget buildtask(Goal goal) =>
 
-      Padding(
+  //     Padding(
 
-        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-        child: Container(
-          decoration: BoxDecoration(
-              border:Border.all(color:ColorManager.grey,width: 1.5),
-              borderRadius: BorderRadius.only(topLeft:Radius.circular(20),bottomRight:Radius.circular(20), )
-          ),
-          child: Row(
-            children: [
+  //       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //             border:Border.all(color:ColorManager.grey,width: 1.5),
+  //             borderRadius: BorderRadius.only(topLeft:Radius.circular(20),bottomRight:Radius.circular(20), )
+  //         ),
+  //         child: Row(
+  //           children: [
 
-              Expanded(
+  //             Expanded(
 
-                child: Row(
+  //               child: Row(
 
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
+  //                 crossAxisAlignment: CrossAxisAlignment.center,
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: [
+  //                   Padding(
 
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        goal.goalId.toString(),
-                        style: getBoldtStyle(
-                          fontSize: FontSize.s16,
-                          color: ColorManager.black,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Container(
-                      width: 190,
-                      child: Text(
+  //                     padding: const EdgeInsets.all(12.0),
+  //                     child: Text(
+  //                       goal.goalId.toString(),
+  //                       style: getBoldtStyle(
+  //                         fontSize: FontSize.s16,
+  //                         color: ColorManager.black,
+  //                       ),
+  //                       maxLines: 2,
+  //                       overflow: TextOverflow.ellipsis,
+  //                     ),
+  //                   ),
+  //                   Container(
+  //                     width: 190,
+  //                     child: Text(
 
-                        goal.title,
-                        style: getBoldtStyle(
-                          fontSize:FontSize.s16,
-                          color:ColorManager.black,
+  //                       goal.title,
+  //                       style: getBoldtStyle(
+  //                         fontSize:FontSize.s16,
+  //                         color:ColorManager.black,
 
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+  //                       ),
+  //                       maxLines: 2,
+  //                       overflow: TextOverflow.ellipsis,
 
-                      ),
-                    ),
+  //                     ),
+  //                   ),
 
-                    Row(
-
-
-                      children: [
-                        IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize:FontSize.s25,color: ColorManager.green, onPressed: () {},
-                        ),
-
-                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
-
-                        ),
-
-                        IconButton(icon: (Icon(Icons.delete_rounded)),color: ColorManager.error, onPressed: () {
-                          confirmDelete(goal.id);
-                        },
+  //                   Row(
 
 
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+  //                     children: [
+  //                       IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize:FontSize.s25,color: ColorManager.green, onPressed: () {},
+  //                       ),
 
-  void confirmDelete(String id) {
-    showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
-      title: Text("Delete"),
-      content: Text(" Are you sure !?"),
-      actions: [
-        FlatButton(child: Text("yes"),
-          onPressed: (){
-          // http.delete('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id');
-          // Navigator.push(context, MaterialPageRoute(builder: (context)=> goals_view()));
+  //                       IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
+
+  //                       ),
+
+  //                       IconButton(icon: (Icon(Icons.delete_rounded)),color: ColorManager.error, onPressed: () {
+  //                         // confirmDelete(goal.id);
+  //                       },
 
 
-        }, ),
-        FlatButton(onPressed: (){
-          Navigator.pop(context);
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     );
 
-        }, child: Text("no")),
-      ],
+  // void confirmDelete(String id) {
+  //   showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
+  //     title: Text("Delete"),
+  //     content: Text(" Are you sure !?"),
+  //     actions: [
+  //       FlatButton(child: Text("yes"),
+  //         onPressed: (){
+  //         // http.delete('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id');
+  //         // Navigator.push(context, MaterialPageRoute(builder: (context)=> goals_view()));
 
-    )
-    );
+
+  //       }, ),
+  //       FlatButton(onPressed: (){
+  //         Navigator.pop(context);
+
+  //       }, child: Text("no")),
+  //     ],
+
+  //   )
+  //   );
     
-  }
+  // }
 }
 
+Widget buildtask(GoalsList tasks) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          border:Border.all(color:ColorManager.grey,width: 1.5),
+          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
+        ),
+        child: Row(
+          children: [
 
+            Expanded(
+
+              child: Row(
+
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      '${tasks.number}',
+                      style: getBoldtStyle(
+                        fontSize: FontSize.s16,
+                        color:ColorManager.black,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Container(
+                    width: 175,
+                    child: Text(
+
+                      '${tasks.name}',
+                      style: getBoldtStyle(
+                        fontSize:FontSize.s16,
+                        color: Colors.black,
+
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+
+                  Row(
+
+                    children: [
+                      IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
+
+                      },
+
+                      ),
+                      IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
+
+                      ),
+                      IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
+
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 

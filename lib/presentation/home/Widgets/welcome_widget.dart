@@ -15,7 +15,7 @@ class WelcomeWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(left: AppPadding.p12,top: AppPadding.p8),
         height: 1/825 * screensize.height * 100,
-        width: 1/393* screensize.width * 270.83,
+        width: 1/393* screensize.width * 350.83,
         decoration:  BoxDecoration(
             borderRadius: BorderRadius.only(topRight:Radius.circular(AppSize.s20) ,bottomLeft: Radius.circular(AppSize.s20)),
             color: ColorManager.lightPrimary)

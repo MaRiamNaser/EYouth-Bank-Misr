@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.registerRoute);
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
   }
 
   @override
@@ -45,7 +45,7 @@ class _SplashViewState extends State<SplashView> {
       nextScreen: Container(),
       disableNavigation: true,
       //splashTransition: SplashTransition.sizeTransition,
-      splashTransition: SplashTransition.rotationTransition,
+      splashTransition: SplashTransition.fadeTransition,
     ));
   }
 

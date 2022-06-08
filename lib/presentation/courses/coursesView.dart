@@ -9,6 +9,7 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import '../../Data/models/Course.dart';
 import '../../business_logic/courseBloc/course_cubit.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 
 class coursesView extends StatefulWidget {
   @override
@@ -31,13 +32,7 @@ class _coursesViewState extends State<coursesView> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-        // appBar: AppBar(
-        //   leading: Icon(Icons.arrow_back,color:ColorManager.black,size:FontSize.s20,),
-        //   title: Text(
-        //     "Goals",
-        //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.black)
-        //     ,)
-        //   ,),
+
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -73,6 +68,7 @@ class _coursesViewState extends State<coursesView> {
     builder: (context, state) {
       if (state is CoursesLoaded) {
         AllCourses = (state).courses;
+        print(AllCourses[0].id);
         return GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -83,27 +79,32 @@ class _coursesViewState extends State<coursesView> {
           ),
           itemCount: AllCourses.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p14),
-              child: Column(
-
-                children: [
-
-                  Container(
-
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorManager.grey, width: 1.5),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: (Image.network(AllCourses[index].image)),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(AllCourses[index].title),
-                ],
+            return InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title]);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: AppPadding.p14),
+                child: Column(
+            
+                  children: [
+            
+                    Container(
+            
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorManager.grey, width: 1.5),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: (Image.network(AllCourses[index].image)),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(AllCourses[index].title),
+                  ],
+                ),
               ),
             );
           },
