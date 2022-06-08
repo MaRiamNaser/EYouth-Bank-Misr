@@ -1,4 +1,3 @@
-import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
 import 'package:bank_misr/Data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
@@ -17,6 +16,7 @@ import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:bank_misr/presentation/video/video_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/Video.dart';
 import '../goals/addGoalView.dart';
 import '../goals/goals_view.dart';
 import '../tasks/addTaskView.dart';
@@ -98,10 +98,6 @@ class RouteGenerator {
 
          case Routes.profileViewRoute:
         return MaterialPageRoute(builder: (_) => ProfileView());
-         case Routes.courseViewRoute:
-        return MaterialPageRoute(builder: (_) => CourseView());
-         case Routes.videoViewRoute:
-        return MaterialPageRoute(builder: (_) => VideoView());
          case Routes.addTaskViewRoute:
         return MaterialPageRoute(builder: (_) => AddTaskView());
           case Routes.addGoalViewRoute:
@@ -145,11 +141,6 @@ class RouteGenerator {
             );
           },
         );
-//        return MaterialPageRoute(builder: (_) =>
-//            BlocProvider(
-//              create: (context) => blocGenerator().videoCubit,
-//              child: VideoView(video),
-//            ));
       case Routes.addTaskViewRoute:
         return MaterialPageRoute(builder: (_) => AddTaskView());
       case Routes.addGoalViewRoute:

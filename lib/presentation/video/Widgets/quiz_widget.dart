@@ -1,6 +1,7 @@
-import 'package:bank_misr/Data/models/Quiz.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/Quiz.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_manager.dart';
 import '../../resources/styles_manager.dart';
@@ -8,6 +9,7 @@ import '../../resources/values_manager.dart';
 
 class QuizWidget extends StatefulWidget {
   Quiz quiz;
+
   QuizWidget(this.quiz);
 
   @override

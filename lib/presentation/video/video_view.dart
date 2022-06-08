@@ -1,4 +1,3 @@
-import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../data/models/Video.dart';
 import '../resources/values_manager.dart';
 
 class VideoView extends StatefulWidget {
