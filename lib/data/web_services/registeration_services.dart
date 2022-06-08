@@ -55,6 +55,36 @@ class RegisterationWebServices {
 
   Future<bool> signUp(String fullname, String username, String email,
       String password, String age) async {
+
+     try {
+      Response response = await dio.post(
+          'user/register',
+         data:jsonEncode(<String, String>{
+                "fullname": fullname,
+                "username": username,
+                "email": email,
+                "password": password,
+                "age": age
+              }));
+
+                if (response.statusCode == 200) {
+                  print("Hello!");
+                    return true;
+
+                }else{
+                  return false;
+                }
+
+//   print(response.data);
+    
+    } catch (e) {
+      print(e.toString());
+            return false;
+    }
+     
+
+
+
   /*  
      try {
 
@@ -77,6 +107,7 @@ class RegisterationWebServices {
      
 */
     try {
+
       var response =
           await http.post(Uri.parse(AppStrings.baseUrl + "user/register"),
               headers: <String, String>{
@@ -103,6 +134,9 @@ class RegisterationWebServices {
     } catch (e) {
       return false;
     }
-    
+
+    */
+
+
   }
 }

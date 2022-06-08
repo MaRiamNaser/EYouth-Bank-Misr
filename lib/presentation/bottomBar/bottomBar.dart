@@ -6,7 +6,9 @@ import 'package:bank_misr/presentation/tasks/addTaskView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 
 
@@ -40,15 +42,7 @@ class _BottomBarState extends State<BottomBar> {
   child: ProfileView(),
   ),
 
-              create: (context) => blocGenerator().profileCubit,
-              child: HomeView(),
-            ),
-    coursesView(),
-    BlocProvider(
-              create: (context) => blocGenerator().profileCubit,
-              child:  ProfileView()   ,
-            ),
- 
+
     settingView(),
     addTasklview(),
     addGoalview(),
