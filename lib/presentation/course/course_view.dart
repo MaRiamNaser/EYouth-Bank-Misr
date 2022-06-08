@@ -19,8 +19,8 @@ class CourseView extends StatefulWidget {
 }
 
 class _CourseViewState extends State<CourseView> {
-  late List<Video> AllVideos;
 
+  late List<Video> AllVideos;
   @override
   void initState() {
     // TODO: implement initState
