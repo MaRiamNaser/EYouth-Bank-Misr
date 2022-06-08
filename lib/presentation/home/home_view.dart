@@ -5,7 +5,6 @@ import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../resources/assets_manager.dart';
 import 'Widgets/categories_widget.dart';
 
@@ -26,8 +25,6 @@ class _HomeViewState extends State<HomeView> {
 
   Load() async {
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile("Url");
-    print("ssssss");
-   // print(profile.username);
   }
 
   @override
@@ -35,6 +32,7 @@ class _HomeViewState extends State<HomeView> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+
       // appBar: AppBar(
       //   title: Text("Home"),
       //   actions: [
@@ -70,6 +68,40 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
+
+      appBar: AppBar(
+        title: Text("Home"),
+        actions: [
+          CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitHeight,
+              ),
+              maxRadius: 22)
+        ],
+      ),
+      body: SingleChildScrollView(child:
+              BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
+            if (state is ProfilesLoaded) {
+              profile = (state).profile;
+              return Column(children: [
+                StackWidget(profile),
+                SizedBox(height: 1 / 825 * screensize.height * 12.5),
+                WelcomeWidget(profile),
+                SizedBox(height: 1 / 825 * screensize.height * 12.5),
+                CategoriesWidget(),
+              ]);
+            } else {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          }))
+
     );
   }
 }

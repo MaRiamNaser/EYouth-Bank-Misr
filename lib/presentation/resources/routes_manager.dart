@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
 import 'package:bank_misr/Data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
@@ -126,11 +127,30 @@ class RouteGenerator {
               child: CourseView(),
             ));
       case Routes.videoViewRoute:
-        return MaterialPageRoute(builder: (_) =>
-            BlocProvider(
-              create: (context) => blocGenerator().videoCubit,
-              child: VideoView(),
-            ));
+        Video video=settings.arguments as Video;
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => blocGenerator().videoCubit,
+            child: VideoView(video),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+//        return MaterialPageRoute(builder: (_) =>
+//            BlocProvider(
+//              create: (context) => blocGenerator().videoCubit,
+//              child: VideoView(video),
+//            ));
       case Routes.addTaskViewRoute:
         return MaterialPageRoute(builder: (_) => AddTaskView());
       case Routes.addGoalViewRoute:

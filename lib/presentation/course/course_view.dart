@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Data/models/Course.dart';
+import '../resources/routes_manager.dart';
 
 class CourseView extends StatefulWidget {
   @override
@@ -71,8 +72,7 @@ class _CourseViewState extends State<CourseView> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => VideoView()));
+                          Navigator.pushNamed(context, Routes.videoViewRoute,arguments:AllVideos[index] );
                         },
                         child: Column(
                           children: [
@@ -141,25 +141,6 @@ class _CourseViewState extends State<CourseView> {
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 1 /
-                                                  825 *
-                                                  screensize.height *
-                                                  5.0,
-                                            ),
-                                            SizedBox(
-                                              child: Text("01:30 mins",
-                                                  style: getRegularStyle(
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager
-                                                          .black)),
-                                            ),
-                                            SizedBox(
-                                              height: 1 /
-                                                  825 *
-                                                  screensize.height *
-                                                  AppSize.s4,
                                             ),
                                           ],
                                         )

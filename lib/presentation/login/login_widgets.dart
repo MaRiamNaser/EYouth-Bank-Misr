@@ -1,4 +1,4 @@
-import 'package:bank_misr/business_logic/registeration/registeration_logic.dart';
+import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/register/register_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -9,23 +9,27 @@ import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 
 
-Widget passwordTextFormField() {
+Widget passwordTextFormField(TextEditingController passwordController) {
   return Container(
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
     child: TextFormField(
-      validator: (val) {
-        if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourPassword;
-        }
-        return null;
-      },
+         validator: (value) {
+             
+    if (value == null || value.isEmpty) {
+     
+      return 'Please enter your password';
+   
+    }
+    return null;
+  },
 
-      // controller: _phoneController,
+        controller: passwordController,
       // keyboardType: TextInputType.phone,
       decoration: const InputDecoration(
         labelText: AppStrings.password,
@@ -43,19 +47,20 @@ Widget passwordTextFormField() {
   );
 }
 
-Widget userNameTextFormField() {
+Widget userNameTextFormField(TextEditingController userNameController) {
   return Container(
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
     child: TextFormField(
-      validator: (val) {
-        if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourUserName;
-        }
-        return null;
-      },
+      
+    validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your user name';
+    }
+    return null;
+  },
 
-      // controller: _phoneController,
+       controller: userNameController,
       // keyboardType: TextInputType.phone,
       decoration: const InputDecoration(
         labelText: AppStrings.userName,
@@ -74,8 +79,11 @@ Widget userNameTextFormField() {
 }
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key}) : super(key: key);
-  
+  final  formKey;
+    final emailController;
+  final passwordController;
+  LoginButton(this.formKey, this.emailController, this.passwordController);
+   
   @override
   Widget build(BuildContext context) {  
      RegisterationProvider registerationProviderRead =
@@ -97,8 +105,26 @@ class LoginButton extends StatelessWidget {
           backgroundColor:
               MaterialStateProperty.all<Color>(ColorManager.lightPrimary),
         ),
-        onPressed: () {
-       
+        onPressed: () async{
+       if (formKey.currentState!.validate()) {
+         registerationProviderRead.setEmail(emailController.text);
+         registerationProviderRead.setPassword(passwordController.text);
+
+      await  registerationProviderRead.signIn();
+       print("########################################################################");
+       print(registerationProviderWatch.registerStatus);
+
+       if(registerationProviderWatch.registerStatus == true) {
+           
+                        showFlutterToast( " you are logged in successfully!");
+
+                        Navigator.pushReplacementNamed(context, Routes.homeLayout);
+
+       }else{
+         showFlutterToast( " your email or password may be wrong!");
+       }
+    
+       }
         
        
         },
@@ -108,7 +134,17 @@ class LoginButton extends StatelessWidget {
   }
 }
 
-
+ showFlutterToast(String text) async{
+  await     Fluttertoast.showToast(
+                          msg: text,
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: ColorManager.primary,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
+}
 
 Widget forgetPasswordWidget(){
 

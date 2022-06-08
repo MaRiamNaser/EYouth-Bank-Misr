@@ -19,9 +19,6 @@ class ColorManager {
   static Color error = const Color(0xffe61f34); // red color
 
 
-
- 
-
   //mariam
 
    static Color green1 = Color.fromARGB(255, 31, 230, 74); // red color

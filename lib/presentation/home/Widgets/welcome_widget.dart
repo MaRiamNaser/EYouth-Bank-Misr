@@ -1,9 +1,13 @@
+import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 class WelcomeWidget extends StatelessWidget {
+  Profile profile;
+  WelcomeWidget(this.profile);
+
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -19,7 +23,7 @@ class WelcomeWidget extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Center(child :Text("Welcome Ahmed",style: getMediumStyle(fontSize:16,color: ColorManager.black))),
+              Center(child :Text("Welcome ${profile.fullname.split(" ")[0]}",style: getMediumStyle(fontSize:16,color: ColorManager.black))),
               SizedBox(height: 1/825 * screensize.height * 4.0,),
               Text("here you can learn how to save Archive  your Goals and add new tasks ",
                 style: getMediumStyle(fontSize:16,color: ColorManager.black),),

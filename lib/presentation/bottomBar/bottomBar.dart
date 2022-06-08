@@ -5,7 +5,10 @@ import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:bank_misr/presentation/tasks/addTaskView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:rflutter_alert/rflutter_alert.dart';
+
+
 
 import '../courses/coursesView.dart';
 import '../home/home_view.dart';
@@ -24,6 +27,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> screens=[
 
     BlocProvider(
+
       create: (context) => blocGenerator().profileCubit,
       child: HomeView(),
     ),
@@ -35,6 +39,16 @@ class _BottomBarState extends State<BottomBar> {
   create: (context) => blocGenerator().profileCubit,
   child: ProfileView(),
   ),
+
+              create: (context) => blocGenerator().profileCubit,
+              child: HomeView(),
+            ),
+    coursesView(),
+    BlocProvider(
+              create: (context) => blocGenerator().profileCubit,
+              child:  ProfileView()   ,
+            ),
+ 
     settingView(),
     addTasklview(),
     addGoalview(),
