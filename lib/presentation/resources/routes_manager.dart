@@ -52,8 +52,7 @@ class Routes {
   static const String addTasksRoute = "/tasks";
   static const String addGoalRoute = "/goals";
   static const String goals= "/goals";
-  static const String addTaskViewRoute = "/addTaskViewRoute";
-  static const String addGoalViewRoute = "/addGoalViewRoute";
+
 }
 
 class blocGenerator {
@@ -84,8 +83,6 @@ class RouteGenerator {
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.homeViewRoute:
-
-        return MaterialPageRoute(builder: (_) => HomeView());
 
         return MaterialPageRoute(builder: (_) =>
             BlocProvider(

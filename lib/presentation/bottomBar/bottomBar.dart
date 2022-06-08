@@ -1,6 +1,8 @@
 import 'package:bank_misr/presentation/resources/color_manager.dart';
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../courses/coursesView.dart';
 import '../home/home_view.dart';
@@ -17,9 +19,15 @@ class _BottomBarState extends State<BottomBar> {
   int currentindex=0;
   List<Widget> screens=[
 
-    HomeView(),
+    BlocProvider(
+              create: (context) => blocGenerator().profileCubit,
+              child: HomeView(),
+            ),
     coursesView(),
-    ProfileView(),
+    BlocProvider(
+              create: (context) => blocGenerator().profileCubit,
+              child:  ProfileView()   ,
+            ),
     settingView(),
   ];
   List<String> titles=[

@@ -1,5 +1,5 @@
 import 'package:bank_misr/app/app.dart';
-import 'package:bank_misr/business_logic/registeration/registeration_logic.dart';
+import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
