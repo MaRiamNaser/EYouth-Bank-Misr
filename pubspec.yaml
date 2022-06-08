@@ -42,9 +42,15 @@ dependencies:
   provider:
   flutter_bloc:
   http:
+
   dio:
   fluttertoast: ^8.0.9
-  
+
+
+  rflutter_alert: ^2.0.4
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

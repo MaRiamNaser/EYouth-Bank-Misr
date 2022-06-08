@@ -25,13 +25,13 @@ class _addGoalViewState extends State<addGoalview> {
 
     return Scaffold(
 
-      appBar: AppBar(
-        leading: Icon(Icons.arrow_back,color: Colors.black,size: 25,),
-        title: Text(
-          "Add Goal",
-          style: getBoldtStyle(fontSize:FontSize.s18,color: Colors.black)
-          ,)
-        ,),
+      // appBar: AppBar(
+      //   leading: Icon(Icons.arrow_back,color: Colors.black,size: 25,),
+      //   title: Text(
+      //     "Add Goal",
+      //     style: getBoldtStyle(fontSize:FontSize.s18,color: Colors.black)
+      //     ,)
+      //   ,),
       body: Center(
         child: SingleChildScrollView(child: Column(
           children: [
