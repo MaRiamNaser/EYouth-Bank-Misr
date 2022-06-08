@@ -1,4 +1,4 @@
-import 'package:bank_misr/business_logic/registeration/registeration_logic.dart';
+import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/login/login_widgets.dart';
 import 'package:bank_misr/presentation/register/register_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
@@ -23,7 +23,9 @@ class LoginView extends StatefulWidget {
 class _RegisterNamePageState extends State<LoginView> {
   RegisterationProvider? registerationProviderRead;
   RegisterationProvider? registerationProviderWatch;
-
+  final formKey = GlobalKey<FormState>();
+    final passwordController = TextEditingController();
+    final emailController = TextEditingController();
 
 
 
@@ -31,6 +33,7 @@ class _RegisterNamePageState extends State<LoginView> {
   Widget build(BuildContext context) {
     registerationProviderRead = context.read<RegisterationProvider>();
     registerationProviderWatch = context.watch<RegisterationProvider>();
+ 
 
     return Scaffold(
       backgroundColor: ColorManager.white,
@@ -45,22 +48,25 @@ class _RegisterNamePageState extends State<LoginView> {
             child: Image(image: AssetImage(ImageAssets.splashLogo)))),
       /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-             
-            Lottie.asset(
-               ImageAssets.loginLottie),
-
-            userNameTextFormField(),
-            passwordTextFormField(),
-            forgetPasswordWidget(),
-            LoginButton(),
-            newToTheAppWidget(context),
-
-
-
-          ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+               
+              Lottie.asset(
+                 ImageAssets.loginLottie),
+        
+              userNameTextFormField(emailController),
+              passwordTextFormField(passwordController),
+              forgetPasswordWidget(),
+              LoginButton(formKey,emailController,passwordController),
+              newToTheAppWidget(context),
+        
+        
+        
+            ],
+          ),
         ),
       ),
     );

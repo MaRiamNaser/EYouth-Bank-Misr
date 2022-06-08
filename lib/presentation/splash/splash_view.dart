@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:bank_misr/data/web_services/registeration_services.dart';
 
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -24,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.homeLayout);
+    Navigator.pushReplacementNamed(context, Routes.registerRoute);
   }
 
   @override
@@ -35,6 +36,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: AnimatedSplashScreen(
       splashIconSize: 70,

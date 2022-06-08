@@ -1,4 +1,6 @@
 class AppStrings{
+
+  static const baseUrl = 'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/';
   static const noRouteFound = "No Route Found";
   static const registerTitle = "Register";
   static const addGoal="Add Goal";
