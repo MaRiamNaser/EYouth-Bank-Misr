@@ -5,7 +5,6 @@ import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../resources/assets_manager.dart';
 import 'Widgets/categories_widget.dart';
 
@@ -26,8 +25,6 @@ class _HomeViewState extends State<HomeView> {
 
   Load() async {
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile("Url");
-    print("ssssss");
-   // print(profile.username);
   }
 
   @override
@@ -47,29 +44,26 @@ class _HomeViewState extends State<HomeView> {
               maxRadius: 22)
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BlocBuilder<ProfileCubit, ProfileState>(
-              builder: (context, state) {
-                if(state is ProfilesLoaded) {
-                  profile = (state).profile;
-                  return StackWidget(profile);
-                }
-                else
-                {
-                  return Center(child: CircularProgressIndicator(),);
-                }
-              },
-
-            ),
-            SizedBox(height: 1 / 825 * screensize.height * 12.5),
-            WelcomeWidget(),
-            SizedBox(height: 1 / 825 * screensize.height * 12.5),
-            CategoriesWidget(),
-          ],
-        ),
-      ),
+      body: SingleChildScrollView(child:
+              BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
+            if (state is ProfilesLoaded) {
+              profile = (state).profile;
+              return Column(children: [
+                StackWidget(profile),
+                SizedBox(height: 1 / 825 * screensize.height * 12.5),
+                WelcomeWidget(profile),
+                SizedBox(height: 1 / 825 * screensize.height * 12.5),
+                CategoriesWidget(),
+              ]);
+            } else {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          }))
     );
   }
 }

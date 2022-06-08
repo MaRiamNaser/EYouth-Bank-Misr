@@ -5,7 +5,6 @@ import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Data/models/Category.dart';
-import '../../../Data/models/Profile.dart';
 class CategoriesWidget extends StatefulWidget {
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();
@@ -31,7 +30,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 130, left: 25),
+                    padding: EdgeInsets.only(top: 1/825 * screensize.height * 130, left: 25),
                     width: 1/393* screensize.width * 360,
                     height: 1/825 * screensize.height * 180.5,
                     decoration: BoxDecoration(
