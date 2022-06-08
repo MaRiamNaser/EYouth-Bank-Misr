@@ -36,9 +36,9 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("Profile"),
+      // ),
       body: SingleChildScrollView(
         child: Stack(
           children: [

@@ -42,8 +42,13 @@ dependencies:
   provider:
   flutter_bloc:
   http:
+
+  rflutter_alert: ^2.0.4
+
+
   dio:
   fluttertoast: ^8.0.9
+
   
 dev_dependencies:
   flutter_test:
