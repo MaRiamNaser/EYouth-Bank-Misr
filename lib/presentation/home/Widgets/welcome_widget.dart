@@ -23,13 +23,14 @@ class WelcomeWidget extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Center(child :Text("Welcome ${profile.fullname.split(" ")[0]}",style: getMediumStyle(fontSize:16,color: ColorManager.black))),
-              SizedBox(height: 1/825 * screensize.height * 4.0,),
-              Text("here you can learn how to save Archive  your Goals and add new tasks ",
-                style: getMediumStyle(fontSize:16,color: ColorManager.black),),
+            //  Center(child : Text("Welcome Omar Set your Goals, Learn & Earn."/*"Welcome ${profile.fullname.split(" ")[0]}"*/,style: getMediumStyle(fontSize:16,color: ColorManager.black))),
+            //  SizedBox(height: 1/825 * screensize.height * 4.0,),
+           //  Text("here you can learn how to save Archive  your Goals and add new tasks ",
+            //    style: getMediumStyle(fontSize:16,color: ColorManager.black),),
             ],
           ),
         ),
+        
       ),
     );
   }

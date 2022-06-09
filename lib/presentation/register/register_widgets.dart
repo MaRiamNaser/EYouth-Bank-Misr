@@ -168,11 +168,11 @@ Widget ageTextFormField(TextEditingController ageController) {
 
 class ContinueButton extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
-  var fullNameController = TextEditingController();
-  var emailController = TextEditingController();
-  var ageController = TextEditingController();
-  var userNameController = TextEditingController();
-  var passwordController = TextEditingController();
+  var fullNameController;
+  var emailController ;
+  var ageController;
+  var userNameController;
+  var passwordController;
 
   ContinueButton(this.formKey, this.fullNameController, this.emailController,
       this.ageController, this.userNameController, this.passwordController);
@@ -201,50 +201,50 @@ class ContinueButton extends StatelessWidget {
         onPressed: ()  async{
           if (registerationProviderWatch.index <= 4) {
             if (registerationProviderWatch.index == 0) {
-              if (formKey.currentState!.validate()) {
+            //  if (formKey.currentState!.validate()) {
                 registerationProviderRead.setFullName(fullNameController.text);
                 registerationProviderRead.increaseIndex();
-              }
+             // }
             }else if (registerationProviderWatch.index == 1) {
-              if (formKey.currentState!.validate()) {
-                registerationProviderRead.setEmail(emailController.text);
+            //  if (formKey.currentState!.validate()) {
+               registerationProviderRead.setEmail(emailController.text);
                 registerationProviderRead.increaseIndex();
-              }
+            //  }
             }  else if (registerationProviderWatch.index == 2) {
-              if (formKey.currentState!.validate()) {
+            //  if (formKey.currentState!.validate()) {
                 registerationProviderRead.setAge(ageController.text);
                 registerationProviderRead.increaseIndex();
-              }
+           //   }
             } else if (registerationProviderWatch.index == 3) {
-              if (formKey.currentState!.validate()) {
+              //if (formKey.currentState!.validate()) {
                 registerationProviderRead.setUserName(userNameController.text);
                 registerationProviderRead.increaseIndex();
-              }
+              //}
             }
             else if (registerationProviderWatch.index == 4) {
-              if (formKey.currentState!.validate())  {
-                registerationProviderRead.setPassword(passwordController.text);
-                print(registerationProviderRead.index);
+         //    if (formKey.currentState!.validate())  {
+             registerationProviderRead.setPassword(passwordController.text);
+            //    print(registerationProviderRead.index);
                 
            await registerationProviderRead.signUp();
            
 
         print("zft");
-         print(  registerationProviderWatch.registerStatus);
+       
 
           if(registerationProviderWatch.registerStatus == true){
             print("user added!");
           
-            showFlutterToast("You are registred successfully ^^");
-            Navigator.pushReplacementNamed(context, Routes.loginRoute);
-            //  registerationProviderRead.changeregisterStatus(false);
+            showFlutterToast("You have been registred successfully");
+            Navigator.pushReplacementNamed(context, Routes.homeLayout);
+
            
           }else{
             print("user not added !");
              showFlutterToast("Something went wrong!!");
 
           }
-              }
+           //   }
             }
 
            
