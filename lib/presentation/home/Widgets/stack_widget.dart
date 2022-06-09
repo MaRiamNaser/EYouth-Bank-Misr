@@ -50,7 +50,7 @@ class StackWidget extends StatelessWidget {
                 width: 125 ,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Colors.grey),
+
                     borderRadius: BorderRadius.circular(80)
                 ),
                 child: Center(

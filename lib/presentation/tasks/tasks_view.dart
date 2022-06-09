@@ -164,16 +164,52 @@ class _TasksViewState extends State<TasksView> {
                           balance+=15;
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
-                                title: const Text("Achievement"),
-                                content: Text("15 EGP  Has Been Added To Your Wallet!"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Ok'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                              scrollable: true,
+                              backgroundColor: ColorManager.primary,
+                              title:  Center(
+                                child: Text("Well Done",
+                                  style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
+                              ),
+                              content: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Lottie.asset("assets/images/7455-loading1.json",height: 145,width:250, )
+                                    ,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                          width: 190,
+                                          child: Text("15 EGP  Has Been Added To Your Wallet!",
+                                            style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
+                                            textAlign: TextAlign.center,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                Center(
+                                  child: Container(
+                                    height:30 ,
+                                    width:100 ,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: ColorManager.darkPrimary,
+                                    ),
+                                    child: TextButton(
+                                      child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
                                   ),
-                                ]
+                                )
+
+                              ],
                             );
                           });
                         });

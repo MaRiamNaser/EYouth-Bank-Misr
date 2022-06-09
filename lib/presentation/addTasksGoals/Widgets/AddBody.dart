@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/addTask_services.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
+import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -20,9 +21,10 @@ class AddBody extends StatefulWidget {
   String title;
   String photo;
   String choice;
-  AddBody(this.title, this.photo, this.choice );
+  String alertPhoto;
+  AddBody(this.title, this.photo, this.choice ,this.alertPhoto);
   @override
-  _AddBodyState createState() => _AddBodyState(this.title,this.photo,choice);
+  _AddBodyState createState() => _AddBodyState(this.title,this.photo,choice,alertPhoto);
 }
 
 Color color=ColorManager.lightPrimary;
@@ -33,7 +35,8 @@ class _AddBodyState extends State<AddBody> {
   String title;
   String photo;
   String choice;
-  _AddBodyState(this.title,this.photo, this.choice);
+  String alertPhoto;
+  _AddBodyState(this.title,this.photo, this.choice,this.alertPhoto);
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -93,8 +96,9 @@ class _AddBodyState extends State<AddBody> {
 
                           child: TextButton(onPressed: ()async{
                             if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
+                              goals.add(GoalsList(number: 4,name: titleTextController.text));
                              showDialog(context: context, builder: (BuildContext context) {
-                                    return  alertdialog(choice);
+                                    return  alertdialog(choice,alertPhoto);
                                   });
                               // if(
                               // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))

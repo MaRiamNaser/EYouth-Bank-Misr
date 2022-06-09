@@ -1,4 +1,3 @@
-import 'package:bank_misr/data/models/Video.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Data/models/Course.dart';
+import '../../Data/models/Video.dart';
 import '../resources/routes_manager.dart';
 
 class CourseView extends StatefulWidget {
@@ -54,16 +54,18 @@ List<String>  image;
             height: 1 / 825 * screensize.height * AppSize.s14,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p16),
+            padding: const EdgeInsets.only(left: AppPadding.p2),
             child: Container(
                 width: 1 / 393 * screensize.width * 360,
                 height: 1 / 825 * screensize.height * 180.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(AppSize.s50),
-                        topRight: Radius.circular(AppSize.s50))),
-                child: Image.network(image[0],
-                    fit: BoxFit.cover)),
+                        topRight: Radius.circular(AppSize.s50)),
+                    image: DecorationImage(
+                image:  NetworkImage(image[0])
+              ,fit: BoxFit.cover,
+            )),),
           ),
           Expanded(
             child: BlocBuilder<VideoCubit, VideoState>(
@@ -116,9 +118,9 @@ List<String>  image;
                                                 color: ColorManager.black)),
                                         Container(
                                           height:
-                                          1 / 825 * screensize.height * 90,
+                                          1 / 825 * screensize.height * 110,
                                           width: 1 / 393 * screensize.width *
-                                              90,
+                                              110,
                                           margin: EdgeInsets.all(6.0),
                                           decoration: BoxDecoration(
                                             borderRadius:
@@ -138,6 +140,7 @@ List<String>  image;
                                           CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
+                                              width: 140,
                                               child: Text(
                                                   AllVideos[index].title,
                                                   style: getBoldtStyle(

@@ -2,7 +2,8 @@
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/Quiz.dart';
+import 'package:lottie/lottie.dart';
+import '../../../Data/models/Quiz.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -98,8 +99,11 @@ class _QuizWidgetState extends State<QuizWidget> {
                                   color: colors[index],),
                                 SizedBox(
                                     width: 1 / 393 * screensize.width * 15),
-                                Text(quiz.options[index], style: getMediumStyle(
-                                    color: ColorManager.black),)
+                                SizedBox(
+                                  width: 300,
+                                  child: Text(quiz.options[index], style: getMediumStyle(
+                                      color: ColorManager.black),),
+                                )
                               ],
                             ),
                           ),
@@ -133,17 +137,52 @@ class _QuizWidgetState extends State<QuizWidget> {
                           });
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
-                                title: const Text("Achievement"),
-                                content: Text("15 EGP  Has Been Added To Your Wallet!"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Ok'),
-                                    onPressed: () {
-                                      currentindex=2;
-                                      Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                                    },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                scrollable: true,
+                                backgroundColor: ColorManager.primary,
+                                  title:  Center(
+                                    child: Text("Well Done",
+                                      style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
                                   ),
-                                ]
+                                  content: Container(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Lottie.asset("assets/images/7455-loading1.json",height: 145,width:250, )
+                                        ,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            width: 190,
+                                              child: Text("15 EGP  Has Been Added To Your Wallet!",
+                                                style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
+                                                textAlign: TextAlign.center,)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                      actions: [
+                                        Center(
+                                          child: Container(
+                                            height:30 ,
+                                            width:100 ,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15),
+                                              color: ColorManager.darkPrimary,
+                                            ),
+                                            child: TextButton(
+                                              child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
+                                              onPressed: () {
+                                                currentindex=2;
+                                                Navigator.pushReplacementNamed(context, Routes.homeLayout);
+                                              },
+                                            ),
+                                          ),
+                                        )
+
+                                      ],
                             );
                           });
 

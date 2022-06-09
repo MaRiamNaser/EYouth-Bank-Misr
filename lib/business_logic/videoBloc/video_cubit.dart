@@ -1,8 +1,8 @@
-import 'package:bank_misr/data/models/Video.dart';
+import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/repo/video_repo.dart';
+import '../../Data/repo/video_repo.dart';
 
 part 'video_state.dart';
 

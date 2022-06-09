@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-import '../../data/models/Video.dart';
 import '../resources/values_manager.dart';
 
 class VideoView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _VideoViewState extends State<VideoView> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       setState(() {
         _ytbPlayerController = YoutubePlayerController(
-          initialVideoId:"-OWR2oyKbf8" ,
+          initialVideoId:video.videoLink ,
           params: YoutubePlayerParams(
             showFullscreenButton: true,
             autoPlay: false,
@@ -54,7 +54,7 @@ class _VideoViewState extends State<VideoView> {
             padding: const EdgeInsets.all(0),
             child:InkWell(
               onTap: () {
-                final _newCode = "-OWR2oyKbf8";
+                final _newCode = video.videoLink;
                 _ytbPlayerController.load(_newCode);
                 _ytbPlayerController.stop();
               },
