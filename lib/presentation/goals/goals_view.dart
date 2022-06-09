@@ -13,14 +13,8 @@ import '../resources/color_manager.dart';
 import 'package:http/http.dart' as http;
 
 import '../tasks/tasks_view.dart';
-class GoalsList {
-  var number;
-  var name;
-  GoalsList({
-    this.number,
-    this.name,
-  });
-}
+import 'Goal.dart';
+
 
 class Goalsview extends StatefulWidget {
   @override
@@ -30,22 +24,7 @@ class Goalsview extends StatefulWidget {
 
 class _GoalViewState extends State<Goalsview> {
 
-  List<GoalsList> goals =[
-    GoalsList(
-      number:1,
-      name:"Buy headphone",
-    ),
-    GoalsList(
-      number:2,
-      name:"Fifa 2020",
-    ),
-    GoalsList(
-      number:1,
-      name:"Buy New Mobile",
-    ),
-   
 
-  ];
 // late List<Goal> goals=[];
 @override
   // void initState() {
@@ -79,7 +58,7 @@ class _GoalViewState extends State<Goalsview> {
               initialPage: 0,
               children: [
                 Image.asset(
-                  'assets/images/courses.gif',
+                  'assets/images/goals.png',
                   fit: BoxFit.fill,
                 ),
                 Image.asset(
@@ -98,8 +77,8 @@ class _GoalViewState extends State<Goalsview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                  child: SizedBox(height: 190 ,
-                      width:  210,
+                  child: SizedBox(height: 160 ,
+                      width:  230,
                       child:Lottie.asset(ImageAssets.GoalPhoto)),
                 ),
             ],
@@ -235,7 +214,9 @@ Widget buildtask(GoalsList tasks) =>
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
       child: Container(
+        height: 50,
         decoration: BoxDecoration(
+
           border:Border.all(color:ColorManager.grey,width: 1.5),
           borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
         ),
@@ -253,7 +234,7 @@ Widget buildtask(GoalsList tasks) =>
 
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
-                      '${tasks.number}',
+                      '${tasks.number}'+"-",
                       style: getBoldtStyle(
                         fontSize: FontSize.s16,
                         color:ColorManager.black,
@@ -263,7 +244,7 @@ Widget buildtask(GoalsList tasks) =>
                     ),
                   ),
                   Container(
-                    width: 175,
+                    width: 170,
                     child: Text(
 
                       '${tasks.name}',
@@ -274,13 +255,16 @@ Widget buildtask(GoalsList tasks) =>
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
                     ),
                   ),
 
                   Row(
 
+
                     children: [
-                      IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
+
+                      IconButton(icon: (Icon(Icons.check_circle_outline,)),color:ColorManager.green, onPressed: () {
 
                       },
 

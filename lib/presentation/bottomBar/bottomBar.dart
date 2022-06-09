@@ -1,3 +1,4 @@
+import 'package:bank_misr/presentation/addTasksGoals/Widgets/AddBody.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
 import 'package:bank_misr/presentation/goals/goals_view.dart';
@@ -39,7 +40,7 @@ class _BottomBarState extends State<BottomBar> {
     ),
   BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(),
+    child :coursesView(0),
   ),
     BlocProvider(
   create: (context) => blocGenerator().profileCubit,
@@ -51,7 +52,7 @@ class _BottomBarState extends State<BottomBar> {
     AddTaskView(),
     AddGoalView(),
 
-    coursesView(),
+    coursesView(0),
     TasksView(),
     Goalsview()
     
@@ -74,21 +75,34 @@ class _BottomBarState extends State<BottomBar> {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 60,
+      title: Text(
+      "${titles[currentindex]}",
+      style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
+      ,),
+        leading: Padding(
+          padding: const EdgeInsets.only(left:8.0),
+          child: Container(
 
-        title: Text(
-          "${titles[currentindex]}",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-          ,),
+            child: CircleAvatar(
+
+              backgroundImage: AssetImage("assets/images/BM Juniors colored small.jpg"),
+
+            ),
+          ),
+        ),
+
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right:14.0),
+            padding: const EdgeInsets.only(right:10.0),
             child: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Image.asset(
                   ImageAssets.profilePhoto,
                   fit: BoxFit.fitWidth,
+                  width: 45,
                 ),
-                maxRadius: 22),
+                maxRadius: 34),
           )
         ],
         ),
@@ -157,26 +171,113 @@ class _BottomBarState extends State<BottomBar> {
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
-    IconButton(icon: Icon(Icons.home, color: Colors.white,), onPressed: () {
-      setState(() {
-        currentindex=0;
-      });
-    },),
-    IconButton(icon: Icon(Icons.slideshow_outlined, color: Colors.white,), onPressed: () {
-      setState(() {
-        currentindex=1;
-      });
-    },),
-    IconButton(icon: Icon(Icons.person_outline, color: Colors.white,), onPressed: () {
-      setState(() {
-        currentindex=2;
-      });
-    },),
-    IconButton(icon: Icon(Icons.menu, color: Colors.white,), onPressed: () {
-      setState(() {
-        currentindex=3;
-      });
-    },),
+      SizedBox.fromSize(
+        size: Size(56, 56),
+        child: ClipOval(
+          child: Material(
+            color: ColorManager.primary,
+            child: InkWell(
+
+              onTap: () {
+                setState(() {
+                  currentindex=0;
+                });
+              },
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.home, color: Colors.white,), // <-- Icon
+                  Text("Home",style: TextStyle(color: ColorManager.white)),
+
+                  // <-- Text
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox.fromSize(
+        size: Size(56, 56),
+        child: ClipOval(
+          child: Material(
+            color: ColorManager.primary,
+            child: InkWell(
+
+              onTap: () {
+                setState(() {
+                  currentindex=1;
+                });
+              },
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.slideshow_outlined, color: Colors.white,), // <-- Icon
+                  Text("Videos",style: TextStyle(color: ColorManager.white)),
+
+                  // <-- Text
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox.fromSize(
+        size: Size(56, 56),
+        child: ClipOval(
+          child: Material(
+            color: ColorManager.primary,
+            child: InkWell(
+
+              onTap: () {
+                setState(() {
+                  currentindex=2;
+                });
+              },
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.person_outline, color: Colors.white,), // <-- Icon
+                  Text("Profile",style: TextStyle(color: ColorManager.white)),
+
+                  // <-- Text
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      SizedBox.fromSize(
+        size: Size(56, 56),
+        child: ClipOval(
+          child: Material(
+            color: ColorManager.primary,
+            child: InkWell(
+
+              onTap: () {
+                setState(() {
+                  currentindex=3;
+                });
+              },
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+
+                  Icon(Icons.menu, color: Colors.white,), // <-- Icon
+                  Text("Setting",style: TextStyle(color: ColorManager.white),),
+
+                  // <-- Text
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+
+
     ],
     ),
 

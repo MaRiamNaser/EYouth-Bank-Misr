@@ -8,7 +8,8 @@ class Category
   Category(this.title, this.img);
 }
 List<Category>categories=[
-  Category("Courses", ImageAssets.coursesPhoto),
   Category("Goals", ImageAssets.goalsPhoto),
+  Category("Courses", ImageAssets.coursesPhoto),
+
   Category("Tasks", ImageAssets.tasksPhoto)
 ];

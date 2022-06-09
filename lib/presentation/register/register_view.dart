@@ -22,11 +22,11 @@ class _RegisterNamePageState extends State<RegisterView> {
   RegisterationProvider? registerationProviderWatch;
 
   final formKey = GlobalKey<FormState>();
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final ageController = TextEditingController();
-  final userNameController = TextEditingController();
-  final passwordController = TextEditingController();
+  var fullNameController = TextEditingController(text: "Omar");
+  var emailController = TextEditingController(text: "omar@gmail.com");
+  var ageController = TextEditingController(text: "11");
+  var userNameController = TextEditingController(text: "omar11");
+  var passwordController = TextEditingController(text:"123456");
 
   Widget currentTextFormField() {
     if (registerationProviderWatch!.index == 0) {
@@ -76,18 +76,19 @@ class _RegisterNamePageState extends State<RegisterView> {
 
         return false;
       },
-      child: Scaffold(
+      child:  Scaffold(
         backgroundColor: ColorManager.white,
         appBar: AppBar(
-            leadingWidth: 70,
+            leadingWidth:120,
+          backgroundColor: ColorManager.white,
             title: Text(
               AppStrings.registerTitle,
               style: getSemiBoldStyle(color: ColorManager.black),
             ),
-            leading: Icon(
-              Icons.arrow_back,
-              color: ColorManager.black,
-            )),
+             leading: Container(
+            margin: EdgeInsets.only(left: AppMargin.m12, top: 5),
+            child: Image(image: AssetImage(ImageAssets.smallLogo)))
+            ),
         /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
         body: SingleChildScrollView(
           child: Form(

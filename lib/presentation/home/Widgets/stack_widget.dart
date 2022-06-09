@@ -24,9 +24,14 @@ class StackWidget extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getSemiBoldStyle(fontSize:25,color: ColorManager.white),)
-                ,
+                
+                 Center(child: Text( "Welcome Omar"/*profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname*/,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
+                 Center(child: Text( "Set your Goals, Learn & Earn."/*profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname*/,style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
+
+                
+                
                 SizedBox(height: 1/825 * screensize.height * 12,),
                 Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white))
               ],
@@ -50,7 +55,7 @@ class StackWidget extends StatelessWidget {
                 width: 125 ,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Colors.grey),
+
                     borderRadius: BorderRadius.circular(80)
                 ),
                 child: Center(

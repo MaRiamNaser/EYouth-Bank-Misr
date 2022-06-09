@@ -1,4 +1,4 @@
-import 'package:bank_misr/data/repo/video_repo.dart';
+import 'package:bank_misr/Data/repo/video_repo.dart';
 import 'package:bank_misr/data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
@@ -18,11 +18,8 @@ import 'package:bank_misr/presentation/video/video_view.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../data/models/Course.dart';
-import '../../data/models/Video.dart';
-import '../goals/addGoalView.dart';
+import '../../Data/models/Video.dart';
 import '../goals/goals_view.dart';
-import '../tasks/addTaskView.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -105,9 +102,11 @@ class RouteGenerator {
           case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
       case Routes.courses:
+        int i=0;
+         i=settings.arguments as int;
         return MaterialPageRoute(builder: (_) => BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(),
+    child :coursesView(i),
   ),);
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());

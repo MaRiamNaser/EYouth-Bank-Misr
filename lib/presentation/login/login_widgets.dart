@@ -117,8 +117,7 @@ class LoginButton extends StatelessWidget {
 
        if(registerationProviderWatch.registerStatus == true) {
            
-                        showFlutterToast( " you are logged in successfully!");
-
+                        //showFlutterToast( " you are logged in successfully!");
                         Navigator.pushReplacementNamed(context, Routes.homeLayout);
 
        }else{
