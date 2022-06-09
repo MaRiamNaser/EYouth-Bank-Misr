@@ -161,7 +161,7 @@ class _TasksViewState extends State<TasksView> {
                         IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
                         setState(() {
                           tasks.remove(taskss);
-                          balance+=15;
+                          balance += 20;
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
                               shape: RoundedRectangleBorder(

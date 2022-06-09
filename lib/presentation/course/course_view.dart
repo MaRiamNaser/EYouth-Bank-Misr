@@ -80,7 +80,7 @@ List<String>  image;
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          balance += 15;
+                          balance += 100;
                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BlocProvider(
             create: (context) => blocGenerator().videoCubit,
             child: VideoView(AllVideos[index]),
