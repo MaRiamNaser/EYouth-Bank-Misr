@@ -230,21 +230,21 @@ Widget buildtask(GoalsList tasks) =>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Padding(
-                  //
-                  //   padding: const EdgeInsets.all(12.0),
-                  //   child: Text(
-                  //     '${tasks.number}',
-                  //     style: getBoldtStyle(
-                  //       fontSize: FontSize.s16,
-                  //       color:ColorManager.black,
-                  //     ),
-                  //     maxLines: 2,
-                  //     overflow: TextOverflow.ellipsis,
-                  //   ),
-                  // ),
+                  Padding(
+
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      '${tasks.number}'+"-",
+                      style: getBoldtStyle(
+                        fontSize: FontSize.s16,
+                        color:ColorManager.black,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   Container(
-                    width: 230,
+                    width: 170,
                     child: Text(
 
                       '${tasks.name}',
@@ -253,8 +253,9 @@ Widget buildtask(GoalsList tasks) =>
                         color: Colors.black,
 
                       ),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
                     ),
                   ),
 

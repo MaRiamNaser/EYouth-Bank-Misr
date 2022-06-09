@@ -226,24 +226,24 @@ class ContinueButton extends StatelessWidget {
              registerationProviderRead.setPassword(passwordController.text);
             //    print(registerationProviderRead.index);
                 
-           await registerationProviderRead.signUp();
+           //await registerationProviderRead.signUp();
            
 
         print("zft");
        
 
-          if(registerationProviderWatch.registerStatus == true){
-            print("user added!");
+        //  if(registerationProviderWatch.registerStatus == true){
+         //   print("user added!");
           
             showFlutterToast("You have been registred successfully");
             Navigator.pushReplacementNamed(context, Routes.homeLayout);
 
            
-          }else{
+      /*    }else{
             print("user not added !");
              showFlutterToast("Something went wrong!!");
 
-          }
+          }*/
            //   }
             }
 

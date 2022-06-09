@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../Data/models/Profile.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
@@ -42,6 +43,7 @@ class _ProfileViewState extends State<ProfileView> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
+
             Container(
               height: 1 / 825 * screensize.height * 300,
               width: double.infinity,
@@ -74,7 +76,7 @@ class _ProfileViewState extends State<ProfileView> {
                               child: Column(
                                 children: [
                                   Center(
-                                      child: Text(profile.fullname,
+                                      child: Text("Omar",
                                           style: getSemiBoldStyle(
                                               fontSize: 16,
                                               color: ColorManager.black))),
@@ -82,7 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     height: 1 / 825 * screensize.height * 4.0,
                                   ),
                                   Text(
-                                    profile.username,
+                                    "Omar11",
                                     style: getMediumStyle(
                                         fontSize: 12, color: ColorManager.black),
                                   ),
@@ -97,7 +99,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        profile.email,
+                                        "Omar@gmail.com",
                                         style: getMediumStyle(
                                             fontSize: 16,
                                             color: ColorManager.black),
@@ -112,7 +114,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(profile.age + " Year",
+                                      Text("11" + " Years old",
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -150,7 +152,9 @@ class _ProfileViewState extends State<ProfileView> {
                     ImageAssets.profilePhoto,
                     fit: BoxFit.cover,
                   ),
-                ))
+                )),
+
+          Lottie.asset("assets/images/99718-confetti-animation.json"),
           ],
         ),
       ),

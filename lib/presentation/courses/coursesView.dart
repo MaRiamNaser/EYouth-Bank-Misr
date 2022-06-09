@@ -87,7 +87,7 @@ class _coursesViewState extends State<coursesView> {
                   initialPage: 0,
                   children: [
                     Image.asset(
-                      'assets/images/vedio.gif',
+                      'assets/images/video.gif',
                       fit: BoxFit.fill,
                     ),
                     Image.asset(

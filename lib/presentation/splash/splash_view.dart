@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.homeLayout);
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
   }
 
   @override

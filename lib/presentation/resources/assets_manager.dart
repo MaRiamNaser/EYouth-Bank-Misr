@@ -10,7 +10,7 @@ class ImageAssets {
   static String videoImg2= "assets/images/Image 4.png";
   static String videoImg3= "assets/images/Image 5.png";
   static String videoImg4= "assets/images/Image 6.png";
-  static String coursesPhoto="assets/images/vedio.gif";
+  static String coursesPhoto="assets/images/video.gif";
   static String goalsPhoto="assets/images/goals.png";
   static String tasksPhoto="assets/images/multitask.gif";
   static String profilePhoto="assets/images/avtar.png";

@@ -214,7 +214,7 @@ class _BottomBarState extends State<BottomBar> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(Icons.slideshow_outlined, color: Colors.white,), // <-- Icon
-                  Text("Vedios",style: TextStyle(color: ColorManager.white)),
+                  Text("Videos",style: TextStyle(color: ColorManager.white)),
 
                   // <-- Text
                 ],

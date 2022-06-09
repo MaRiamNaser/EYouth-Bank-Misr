@@ -156,7 +156,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                             width: 190,
-                                              child: Text("15 EGP  Has Been Added To Your Wallet!",
+                                              child: Text("100 EGP  Has Been Added To Your Wallet!",
                                                 style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
                                                 textAlign: TextAlign.center,)),
                                         ),

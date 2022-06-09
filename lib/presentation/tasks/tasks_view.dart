@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+
+import '../bottomBar/bottomBar.dart';
+import '../resources/routes_manager.dart';
 class TasksList {
   var number;
    var name;
@@ -149,7 +152,7 @@ class _TasksViewState extends State<TasksView> {
                       ),
                     ),
                     Container(
-                      width: 175,
+                      width: 167,
                       child: Text(
 
                         '${taskss.name}',
@@ -193,7 +196,7 @@ class _TasksViewState extends State<TasksView> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
                                           width: 190,
-                                          child: Text("15 EGP  Has Been Added To Your Wallet!",
+                                          child: Text("20 EGP  Has Been Added To Your Wallet!",
                                             style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
                                             textAlign: TextAlign.center,
                                           )),
@@ -213,7 +216,10 @@ class _TasksViewState extends State<TasksView> {
                                     child: TextButton(
                                       child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
                                       onPressed: () {
+
                                         Navigator.of(context).pop();
+                                        currentindex=2;
+                                        Navigator.pushReplacementNamed(context, Routes.homeLayout);
                                       },
                                     ),
                                   ),
@@ -226,7 +232,7 @@ class _TasksViewState extends State<TasksView> {
                         },
 
                         ),
-                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
+                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
 
                         ),
                         IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
