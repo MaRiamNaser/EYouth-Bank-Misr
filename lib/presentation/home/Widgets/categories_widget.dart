@@ -27,10 +27,10 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            if(index == 0){
+            if(index == 1){
               Navigator.pushNamed(context, Routes.courses);
               
-            }else if(index == 1){
+            }else if(index == 0){
              Navigator.pushNamed(context, Routes.goals);
               
             }else if(index == 2){

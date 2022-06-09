@@ -1,3 +1,4 @@
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
@@ -108,76 +109,93 @@ class _TasksViewState extends State<TasksView> {
 
 
   }
+  Widget buildtask(TasksList taskss) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+        child: Container(
+          decoration: BoxDecoration(
+              border:Border.all(color:ColorManager.grey,width: 1.5),
+              borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
+          ),
+          child: Row(
+            children: [
+
+              Expanded(
+
+                child: Row(
+
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        '${taskss.number}',
+                        style: getBoldtStyle(
+                          fontSize: FontSize.s16,
+                          color:ColorManager.black,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      width: 175,
+                      child: Text(
+
+                        '${taskss.name}',
+                        style: getBoldtStyle(
+                          fontSize:FontSize.s16,
+                          color: Colors.black,
+
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+
+                    Row(
+
+                      children: [
+                        IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
+                        setState(() {
+                          tasks.remove(taskss);
+                          balance+=15;
+                          showDialog(context: context, builder: (BuildContext context) {
+                            return AlertDialog(
+                                title: const Text("Achievement"),
+                                content: Text("15 EGP  Has Been Added To Your Wallet!"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ]
+                            );
+                          });
+                        });
+                        },
+
+                        ),
+                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
+
+                        ),
+                        IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
+
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 
 
-Widget buildtask(TasksList tasks) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          border:Border.all(color:ColorManager.grey,width: 1.5),
-          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-        ),
-        child: Row(
-          children: [
-
-            Expanded(
-
-              child: Row(
-
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      '${tasks.number}',
-                      style: getBoldtStyle(
-                        fontSize: FontSize.s16,
-                        color:ColorManager.black,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    width: 175,
-                    child: Text(
-
-                      '${tasks.name}',
-                      style: getBoldtStyle(
-                        fontSize:FontSize.s16,
-                        color: Colors.black,
-
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-
-                  Row(
-
-                    children: [
-                      IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
-
-                      },
-
-                      ),
-                      IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
-
-                      ),
-                      IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
-
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );

@@ -84,9 +84,11 @@ class _RegisterNamePageState extends State<RegisterView> {
               AppStrings.registerTitle,
               style: getSemiBoldStyle(color: ColorManager.black),
             ),
-            leading: Icon(
-              Icons.arrow_back,
-              color: ColorManager.black,
+            leading: IconButton(
+              color: ColorManager.black, icon: Icon(Icons.arrow_back), onPressed: () {
+          Navigator.pushReplacementNamed(context, Routes.loginRoute);
+
+        },
             )),
         /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
         body: SingleChildScrollView(

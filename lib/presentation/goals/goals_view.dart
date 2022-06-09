@@ -43,8 +43,6 @@ class _GoalViewState extends State<Goalsview> {
       number:1,
       name:"Buy New Mobile",
     ),
-   
-
   ];
 // late List<Goal> goals=[];
 @override

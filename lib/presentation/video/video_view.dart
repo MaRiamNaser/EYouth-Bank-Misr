@@ -29,7 +29,7 @@ class _VideoViewState extends State<VideoView> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       setState(() {
         _ytbPlayerController = YoutubePlayerController(
-          initialVideoId:"OWR2oyKbf8" ,
+          initialVideoId:"-OWR2oyKbf8" ,
           params: YoutubePlayerParams(
             showFullscreenButton: true,
             autoPlay: false,
@@ -54,7 +54,7 @@ class _VideoViewState extends State<VideoView> {
             padding: const EdgeInsets.all(0),
             child:InkWell(
               onTap: () {
-                final _newCode = "OWR2oyKbf8";
+                final _newCode = "-OWR2oyKbf8";
                 _ytbPlayerController.load(_newCode);
                 _ytbPlayerController.stop();
               },

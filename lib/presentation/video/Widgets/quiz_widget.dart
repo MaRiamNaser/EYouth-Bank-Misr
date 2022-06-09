@@ -1,9 +1,11 @@
 
+import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/Quiz.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
@@ -129,6 +131,22 @@ class _QuizWidgetState extends State<QuizWidget> {
                               colors[index1]= Colors.green;
                             }
                           });
+                          showDialog(context: context, builder: (BuildContext context) {
+                            return AlertDialog(
+                                title: const Text("Achievement"),
+                                content: Text("15 EGP  Has Been Added To Your Wallet!"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      currentindex=2;
+                                      Navigator.pushReplacementNamed(context, Routes.homeLayout);
+                                    },
+                                  ),
+                                ]
+                            );
+                          });
+
                         },
                             child:  Text("Submit",style: getRegularStyle(color: ColorManager.white),),
                         ),
