@@ -13,14 +13,8 @@ import '../resources/color_manager.dart';
 import 'package:http/http.dart' as http;
 
 import '../tasks/tasks_view.dart';
-class GoalsList {
-  var number;
-  var name;
-  GoalsList({
-    this.number,
-    this.name,
-  });
-}
+import 'Goal.dart';
+
 
 class Goalsview extends StatefulWidget {
   @override
@@ -30,20 +24,7 @@ class Goalsview extends StatefulWidget {
 
 class _GoalViewState extends State<Goalsview> {
 
-  List<GoalsList> goals =[
-    GoalsList(
-      number:1,
-      name:" 1- Buy Fifa 22 (1000EGP)",
-    ),
-    GoalsList(
-      number:2,
-      name:" 2- Salah T-shirt (1200EGP)",
-    ),
-    GoalsList(
-      number:3,
-      name:" 3- Learn about investing",
-    ),
-  ];
+
 // late List<Goal> goals=[];
 @override
   // void initState() {

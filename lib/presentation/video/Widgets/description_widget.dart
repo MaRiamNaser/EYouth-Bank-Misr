@@ -15,7 +15,7 @@ class Description extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p20),
-      height: 1/825 * screensize.height * 160,
+      height: 1/825 * screensize.height * 170,
       width: 1/393* screensize.width * 360,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topLeft:Radius.circular(AppSize.s25) ,bottomRight: Radius.circular(AppSize.s25)),

@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-import 'Quiz.dart';
+import 'package:bank_misr/Data/models/Quiz.dart';
+
 
 Video videoFromJson(String str) => Video.fromJson(json.decode(str));
 
@@ -21,6 +22,8 @@ class Video {
     required  this.createdAt,
     required  this.updatedAt,
     required  this.v,
+    required this.videoLink
+
   });
 
   String id;
@@ -32,6 +35,7 @@ class Video {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  String videoLink;
 
   factory Video.fromJson(Map<String, dynamic> json) => Video(
     id: json["_id"],
@@ -39,10 +43,11 @@ class Video {
     description: json["description"],
     courseId: json["courseId"],
     image: json["image"],
-    quiz: Quiz.fromJson(json["quiz"]),
+      quiz: Quiz.fromJson(json["quiz"]),
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
     v: json["__v"],
+    videoLink: json["videoLink"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,5 +60,6 @@ class Video {
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
     "__v": v,
+    "videoLink": videoLink,
   };
 }

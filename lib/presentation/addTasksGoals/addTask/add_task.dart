@@ -18,6 +18,6 @@ class AddTaskView extends StatefulWidget {
 class _AddTaskViewState extends State<AddTaskView> {
   @override
   Widget build(BuildContext context) {
-    return AddBody(AppStrings.addTask,ImageAssets.TaskPhoto,"Task");
+    return AddBody(AppStrings.addTask,ImageAssets.TaskPhoto,"Task",ImageAssets.alertTask);
   }
 }

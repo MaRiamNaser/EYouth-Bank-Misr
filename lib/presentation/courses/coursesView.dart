@@ -128,14 +128,17 @@ class _coursesViewState extends State<coursesView> {
                   children: [
             
                     Container(
-            
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              color: ColorManager.grey, width: 1.5),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: (Image.network(AllCourses[index].image)),
+                          borderRadius: BorderRadius.circular(30)
+                      ,
+                      image: DecorationImage(
+                        image: NetworkImage(AllCourses[index].image)
+                            ,fit: BoxFit.cover,
+                      )),
+
+                  //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
                     ),
                     SizedBox(
                       height: 10,

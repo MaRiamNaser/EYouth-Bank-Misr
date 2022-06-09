@@ -38,14 +38,19 @@ class _RegisterNamePageState extends State<LoginView> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(
-          leadingWidth: AppConstants.leadingWidth,
+          leadingWidth:120,
+          backgroundColor: ColorManager.white,
+          
          /* title: Text(
             AppStrings.loginTitle,
             style: getSemiBoldStyle(color: ColorManager.black),
           ),*/
           leading: Container(
             margin: EdgeInsets.only(left: AppMargin.m12, top: 5),
-            child: Image(image: AssetImage(ImageAssets.splashLogo)))),
+            child: Image(image: AssetImage(ImageAssets.splashLogo))
+            )
+            ),
+            
       /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
       body: SingleChildScrollView(
         child: Form(

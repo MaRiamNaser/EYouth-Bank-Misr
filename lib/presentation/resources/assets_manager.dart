@@ -29,5 +29,7 @@ class ImageAssets {
        static  String userNameLottie = "$IMAGE_PATH/user_name_lottie.json";
        static  String loginLottie = "$IMAGE_PATH/login_lottie.json";
        
-  
+  static String  alertGoal="assets/images/5301-goal-achieved.json";
+  static String  alertTask="assets/images/79585-man-with-task.json";
+
 }
