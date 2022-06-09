@@ -148,7 +148,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                           });
 
                         },
-                            child:  Text("Submit",style: getRegularStyle(color: ColorManager.white),),
+
+                            child:  new GestureDetector(
+                              onTap: () {
+
+                                // Navigator.pushNamed(context, "");
+                              },
+                              child: new Text("Submit",style: TextStyle(color: ColorManager.white),),
+                            )
                         ),
                       ),
                     )

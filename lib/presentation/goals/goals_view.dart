@@ -33,15 +33,15 @@ class _GoalViewState extends State<Goalsview> {
   List<GoalsList> goals =[
     GoalsList(
       number:1,
-      name:"Buy headphone",
+      name:" 1- Buy Fifa 22 (1000EGP)",
     ),
     GoalsList(
       number:2,
-      name:"Fifa 2020",
+      name:" 2- Salah T-shirt (1200EGP)",
     ),
     GoalsList(
-      number:1,
-      name:"Buy New Mobile",
+      number:3,
+      name:" 3- Learn about investing",
     ),
   ];
 // late List<Goal> goals=[];
@@ -77,7 +77,7 @@ class _GoalViewState extends State<Goalsview> {
               initialPage: 0,
               children: [
                 Image.asset(
-                  'assets/images/courses.gif',
+                  'assets/images/goals.png',
                   fit: BoxFit.fill,
                 ),
                 Image.asset(
@@ -96,8 +96,8 @@ class _GoalViewState extends State<Goalsview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                  child: SizedBox(height: 190 ,
-                      width:  210,
+                  child: SizedBox(height: 160 ,
+                      width:  230,
                       child:Lottie.asset(ImageAssets.GoalPhoto)),
                 ),
             ],
@@ -233,7 +233,9 @@ Widget buildtask(GoalsList tasks) =>
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
       child: Container(
+        height: 50,
         decoration: BoxDecoration(
+
           border:Border.all(color:ColorManager.grey,width: 1.5),
           borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
         ),
@@ -247,21 +249,21 @@ Widget buildtask(GoalsList tasks) =>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      '${tasks.number}',
-                      style: getBoldtStyle(
-                        fontSize: FontSize.s16,
-                        color:ColorManager.black,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                  // Padding(
+                  //
+                  //   padding: const EdgeInsets.all(12.0),
+                  //   child: Text(
+                  //     '${tasks.number}',
+                  //     style: getBoldtStyle(
+                  //       fontSize: FontSize.s16,
+                  //       color:ColorManager.black,
+                  //     ),
+                  //     maxLines: 2,
+                  //     overflow: TextOverflow.ellipsis,
+                  //   ),
+                  // ),
                   Container(
-                    width: 175,
+                    width: 230,
                     child: Text(
 
                       '${tasks.name}',
@@ -270,15 +272,17 @@ Widget buildtask(GoalsList tasks) =>
                         color: Colors.black,
 
                       ),
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
 
                   Row(
 
+
                     children: [
-                      IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
+
+                      IconButton(icon: (Icon(Icons.check_circle_outline,)),color:ColorManager.green, onPressed: () {
 
                       },
 

@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       onGenerateRoute: RouteGenerator.getRoute,
       initialRoute: Routes.splashRoute,
       theme: getApplicationTheme(),
-      home: SplashView(),
+      home: BottomBar(),
     );
   }
 }

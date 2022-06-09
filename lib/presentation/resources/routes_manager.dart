@@ -105,9 +105,11 @@ class RouteGenerator {
           case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
       case Routes.courses:
+        int i=0;
+         i=settings.arguments as int;
         return MaterialPageRoute(builder: (_) => BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(),
+    child :coursesView(i),
   ),);
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());

@@ -28,7 +28,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         return InkWell(
           onTap: () {
             if(index == 1){
-              Navigator.pushNamed(context, Routes.courses);
+              Navigator.pushNamed(context, Routes.courses,arguments: 1);
               
             }else if(index == 0){
              Navigator.pushNamed(context, Routes.goals);

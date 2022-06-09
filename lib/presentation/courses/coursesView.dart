@@ -8,17 +8,23 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import '../../Data/models/Course.dart';
 import '../../business_logic/courseBloc/course_cubit.dart';
+import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 
 class coursesView extends StatefulWidget {
+  int i;
+  coursesView(this.i);
+
   @override
-  State<coursesView> createState() => _coursesViewState();
+  State<coursesView> createState() => _coursesViewState(i);
 }
 
 class _coursesViewState extends State<coursesView> {
   @override
   late List<Course> AllCourses;
+  int i;
+  _coursesViewState(this.i);
   @override
   void initState() {
     // TODO: implement initState
@@ -31,8 +37,40 @@ class _coursesViewState extends State<coursesView> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-
-
+        appBar: i==1?AppBar(
+          leadingWidth: 60,
+          title: Text(
+            "Courses",
+            style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
+            ,),
+        ):null
+        //   leading: Padding(
+        //     padding: const EdgeInsets.only(left:8.0),
+        //     child: Container(
+        //
+        //       child: CircleAvatar(
+        //
+        //         backgroundImage: AssetImage("assets/images/BM Juniors colored small.jpg"),
+        //
+        //       ),
+        //     ),
+        //   ),
+        //
+        //   actions: [
+        //     Padding(
+        //       padding: const EdgeInsets.only(right:10.0),
+        //       child: CircleAvatar(
+        //           backgroundColor: Colors.white,
+        //           child: Image.asset(
+        //             ImageAssets.profilePhoto,
+        //             fit: BoxFit.fitWidth,
+        //             width: 45,
+        //           ),
+        //           maxRadius: 34),
+        //     )
+        //   ],
+        // ),
+        ,
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -42,15 +80,14 @@ class _coursesViewState extends State<coursesView> {
 
           children: [
 
-
-               Container(
+            Container(
                 child: ImageSlideshow(
                   width: double.infinity,
                   height: 200,
                   initialPage: 0,
                   children: [
                     Image.asset(
-                      'assets/images/courses.gif',
+                      'assets/images/vedio.gif',
                       fit: BoxFit.fill,
                     ),
                     Image.asset(
@@ -64,8 +101,8 @@ class _coursesViewState extends State<coursesView> {
                   isLoop: true,
                 ),
               ),
-    BlocBuilder<CourseCubit, CourseState>(
-    builder: (context, state) {
+            BlocBuilder<CourseCubit, CourseState>(
+            builder: (context, state) {
       if (state is CoursesLoaded) {
         AllCourses = (state).courses;
         print(AllCourses[0].id);
@@ -76,6 +113,7 @@ class _coursesViewState extends State<coursesView> {
             crossAxisCount: 2,
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 5.0,
+
           ),
           itemCount: AllCourses.length,
           itemBuilder: (context, index) {

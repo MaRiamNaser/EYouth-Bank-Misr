@@ -25,15 +25,23 @@ class _TasksViewState extends State<TasksView> {
   List<TasksList> tasks =[
     TasksList(
       number:1,
-      name:"Pray",
+      name:"Do my homework ",
     ),
     TasksList(
       number:2,
-      name:"Study",
+      name:"Go to swimming  practice",
     ),
     TasksList(
       number:3,
-      name:"Pass the Exam",
+      name:"Finish one lesson",
+    ),
+    TasksList(
+      number:4,
+      name:"Pass quiz ",
+    ),
+    TasksList(
+      number:5,
+      name:"Brush my teeth",
     ),
   ];
 
@@ -58,7 +66,7 @@ class _TasksViewState extends State<TasksView> {
         initialPage: 0,
         children: [
           Image.asset(
-            'assets/images/courses.gif',
+            'assets/images/multitask.gif',
             fit: BoxFit.fill,
           ),
           Image.asset(
@@ -131,7 +139,7 @@ class _TasksViewState extends State<TasksView> {
 
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
-                        '${taskss.number}',
+                        '${taskss.number}'+" .",
                         style: getBoldtStyle(
                           fontSize: FontSize.s16,
                           color:ColorManager.black,
@@ -149,9 +157,11 @@ class _TasksViewState extends State<TasksView> {
                           fontSize:FontSize.s16,
                           color: Colors.black,
 
+
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
                       ),
                     ),
 
