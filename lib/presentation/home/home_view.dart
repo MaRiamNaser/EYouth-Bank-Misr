@@ -38,10 +38,11 @@ class _HomeViewState extends State<HomeView> {
               BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
             if (state is ProfilesLoaded) {
               profile = (state).profile;
-              return Column(children: [
+              return Column(
+                children: [
                 StackWidget(profile),
                 SizedBox(height: 1 / 825 * screensize.height * 12.5),
-                WelcomeWidget(profile),
+               // WelcomeWidget(profile),
                 SizedBox(height: 1 / 825 * screensize.height * 12.5),
                 CategoriesWidget(),
               ]);
