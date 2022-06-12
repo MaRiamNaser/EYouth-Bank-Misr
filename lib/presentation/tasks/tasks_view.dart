@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bank_misr/Data/models/Task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -8,16 +11,12 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../Data/repo/task_repo.dart';
+import '../../Data/web_services/task_services.dart';
 import '../bottomBar/bottomBar.dart';
 import '../resources/routes_manager.dart';
-class TasksList {
-  var number;
-   var name;
-  TasksList({
-    this.number,
-     this.name,
-  });
-}
+import 'package:http/http.dart' as http;
+
 
 class TasksView extends StatefulWidget {
   @override
@@ -25,33 +24,25 @@ class TasksView extends StatefulWidget {
 }
 
 class _TasksViewState extends State<TasksView> {
-  List<TasksList> tasks =[
-    TasksList(
-      number:1,
-      name:"Do my homework ",
-    ),
-    TasksList(
-      number:2,
-      name:"Go to swimming  practice",
-    ),
-    TasksList(
-      number:3,
-      name:"Finish one lesson",
-    ),
-    TasksList(
-      number:4,
-      name:"Pass quiz ",
-    ),
-    TasksList(
-      number:5,
-      name:"Brush my teeth",
-    ),
-  ];
 
+  late List<Task> tasks=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Load();
+
+  }
+  Load()async
+  {
+
+    tasks=await TaskRepo(TaskServices()).GetAllTasks("Url");
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
 
       appBar: AppBar(
@@ -102,7 +93,7 @@ class _TasksViewState extends State<TasksView> {
           ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemBuilder: (context, index) => buildtask(tasks[index]),
+            itemBuilder: (context, index) => buildtask(tasks[index],index),
             separatorBuilder: (context, index) => SizedBox(
               height: 10.0,
             ),
@@ -120,7 +111,8 @@ class _TasksViewState extends State<TasksView> {
 
 
   }
-  Widget buildtask(TasksList taskss) =>
+  Widget buildtask(Task task, int index) =>
+
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
         child: Container(
@@ -142,7 +134,7 @@ class _TasksViewState extends State<TasksView> {
 
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
-                        '${taskss.number}'+" .",
+                        (index+1).toString(),
                         style: getBoldtStyle(
                           fontSize: FontSize.s16,
                           color:ColorManager.black,
@@ -155,7 +147,7 @@ class _TasksViewState extends State<TasksView> {
                       width: 167,
                       child: Text(
 
-                        '${taskss.name}',
+                        task.title,
                         style: getBoldtStyle(
                           fontSize:FontSize.s16,
                           color: Colors.black,
@@ -173,7 +165,7 @@ class _TasksViewState extends State<TasksView> {
                       children: [
                         IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
                         setState(() {
-                          tasks.remove(taskss);
+
                           balance += 20;
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
@@ -235,7 +227,10 @@ class _TasksViewState extends State<TasksView> {
                         IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
 
                         ),
-                        IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
+                        IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {
+                          confirmDelete(task.id);
+
+                        },
 
                         ),
                       ],
@@ -247,6 +242,31 @@ class _TasksViewState extends State<TasksView> {
           ),
         ),
       );
+  void confirmDelete(String id) {
+    showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
+      title: Text("Delete"),
+      content: Text(" Are you sure !?"),
+      actions: [
+        FlatButton(child: Text("yes"),
+          onPressed: () async {
+          var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/$id'),
+              headers: <String,String>{"Content-Type": "application/json",
+                HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+          print(response.statusCode);
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
+
+
+          }, ),
+        FlatButton(onPressed: (){
+          Navigator.pop(context);
+
+        }, child: Text("no")),
+      ],
+
+    )
+    );
+
+  }
 }
 
 

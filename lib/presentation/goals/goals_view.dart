@@ -25,18 +25,21 @@ class Goalsview extends StatefulWidget {
 class _GoalViewState extends State<Goalsview> {
 
 
-// late List<Goal> goals=[];
+ late List<Goal> goals=[];
 @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Load();
+   void initState() {
+    // TODO: implement initState
+    super.initState();
+     Load();
 
-  // }
-  // Load()async
-  // {
-  //   goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
-  // }
+   }
+   Load()async
+   {
+    goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
+    setState(() {
+
+    });
+   }
   @override
   Widget build(BuildContext context) {
 
@@ -92,7 +95,7 @@ class _GoalViewState extends State<Goalsview> {
                     ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => buildtask(goals[index]),
+                    itemBuilder: (context, index) => buildgoal(goals[index],index),
                     separatorBuilder: (context, index) => SizedBox(
                       height: 10.0,
                     ),
@@ -110,178 +113,179 @@ class _GoalViewState extends State<Goalsview> {
 
 
   }
-  // Widget buildtask(Goal goal) =>
+  Widget buildgoal(Goal goal, int index) =>
 
-  //     Padding(
+      Padding(
 
-  //       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //             border:Border.all(color:ColorManager.grey,width: 1.5),
-  //             borderRadius: BorderRadius.only(topLeft:Radius.circular(20),bottomRight:Radius.circular(20), )
-  //         ),
-  //         child: Row(
-  //           children: [
+        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+        child: Container(
+          decoration: BoxDecoration(
+              border:Border.all(color:ColorManager.grey,width: 1.5),
+              borderRadius: BorderRadius.only(topLeft:Radius.circular(20),bottomRight:Radius.circular(20), )
+          ),
+          child: Row(
+            children: [
 
-  //             Expanded(
+              Expanded(
 
-  //               child: Row(
+                child: Row(
 
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 children: [
-  //                   Padding(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
 
-  //                     padding: const EdgeInsets.all(12.0),
-  //                     child: Text(
-  //                       goal.goalId.toString(),
-  //                       style: getBoldtStyle(
-  //                         fontSize: FontSize.s16,
-  //                         color: ColorManager.black,
-  //                       ),
-  //                       maxLines: 2,
-  //                       overflow: TextOverflow.ellipsis,
-  //                     ),
-  //                   ),
-  //                   Container(
-  //                     width: 190,
-  //                     child: Text(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text((index+1).toString(),
+                        style: getBoldtStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.black,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      width: 190,
+                      child: Text(
 
-  //                       goal.title,
-  //                       style: getBoldtStyle(
-  //                         fontSize:FontSize.s16,
-  //                         color:ColorManager.black,
+                        goal.title,
+                        style: getBoldtStyle(
+                          fontSize:FontSize.s16,
+                          color:ColorManager.black,
 
-  //                       ),
-  //                       maxLines: 2,
-  //                       overflow: TextOverflow.ellipsis,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
 
-  //                     ),
-  //                   ),
+                      ),
+                    ),
 
-  //                   Row(
-
-
-  //                     children: [
-  //                       IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize:FontSize.s25,color: ColorManager.green, onPressed: () {},
-  //                       ),
-
-  //                       IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
-
-  //                       ),
-
-  //                       IconButton(icon: (Icon(Icons.delete_rounded)),color: ColorManager.error, onPressed: () {
-  //                         // confirmDelete(goal.id);
-  //                       },
+                    Row(
 
 
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
+                      children: [
+                        IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize:FontSize.s25,color: ColorManager.green, onPressed: () {},
+                        ),
 
-  // void confirmDelete(String id) {
-  //   showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
-  //     title: Text("Delete"),
-  //     content: Text(" Are you sure !?"),
-  //     actions: [
-  //       FlatButton(child: Text("yes"),
-  //         onPressed: (){
-  //         // http.delete('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id');
-  //         // Navigator.push(context, MaterialPageRoute(builder: (context)=> goals_view()));
+                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.yellow, onPressed: () {  },
+
+                        ),
+
+                        IconButton(icon: (Icon(Icons.delete_rounded)),color: ColorManager.error, onPressed: () {
+                          confirmDelete(goal.id);
+                          print(goal.id);
+
+                        },
 
 
-  //       }, ),
-  //       FlatButton(onPressed: (){
-  //         Navigator.pop(context);
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 
-  //       }, child: Text("no")),
-  //     ],
+  void confirmDelete(String id) {
+    showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
+      title: Text("Delete"),
+      content: Text(" Are you sure !?"),
+      actions: [
+        FlatButton(child: Text("yes"),
+          onPressed: (){
+          http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id'));
+          // Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
+          Navigator.pop(context);
 
-  //   )
-  //   );
-    
-  // }
+        }, ),
+        FlatButton(onPressed: (){
+          Navigator.pop(context);
+
+        }, child: Text("no")),
+      ],
+
+    )
+    );
+
+  }
 }
 
-Widget buildtask(GoalsList tasks) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-
-          border:Border.all(color:ColorManager.grey,width: 1.5),
-          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-        ),
-        child: Row(
-          children: [
-
-            Expanded(
-
-              child: Row(
-
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      '${tasks.number}'+"-",
-                      style: getBoldtStyle(
-                        fontSize: FontSize.s16,
-                        color:ColorManager.black,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    width: 170,
-                    child: Text(
-
-                      '${tasks.name}',
-                      style: getBoldtStyle(
-                        fontSize:FontSize.s16,
-                        color: Colors.black,
-
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-
-                  Row(
-
-
-                    children: [
-
-                      IconButton(icon: (Icon(Icons.check_circle_outline,)),color:ColorManager.green, onPressed: () {
-
-                      },
-
-                      ),
-                      IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
-
-                      ),
-                      IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
-
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+// Widget buildtask(GoalsList goals) =>
+//     Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+//       child: Container(
+//         height: 50,
+//         decoration: BoxDecoration(
+//
+//           border:Border.all(color:ColorManager.grey,width: 1.5),
+//           borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
+//         ),
+//         child: Row(
+//           children: [
+//
+//             Expanded(
+//
+//               child: Row(
+//
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 children: [
+//                   Padding(
+//
+//                     padding: const EdgeInsets.all(12.0),
+//                     child: Text(
+//                       '${goals.number}'+"-",
+//                       style: getBoldtStyle(
+//                         fontSize: FontSize.s16,
+//                         color:ColorManager.black,
+//                       ),
+//                       maxLines: 2,
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                   ),
+//                   Container(
+//                     width: 170,
+//                     child: Text(
+//
+//                       '${goals.name}',
+//                       style: getBoldtStyle(
+//                         fontSize:FontSize.s16,
+//                         color: Colors.black,
+//
+//                       ),
+//                       maxLines: 2,
+//                       overflow: TextOverflow.ellipsis,
+//                       textAlign: TextAlign.left,
+//                     ),
+//                   ),
+//
+//                   Row(
+//
+//
+//                     children: [
+//
+//                       IconButton(icon: (Icon(Icons.check_circle_outline,)),color:ColorManager.green, onPressed: () {
+//
+//                       },
+//
+//                       ),
+//                       IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
+//
+//                       ),
+//                       IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
+//
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
 

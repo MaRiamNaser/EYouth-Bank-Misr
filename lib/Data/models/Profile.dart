@@ -25,7 +25,7 @@ class Profile {
   String username;
   String email;
   int balance;
-  String age;
+  int age;
   DateTime createdAt;
   DateTime updatedAt;
 
