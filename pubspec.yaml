@@ -42,7 +42,8 @@ dependencies:
   provider:
   flutter_bloc:
   http:
-
+  easy_localization:
+  flutter_phoenix:
   dio:
   fluttertoast: ^8.0.9
 

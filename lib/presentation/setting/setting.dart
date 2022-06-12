@@ -1,5 +1,7 @@
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -96,7 +98,7 @@ class _SettingViewState extends State<settingView> {
 
                                             padding: const EdgeInsets.all(12.0),
                                             child: Text(
-                                              'Language   ',
+                                              AppStrings.Laguage.tr(),
                                               style: getBoldtStyle(
                                                 fontSize: FontSize.s16,
                                                 color:ColorManager.black,
