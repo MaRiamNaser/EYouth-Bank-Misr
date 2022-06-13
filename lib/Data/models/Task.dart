@@ -1,40 +1,40 @@
 // To parse this JSON data, do
 //
-//     final goal = goalFromJson(jsonString);
+//     final task = taskFromJson(jsonString);
 
 import 'dart:convert';
 
-Goal goalFromJson(String str) => Goal.fromJson(json.decode(str));
+Task taskFromJson(String str) => Task.fromJson(json.decode(str));
 
-String goalToJson(Goal data) => json.encode(data.toJson());
+String taskToJson(Task data) => json.encode(data.toJson());
 
-class Goal {
-  Goal({
-  required  this.id,
+class Task {
+  Task({
+   required this.id,
     required this.userId,
     required this.title,
-    required  this.description,
     required this.checked,
-    required this.createdAt,
-    required this.updatedAt,
-    required  this.v,
+    required   this.description,
+    required    this.createdAt,
+    required   this.updatedAt,
+    required   this.v,
   });
 
   String id;
   String userId;
   String title;
-  String description;
   bool checked;
+  String description;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
 
-  factory Goal.fromJson(Map<String, dynamic> json) => Goal(
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
     id: json["_id"],
     userId: json["userId"],
     title: json["title"],
-    description: json["description"],
     checked: json["checked"],
+    description: json["description"],
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
     v: json["__v"],
@@ -44,8 +44,8 @@ class Goal {
     "_id": id,
     "userId": userId,
     "title": title,
-    "description": description,
     "checked": checked,
+    "description": description,
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
     "__v": v,
