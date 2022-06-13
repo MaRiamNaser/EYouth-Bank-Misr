@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/styles_manager.dart';
 
 class alertdialog extends StatelessWidget {
@@ -50,6 +51,7 @@ class alertdialog extends StatelessWidget {
               child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.pushNamed(context,choice=="Goal"?Routes.goals: Routes.tasks);
               },
             ),
           ),

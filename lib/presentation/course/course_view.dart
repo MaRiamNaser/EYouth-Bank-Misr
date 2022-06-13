@@ -40,6 +40,12 @@ List<String>  course;
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    BlocProvider.of<VideoCubit>(context).close();
+  }
+  @override
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(

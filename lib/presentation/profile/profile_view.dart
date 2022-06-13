@@ -1,11 +1,16 @@
+import 'dart:io';
+
+import 'package:bank_misr/Data/web_services/add_profile_image_services.dart';
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,24 +28,26 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   late Profile profile;
-  bool visable=true;
+  bool visable = true;
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-      Load();
-    Future.delayed(const Duration(seconds: 7), (){
+    Future.delayed(const Duration(seconds: 3), () {
       if (this.mounted) {
-      setState(() {
-        visable=false;
-      });
-    }
-      });
+        setState(() {
+          visable = false;
+        });
+      }
+    });
+    Load();
   }
 
   Load() async {
-    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    var token=sharedPreferences.getString("token");
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString("token");
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
   }
 
@@ -48,13 +55,9 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Profile"),
-      // ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
-
             Container(
               height: 1 / 825 * screensize.height * 300,
               width: double.infinity,
@@ -77,8 +80,8 @@ class _ProfileViewState extends State<ProfileView> {
                     )),
                 child: BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
-                    if(state is ProfilesLoaded) {
-                      profile=(state).profile;
+                    if (state is ProfilesLoaded) {
+                      profile = (state).profile;
                       return SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 50.0),
@@ -97,7 +100,8 @@ class _ProfileViewState extends State<ProfileView> {
                                   Text(
                                     profile.username,
                                     style: getMediumStyle(
-                                        fontSize: 12, color: ColorManager.black),
+                                        fontSize: 12,
+                                        color: ColorManager.black),
                                   ),
                                   SizedBox(
                                       height: 1 / 825 * screensize.height * 10),
@@ -107,7 +111,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         profile.email,
@@ -123,9 +127,10 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(profile.age.toString() + " Years old",
+                                      Text(
+                                          profile.age.toString() + " Years old",
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -145,28 +150,63 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                       );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
-                    else
-                      {
-                        return Center(child: CircularProgressIndicator(),);
-                      }
                   },
                 ),
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(left: 135, top: 100),
-                child: Container(
-                  height: 1 / 825 * screensize.height * 130,
-                  width: 1 / 393 * screensize.width * 120,
-                  child: Image.asset(
-                    ImageAssets.profilePhoto,
-                    fit: BoxFit.cover,
-                  ),
-                )),
-          Visibility(
-            visible: visable ,
-              child: Lottie.asset("assets/images/99718-confetti-animation.json"))
+            BlocBuilder<ProfileCubit, ProfileState>(
+              builder: (context, state) {
+                if (state is ProfilesLoaded) {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 135, top: 100),
+                    child: Container(
+                      height: 1 / 825 * screensize.height * 130,
+                      width: 1 / 393 * screensize.width * 120,
+                      child: profile.image == " "
+                          ? Image.asset(
+                              ImageAssets.profilePhoto,
+                              fit: BoxFit.cover,
+                            )
+                          : InkWell(
+                              onTap: () async {
+                                final image = await _picker.pickImage(source: ImageSource.gallery);
+                                print("Path :      " + image!.path);
+                                var img = File(image!.path);
+                                add_image_services().Upload(img);
+                              },
+                              child: CircleAvatar(
+                                minRadius: 22,
+                                child: Image.network(
+                                  AppStrings.baseUrl +
+                                      "userimage/" +
+                                      profile.image.split("\\")[1],
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    print(profile.image);
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            Visibility(
+                visible: visable,
+                child:
+                    Lottie.asset("assets/images/99718-confetti-animation.json"))
           ],
         ),
       ),

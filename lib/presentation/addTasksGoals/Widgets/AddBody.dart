@@ -71,7 +71,7 @@ class _AddBodyState extends State<AddBody> {
                 SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
                 Container(
                   padding: EdgeInsets.all(AppPadding.p18),
-                  height: 1/825 * screensize.height *440 ,
+                  height: 1/825 * screensize.height *400 ,
                   width: 1/393* screensize.width * 300,
                   decoration:  BoxDecoration(
                     border: Border.all(
@@ -93,7 +93,7 @@ class _AddBodyState extends State<AddBody> {
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                       const Text("Description"),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                      getTextField("Write Your $choice here...",1/825 * screensize.height *180,8,AppPadding.p20,AppSize.s20,descTextController,(text){
+                      getTextField("Write Your $choice here...",1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
                         setState(() {
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
