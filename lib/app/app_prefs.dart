@@ -12,6 +12,8 @@ class AppPreferences {
 
   AppPreferences(this._sharedPreferences);
 
+
+
   Future<String> getAppLanguage() async {
     String? language = _sharedPreferences.getString(PREFS_KEY_LANG);
     if (language != null && language.isNotEmpty) {
