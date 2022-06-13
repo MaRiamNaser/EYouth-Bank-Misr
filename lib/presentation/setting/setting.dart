@@ -1,6 +1,7 @@
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -218,70 +219,75 @@ _changeLanguage(){
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: ColorManager.primary,
-                          border:Border.all(color:ColorManager.grey,width: 1.5),
-                          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 60,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 60,
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Text(
-                                              ' Sign Out     ',
-                                              style: getBoldtStyle(
-                                                fontSize: FontSize.s16,
-                                                color:ColorManager.black,
+                  GestureDetector(
+                    onTap: (){
+                          Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorManager.primary,
+                            border:Border.all(color:ColorManager.grey,width: 1.5),
+                            borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 60,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 60,
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                  
+                                              padding: const EdgeInsets.all(12.0),
+                                              child: Text(
+                                                ' Sign Out     ',
+                                                style: getBoldtStyle(
+                                                  fontSize: FontSize.s16,
+                                                  color:ColorManager.black,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                  
                                             ),
-
-                                          ),
-                                          SizedBox(width: 150,),
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.logout,
+                                            SizedBox(width: 150,),
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.logout,
+                                              ),
+                                              color: ColorManager.black,
+                                              onPressed: () {
+                                          
+                                              },
                                             ),
-                                            color: ColorManager.black,
-                                            onPressed: () {
-
-                                            },
-                                          ),
-
-
-
-
-                                        ],
+                  
+                  
+                  
+                  
+                                          ],
+                                        ),
                                       ),
-                                    ),
-
-
-
-                                  ],
+                  
+                  
+                  
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

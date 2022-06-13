@@ -57,15 +57,15 @@ Widget userNameTextFormField(TextEditingController userNameController) {
       
     validator: (value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your user name';
+      return AppStrings.pleaseEnterYourUserName.tr();
     }
     return null;
   },
 
        controller: userNameController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.userName,
+      decoration:  InputDecoration(
+        labelText: AppStrings.userName.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -118,7 +118,7 @@ class LoginButton extends StatelessWidget {
 
        if(registerationProviderWatch.registerStatus == true) {
            
-                        //showFlutterToast( " you are logged in successfully!");
+                        showFlutterToast( AppStrings.youAreLoggedInSuccessfully.tr());
                         Navigator.pushReplacementNamed(context, Routes.homeLayout);
 
        }else{
@@ -127,7 +127,7 @@ class LoginButton extends StatelessWidget {
     
        }
         
-       
+
         },
         child: Text(AppStrings.loginTitle.tr()),
       ),
@@ -136,7 +136,7 @@ class LoginButton extends StatelessWidget {
 }
 
  showFlutterToast(String text) async{
-  await     Fluttertoast.showToast(
+  await Fluttertoast.showToast(
                           msg: text,
                           toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.CENTER,

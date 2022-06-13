@@ -44,4 +44,5 @@ class AppStrings{
   static const newToTheApp = "newToTheApp";
   static const thereIsNoGoals = "thereIsNoGoals";
   static const thereIsNoTasks = "thereIsNoTasks";
+  static const youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
 }
