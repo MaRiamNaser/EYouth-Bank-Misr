@@ -39,6 +39,8 @@
      "SignOut" : "تسجيل الخروج",
      "yourEmailOrPasswordMayBeWrong":"الايميل والباسورد ربما يكونوا خاطئين",
      "forgetPassword":"هل نسيت الباسوورد؟",
-     "newToTheApp":"جديد على التطبيق؟"
+     "newToTheApp":"جديد على التطبيق؟",
+     "thereIsNoGoals":"لا يوجد اهداف",
+     "thereIsNoTasks":"لا يوجد تاسكات"
    
  }
