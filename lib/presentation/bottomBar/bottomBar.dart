@@ -74,38 +74,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 60,
-      title: Text(
-      "${titles[currentindex]}",
-      style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-      ,),
-        leading: Padding(
-          padding: const EdgeInsets.only(left:8.0),
-          child: Container(
-
-            child: CircleAvatar(
-
-              backgroundImage: AssetImage("assets/images/BM Juniors colored small.jpg"),
-
-            ),
-          ),
-        ),
-
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right:10.0),
-            child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Image.asset(
-                  ImageAssets.profilePhoto,
-                  fit: BoxFit.fitWidth,
-                  width: 45,
-                ),
-                maxRadius: 34),
-          )
-        ],
-        ),
+     
       body: screens[currentindex],
 
    floatingActionButton: Visibility(

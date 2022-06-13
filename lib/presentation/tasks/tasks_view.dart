@@ -46,6 +46,12 @@ class _TasksViewState extends State<TasksView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+         floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorManager.primary,
+           child: Icon(Icons.add),
+            onPressed: (){
+            Navigator.pushNamed(context, Routes.addTaskViewRoute,arguments: 1);
+        },),
 
       appBar: AppBar(
         title: Text(
