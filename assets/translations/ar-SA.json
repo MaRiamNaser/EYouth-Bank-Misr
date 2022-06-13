@@ -36,6 +36,9 @@
      "Setting" : "الاعدادات",
      "Laguage" : "اللغة",
      "Notification" : "الاشعار",
-     "SignOut" : "تسجيل الخروج"
+     "SignOut" : "تسجيل الخروج",
+     "yourEmailOrPasswordMayBeWrong":"الايميل والباسورد ربما يكونوا خاطئين",
+     "forgetPassword":"هل نسيت الباسوورد؟",
+     "newToTheApp":"جديد على التطبيق؟"
    
  }

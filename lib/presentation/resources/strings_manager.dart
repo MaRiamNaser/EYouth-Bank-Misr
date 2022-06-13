@@ -39,4 +39,7 @@ class AppStrings{
   static const Laguage = "Laguage";
   static const Notification = "Notification";
   static const SignOut = "SignOut";
+  static const yourEmailOrPasswordMayBeWrong = "yourEmailOrPasswordMayBeWrong";
+  static const forgetPassword ="forgetPassword";
+  static const newToTheApp = "newToTheApp";
 }

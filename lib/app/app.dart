@@ -39,17 +39,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-late SharedPreferences sharedPreferences ;
 late AppPreferences _appPreferences ;
- getSharedPreferenceInstance () async
-{
-    sharedPreferences = await SharedPreferences.getInstance();
-}
 
   @override
   void didChangeDependencies() {
-    getSharedPreferenceInstance();
-    _appPreferences = AppPreferences(sharedPreferences);
+    _appPreferences = AppPreferences();
     _appPreferences.getLocal().then((local) => {context.setLocale(local)});
     super.didChangeDependencies();
   }

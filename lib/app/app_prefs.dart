@@ -8,13 +8,12 @@ const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
 const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 
 class AppPreferences {
-  final SharedPreferences _sharedPreferences;
-
-  AppPreferences(this._sharedPreferences);
+  late SharedPreferences _sharedPreferences;
 
 
 
   Future<String> getAppLanguage() async {
+   _sharedPreferences =  await SharedPreferences.getInstance();
     String? language = _sharedPreferences.getString(PREFS_KEY_LANG);
     if (language != null && language.isNotEmpty) {
       return language;
@@ -25,6 +24,7 @@ class AppPreferences {
   }
 
   Future<void> changeAppLanguage() async {
+    _sharedPreferences =  await SharedPreferences.getInstance();
     String currentLang = await getAppLanguage();
 
     if (currentLang == LanguageType.ARABIC.getValue()) {

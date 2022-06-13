@@ -36,6 +36,9 @@
     "Setting" : "Setting",
     "Laguage" : "Laguage",
     "Notification" : "Notifivarion",
-    "SignOut" : "SignOut"
+    "SignOut" : "SignOut",
+    "yourEmailOrPasswordMayBeWrong":"your email or password may be wrong!",
+    "forgetPassword":"هل نسيت الباسوورد؟",
+    "newToTheApp":"New to the app? "
   
 }

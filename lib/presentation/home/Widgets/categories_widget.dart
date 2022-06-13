@@ -1,5 +1,6 @@
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -52,7 +53,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             image: AssetImage(categories[index].img),
                             fit: BoxFit.fill)),
                     child: Text(
-                      categories[index].title,
+                      categories[index].title.tr(),
                       style: getBoldtStyle(
                           fontSize: 28, color: ColorManager.white),
                     ),
