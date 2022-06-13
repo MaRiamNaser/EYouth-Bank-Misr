@@ -6,6 +6,7 @@ import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
              
     if (value == null || value.isEmpty) {
      
-      return 'Please enter your password';
+      return AppStrings.pleaseEnterYourPassword.tr();
    
     }
     return null;
@@ -31,9 +32,8 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       obscureText:true,
         controller: passwordController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.password,
-      
+      decoration:  InputDecoration(
+        labelText: AppStrings.password.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -56,15 +56,15 @@ Widget userNameTextFormField(TextEditingController userNameController) {
       
     validator: (value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your user name';
+      return AppStrings.pleaseEnterYourUserName.tr();
     }
     return null;
   },
 
        controller: userNameController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.userName,
+      decoration:  InputDecoration(
+        labelText: AppStrings.userName.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -117,25 +117,25 @@ class LoginButton extends StatelessWidget {
 
        if(registerationProviderWatch.registerStatus == true) {
            
-                        //showFlutterToast( " you are logged in successfully!");
+                        showFlutterToast( AppStrings.youAreLoggedInSuccessfully.tr());
                         Navigator.pushReplacementNamed(context, Routes.homeLayout);
 
        }else{
-         showFlutterToast( " your email or password may be wrong!");
+         showFlutterToast(AppStrings.yourEmailOrPasswordMayBeWrong.tr());
        }
     
        }
         
-       
+
         },
-        child: Text("Login"),
+        child: Text(AppStrings.loginTitle.tr()),
       ),
     );
   }
 }
 
  showFlutterToast(String text) async{
-  await     Fluttertoast.showToast(
+  await Fluttertoast.showToast(
                           msg: text,
                           toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.CENTER,
@@ -149,9 +149,9 @@ class LoginButton extends StatelessWidget {
 Widget forgetPasswordWidget(){
 
   return Container(
-              margin: EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20),
+              margin: EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20, left: AppMargin.m20),
               child: Text(
-                          "Forgot your password?",
+                          AppStrings.forgetPassword.tr(),
                           style: getRegularStyle(color: ColorManager.grey),
                         ),
             );
@@ -160,17 +160,17 @@ Widget forgetPasswordWidget(){
 
 Widget newToTheAppWidget(BuildContext context){
 
-  return               Container(
-                    margin:EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20),
+  return  Container(
+                    margin:EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20, left: AppMargin.m20),
                     //child: Text('Don\'t have an account? Create'),
                     child: Text.rich(
                       TextSpan(children: [
-                      TextSpan(text: "New to the app? ",
+                      TextSpan(text: AppStrings.newToTheApp.tr(),
                        style: getRegularStyle(color: ColorManager.black,)
                        ),
                       TextSpan(
                         
-                        text: 'Register',
+                        text: AppStrings.registerTitle.tr(),
                         
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {

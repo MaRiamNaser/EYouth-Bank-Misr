@@ -38,15 +38,26 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        body: AnimatedSplashScreen(
-      splashIconSize: 70,
-      splash:
-          const Center(child: Image(image: AssetImage(ImageAssets.splashLogo))),
-      nextScreen: Container(),
-      disableNavigation: true,
-      //splashTransition: SplashTransition.sizeTransition,
-      splashTransition: SplashTransition.fadeTransition,
-    ));
+        body: Stack(
+          children: [
+            AnimatedSplashScreen(
+              splashIconSize: 70,
+              splash:
+             const Center(child: Image(image: AssetImage(ImageAssets.splashLogo))),
+              nextScreen: Container(),
+              disableNavigation: true,
+              //splashTransition: SplashTransition.sizeTransition,
+              splashTransition: SplashTransition.fadeTransition,
+            
+            ),
+             Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text("Powered by Eyouth Tech team."),
+                  )
+          ],
+       
+        )
+    ,);
   }
 
   @override

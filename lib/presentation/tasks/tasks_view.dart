@@ -5,6 +5,8 @@ import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -94,6 +96,7 @@ class _TasksViewState extends State<TasksView> {
          scrollDirection: Axis.vertical,
       child: Column(
         children: [
+            tasks.length == 0? Center(child: Text(AppStrings.thereIsNoTasks.tr())): 
           ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,

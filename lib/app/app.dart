@@ -1,6 +1,9 @@
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/resources/theme_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../presentation/addTasksGoals/addGoal/add_goal.dart';
 import '../presentation/addTasksGoals/addTask/add_task.dart';
@@ -35,9 +38,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+late AppPreferences _appPreferences ;
+
+  @override
+  void didChangeDependencies() {
+    _appPreferences = AppPreferences();
+    _appPreferences.getLocal().then((local) => {context.setLocale(local)});
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.getRoute,
       initialRoute: Routes.splashRoute,

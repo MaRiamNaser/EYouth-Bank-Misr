@@ -44,6 +44,11 @@ dependencies:
   http:
   dio:
   fluttertoast:
+  easy_localization:
+  flutter_phoenix:
+  dio:
+  fluttertoast: ^8.0.9
+
   rflutter_alert: ^2.0.4
   confetti:
   shared_preferences:
@@ -73,6 +78,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/translations/ar-SA.json
+    - assets/translations/en-US.json
   fonts:
     - family: Montserrat
       fonts:
