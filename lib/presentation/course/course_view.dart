@@ -16,18 +16,18 @@ import '../../Data/models/Video.dart';
 import '../resources/routes_manager.dart';
 
 class CourseView extends StatefulWidget {
-  List<String> image;
-  CourseView(this.image);
+  List<String> course;
+  CourseView(this.course);
 
   @override
-  _CourseViewState createState() => _CourseViewState(image);
+  _CourseViewState createState() => _CourseViewState(course);
 }
 
 class _CourseViewState extends State<CourseView> {
 
   late List<Video> AllVideos;
-List<String>  image;
-  _CourseViewState(this.image);
+List<String>  course;
+  _CourseViewState(this.course);
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +36,7 @@ List<String>  image;
   }
 
   Load() async {
-    AllVideos = await BlocProvider.of<VideoCubit>(context).GetAllVideos("Url");
+    AllVideos = await BlocProvider.of<VideoCubit>(context).GetAllVideos(course[2]);
   }
 
   @override
@@ -44,7 +44,7 @@ List<String>  image;
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(image[1]),
+        title: Text(course[1]),
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Column(
@@ -63,7 +63,7 @@ List<String>  image;
                         topLeft: Radius.circular(AppSize.s50),
                         topRight: Radius.circular(AppSize.s50)),
                     image: DecorationImage(
-                image:  NetworkImage(image[0])
+                image:  NetworkImage(course[0])
               ,fit: BoxFit.cover,
             )),),
           ),

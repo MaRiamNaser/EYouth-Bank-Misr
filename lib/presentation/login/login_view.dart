@@ -34,7 +34,6 @@ class _RegisterNamePageState extends State<LoginView> {
     registerationProviderRead = context.read<RegisterationProvider>();
     registerationProviderWatch = context.watch<RegisterationProvider>();
  
-
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(

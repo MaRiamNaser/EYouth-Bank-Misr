@@ -1,8 +1,10 @@
 
+import 'package:bank_misr/Data/web_services/balance_services.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Data/models/Quiz.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_manager.dart';
@@ -27,7 +29,19 @@ class _QuizWidgetState extends State<QuizWidget> {
   ];
   bool isclicked=false;
   Quiz quiz;
+  var token;
   _QuizWidgetState(this.quiz);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Load();
+  }
+  Load() async {
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+     token=sharedPreferences.getString("token");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +135,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                           color: ColorManager.darkPrimary,
 
                         ),
-                        child: TextButton(onPressed: isclicked?null:(){
+                        child: TextButton(onPressed: isclicked?null:() async {
                           int index=colors.indexOf(ColorManager.darkPrimary);
                           setState(() {
                             isclicked=true;
@@ -135,6 +149,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                               colors[index1]= Colors.green;
                             }
                           });
+                         await balanceServices().EditBalance(token, 100);
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
                               shape: RoundedRectangleBorder(

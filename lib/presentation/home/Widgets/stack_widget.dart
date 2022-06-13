@@ -27,8 +27,8 @@ class StackWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 
-                 Center(child: Text( "Welcome Omar"/*profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname*/,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
-                 Center(child: Text( "Set your Goals, Learn & Earn."/*profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname*/,style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
+                 Center(child: Text( profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
+                 Center(child: Text( "Set your Goals, Learn & Earn.",style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
 
                 
                 
@@ -62,7 +62,7 @@ class StackWidget extends StatelessWidget {
                     child :Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
+                        Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
                         Text("EGP",style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
                       ],

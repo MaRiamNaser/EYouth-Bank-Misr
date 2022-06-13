@@ -1,19 +1,19 @@
 import 'dart:io';
 
+import 'package:bank_misr/Data/api_links.dart';
+import 'package:bank_misr/Data/html_request.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileServices
 {
-  Future<String> GetProfile (String Url)async
+  Future<String> GetProfile (String token)async
   {
     try{
-      var response= await http.get(Uri.parse("http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/user/myaccount"),headers: <String,String>{"Content-Type": "application/json",
-        HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+      var response= await getRequest(profileLink,token: token);
       return response.body;
     }catch(e)
     {
       return "Error";
     }
   }
-
 }
