@@ -35,6 +35,12 @@ class _coursesViewState extends State<coursesView> {
   Load() async {
     AllCourses = await BlocProvider.of<CourseCubit>(context).GetAllCourses("Url");
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    BlocProvider.of<CourseCubit>(context).close();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: i==1?AppBar(

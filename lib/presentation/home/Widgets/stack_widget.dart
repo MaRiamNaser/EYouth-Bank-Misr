@@ -23,23 +23,21 @@ class StackWidget extends StatelessWidget {
           ),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                
+                SizedBox(height: 1/825 * screensize.height * 25,),
                  Center(child: Text( profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
                  Center(child: Text( "Set your Goals, Learn & Earn.",style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
+                SizedBox(height: 1/825 * screensize.height * 38,),
+                Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white)),
 
-                
-                
-                SizedBox(height: 1/825 * screensize.height * 12,),
-                Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white))
               ],
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left:130,top: 150),
+          padding: EdgeInsets.only(left:130,top: 135),
           child: Container(
             height: 140 ,
             width: 140 ,

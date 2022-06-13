@@ -31,6 +31,7 @@ class _HomeViewState extends State<HomeView> {
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     var token=sharedPreferences.getString("token");
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    balance=profile.balance;
   }
 
   @override

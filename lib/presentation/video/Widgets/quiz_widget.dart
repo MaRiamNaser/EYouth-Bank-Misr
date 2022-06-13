@@ -1,6 +1,7 @@
 
 import 'package:bank_misr/Data/web_services/balance_services.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -55,9 +56,7 @@ class _QuizWidgetState extends State<QuizWidget> {
       itemCount: 1 ,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {},
-          child: Column(
+        return Column(
             children: [
               Container(
                 padding: EdgeInsets.only(
@@ -136,6 +135,7 @@ class _QuizWidgetState extends State<QuizWidget> {
 
                         ),
                         child: TextButton(onPressed: isclicked?null:() async {
+                          print("clicked");
                           int index=colors.indexOf(ColorManager.darkPrimary);
                           setState(() {
                             isclicked=true;
@@ -171,7 +171,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                             width: 190,
-                                              child: Text("100 EGP  Has Been Added To Your Wallet!",
+                                              child: Text("100 EGP  Has Been Added To Your Wallet!\n Your Balance Now is $balance",
                                                 style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
                                                 textAlign: TextAlign.center,)),
                                         ),
@@ -190,29 +190,19 @@ class _QuizWidgetState extends State<QuizWidget> {
                                             child: TextButton(
                                               child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
                                               onPressed: () {
-                                                currentindex=2;
-                                                Navigator.pushReplacementNamed(context, Routes.homeLayout);
+                                                Navigator.of(context).pop();
                                               },
                                             ),
                                           ),
                                         )
-
                                       ],
                             );
                           });
-
                         },
-
-                            child:  new GestureDetector(
-                              onTap: () {
-
-                                // Navigator.pushNamed(context, "");
-                              },
-                              child: new Text("Submit",style: TextStyle(color: ColorManager.white),),
+                            child:  Text("Submit",style: TextStyle(color: ColorManager.white),),
                             )
                         ),
                       ),
-                    )
                   ],
                 ),
               ),
@@ -220,10 +210,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 height: 1 / 825 * screensize.height * AppSize.s20,
               ),
             ],
-
-          ),
-
-        );
+          );
       },
     );
   }
