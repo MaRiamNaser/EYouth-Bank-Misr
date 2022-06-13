@@ -1,3 +1,4 @@
+import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Data/models/Profile.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
@@ -21,16 +23,25 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   late Profile profile;
-
+  bool visable=true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Load();
+      Load();
+    Future.delayed(const Duration(seconds: 7), (){
+      if (this.mounted) {
+      setState(() {
+        visable=false;
+      });
+    }
+      });
   }
 
   Load() async {
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile("Url");
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    var token=sharedPreferences.getString("token");
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
   }
 
   @override
@@ -76,7 +87,7 @@ class _ProfileViewState extends State<ProfileView> {
                               child: Column(
                                 children: [
                                   Center(
-                                      child: Text("Omar",
+                                      child: Text(profile.fullname,
                                           style: getSemiBoldStyle(
                                               fontSize: 16,
                                               color: ColorManager.black))),
@@ -84,7 +95,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     height: 1 / 825 * screensize.height * 4.0,
                                   ),
                                   Text(
-                                    "Omar11",
+                                    profile.username,
                                     style: getMediumStyle(
                                         fontSize: 12, color: ColorManager.black),
                                   ),
@@ -99,7 +110,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Omar@gmail.com",
+                                        profile.email,
                                         style: getMediumStyle(
                                             fontSize: 16,
                                             color: ColorManager.black),
@@ -114,7 +125,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("11" + " Years old",
+                                      Text(profile.age.toString() + " Years old",
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -153,8 +164,9 @@ class _ProfileViewState extends State<ProfileView> {
                     fit: BoxFit.cover,
                   ),
                 )),
-
-          Lottie.asset("assets/images/99718-confetti-animation.json"),
+          Visibility(
+            visible: visable ,
+              child: Lottie.asset("assets/images/99718-confetti-animation.json"))
           ],
         ),
       ),

@@ -4,8 +4,8 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 class BalanceWidget extends StatelessWidget {
-  //int balance;
-  BalanceWidget(balance);
+  int balance;
+  BalanceWidget(this.balance);
 
   @override
   Widget build(BuildContext context) {

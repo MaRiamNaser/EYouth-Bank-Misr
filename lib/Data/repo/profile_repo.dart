@@ -8,8 +8,8 @@ class ProfileRepo {
 
   ProfileRepo(this._ProfileServices);
 
-  Future<Profile> GetProfile(Url) async {
-    var body = await _ProfileServices.GetProfile(Url);
+  Future<Profile> GetProfile(token) async {
+    var body = await _ProfileServices.GetProfile(token);
     var jsonresponse = json.decode(body);
     var list = jsonresponse["data"];
     return Profile.fromJson(list);

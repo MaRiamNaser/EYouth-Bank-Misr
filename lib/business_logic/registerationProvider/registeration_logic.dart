@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bank_misr/data/models/User.dart';
 import 'package:bank_misr/data/web_services/registeration_services.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterationProvider extends ChangeNotifier {
   int index = 0;
@@ -78,13 +79,15 @@ changeregisterStatus(bool registerStatus){
 registerStatus =false;
  await   registerationWebServices
         .signIn(this.email!,this.password!)
-        .then((value) {
+        .then((value) async {
           response = jsonDecode(value);
           if(response["apiStatus"] == true){
              registerStatus = true;
              localToken = response["data"]["token"];
              currentUser = User.fromJson(response["data"]["user"]);
-
+             SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+             sharedPreferences.setString("token", localToken!);
+             sharedPreferences.setString("userid", currentUser!.sId!);
           }else{
             registerStatus = false;
           }
