@@ -5,14 +5,21 @@ import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../Data/repo/task_repo.dart';
 import '../../Data/web_services/taskConfirmDelete_services.dart';
 import '../../Data/web_services/taskConfirmEdit_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../Data/repo/task_repo.dart';
+import '../../Data/web_services/balance_services.dart';
 import '../../Data/web_services/task_services.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
@@ -28,6 +35,7 @@ class TasksView extends StatefulWidget {
 class _TasksViewState extends State<TasksView> {
   taskconfirmDeleteServices delete= taskconfirmDeleteServices();
   taskConfirmEditServices edit= taskConfirmEditServices();
+  var token;
   late List<Task> tasks=[];
   @override
   void initState() {
@@ -40,6 +48,8 @@ class _TasksViewState extends State<TasksView> {
   {
 
     tasks=await TaskRepo(TaskServices()).GetAllTasks("Url");
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    token=sharedPreferences.getString("token");
     setState(() {
 
     });
@@ -47,6 +57,12 @@ class _TasksViewState extends State<TasksView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+         floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorManager.primary,
+           child: Icon(Icons.add),
+            onPressed: (){
+            Navigator.pushNamed(context, Routes.addTaskViewRoute,arguments: 1);
+        },),
 
       appBar: AppBar(
         title: Text(
@@ -93,6 +109,7 @@ class _TasksViewState extends State<TasksView> {
          scrollDirection: Axis.vertical,
       child: Column(
         children: [
+            tasks.length == 0? Center(child: Text(AppStrings.thereIsNoTasks.tr())): 
           ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -166,8 +183,9 @@ class _TasksViewState extends State<TasksView> {
 
                       children: [
                         IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
-                        setState(() {
-                          balance += 20;
+                        setState(() async {
+
+                          await balanceServices().EditBalance(token, 20);
                           showDialog(context: context, builder: (BuildContext context) {
                             return AlertDialog(
                               shape: RoundedRectangleBorder(

@@ -119,11 +119,11 @@ class RouteGenerator {
         )
         );
       case Routes.courseViewRoute:
-          List<String> image = settings.arguments as List<String>;
+          List<String> course = settings.arguments as List<String>;
         return MaterialPageRoute(builder: (_) =>
             BlocProvider(
               create: (context) => blocGenerator().videoCubit,
-              child: CourseView(image),
+              child: CourseView(course),
             ));
       case Routes.videoViewRoute:
         Video video=settings.arguments as Video;

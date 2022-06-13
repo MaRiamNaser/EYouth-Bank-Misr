@@ -4,6 +4,7 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,15 +19,15 @@ Widget nameTextFormField(TextEditingController fullNameController) {
       controller: fullNameController,
       validator: (val) {
         if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourName;
+          return AppStrings.pleaseEnterYourName.tr();
         }
         return null;
       },
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.name,
+      decoration:  InputDecoration(
+        labelText: AppStrings.name.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -49,15 +50,15 @@ Widget emailTextFormField(TextEditingController emailController) {
       controller: emailController,
       validator: (val) {
         if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourEmail;
+          return AppStrings.pleaseEnterYourEmail.tr();
         }
         return null;
       },
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.email,
+      decoration:  InputDecoration(
+        labelText: AppStrings.email.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -80,7 +81,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       controller: passwordController,
       validator: (val) {
         if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourPassword;
+          return AppStrings.pleaseEnterYourPassword.tr();
         }
         return null;
       },
@@ -88,8 +89,8 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
        obscureText:true,
-      decoration: const InputDecoration(
-        labelText: AppStrings.password,
+      decoration:  InputDecoration(
+        labelText: AppStrings.password.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -112,15 +113,15 @@ Widget userNameTextFormField(TextEditingController fullNameController) {
       controller: fullNameController,
       validator: (val) {
         if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourUserName;
+          return AppStrings.pleaseEnterYourUserName.tr();
         }
         return null;
       },
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.userName,
+      decoration:  InputDecoration(
+        labelText: AppStrings.userName.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -143,15 +144,15 @@ Widget ageTextFormField(TextEditingController ageController) {
       controller: ageController,
       validator: (val) {
         if (val!.isEmpty) {
-          return AppStrings.pleaseEnterYourAge;
+          return AppStrings.pleaseEnterYourAge.tr();
         }
         return null;
       },
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.age,
+      decoration:  InputDecoration(
+        labelText: AppStrings.age.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -229,7 +230,7 @@ class ContinueButton extends StatelessWidget {
            //await registerationProviderRead.signUp();
            
 
-        print("zft");
+  
        
 
         //  if(registerationProviderWatch.registerStatus == true){
@@ -250,7 +251,7 @@ class ContinueButton extends StatelessWidget {
            
           }
         },
-        child: Text(AppStrings.continueString),
+        child: Text(AppStrings.continueString.tr()),
       ),
     );
   }

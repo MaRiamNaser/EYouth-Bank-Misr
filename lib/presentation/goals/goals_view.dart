@@ -9,6 +9,9 @@ import 'package:bank_misr/Data/repo/goal_repo.dart';
 import 'package:bank_misr/Data/web_services/goal_services.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/routes_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -42,7 +45,7 @@ class _GoalViewState extends State<Goalsview> {
    }
    Load()async
    {
-    goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
+    goals = await GoalRepo(GoalServices()).GetAllGoals("Url");
     setState(() {
 
     });
@@ -59,6 +62,12 @@ class _GoalViewState extends State<Goalsview> {
           ,)
         , 
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorManager.primary,
+          child: Icon(Icons.add),
+          onPressed: (){
+            Navigator.pushNamed(context, Routes.addGoalViewRoute);
+        },),
       body: Column(
         children: [
           Container(
@@ -98,7 +107,7 @@ class _GoalViewState extends State<Goalsview> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-
+                  goals.length == 0? Center(child: Text(AppStrings.thereIsNoGoals.tr())): 
                     ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

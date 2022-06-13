@@ -18,6 +18,7 @@ class Profile {
     required this.age,
     required this.createdAt,
     required this.updatedAt,
+    required this.image,
   });
 
   String id;
@@ -28,7 +29,7 @@ class Profile {
   int age;
   DateTime createdAt;
   DateTime updatedAt;
-
+  String image;
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
     id: json["_id"],
     fullname: json["fullname"],
@@ -37,7 +38,9 @@ class Profile {
     balance: json["balance"],
     age: json["age"],
     createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"])
+    , image: json["image"],
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +52,6 @@ class Profile {
     "age": age,
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
+    'image':image
   };
 }

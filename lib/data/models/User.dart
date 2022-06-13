@@ -5,7 +5,7 @@ class User {
   String? username;
   String? email;
   int? balance;
-  String? age;
+  int? age;
   String? createdAt;
   String? updatedAt;
 

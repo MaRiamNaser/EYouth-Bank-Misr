@@ -1,10 +1,12 @@
 import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
+import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../resources/assets_manager.dart';
 import 'Widgets/categories_widget.dart';
 
@@ -26,7 +28,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Load() async {
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile("Url");
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    var token=sharedPreferences.getString("token");
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    balance=profile.balance;
   }
 
   @override

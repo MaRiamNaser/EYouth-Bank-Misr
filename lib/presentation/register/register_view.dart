@@ -7,6 +7,7 @@ import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +83,7 @@ class _RegisterNamePageState extends State<RegisterView> {
             leadingWidth:120,
           backgroundColor: ColorManager.white,
             title: Text(
-              AppStrings.registerTitle,
+              AppStrings.registerTitle.tr(),
               style: getSemiBoldStyle(color: ColorManager.black),
             ),
              leading: Container(

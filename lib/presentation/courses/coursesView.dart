@@ -35,8 +35,15 @@ class _coursesViewState extends State<coursesView> {
   Load() async {
     AllCourses = await BlocProvider.of<CourseCubit>(context).GetAllCourses("Url");
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    BlocProvider.of<CourseCubit>(context).close();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
+ 
         appBar: i==1?AppBar(
           leadingWidth: 60,
           title: Text(
@@ -119,7 +126,7 @@ class _coursesViewState extends State<coursesView> {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: (){
-                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title]);
+                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: AppPadding.p14),

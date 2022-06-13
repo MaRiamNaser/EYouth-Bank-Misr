@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bank_misr/Data/api_links.dart';
 import 'package:bank_misr/Data/web_services/addTask_services.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
@@ -13,7 +14,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../business_logic/registerationProvider/registeration_logic.dart';
 import '../Widgets/text_field.dart';
 
 
@@ -36,13 +39,25 @@ class _AddBodyState extends State<AddBody> {
   String photo;
   String choice;
   String alertPhoto;
+  var token;
+  var userid;
   _AddBodyState(this.title,this.photo, this.choice,this.alertPhoto);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    load();
+  }
+  Future<void> load()
+  async {
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+     token=sharedPreferences.getString("token");
+     userid=sharedPreferences.getString("userid");
+  }
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
     return Scaffold(
-
-    
         body:
         SingleChildScrollView(
           child:
@@ -56,7 +71,7 @@ class _AddBodyState extends State<AddBody> {
                 SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
                 Container(
                   padding: EdgeInsets.all(AppPadding.p18),
-                  height: 1/825 * screensize.height *440 ,
+                  height: 1/825 * screensize.height *400 ,
                   width: 1/393* screensize.width * 300,
                   decoration:  BoxDecoration(
                     border: Border.all(
@@ -78,7 +93,7 @@ class _AddBodyState extends State<AddBody> {
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                       const Text("Description"),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                      getTextField("Write Your $choice here...",1/825 * screensize.height *180,8,AppPadding.p20,AppSize.s20,descTextController,(text){
+                      getTextField("Write Your $choice here...",1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
                         setState(() {
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
@@ -96,15 +111,14 @@ class _AddBodyState extends State<AddBody> {
 
                           child: TextButton(onPressed: ()async{
                             if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                              goals.add(GoalsList(number: 4,name: titleTextController.text));
-                             showDialog(context: context, builder: (BuildContext context) {
-                                    return  alertdialog(choice,alertPhoto);
-                                  });
-                              // if(
-                              // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
-                              //   {
-                                  
-                              //   }
+
+                              if(
+                               await AddTaskServices().AddTaskorGoal(choice=="Goal"?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid))
+                                 {
+                                   showDialog(context: context, builder: (BuildContext context) {
+                                     return  alertdialog(choice,alertPhoto);
+                                   });
+                                 }
                             }
                           },
                               child: Row(

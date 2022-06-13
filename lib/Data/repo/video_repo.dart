@@ -11,9 +11,9 @@ class VideoRepo
 
   VideoRepo(this._videoServices);
 
-  Future<List<Video>> GetAllVideos(Url)async
+  Future<List<Video>> GetAllVideos(courseid)async
   {
-    var body = await _videoServices.GetAllVideos(Url);
+    var body = await _videoServices.GetAllVideos(courseid);
     var jsonresponse =json.decode(body);
     var list=jsonresponse["videos"] as List<dynamic>;
     return list.map((e) => Video.fromJson(e)).toList();
