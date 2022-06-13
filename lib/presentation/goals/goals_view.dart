@@ -37,7 +37,7 @@ class _GoalViewState extends State<Goalsview> {
    }
    Load()async
    {
-    goals=await GoalRepo(GoalServices()).GetAllGoals("Url");
+    goals = await GoalRepo(GoalServices()).GetAllGoals("Url");
     setState(() {
 
     });
@@ -93,7 +93,7 @@ class _GoalViewState extends State<Goalsview> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-
+                  goals.length == 0? Center(child: Text(AppStrings.thereIsNoGoals.tr())): 
                     ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
