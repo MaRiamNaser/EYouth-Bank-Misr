@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:bank_misr/Data/models/Task.dart';
+import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -12,11 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../Data/repo/task_repo.dart';
+import '../../Data/web_services/taskConfirmDelete_services.dart';
+import '../../Data/web_services/taskConfirmEdit_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Data/repo/task_repo.dart';
 import '../../Data/web_services/balance_services.dart';
 import '../../Data/web_services/task_services.dart';
+import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
 import '../resources/routes_manager.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +33,8 @@ class TasksView extends StatefulWidget {
 }
 
 class _TasksViewState extends State<TasksView> {
+  taskconfirmDeleteServices delete= taskconfirmDeleteServices();
+  taskConfirmEditServices edit= taskConfirmEditServices();
   var token;
   late List<Task> tasks=[];
   @override
@@ -172,7 +179,6 @@ class _TasksViewState extends State<TasksView> {
                         textAlign: TextAlign.left,
                       ),
                     ),
-
                     Row(
 
                       children: [
@@ -195,8 +201,7 @@ class _TasksViewState extends State<TasksView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Lottie.asset("assets/images/7455-loading1.json",height: 145,width:250, )
-                                    ,
+                                    Lottie.asset("assets/images/7455-loading1.json",height: 145,width:250, ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
@@ -220,7 +225,13 @@ class _TasksViewState extends State<TasksView> {
                                     ),
                                     child: TextButton(
                                       child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
-                                      onPressed: () {
+                                      onPressed: ()
+                                        async {
+                                        var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/${task.id}'),
+                                        headers: <String,String>{"Content-Type": "application/json",
+                                        HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+                                        print(response.statusCode);
+
 
                                         Navigator.of(context).pop();
                                         currentindex=2;
@@ -232,16 +243,21 @@ class _TasksViewState extends State<TasksView> {
 
                               ],
                             );
+
                           });
+
                         });
+                        },
+                        ),
+                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {
+                          // confirmEdit(task.id,task.title,task.description);
+                          edit.confirmEdit(task.id, task.title,task.description, context);
                         },
 
                         ),
-                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
-
-                        ),
                         IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {
-                          confirmDelete(task.id);
+                          // confirmDelete(task.id);
+                          delete.confirmDelete(task.id, context);
 
                         },
 
@@ -255,31 +271,36 @@ class _TasksViewState extends State<TasksView> {
           ),
         ),
       );
-  void confirmDelete(String id) {
-    showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
-      title: Text("Delete"),
-      content: Text(" Are you sure !?"),
-      actions: [
-        FlatButton(child: Text("yes"),
-          onPressed: () async {
-          var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/$id'),
-              headers: <String,String>{"Content-Type": "application/json",
-                HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
-          print(response.statusCode);
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
+  // void confirmDelete(String id) {
+  //   showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
+  //     title: Text("Delete"),
+  //     content: Text(" Are you sure !?"),
+  //     actions: [
+  //       FlatButton(child: Text("yes"),
+  //         onPressed: () async {
+  //         var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/$id'),
+  //             headers: <String,String>{"Content-Type": "application/json",
+  //               HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+  //         print(response.statusCode);
+  //           Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
+  //
+  //
+  //         }, ),
+  //       FlatButton(onPressed: (){
+  //         Navigator.pop(context);
+  //
+  //       }, child: Text("no")),
+  //     ],
+  //
+  //   )
+  //   );
+  //
+  // }
+  // void confirmEdit(String Id,String Title, String Description) {
+  //   Navigator.push(context, MaterialPageRoute(builder: (context)=> EditTask(Id,Title,Description)));
+  // }
 
 
-          }, ),
-        FlatButton(onPressed: (){
-          Navigator.pop(context);
-
-        }, child: Text("no")),
-      ],
-
-    )
-    );
-
-  }
 }
 
 
