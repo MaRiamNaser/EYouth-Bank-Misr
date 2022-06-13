@@ -1,10 +1,15 @@
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 bool langSwitch = false;
 bool notifySwitch = false;
 bool signoutSwitch = false;
@@ -16,7 +21,13 @@ class settingView extends StatefulWidget {
 }
 
 class _SettingViewState extends State<settingView> {
+late AppPreferences _appPreferences ;
 
+_changeLanguage(){
+    _appPreferences = AppPreferences();
+    _appPreferences.changeAppLanguage();
+    Phoenix.rebirth(context);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +107,7 @@ class _SettingViewState extends State<settingView> {
 
                                             padding: const EdgeInsets.all(12.0),
                                             child: Text(
-                                              'Language   ',
+                                              AppStrings.Laguage.tr(),
                                               style: getBoldtStyle(
                                                 fontSize: FontSize.s16,
                                                 color:ColorManager.black,
@@ -112,6 +123,7 @@ class _SettingViewState extends State<settingView> {
                                               activeColor: ColorManager.green,
                                               value: langSwitch,
                                               onChanged: (value) {
+                                                _changeLanguage();
                                                 setState(()
                                                 {langSwitch = value;});
                                               },
