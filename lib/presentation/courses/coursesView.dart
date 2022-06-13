@@ -43,6 +43,7 @@ class _coursesViewState extends State<coursesView> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
+ 
         appBar: i==1?AppBar(
           leadingWidth: 60,
           title: Text(
