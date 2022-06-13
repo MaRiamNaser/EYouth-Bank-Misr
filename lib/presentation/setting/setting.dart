@@ -119,16 +119,26 @@ _changeLanguage(){
 
                                           ),
                                           SizedBox(width: 150,),
-                                          Container(
-                                            child: Switch(
-                                              activeColor: ColorManager.green,
-                                              value: langSwitch,
-                                              onChanged: (value) {
-                                                _changeLanguage();
-                                                setState(()
-                                                {langSwitch = value;});
-                                              },
-                                            ),
+                                          Row(
+                                            children: [
+                                               Text(AppStrings.ar.tr()),
+                                            
+                                             
+                                             
+                                              Container(
+                                            
+                                                child: Switch(
+                                                  activeColor: ColorManager.green,
+                                                  value: langSwitch,
+                                                  onChanged: (value) {
+                                                    _changeLanguage();
+                                                    setState(()
+                                                    {langSwitch = value;});
+                                                  },
+                                                ),
+                                              ),
+                                                  Text(AppStrings.en.tr()),
+                                            ],
                                           ),
 
 
@@ -249,7 +259,7 @@ _changeLanguage(){
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                  
+                 
                                               padding: const EdgeInsets.all(12.0),
                                               child: Text(
                                                 ' Sign Out     ',
@@ -263,6 +273,8 @@ _changeLanguage(){
                   
                                             ),
                                             SizedBox(width: 150,),
+
+                                           
                                             IconButton(
                                               icon: Icon(
                                                 Icons.logout,
@@ -272,6 +284,7 @@ _changeLanguage(){
                                           
                                               },
                                             ),
+                                          
                   
                   
                   

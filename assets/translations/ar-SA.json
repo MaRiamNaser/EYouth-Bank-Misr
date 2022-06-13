@@ -42,6 +42,8 @@
      "newToTheApp":"جديد على التطبيق؟",
      "thereIsNoGoals":"لا يوجد اهداف",
      "thereIsNoTasks":"لا يوجد تاسكات",
-     "youAreLoggedInSuccessfully": "لقد تم التسجيل بنجاح"
+     "youAreLoggedInSuccessfully": "لقد تم التسجيل بنجاح",
+     "ar":"العربية",
+     "en":"English"
    
  }

@@ -42,6 +42,8 @@
     "newToTheApp":"New to the app? ",
     "thereIsNoGoals":"There is no goals..",
     "thereIsNoTasks":"There is no tasks..",
-    "youAreLoggedInSuccessfully": "You have been logged in successfully"
-  
+    "youAreLoggedInSuccessfully": "You have been logged in successfully",
+    "ar":"Arabic",
+    "en":"English"
+
 }

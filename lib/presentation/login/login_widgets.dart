@@ -24,7 +24,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
              
     if (value == null || value.isEmpty) {
      
-      return 'Please enter your password';
+      return AppStrings.pleaseEnterYourPassword.tr();
    
     }
     return null;
@@ -32,9 +32,8 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       obscureText:true,
         controller: passwordController,
       // keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
-        labelText: AppStrings.password,
-      
+      decoration:  InputDecoration(
+        labelText: AppStrings.password.tr(),
         fillColor: Colors.white,
         filled: true,
       ),
@@ -150,7 +149,7 @@ class LoginButton extends StatelessWidget {
 Widget forgetPasswordWidget(){
 
   return Container(
-              margin: EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20),
+              margin: EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20, left: AppMargin.m20),
               child: Text(
                           AppStrings.forgetPassword.tr(),
                           style: getRegularStyle(color: ColorManager.grey),
@@ -162,7 +161,7 @@ Widget forgetPasswordWidget(){
 Widget newToTheAppWidget(BuildContext context){
 
   return  Container(
-                    margin:EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20),
+                    margin:EdgeInsets.only(right: AppMargin.m20, top: AppMargin.m20, bottom: AppMargin.m20, left: AppMargin.m20),
                     //child: Text('Don\'t have an account? Create'),
                     child: Text.rich(
                       TextSpan(children: [

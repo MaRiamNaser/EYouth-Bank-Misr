@@ -45,4 +45,6 @@ class AppStrings{
   static const thereIsNoGoals = "thereIsNoGoals";
   static const thereIsNoTasks = "thereIsNoTasks";
   static const youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
+  static const en = "en";
+  static const ar = "ar";
 }
