@@ -42,4 +42,9 @@ class AppStrings{
   static const yourEmailOrPasswordMayBeWrong = "yourEmailOrPasswordMayBeWrong";
   static const forgetPassword ="forgetPassword";
   static const newToTheApp = "newToTheApp";
+  static const thereIsNoGoals = "thereIsNoGoals";
+  static const thereIsNoTasks = "thereIsNoTasks";
+  static const youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
+  static const en = "en";
+  static const ar = "ar";
 }
