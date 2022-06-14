@@ -10,7 +10,17 @@ const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 class AppPreferences {
   late SharedPreferences _sharedPreferences;
 
+getLocalToken()async{
 
+  SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+  return sharedPreferences.getString("token");
+}
+
+saveTokenAndUserIdToSharedPrefrences(String localToken, String id) async{
+   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+             sharedPreferences.setString("token",localToken);
+             sharedPreferences.setString("userid",id);
+}
 
   Future<String> getAppLanguage() async {
    _sharedPreferences =  await SharedPreferences.getInstance();

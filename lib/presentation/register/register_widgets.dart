@@ -82,6 +82,9 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       validator: (val) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourPassword.tr();
+        }else if(val!.length < 8){
+          return AppStrings.passwordShouldBeMoreThanEightChars.tr();
+
         }
         return null;
       },
@@ -182,7 +185,6 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     RegisterationProvider registerationProviderRead =
         context.read<RegisterationProvider>();
-
     RegisterationProvider registerationProviderWatch =
         context.watch<RegisterationProvider>();
     return Container(
@@ -202,53 +204,46 @@ class ContinueButton extends StatelessWidget {
         onPressed: ()  async{
           if (registerationProviderWatch.index <= 4) {
             if (registerationProviderWatch.index == 0) {
-            //  if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 registerationProviderRead.setFullName(fullNameController.text);
                 registerationProviderRead.increaseIndex();
-             // }
+              }
             }else if (registerationProviderWatch.index == 1) {
-            //  if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                registerationProviderRead.setEmail(emailController.text);
                 registerationProviderRead.increaseIndex();
-            //  }
+              }
             }  else if (registerationProviderWatch.index == 2) {
-            //  if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 registerationProviderRead.setAge(ageController.text);
                 registerationProviderRead.increaseIndex();
-           //   }
+              }
             } else if (registerationProviderWatch.index == 3) {
-              //if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 registerationProviderRead.setUserName(userNameController.text);
                 registerationProviderRead.increaseIndex();
-              //}
+              }
             }
             else if (registerationProviderWatch.index == 4) {
-         //    if (formKey.currentState!.validate())  {
+             if (formKey.currentState!.validate())  {
              registerationProviderRead.setPassword(passwordController.text);
-            //    print(registerationProviderRead.index);
+                print(registerationProviderRead.index);
                 
-           //await registerationProviderRead.signUp();
-           
+           await registerationProviderRead.signUp();
 
-  
-       
+          if(registerationProviderWatch.registerStatus == true){
 
-        //  if(registerationProviderWatch.registerStatus == true){
-         //   print("user added!");
-          
             showFlutterToast("You have been registred successfully");
-            Navigator.pushReplacementNamed(context, Routes.homeLayout);
-
+            Navigator.pushReplacementNamed(context, Routes.loginRoute);
            
-      /*    }else{
+         }else{
             print("user not added !");
-             showFlutterToast("Something went wrong!!");
+             showFlutterToast("This user is already exist!");
 
-          }*/
-           //   }
+          }
+              }
             }
 
-           
           }
         },
         child: Text(AppStrings.continueString.tr()),

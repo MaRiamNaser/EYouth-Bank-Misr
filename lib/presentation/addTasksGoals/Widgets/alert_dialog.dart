@@ -53,7 +53,7 @@ class alertdialog extends StatelessWidget {
               child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context,choice==AppStrings.Goal.tr()?Routes.goals: Routes.tasks);
+                Navigator.pushReplacementNamed(context,choice==AppStrings.Goal.tr()?Routes.goals: Routes.tasks);
               },
             ),
           ),

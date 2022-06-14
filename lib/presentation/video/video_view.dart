@@ -4,6 +4,7 @@ import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/video/Widgets/description_widget.dart';
 import 'package:bank_misr/presentation/video/Widgets/quiz_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
@@ -44,7 +45,7 @@ class _VideoViewState extends State<VideoView> {
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+        appBar: AppBar(title: Text(AppStrings.Videos.tr()),  actions: [
           Padding(
             padding: const EdgeInsets.only(right:10.0),
             child: CircleAvatar(

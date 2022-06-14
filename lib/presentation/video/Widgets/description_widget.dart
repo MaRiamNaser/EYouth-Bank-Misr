@@ -22,13 +22,15 @@ class Description extends StatelessWidget {
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topLeft:Radius.circular(AppSize.s25) ,bottomRight: Radius.circular(AppSize.s25)),
           color: ColorManager.darkPrimary),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("${AppStrings.Description.tr()} :",style: getSemiBoldStyle(color: ColorManager.white),),
-          SizedBox(height: 1/825 * screensize.height * AppSize.s8,),
-          Text(description ,style: getRegularStyle(fontSize: FontSize.s14,color: ColorManager.white),),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("${AppStrings.Description.tr()} :",style: getSemiBoldStyle(color: ColorManager.white),),
+            SizedBox(height: 1/825 * screensize.height * AppSize.s8,),
+            Text(description ,style: getRegularStyle(fontSize: FontSize.s14,color: ColorManager.white),),
+          ],
+        ),
       ),
     );
   }

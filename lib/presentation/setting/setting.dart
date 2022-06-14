@@ -35,7 +35,7 @@ _changeLanguage(){
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.Setting),  actions: [
+      appBar: AppBar(title: Text(AppStrings.Setting.tr()),  actions: [
         Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: CircleAvatar(

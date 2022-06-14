@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bank_misr/Data/models/Task.dart';
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
@@ -33,6 +34,7 @@ class TasksView extends StatefulWidget {
 }
 
 class _TasksViewState extends State<TasksView> {
+  AppPreferences appPreferences = AppPreferences();
   taskconfirmDeleteServices delete= taskconfirmDeleteServices();
   taskConfirmEditServices edit= taskConfirmEditServices();
   var token;
@@ -47,7 +49,7 @@ class _TasksViewState extends State<TasksView> {
   Load()async
   {
 
-    tasks=await TaskRepo(TaskServices()).GetAllTasks("Url");
+    tasks=await TaskRepo(TaskServices()).GetAllTasks(await appPreferences.getLocalToken());
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     token=sharedPreferences.getString("token");
     setState(() {
@@ -63,7 +65,7 @@ class _TasksViewState extends State<TasksView> {
             onPressed: (){
             Navigator.pushNamed(context, Routes.addTaskViewRoute,arguments: 1);
         },),
-      appBar: AppBar(title: Text(AppStrings.Tasks),  actions: [
+      appBar: AppBar(title: Text(AppStrings.Tasks.tr()),  actions: [
         Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: CircleAvatar(
@@ -242,7 +244,7 @@ class _TasksViewState extends State<TasksView> {
                                         async {
                                         var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/${task.id}'),
                                         headers: <String,String>{"Content-Type": "application/json",
-                                        HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+                                        HttpHeaders.authorizationHeader:token});
                                         print(response.statusCode);
                                         Navigator.of(context).pop();
                                         currentindex=2;

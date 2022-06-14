@@ -11,9 +11,9 @@ class TaskRepo
 
   TaskRepo(this._taskServices);
 
-  Future<List<Task>> GetAllTasks(Url)async
+  Future<List<Task>> GetAllTasks(token)async
   {
-    var body = await _taskServices.GetAllTasks(Url);
+    var body = await _taskServices.GetAllTasks(token);
     var jsonresponse =json.decode(body) ;
     print(body);
     var list=jsonresponse["data"] as List<dynamic>;

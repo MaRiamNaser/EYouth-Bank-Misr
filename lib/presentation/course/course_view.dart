@@ -7,6 +7,7 @@ import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:bank_misr/presentation/video/video_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +51,7 @@ List<String>  course;
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+      appBar: AppBar(title: Text(AppStrings.Courses.tr()),  actions: [
         Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: CircleAvatar(

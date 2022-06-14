@@ -59,4 +59,10 @@ class AppStrings{
   static String Well_Done="Well Done";
   static String Goal_Has_Been_Added="Goal_Has_Been_Added";
   static String Task_Has_Been_Added="Task_Has_Been_Added";
+    static String notifications ="notifications";
+     static String signOut ="signOut";
+     static const passwordShouldBeMoreThanEightChars = "passwordShouldBeMoreThanEightChars";
+    
+
+  
 }
