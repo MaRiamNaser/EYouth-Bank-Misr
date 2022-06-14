@@ -205,7 +205,7 @@ class _TasksViewState extends State<TasksView> {
                               scrollable: true,
                               backgroundColor: ColorManager.primary,
                               title:  Center(
-                                child: Text("Well Done",
+                                child: Text(AppStrings.Well_Done.tr(),
                                   style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
                               ),
                               content: Container(
@@ -218,7 +218,7 @@ class _TasksViewState extends State<TasksView> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
                                           width: 190,
-                                          child: Text("20 EGP  Has Been Added To Your Wallet!",
+                                          child: Text("${AppStrings.EGP2_Has_Been_Added_To_Your_Wallet.tr()}\n ${AppStrings.Your_Balance_Now_is.tr()} ${balance+20}",
                                             style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
                                             textAlign: TextAlign.center,
                                           )),
@@ -236,15 +236,14 @@ class _TasksViewState extends State<TasksView> {
                                       color: ColorManager.darkPrimary,
                                     ),
                                     child: TextButton(
-                                      child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
+
+                                      child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
                                       onPressed: ()
                                         async {
                                         var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/${task.id}'),
                                         headers: <String,String>{"Content-Type": "application/json",
                                         HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
                                         print(response.statusCode);
-
-
                                         Navigator.of(context).pop();
                                         currentindex=2;
                                         Navigator.pushReplacementNamed(context, Routes.homeLayout);

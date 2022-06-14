@@ -46,8 +46,6 @@ dependencies:
   fluttertoast:
   easy_localization:
   flutter_phoenix:
-
-
   rflutter_alert: ^2.0.4
   confetti:
   shared_preferences:

@@ -23,7 +23,7 @@
     "Tasks":"Tasks",
     "Description":"Description",
     "quiz_no1":"Quiz No.1",
-    "title":"title",
+    "title":"Title",
     "GoalTitlehere":"Goal Title here...",
     "writeGoalHere":"Write Your Goal here",
     "TaskTitlehere":"Task Title here...",
@@ -44,6 +44,17 @@
     "thereIsNoTasks":"There is no tasks..",
     "youAreLoggedInSuccessfully": "You have been logged in successfully",
     "ar":"Arabic",
-    "en":"English"
+    "en":"English",
+    "task":"Task",
+    "goal":"Goal",
+    "Amount": "Amount",
+    "Submit": "Submit",
+    "Ok": "Ok",
+    "Wallet": "100 EGP Has Been Added To Your Wallet!",
+    "Wallet2": "20 EGP Has Been Added To Your Wallet!",
+    "Your Balance Now is": "Your Balance Now is",
+    "Well Done": "Well Done",
+ "Goal_Has_Been_Added": "Goal Has Been Added !",
+ "Task_Has_Been_Added": "Task Has Been Added !"
 
 }

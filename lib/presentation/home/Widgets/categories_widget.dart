@@ -44,7 +44,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 1/825 * screensize.height * 130, left: 25),
+                    padding: EdgeInsets.only(top: 1/825 * screensize.height * 130, left: 25,right: 25),
                     width: 1/393* screensize.width * 360,
                     height: 1/825 * screensize.height * 180.5,
                     decoration: BoxDecoration(

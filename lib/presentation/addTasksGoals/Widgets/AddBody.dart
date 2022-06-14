@@ -10,6 +10,7 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -35,6 +36,8 @@ Color color2=ColorManager.grey;
 class _AddBodyState extends State<AddBody> {
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
+  var amountTextController=TextEditingController();
+
   String title;
   String photo;
   String choice;
@@ -77,14 +80,14 @@ class _AddBodyState extends State<AddBody> {
             Column(
               children: [
                 Center(
-                  child: SizedBox(height: 1/825 * screensize.height *222 ,
+                  child: SizedBox(height: 1/825 * screensize.height *160 ,
                       width: 1/393* screensize.width * 250,
                       child:Lottie.asset(photo)),
                 ),
                 SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
                 Container(
                   padding: EdgeInsets.all(AppPadding.p18),
-                  height: 1/825 * screensize.height *400 ,
+                  height: 1/825 * screensize.height *498 ,
                   width: 1/393* screensize.width * 300,
                   decoration:  BoxDecoration(
                     border: Border.all(
@@ -95,23 +98,28 @@ class _AddBodyState extends State<AddBody> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Title"),
+                       Text(AppStrings.title.tr()),
                       SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
-                      getTextField("$choice Title here....",1/825 * screensize.height *80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
+                      getTextField(choice==AppStrings.Goal.tr()?AppStrings.GoalTitlehere.tr():AppStrings.TaskTitlehere.tr(),1/825 * screensize.height *80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
                         setState(() {
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
                         });
                       }),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                      const Text("Description"),
+                       Text(AppStrings.Description.tr()),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                      getTextField("Write Your $choice here...",1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
+                      getTextField(choice==AppStrings.Goal.tr()?AppStrings.writeGoalHere.tr():AppStrings.writeTaskHere.tr(),1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
                         setState(() {
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                           titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
                         });
                       }),
+                      SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                      Text(AppStrings.amount.tr()),
+                      SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                      getTextField2(AppStrings.amount.tr(),1/825 * screensize.height *55,2,AppPadding.p2,AppSize.s20,amountTextController,(text){},
+                      ),
                       SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
                       Center(
                         child: Container(
@@ -126,7 +134,7 @@ class _AddBodyState extends State<AddBody> {
                             if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
 
                               if(
-                               await AddTaskServices().AddTaskorGoal(choice=="Goal"?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid))
+                               await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
                                  {
                                    showDialog(context: context, builder: (BuildContext context) {
                                      return  alertdialog(choice,alertPhoto);
@@ -137,7 +145,7 @@ class _AddBodyState extends State<AddBody> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children:  [
-                                  Text("Add",style: getRegularStyle(color: color2),),
+                                  Text(AppStrings.add.tr(),style: getRegularStyle(color: color2),),
                                   Icon(Icons.add,color:  color2,)
                                 ],
                               )),

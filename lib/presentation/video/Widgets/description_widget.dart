@@ -1,3 +1,5 @@
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../resources/color_manager.dart';
@@ -14,7 +16,7 @@ class Description extends StatelessWidget {
     var screensize=MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p20),
+      padding: EdgeInsets.only(left: AppPadding.p20, top: AppPadding.p20,right: AppPadding.p20),
       height: 1/825 * screensize.height * 170,
       width: 1/393* screensize.width * 360,
       decoration:  BoxDecoration(
@@ -23,7 +25,7 @@ class Description extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Description :",style: getSemiBoldStyle(color: ColorManager.white),),
+          Text("${AppStrings.Description.tr()} :",style: getSemiBoldStyle(color: ColorManager.white),),
           SizedBox(height: 1/825 * screensize.height * AppSize.s8,),
           Text(description ,style: getRegularStyle(fontSize: FontSize.s14,color: ColorManager.white),),
         ],

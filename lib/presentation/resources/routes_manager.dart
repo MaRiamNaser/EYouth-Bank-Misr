@@ -165,10 +165,10 @@ class RouteGenerator {
         builder: (_) =>
             Scaffold(
               appBar: AppBar(
-                title: const Text(
+                title:  Text(
                     AppStrings.noRouteFound),
               ),
-              body: const Center(
+              body:  Center(
                   child: Text(
                       AppStrings.noRouteFound)),
             ));

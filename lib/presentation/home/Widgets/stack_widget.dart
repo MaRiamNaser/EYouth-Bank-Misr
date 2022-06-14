@@ -1,5 +1,7 @@
 import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -28,16 +30,16 @@ class StackWidget extends StatelessWidget {
               children: [
                 SizedBox(height: 1/825 * screensize.height * 25,),
                  Center(child: Text( profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
-                 Center(child: Text( "Set your Goals, Learn & Earn.",style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
+                 Center(child: Text( AppStrings.setyourGoalsLearnEarn.tr(),style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
                 SizedBox(height: 1/825 * screensize.height * 38,),
-                Text("Balance",style: getMediumStyle(fontSize: 21,color: ColorManager.white)),
-
+              //  Text(AppStrings.Balance.tr(),style: getMediumStyle(fontSize: 21,color: ColorManager.white)),
+                SizedBox(height: 6.0)
               ],
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left:130,top: 135),
+          padding: EdgeInsets.only(left:130,top: 135,right: 130),
           child: Container(
             height: 140 ,
             width: 140 ,
@@ -61,7 +63,7 @@ class StackWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
-                        Text("EGP",style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
+                        Text(AppStrings.EGP.tr(),style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
                       ],
                     )
