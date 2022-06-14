@@ -20,7 +20,7 @@
      "EGP" :"جنيها",
      "Goals":"الاهداف",
      "Courses":"الكورسات",
-     "Tasks":"التاسكات",
+     "Tasks":"المهمات",
      "Description":"الوصف",
      "quiz_no1":"كويز رقم 1",
      "title":"العنوان",
@@ -44,6 +44,17 @@
      "thereIsNoTasks":"لا يوجد تاسكات",
      "youAreLoggedInSuccessfully": "لقد تم التسجيل بنجاح",
      "ar":"العربية",
-     "en":"English"
-   
- }
+     "en":"English",
+     "task": "مهمه",
+     "goal": "هدفك",
+     "Amount" : "المبلغ",
+     "Submit": "اجابه",
+     "Ok": "موافق",
+    "Wallet":"تمت إضافة 100 جنيه إلى محفظتك!",
+    "Wallet2":"تمت إضافة 20 جنيه إلى محفظتك!",
+    "Your Balance Now is": "رصيدك الحالي هو",
+   "Well Done": "رائع",
+   "Goal_Has_Been_Added": "تمت اضافه هدف !",
+ "Task_Has_Been_Added": "تمت اضافه مهمه"
+
+}

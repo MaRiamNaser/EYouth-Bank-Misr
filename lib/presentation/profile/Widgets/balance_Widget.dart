@@ -1,4 +1,6 @@
 import 'package:bank_misr/presentation/home/home_view.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -36,7 +38,7 @@ class BalanceWidget extends StatelessWidget {
                         color: ColorManager.primary),
                   ),
                   Text(
-                    "EGP",
+                    AppStrings.EGP.tr(),
                     style: getBoldtStyle(
                         fontSize: 20,
                         color: ColorManager.primary),

@@ -67,7 +67,7 @@ class _ProfileViewState extends State<ProfileView> {
                       bottomLeft: Radius.circular(AppSize.s50))),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 50, top: 180),
+              padding: EdgeInsets.only(left: 50, top: 180,right: 50),
               child: Container(
                 padding: EdgeInsets.all(AppPadding.p18),
                 height: 1 / 825 * screensize.height * 480,
@@ -163,7 +163,7 @@ class _ProfileViewState extends State<ProfileView> {
               builder: (context, state) {
                 if (state is ProfilesLoaded) {
                   return Padding(
-                    padding: EdgeInsets.only(left: 135, top: 100),
+                    padding: EdgeInsets.only(left: 135, top: 100,right: 135),
                     child: Container(
                       height: 1 / 825 * screensize.height * 130,
                       width: 1 / 393 * screensize.width * 120,

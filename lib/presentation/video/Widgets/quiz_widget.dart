@@ -2,6 +2,8 @@
 import 'package:bank_misr/Data/web_services/balance_services.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -60,7 +62,7 @@ class _QuizWidgetState extends State<QuizWidget> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                    top: AppPadding.p20, left: AppPadding.p20),
+                    top: AppPadding.p20, left: AppPadding.p20,right:AppPadding.p16 ),
                 height: 1 / 825 * screensize.height * 220.0,
                 width: 1 / 393 * screensize.width * 360,
                 decoration: BoxDecoration(
@@ -79,7 +81,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Quiz No. 1 :", style: getSemiBoldStyle(
+                    Text(AppStrings.quiz_no1.tr(), style: getSemiBoldStyle(
                         fontSize: FontSize.s14, color: ColorManager.black),),
                     SizedBox(height: 1 / 825 * screensize.height * AppSize.s8,),
                     Text(quiz.head,
@@ -113,7 +115,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                 SizedBox(
                                     width: 1 / 393 * screensize.width * 15),
                                 SizedBox(
-                                  width: 300,
+                                  width: 250,
                                   child: Text(quiz.options[index], style: getMediumStyle(
                                       color: ColorManager.black),),
                                 )
@@ -124,10 +126,10 @@ class _QuizWidgetState extends State<QuizWidget> {
                       },
                     )
                     ,
-                    Padding(
-                      padding:  EdgeInsets.only(left: 1 / 393 * screensize.width * 200),
+                    Center(
+                      //padding:  EdgeInsets.only(left: 1 / 393 * screensize.width * 210,right: 210 ),
                       child: Container(
-                        height:30 ,
+                        height:40 ,
                         width:100 ,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
@@ -157,7 +159,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                 scrollable: true,
                                 backgroundColor: ColorManager.primary,
                                   title:  Center(
-                                    child: Text("Well Done",
+                                    child: Text(AppStrings.Well_Done.tr(),
                                       style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
                                   ),
                                   content: Container(
@@ -171,7 +173,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                             width: 190,
-                                              child: Text("100 EGP  Has Been Added To Your Wallet!\n Your Balance Now is $balance",
+                                              child: Text("${AppStrings.EGP_Has_Been_Added_To_Your_Wallet.tr()}\n ${AppStrings.Your_Balance_Now_is.tr()} $balance",
                                                 style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
                                                 textAlign: TextAlign.center,)),
                                         ),
@@ -181,14 +183,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                                       actions: [
                                         Center(
                                           child: Container(
-                                            height:30 ,
+                                            height:40 ,
                                             width:100 ,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(15),
                                               color: ColorManager.darkPrimary,
                                             ),
                                             child: TextButton(
-                                              child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
+                                              child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
@@ -199,7 +201,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                             );
                           });
                         },
-                            child:  Text("Submit",style: TextStyle(color: ColorManager.white),),
+                            child:  Text(AppStrings.Submit.tr(),style: TextStyle(color: ColorManager.white),),
                             )
                         ),
                       ),

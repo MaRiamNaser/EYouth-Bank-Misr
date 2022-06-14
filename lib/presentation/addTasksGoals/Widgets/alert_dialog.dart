@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
+import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
 
 class alertdialog extends StatelessWidget {
@@ -19,7 +21,7 @@ class alertdialog extends StatelessWidget {
       scrollable: true,
       backgroundColor: ColorManager.primary,
       title:  Center(
-        child: Text("Well Done",
+        child: Text(AppStrings.Well_Done.tr(),
           style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
       ),
       content: Container(
@@ -33,7 +35,7 @@ class alertdialog extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                   width: 190,
-                  child: Center(child: Text("$choice Has Been Added !",  style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),))),
+                  child: Center(child: Text(choice=="Goal"?AppStrings.Goal_Has_Been_Added.tr():AppStrings.Task_Has_Been_Added.tr(),  style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),))),
             ),
           ],
         ),
@@ -48,10 +50,10 @@ class alertdialog extends StatelessWidget {
               color: ColorManager.darkPrimary,
             ),
             child: TextButton(
-              child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
+              child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context,choice=="Goal"?Routes.goals: Routes.tasks);
+                Navigator.pushNamed(context,choice==AppStrings.Goal.tr()?Routes.goals: Routes.tasks);
               },
             ),
           ),
