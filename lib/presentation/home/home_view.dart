@@ -21,20 +21,23 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late Profile profile;
+ late var token;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Load();
+    loadProfile();
   }
 
-  Load() async {
+  loadProfile() async {
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    var token=sharedPreferences.getString("token");
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+     token=sharedPreferences.getString("token");
+      profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
     balance=profile.balance;
   }
+
+
 
   @override
   Widget build(BuildContext context) {
