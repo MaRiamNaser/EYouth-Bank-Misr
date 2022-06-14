@@ -37,8 +37,8 @@ class AppStrings{
   static const Profile = "Profile";
   static const Setting = "Setting";
   static const Laguage = "Laguage";
-  static const Notification = "Notification";
-  static const SignOut = "SignOut";
+  static const notifications = "notifications";
+  static const signOut = "signOut";
   static const yourEmailOrPasswordMayBeWrong = "yourEmailOrPasswordMayBeWrong";
   static const forgetPassword ="forgetPassword";
   static const newToTheApp = "newToTheApp";
@@ -47,4 +47,7 @@ class AppStrings{
   static const youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
   static const en = "en";
   static const ar = "ar";
+
+
+
 }

@@ -11,6 +11,7 @@ import '../../business_logic/courseBloc/course_cubit.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
+import '../resources/strings_manager.dart';
 
 class coursesView extends StatefulWidget {
   int i;
@@ -43,14 +44,27 @@ class _coursesViewState extends State<coursesView> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
- 
-        appBar: i==1?AppBar(
-          leadingWidth: 60,
-          title: Text(
-            "Courses",
-            style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-            ,),
-        ):null
+        appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+          Padding(
+            padding: const EdgeInsets.only(right:10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],),
+        // appBar: i==1?AppBar(
+        //   leadingWidth: 60,
+        //   title: Text(
+        //     "Courses",
+        //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
+        //     ,),
+        // ):null
+
         //   leading: Padding(
         //     padding: const EdgeInsets.only(left:8.0),
         //     child: Container(
@@ -77,7 +91,7 @@ class _coursesViewState extends State<coursesView> {
         //     )
         //   ],
         // ),
-        ,
+
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(

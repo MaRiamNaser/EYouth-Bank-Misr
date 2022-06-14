@@ -3,10 +3,12 @@ import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../commonWidgets/appBar.dart';
 import '../resources/assets_manager.dart';
 import 'Widgets/categories_widget.dart';
 
@@ -38,6 +40,20 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: Text(AppStrings.Home),  actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
+      // appBar: CustomAppBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(child:
               BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {

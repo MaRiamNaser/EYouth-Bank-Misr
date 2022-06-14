@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
+import '../resources/assets_manager.dart';
+import '../resources/strings_manager.dart';
+
 
 class addTasklview extends StatefulWidget {
 
@@ -24,7 +27,19 @@ class _addTaskViewState extends State<addTasklview> {
 
 
     return Scaffold(
-
+        appBar: AppBar(title: Text(AppStrings.addTask),  actions: [
+          Padding(
+            padding: const EdgeInsets.only(right:10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],),
         // appBar: AppBar(
         //   leading: Icon(Icons.arrow_back,color: Colors.black,size: 25,),
         //   title: Text(

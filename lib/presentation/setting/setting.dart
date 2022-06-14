@@ -11,6 +11,8 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../resources/assets_manager.dart';
 bool langSwitch = false;
 bool notifySwitch = false;
 bool signoutSwitch = false;
@@ -33,6 +35,19 @@ _changeLanguage(){
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(AppStrings.Setting),  actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
       // appBar: AppBar(
       //   leading: Icon(Icons.arrow_back,color:ColorManager.black,size:FontSize.s20,),
       //   title: Text(
@@ -52,7 +67,6 @@ _changeLanguage(){
               ],
             ),
           ),
-
    SizedBox(height: 30,),
           Expanded(
 
@@ -81,52 +95,34 @@ _changeLanguage(){
                           borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(3.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
+                            Padding(
 
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                AppStrings.Laguage.tr(),
+                                style: getBoldtStyle(
+                                  fontSize: FontSize.s16,
+                                  color:ColorManager.black,
+                                ),
+                              ),
+
+                            ),
                             Expanded(
-
                               child: Container(
-                                height: 60,
-
                                 child: Row(
-
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-
                                     Container(
-                                      height: 60,
-                                      child: Row(
-
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-
-                                          Padding(
-
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Text(
-                                              AppStrings.Laguage.tr(),
-                                              style: getBoldtStyle(
-                                                fontSize: FontSize.s16,
-                                                color:ColorManager.black,
-                                              ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-
-                                          ),
-                                          SizedBox(width: 150,),
+                                      child:
                                           Row(
                                             children: [
                                                Text(AppStrings.ar.tr()),
-                                            
-                                             
-                                             
                                               Container(
-                                            
+
                                                 child: Switch(
                                                   activeColor: ColorManager.green,
                                                   value: langSwitch,
@@ -144,8 +140,8 @@ _changeLanguage(){
 
 
 
-                                        ],
-                                      ),
+
+
                                     ),
 
 
@@ -171,41 +167,30 @@ _changeLanguage(){
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
+                            Padding(
 
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                AppStrings.notifications.tr(),
+                                style: getBoldtStyle(
+
+                                  fontSize: FontSize.s16,
+                                  color:ColorManager.black,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+
+                            ),
                             Expanded(
 
                               child: Container(
-                                height: 60,
+
                                 child: Row(
 
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-
-                                    Container(
-                                      height: 60,
-                                      child: Row(
-
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-
-                                          Padding(
-
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Text(
-                                              'Notification',
-                                              style: getBoldtStyle(
-
-                                                fontSize: FontSize.s16,
-                                                color:ColorManager.black,
-                                              ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-
-                                          ),
-                                          SizedBox(width: 150,),
                                           Container(
                                             child: Switch(
                                               activeColor: ColorManager.green,
@@ -220,9 +205,9 @@ _changeLanguage(){
                                       ),
                                     ),
 
-                                  ],
-                                ),
-                              ),
+
+
+
                             ),
                           ],
                         ),
@@ -242,40 +227,42 @@ _changeLanguage(){
                             borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
                         ),
                         child: Padding(
+
                           padding: const EdgeInsets.all(8.0),
+
                           child: Row(
+
                             children: [
+                              Padding(
+
+
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  AppStrings.signOut.tr(),
+                                  style: getBoldtStyle(
+                                    fontSize: FontSize.s16,
+                                    color:ColorManager.black,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+
+                              ),
+
                               Expanded(
+
                                 child: Container(
-                                  height: 60,
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
+
+                                           child: (
                                       Container(
                                         height: 60,
                                         child: Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
-                                            Padding(
-                 
-                                              padding: const EdgeInsets.all(12.0),
-                                              child: Text(
-                                                ' Sign Out     ',
-                                                style: getBoldtStyle(
-                                                  fontSize: FontSize.s16,
-                                                  color:ColorManager.black,
-                                                ),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                  
-                                            ),
-                                            SizedBox(width: 150,),
 
-                                           
                                             IconButton(
+                                              alignment: Alignment.bottomRight,
                                               icon: Icon(
                                                 Icons.logout,
                                               ),
@@ -291,11 +278,11 @@ _changeLanguage(){
                   
                                           ],
                                         ),
-                                      ),
+                                      )
                   
                   
                   
-                                    ],
+
                                   ),
                                 ),
                               ),
