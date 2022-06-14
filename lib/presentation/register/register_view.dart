@@ -23,11 +23,11 @@ class _RegisterNamePageState extends State<RegisterView> {
   RegisterationProvider? registerationProviderWatch;
 
   final formKey = GlobalKey<FormState>();
-  var fullNameController = TextEditingController(text: "Omar");
-  var emailController = TextEditingController(text: "omar@gmail.com");
-  var ageController = TextEditingController(text: "11");
-  var userNameController = TextEditingController(text: "omar11");
-  var passwordController = TextEditingController(text:"123456");
+  var fullNameController = TextEditingController();
+  var emailController = TextEditingController();
+  var ageController = TextEditingController();
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   Widget currentTextFormField() {
     if (registerationProviderWatch!.index == 0) {
@@ -69,6 +69,7 @@ class _RegisterNamePageState extends State<RegisterView> {
 
 
     return WillPopScope(
+    
       onWillPop: () async {
         if (registerationProviderWatch!.index > 0) {
 

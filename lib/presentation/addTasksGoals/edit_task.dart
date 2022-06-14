@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/addTask_services.dart';
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
@@ -45,6 +46,7 @@ class _EditTaskState extends State<EditTask> {
   String alertPhoto=ImageAssets.alertGoal;
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
+  AppPreferences appPreferences = AppPreferences();
   @override
   void initState() {
     // TODO: implement initState
@@ -127,10 +129,11 @@ class _EditTaskState extends State<EditTask> {
                               FlatButton(child: Text("Edit",style: TextStyle(color: ColorManager.white),),
                                 onPressed: () async {
                                   print(Title);
+                                  //TODO add this logic to web service.
                                   var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/edit/$ID'),
                                       headers: <String,String>{"Content-Type": "application/json",
 
-                                        HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"},
+                                        HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()},
                                       body: jsonEncode(
                                           <String, String>{
                                             "title": titleTextController.text,

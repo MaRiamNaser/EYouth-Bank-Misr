@@ -55,6 +55,7 @@
     "Your Balance Now is": "Your Balance Now is",
     "Well Done": "Well Done",
  "Goal_Has_Been_Added": "Goal Has Been Added !",
- "Task_Has_Been_Added": "Task Has Been Added !"
+ "Task_Has_Been_Added": "Task Has Been Added !",
+ "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !"
 
 }

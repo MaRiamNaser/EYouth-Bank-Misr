@@ -29,7 +29,7 @@ class StackWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 1/825 * screensize.height * 25,),
-                 Center(child: Text( profile.fullname.length>2?profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]:profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
+                 Center(child: Text( profile.fullname.split(" ").length>1?(profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]):profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
                  Center(child: Text( AppStrings.setyourGoalsLearnEarn.tr(),style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
                 SizedBox(height: 1/825 * screensize.height * 38,),
               //  Text(AppStrings.Balance.tr(),style: getMediumStyle(fontSize: 21,color: ColorManager.white)),

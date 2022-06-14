@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,9 @@ import '../../presentation/goals/goals_view.dart';
 
 
 class confirmDeleteServices
-{
+{ AppPreferences appPreferences=AppPreferences();
+     // TODO remove this ui and put  to presentation layer , just leave the request to server
+     //TODO rename the service and page.
   void confirmDelete(String id ,BuildContext context) {
     showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
       title: Text("Delete"),
@@ -20,7 +23,7 @@ class confirmDeleteServices
           onPressed: () async {
             var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id'),
                 headers: <String,String>{"Content-Type": "application/json",
-                  HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
+                  HttpHeaders.authorizationHeader:await appPreferences.getLocalToken() });
             print(response.statusCode);
             Navigator.push(context, MaterialPageRoute(builder: (context)=> Goalsview()));
 

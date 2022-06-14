@@ -1,5 +1,6 @@
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -44,7 +45,7 @@ class _coursesViewState extends State<coursesView> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+        appBar: AppBar(title: Text(AppStrings.Courses.tr()),  actions: [
           Padding(
             padding: const EdgeInsets.only(right:10.0),
             child: CircleAvatar(

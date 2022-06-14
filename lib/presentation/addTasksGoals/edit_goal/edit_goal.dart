@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/addTask_services.dart';
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
@@ -12,6 +13,7 @@ import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:bank_misr/presentation/tasks/tasks_view.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -44,6 +46,8 @@ class _EditGoalState extends State<EditGoal> {
   String alertPhoto=ImageAssets.alertGoal;
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
+  AppPreferences appPreferences = AppPreferences();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -51,6 +55,8 @@ class _EditGoalState extends State<EditGoal> {
      titleTextController.text=Title;
         descTextController.text=Description;
   }
+
+
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -125,11 +131,12 @@ class _EditGoalState extends State<EditGoal> {
                             children:  [
                               FlatButton(child: Text("Edit",style: TextStyle(color: ColorManager.white),),
                           onPressed: () async {
+                            //TODO Add this logic to web service layer.
                                 print(Title);
                                 var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$ID'),
                               headers: <String,String>{"Content-Type": "application/json",
 
-                                HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"},
+                                HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()},
                               body: jsonEncode(
                                   <String, String>{
                                     "title": titleTextController.text,

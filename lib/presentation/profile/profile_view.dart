@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/add_profile_image_services.dart';
+import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +32,8 @@ class _ProfileViewState extends State<ProfileView> {
   late Profile profile;
   bool visable = true;
   final ImagePicker _picker = ImagePicker();
+  AppPreferences appPreferences = AppPreferences();
+  var token;
 
   @override
   void initState() {
@@ -46,8 +50,7 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Load() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString("token");
+     token = await appPreferences.getLocalToken();
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
   }
 
@@ -55,7 +58,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.Profile),  actions: [
+      appBar: AppBar(title: Text(AppStrings.Profile.tr()),  actions: [
         Padding(
           padding: const EdgeInsets.only(right:10.0),
           child: CircleAvatar(
@@ -180,7 +183,7 @@ class _ProfileViewState extends State<ProfileView> {
                     child: Container(
                       height: 1 / 825 * screensize.height * 130,
                       width: 1 / 393 * screensize.width * 120,
-                      child: profile.image == " "
+                      child: profile.image.isEmpty
                           ? Image.asset(
                               ImageAssets.profilePhoto,
                               fit: BoxFit.cover,
@@ -188,7 +191,6 @@ class _ProfileViewState extends State<ProfileView> {
                           : InkWell(
                               onTap: () async {
                                 final image = await _picker.pickImage(source: ImageSource.gallery);
-                                print("Path :      " + image!.path);
                                 var img = File(image!.path);
                                 add_image_services().Upload(img);
                               },

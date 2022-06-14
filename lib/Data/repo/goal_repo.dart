@@ -8,9 +8,9 @@ class GoalRepo
 
   GoalRepo(this._goalServices);
 
-  Future<List<Goal>> GetAllGoals(Url)async
+  Future<List<Goal>> GetAllGoals(token)async
   {
-    var body = await _goalServices.GetAllGoals(Url);
+    var body = await _goalServices.GetAllGoals(token);
     var jsonresponse =json.decode(body) ;
     var list=jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Goal.fromJson(e)).toList();

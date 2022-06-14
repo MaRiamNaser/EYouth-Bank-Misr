@@ -22,7 +22,7 @@
      "Courses":"الكورسات",
      "Tasks":"المهمات",
      "Description":"الوصف",
-     "quiz_no1":"كويز رقم 1",
+     "quiz_no1":"السؤال رقم 1",
      "title":"العنوان",
      "GoalTitlehere":"عنوان هدفك هنا...",
      "writeGoalHere":"اكتب هدفك هنا",
@@ -30,9 +30,9 @@
      "writeTaskHere":"اكتب تاسك هنا",
      "add":"اضف",
      "loginTitle" : "تسجيل الدخول",
-     "Home" : "الصفحة الر~يسية",
+     "Home" : "الرئيسيه",
      "Videos" : "الفيديوهات",
-     "Profile" : "الصفحة الشخصية",
+     "Profile" : "صفحتي",
      "Setting" : "الاعدادات",
      "Laguage" : "اللغة",
      "notifications" : "الاشعارات",
@@ -55,5 +55,6 @@
     "Your Balance Now is": "رصيدك الحالي هو",
    "Well Done": "رائع",
    "Goal_Has_Been_Added": "تمت اضافه هدف !",
- "Task_Has_Been_Added": "تمت اضافه مهمه"
+ "Task_Has_Been_Added": "تمت اضافه مهمه",
+ "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف"
 }

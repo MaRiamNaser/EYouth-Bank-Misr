@@ -8,6 +8,7 @@ import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:bank_misr/presentation/tasks/addTaskView.dart';
 import 'package:bank_misr/presentation/tasks/tasks_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,198 +77,200 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-    return Scaffold(
-        // appBar: AppBar(title: Text(AppStrings.Home),  actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right:10.0),
-        //     child: CircleAvatar(
-        //         backgroundColor: Colors.white,
-        //         child: Image.asset(
-        //           ImageAssets.profilePhoto,
-        //           fit: BoxFit.fitWidth,
-        //           width: 45,
-        //         ),
-        //         maxRadius: 34),
-        //   )
-        // ],),
-      body: screens[currentindex],
-
-
-   floatingActionButton: Visibility(
-          visible: !keyboardIsOpen,
-          child: FloatingActionButton(
-            backgroundColor: ColorManager.darkPrimary,//Floating action button on Scaffold
-            onPressed: (){
-              Alert(
-                context: context,
-                buttons: [
-
-                  DialogButton(
-                   color:ColorManager.primary,
-                    height: 50,
-
-                    child: Text(
-                      "Add Task",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+    return WillPopScope(
+      onWillPop:() =>  onWillPop(context),
+      child: Scaffold(
+          // appBar: AppBar(title: Text(AppStrings.Home),  actions: [
+          //   Padding(
+          //     padding: const EdgeInsets.only(right:10.0),
+          //     child: CircleAvatar(
+          //         backgroundColor: Colors.white,
+          //         child: Image.asset(
+          //           ImageAssets.profilePhoto,
+          //           fit: BoxFit.fitWidth,
+          //           width: 45,
+          //         ),
+          //         maxRadius: 34),
+          //   )
+          // ],),
+        body: screens[currentindex],
+    
+    
+       floatingActionButton: Visibility(
+            visible: !keyboardIsOpen,
+            child: FloatingActionButton(
+              backgroundColor: ColorManager.darkPrimary,//Floating action button on Scaffold
+              onPressed: (){
+                Alert(
+                  context: context,
+                  buttons: [
+    
+                    DialogButton(
+                     color:ColorManager.primary,
+                      height: 50,
+    
+                      child: Text(
+                        AppStrings.addTask.tr(),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                         Navigator.pushNamed(context, Routes.addTaskViewRoute);
+                      },
+    
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        currentindex=4;
-                      });},
-
-                  ),
-                  DialogButton(
-                    color:ColorManager.primary,
-
-                    height: 50,
-                    child: Text(
-                      "Add Goal",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-
+                    DialogButton(
+                      color:ColorManager.primary,
+                      height: 50,
+                      child: Text(
+                       AppStrings.addGoal.tr(),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+    
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      
+                            Navigator.pushNamed(context, Routes.addGoalViewRoute);
+                        },
+    
+    
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        currentindex=5;
-                      });},
-
-
+    
+                  ],
+                ).show();
+    
+              },
+    
+              child: Icon(Icons.add), //icon inside button
+            ),// your FloatingActionButton
+        ),
+    
+    
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    
+    
+        bottomNavigationBar: BottomAppBar( //bottom navigation bar on scaffold
+        color:ColorManager.primary,
+        shape: CircularNotchedRectangle(), //shape of notch
+        notchMargin: 3, //notche margin between floating button and bottom appbar
+        child: Row( //children inside bottom appbar
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          SizedBox.fromSize(
+            size: Size(56, 56),
+            child: ClipOval(
+              child: Material(
+                color: ColorManager.primary,
+                child: InkWell(
+    
+                  onTap: () {
+                    setState(() {
+                      currentindex=0;
+                    });
+                  },
+                  child: Column(
+    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.home, color: Colors.white,), // <-- Icon
+                      Text(AppStrings.Home.tr(),style: TextStyle(color: ColorManager.white)),
+    
+                      // <-- Text
+                    ],
                   ),
-
-                ],
-              ).show();
-
-            },
-
-            child: Icon(Icons.add), //icon inside button
-          ),// your FloatingActionButton
-      ),
-
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-
-      bottomNavigationBar: BottomAppBar( //bottom navigation bar on scaffold
-      color:ColorManager.primary,
-      shape: CircularNotchedRectangle(), //shape of notch
-      notchMargin: 3, //notche margin between floating button and bottom appbar
-      child: Row( //children inside bottom appbar
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        SizedBox.fromSize(
-          size: Size(56, 56),
-          child: ClipOval(
-            child: Material(
-              color: ColorManager.primary,
-              child: InkWell(
-
-                onTap: () {
-                  setState(() {
-                    currentindex=0;
-                  });
-                },
-                child: Column(
-
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.home, color: Colors.white,), // <-- Icon
-                    Text("Home",style: TextStyle(color: ColorManager.white)),
-
-                    // <-- Text
-                  ],
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox.fromSize(
-          size: Size(56, 56),
-          child: ClipOval(
-            child: Material(
-              color: ColorManager.primary,
-              child: InkWell(
-
-                onTap: () {
-                  setState(() {
-                    currentindex=1;
-                  });
-                },
-                child: Column(
-
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.slideshow_outlined, color: Colors.white,), // <-- Icon
-                    Text("Videos",style: TextStyle(color: ColorManager.white)),
-
-                    // <-- Text
-                  ],
+          SizedBox.fromSize(
+            size: Size(65, 58),
+            
+            child: ClipOval(
+              child: Material(
+                color: ColorManager.primary,
+                child: InkWell(
+    
+                  onTap: () {
+                    setState(() {
+                      currentindex=1;
+                    });
+                  },
+                  child: Column(
+    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.slideshow_outlined, color: Colors.white,), // <-- Icon
+                      Text(AppStrings.Videos.tr(),style: TextStyle(color: ColorManager.white)),
+    
+                      // <-- Text
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox.fromSize(
-          size: Size(56, 56),
-          child: ClipOval(
-            child: Material(
-              color: ColorManager.primary,
-              child: InkWell(
-
-                onTap: () {
-                  setState(() {
-                    currentindex=2;
-                  });
-                },
-                child: Column(
-
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.person_outline, color: Colors.white,), // <-- Icon
-                    Text("Profile",style: TextStyle(color: ColorManager.white)),
-
-                    // <-- Text
-                  ],
+          SizedBox.fromSize(
+            size: Size(56, 56),
+            child: ClipOval(
+              child: Material(
+                color: ColorManager.primary,
+                child: InkWell(
+    
+                  onTap: () {
+                    setState(() {
+                      currentindex=2;
+                    });
+                  },
+                  child: Column(
+    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.person_outline, color: Colors.white,), // <-- Icon
+                      Text(AppStrings.Profile.tr(),style: TextStyle(color: ColorManager.white)),
+    
+                      // <-- Text
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox.fromSize(
-          size: Size(56, 56),
-          child: ClipOval(
-            child: Material(
-              color: ColorManager.primary,
-              child: InkWell(
-
-                onTap: () {
-                  setState(() {
-                    currentindex=3;
-                  });
-                },
-                child: Column(
-
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-
-                    Icon(Icons.menu, color: Colors.white,), // <-- Icon
-                    Text("Setting",style: TextStyle(color: ColorManager.white),),
-
-                    // <-- Text
-                  ],
+          SizedBox.fromSize(
+            size: Size(56, 56),
+            child: ClipOval(
+              child: Material(
+                color: ColorManager.primary,
+                child: InkWell(
+    
+                  onTap: () {
+                    setState(() {
+                      currentindex=3;
+                    });
+                  },
+                  child: Column(
+    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+    
+                      Icon(Icons.menu, color: Colors.white,), // <-- Icon
+                      Text(AppStrings.Setting.tr(),style: TextStyle(color: ColorManager.white),),
+    
+                      // <-- Text
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
+    
+    
+        ],
         ),
-
-
-      ],
-      ),
-
-      )
-      );
+    
+        )
+        ),
+    );
 
   }
 }
