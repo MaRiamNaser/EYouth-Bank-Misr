@@ -35,8 +35,8 @@
      "Profile" : "الصفحة الشخصية",
      "Setting" : "الاعدادات",
      "Laguage" : "اللغة",
-     "Notification" : "الاشعار",
-     "SignOut" : "تسجيل الخروج",
+     "notifications" : "الاشعارات",
+     "signOut" : "تسجيل الخروج",
      "yourEmailOrPasswordMayBeWrong":"الايميل والباسورد ربما يكونوا خاطئين",
      "forgetPassword":"هل نسيت الباسوورد؟",
      "newToTheApp":"جديد على التطبيق؟",
@@ -56,5 +56,4 @@
    "Well Done": "رائع",
    "Goal_Has_Been_Added": "تمت اضافه هدف !",
  "Task_Has_Been_Added": "تمت اضافه مهمه"
-
 }

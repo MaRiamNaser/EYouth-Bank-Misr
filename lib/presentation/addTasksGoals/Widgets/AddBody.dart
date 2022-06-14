@@ -61,6 +61,19 @@ class _AddBodyState extends State<AddBody> {
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: Text(title),actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
         body:
         SingleChildScrollView(
           child:

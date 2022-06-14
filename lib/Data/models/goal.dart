@@ -10,14 +10,14 @@ String goalToJson(Goal data) => json.encode(data.toJson());
 
 class Goal {
   Goal({
-  required  this.id,
+    required this.id,
     required this.userId,
     required this.title,
-    required  this.description,
+    required this.description,
     required this.checked,
     required this.createdAt,
     required this.updatedAt,
-    required  this.v,
+    required this.v,
   });
 
   String id;

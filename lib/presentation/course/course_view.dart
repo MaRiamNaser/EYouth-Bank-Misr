@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Data/models/Course.dart';
 import '../../Data/models/Video.dart';
 import '../resources/routes_manager.dart';
+import '../resources/strings_manager.dart';
 
 class CourseView extends StatefulWidget {
   List<String> course;
@@ -49,10 +50,23 @@ List<String>  course;
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(course[1]),
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
+      appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
+      // appBar: AppBar(
+      //   title: Text(course[1]),
+      //   iconTheme: IconThemeData(color: Colors.black),
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../resources/assets_manager.dart';
+import '../resources/strings_manager.dart';
 import '../resources/values_manager.dart';
 
 class VideoView extends StatefulWidget {
@@ -26,7 +28,7 @@ class _VideoViewState extends State<VideoView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         _ytbPlayerController = YoutubePlayerController(
           initialVideoId:video.videoLink ,
@@ -42,10 +44,23 @@ class _VideoViewState extends State<VideoView> {
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Video Name"),
-
-        ),
+        appBar: AppBar(title: Text(AppStrings.Courses),  actions: [
+          Padding(
+            padding: const EdgeInsets.only(right:10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],),
+        // appBar: AppBar(
+        //   title: Text("Video Name"),
+        //
+        // ),
         body: Column(children: [
           SizedBox(
             height: 1/825 * screensize.height * AppSize.s14,
