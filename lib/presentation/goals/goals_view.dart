@@ -55,13 +55,26 @@ class _GoalViewState extends State<Goalsview> {
 
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Goals",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-          ,)
-        , 
-        ),
+      appBar: AppBar(title: Text(AppStrings.Goals),  actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Goals",
+      //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
+      //     ,)
+      //   ,
+      //   ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: ColorManager.primary,
           child: Icon(Icons.add),

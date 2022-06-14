@@ -63,13 +63,25 @@ class _TasksViewState extends State<TasksView> {
             onPressed: (){
             Navigator.pushNamed(context, Routes.addTaskViewRoute,arguments: 1);
         },),
-
-      appBar: AppBar(
-        title: Text(
-          "Tasks",
-          style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-          ,)
-        ,),
+      appBar: AppBar(title: Text(AppStrings.Tasks),  actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:10.0),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImageAssets.profilePhoto,
+                fit: BoxFit.fitWidth,
+                width: 45,
+              ),
+              maxRadius: 34),
+        )
+      ],),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Tasks",
+      //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
+      //     ,)
+      //   ,),
     body: Column(
     children: [
     Container(

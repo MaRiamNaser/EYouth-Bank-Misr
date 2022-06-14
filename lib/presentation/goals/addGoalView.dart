@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
+import '../resources/assets_manager.dart';
+import '../resources/strings_manager.dart';
+
 
 class addGoalview extends StatefulWidget {
 
@@ -32,6 +35,19 @@ class _addGoalViewState extends State<addGoalview> {
       //     style: getBoldtStyle(fontSize:FontSize.s18,color: Colors.black)
       //     ,)
       //   ,),
+        appBar: AppBar(title: Text(AppStrings.addGoal),  actions: [
+          Padding(
+            padding: const EdgeInsets.only(right:10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],),
       body: Center(
         child: SingleChildScrollView(child: Column(
           children: [

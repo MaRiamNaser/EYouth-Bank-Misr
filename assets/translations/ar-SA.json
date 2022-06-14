@@ -35,8 +35,8 @@
      "Profile" : "الصفحة الشخصية",
      "Setting" : "الاعدادات",
      "Laguage" : "اللغة",
-     "Notification" : "الاشعار",
-     "SignOut" : "تسجيل الخروج",
+     "notifications" : "الاشعارات",
+     "signOut" : "تسجيل الخروج",
      "yourEmailOrPasswordMayBeWrong":"الايميل والباسورد ربما يكونوا خاطئين",
      "forgetPassword":"هل نسيت الباسوورد؟",
      "newToTheApp":"جديد على التطبيق؟",
@@ -45,5 +45,4 @@
      "youAreLoggedInSuccessfully": "لقد تم التسجيل بنجاح",
      "ar":"العربية",
      "en":"English"
-   
- }
+}

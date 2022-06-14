@@ -67,9 +67,11 @@ class _RegisterNamePageState extends State<RegisterView> {
     registerationProviderRead = context.read<RegisterationProvider>();
     registerationProviderWatch = context.watch<RegisterationProvider>();
 
+
     return WillPopScope(
       onWillPop: () async {
         if (registerationProviderWatch!.index > 0) {
+
           registerationProviderRead!.decreaseIndex();
         } else {
           Navigator.pushReplacementNamed(context, Routes.loginRoute);

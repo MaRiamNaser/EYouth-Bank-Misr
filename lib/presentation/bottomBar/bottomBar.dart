@@ -24,6 +24,7 @@ import '../home/home_view.dart';
 import '../profile/profile_view.dart';
 import '../resources/assets_manager.dart';
 import '../resources/font_manager.dart';
+import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
  int currentindex=0;
 class BottomBar extends StatefulWidget{
@@ -76,7 +77,19 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-     
+        // appBar: AppBar(title: Text(AppStrings.Home),  actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right:10.0),
+        //     child: CircleAvatar(
+        //         backgroundColor: Colors.white,
+        //         child: Image.asset(
+        //           ImageAssets.profilePhoto,
+        //           fit: BoxFit.fitWidth,
+        //           width: 45,
+        //         ),
+        //         maxRadius: 34),
+        //   )
+        // ],),
       body: screens[currentindex],
 
 
@@ -254,8 +267,8 @@ class _BottomBarState extends State<BottomBar> {
       ),
 
       )
-      ),
-    );
+      );
+
   }
 }
 
