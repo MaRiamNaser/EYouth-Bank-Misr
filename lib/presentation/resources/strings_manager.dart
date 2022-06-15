@@ -62,7 +62,7 @@ class AppStrings{
     static String notifications ="notifications";
      static String signOut ="signOut";
      static const passwordShouldBeMoreThanEightChars = "passwordShouldBeMoreThanEightChars";
-    
+    static String yearsOld="Years old";
 
   
 }

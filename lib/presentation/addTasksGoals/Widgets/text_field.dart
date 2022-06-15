@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Container getTextField(String hintText, double height,int lines, double padding,raduis,
-    TextEditingController TextController, Null Function(dynamic text) set) {
+    TextEditingController TextController, Null Function(dynamic text) set,context, Size screensize) {
   return Container(
       padding: EdgeInsets.only(left: AppPadding.p12,top: padding),
       height:  height,
-      width: 265.83,
+      width:1/393* screensize.width * 265.83 ,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topRight:Radius.circular(raduis) ,bottomLeft: Radius.circular(raduis)),
           color: ColorManager.lightPrimary),
@@ -19,6 +19,8 @@ Container getTextField(String hintText, double height,int lines, double padding,
         controller: TextController,
         maxLines: lines,
         keyboardType: TextInputType.multiline ,
+        textInputAction: TextInputAction.next,
+        onEditingComplete : () => FocusScope.of(context).nextFocus(),
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
@@ -30,11 +32,11 @@ Container getTextField(String hintText, double height,int lines, double padding,
   );
 }
 Container getTextField2(String hintText, double height, int lines, double padding,raduis,
-    TextEditingController TextController, Null Function(dynamic text) set) {
+    TextEditingController TextController, Null Function(dynamic text) set,context,Size screensize) {
   return Container(
       padding: EdgeInsets.only(left: AppPadding.p12,top: padding),
       height:  height,
-      width: 180,
+      width:1/393* screensize.width* 180,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topRight:Radius.circular(raduis) ,bottomLeft: Radius.circular(raduis)),
           color: ColorManager.lightPrimary),
@@ -44,6 +46,8 @@ Container getTextField2(String hintText, double height, int lines, double paddin
         maxLines: lines,
         keyboardType: TextInputType.number ,
         maxLength: 4,
+        textInputAction: TextInputAction.done,
+        onEditingComplete : () => FocusScope.of(context).unfocus(),
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
         ],

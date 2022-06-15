@@ -150,7 +150,7 @@ class _coursesViewState extends State<coursesView> {
                   children: [
             
                     Container(
-                      height: 150,
+                      height: 130,
                       width: 150,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30)
