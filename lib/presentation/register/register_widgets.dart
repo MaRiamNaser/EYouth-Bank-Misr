@@ -26,7 +26,7 @@ Widget nameTextFormField(TextEditingController fullNameController) {
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         labelText: AppStrings.name.tr(),
         fillColor: Colors.white,
         filled: true,
@@ -57,7 +57,7 @@ Widget emailTextFormField(TextEditingController emailController) {
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         labelText: AppStrings.email.tr(),
         fillColor: Colors.white,
         filled: true,
@@ -82,17 +82,16 @@ Widget passwordTextFormField(TextEditingController passwordController) {
       validator: (val) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourPassword.tr();
-        }else if(val!.length < 8){
+        } else if (val.length < 8) {
           return AppStrings.passwordShouldBeMoreThanEightChars.tr();
-
         }
         return null;
       },
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-       obscureText:true,
-      decoration:  InputDecoration(
+      obscureText: true,
+      decoration: InputDecoration(
         labelText: AppStrings.password.tr(),
         fillColor: Colors.white,
         filled: true,
@@ -123,7 +122,7 @@ Widget userNameTextFormField(TextEditingController fullNameController) {
 
       // controller: _phoneController,
       // keyboardType: TextInputType.phone,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         labelText: AppStrings.userName.tr(),
         fillColor: Colors.white,
         filled: true,
@@ -148,13 +147,14 @@ Widget ageTextFormField(TextEditingController ageController) {
       validator: (val) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourAge.tr();
+        }else if ((int.parse(val) >= 10 && int.parse(val) <=15) == false) {
+          return AppStrings.pleaseEnterAgeBetween10And15.tr();
         }
         return null;
       },
 
-      // controller: _phoneController,
-      // keyboardType: TextInputType.phone,
-      decoration:  InputDecoration(
+
+      decoration: InputDecoration(
         labelText: AppStrings.age.tr(),
         fillColor: Colors.white,
         filled: true,
@@ -173,7 +173,7 @@ Widget ageTextFormField(TextEditingController ageController) {
 class ContinueButton extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var fullNameController;
-  var emailController ;
+  var emailController;
   var ageController;
   var userNameController;
   var passwordController;
@@ -201,49 +201,58 @@ class ContinueButton extends StatelessWidget {
           backgroundColor:
               MaterialStateProperty.all<Color>(ColorManager.lightPrimary),
         ),
-        onPressed: ()  async{
+        onPressed: () async {
           if (registerationProviderWatch.index <= 4) {
             if (registerationProviderWatch.index == 0) {
               if (formKey.currentState!.validate()) {
                 registerationProviderRead.setFullName(fullNameController.text);
                 registerationProviderRead.increaseIndex();
               }
-            }else if (registerationProviderWatch.index == 1) {
+            } else if (registerationProviderWatch.index == 1) {
               if (formKey.currentState!.validate()) {
-               registerationProviderRead.setEmail(emailController.text);
-                registerationProviderRead.increaseIndex();
+                
+                registerationProviderRead.setEmail(emailController.text);
+                   if(await registerationProviderRead.isEmailExist() == false){
+                      registerationProviderRead.increaseIndex();
+
+                  }else{
+                    showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+
+                  }
+              
+              
               }
-            }  else if (registerationProviderWatch.index == 2) {
+            } else if (registerationProviderWatch.index == 2) {
               if (formKey.currentState!.validate()) {
                 registerationProviderRead.setAge(ageController.text);
                 registerationProviderRead.increaseIndex();
               }
             } else if (registerationProviderWatch.index == 3) {
-              if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) { 
                 registerationProviderRead.setUserName(userNameController.text);
-                registerationProviderRead.increaseIndex();
+
+                  if(await registerationProviderRead.isUserNameExist() == false){
+                      registerationProviderRead.increaseIndex();
+                  }else{
+                    await  showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+                  }
               }
-            }
-            else if (registerationProviderWatch.index == 4) {
-             if (formKey.currentState!.validate())  {
-             registerationProviderRead.setPassword(passwordController.text);
-                print(registerationProviderRead.index);
+            } else if (registerationProviderWatch.index == 4) {
+              if (formKey.currentState!.validate()) {
+                registerationProviderRead.setPassword(passwordController.text);
                 
-           await registerationProviderRead.signUp();
+                await registerationProviderRead.signUp();
 
-          if(registerationProviderWatch.registerStatus == true){
-
-            showFlutterToast("You have been registred successfully");
-            Navigator.pushReplacementNamed(context, Routes.loginRoute);
-           
-         }else{
-            print("user not added !");
-             showFlutterToast("This user is already exist!");
-
-          }
+                if (registerationProviderWatch.registerStatus == true) {
+                  showFlutterToast(
+                      AppStrings.YouHaveBeenRegistredSuccessfully.tr());
+                  Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                } else {
+                  print(AppStrings.userNotAdded.tr());
+                  showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+                }
               }
             }
-
           }
         },
         child: Text(AppStrings.continueString.tr()),
@@ -252,19 +261,17 @@ class ContinueButton extends StatelessWidget {
   }
 }
 
-
- showFlutterToast(String text) async{
-  await     Fluttertoast.showToast(
-                          msg: text,
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: ColorManager.primary,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
+showFlutterToast(String text) async {
+  await Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.CENTER,
+    timeInSecForIosWeb: 1,
+    backgroundColor: ColorManager.darkGrey,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }
-
 
 Widget imageWidget(String imagePath, BuildContext context) {
   return Center(

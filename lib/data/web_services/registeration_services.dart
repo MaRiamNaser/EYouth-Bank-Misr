@@ -36,7 +36,7 @@ class RegisterationWebServices {
               },
               body: jsonEncode(<String, String>{
             
-                "email": email,
+                "username": email,
                 "password": password
                 
               }));
@@ -68,76 +68,62 @@ class RegisterationWebServices {
               }));
 
                 if (response.statusCode == 200) {
-                  print("Hello!");
                     return true;
 
                 }else{
                   return false;
                 }
 
-//   print(response.data);
+
     
     } catch (e) {
       print(e.toString());
             return false;
     }
-     
 
+  }
 
-
-  /*  
-     try {
-
-      Response response = await dio.post(
-          'user/register',
-                    data:jsonEncode(<String, String>{
-                "fullname": "wertyuisdfgh",
-                "username": "asdfghjklwde",
-                "email": "al@gmail.com",
-                "password": "Aliali123",
-                "age": "25"
-              }));
-
-          print(response.data);
-      return response.data;
-    } catch (e) {
-      print(e.toString());
-      return [];
-    }
-     
-*/
-/*-
+    Future<dynamic> isUserNameExist( String userName) async {
     try {
-
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + "user/register"),
+          await http.post(Uri.parse(AppStrings.baseUrl + "user/registerUsernameexist"),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
               body: jsonEncode(<String, String>{
-                "fullname": fullname,
-                "username": username,
-                "email": email,
-                "password": password,
-                "age": age
+                "username": userName 
               }));
-              print(fullname);
-               print(username);
-                print(email);
-                 print(password);
+              print(response.body);
       if (response.statusCode == 200) {
-        print("************************************************************");
-        print(response);
-        return true;
+        return response.body;
       } else {
-        return false;
+        return response.body;
       }
     } catch (e) {
       return false;
     }
+  }
 
-    */
 
+ Future<dynamic> isEmailExist( String email) async {
+    try {
+      var response =
+          await http.post(Uri.parse(AppStrings.baseUrl + "user/registerEmailexist"),
+              headers: <String, String>{
+                "Content-Type": "application/json",
+              },
+              body: jsonEncode(<String, String>{
+                "email": email
+              }));
+              print(response.body);
+      if (response.statusCode == 200) {
 
+        return response.body;
+      } else {
+        return response.body;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }
