@@ -69,6 +69,9 @@ class AppStrings {
   static String userNotAdded = "userNotAdded";
   static String thisUserIsAlreadyExist = "thisUserIsAlreadyExist";
 
+
+    static String yearsOld="Years old";
+
   static String pleaseEnterAgeBetween10And15 = "pleaseEnterAgeBetween10And15";
   static String yourPasswordCannotIncludeYourUsername = "yourPasswordCannotIncludeYourUsername";
   static String loginLanguage = "loginLanguage";

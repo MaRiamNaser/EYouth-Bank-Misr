@@ -62,6 +62,8 @@
  "thisUserIsAlreadyExist":"This user is already exist!",
  "pleaseEnterAgeBetween10And15" : "please Enter Age Between 10 & 15",
  "yourPasswordCannotIncludeYourUsername" :"Your Password Cannot Include Your Username",
- "loginLanguage":"العربية"
+ "loginLanguage":"العربية",
+ "Years old":"Years old",
+ "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !"
 
 }

@@ -56,6 +56,7 @@
    "Well Done": "رائع",
    "Goal_Has_Been_Added": "تمت اضافه هدف !",
  "Task_Has_Been_Added": "تمت اضافه مهمه",
+
  "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف",
  "YouHaveBeenRegistredSuccessfully":"لقد تم التسجيل بنجاح",
  "userNotAdded":"المستخدم لم يضاف",
@@ -63,4 +64,8 @@
  "pleaseEnterAgeBetween10And15" : "من فضلك ادخل عمر بين 10 او 15 سنة",
  "yourPasswordCannotIncludeYourUsername" :"كلمة المرور لا يمكن ان تحتوي على اسم المستخدم",
  "loginLanguage" :"English"
+,
+ "Years old": "سنه",
+ "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف"
+
 }
