@@ -11,6 +11,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../Data/models/Course.dart';
 import '../../Data/models/Video.dart';
@@ -102,10 +103,10 @@ List<String>  course;
                       return InkWell(
                         onTap: () {
                           balance += 100;
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BlocProvider(
-            create: (context) => blocGenerator().videoCubit,
-            child: VideoView(AllVideos[index]),
-          ),));
+                          pushNewScreen(context, screen: BlocProvider(
+                            create: (context) => blocGenerator().videoCubit,
+                            child: VideoView(AllVideos[index]),
+                          ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
                         },
                         child: Column(
                           children: [

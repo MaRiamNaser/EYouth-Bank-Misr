@@ -50,6 +50,8 @@ dependencies:
   confetti:
   shared_preferences:
   image_picker:
+  persistent_bottom_nav_bar: ^4.0.2
+
 
 
 

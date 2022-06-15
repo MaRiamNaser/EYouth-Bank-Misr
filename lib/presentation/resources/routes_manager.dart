@@ -28,6 +28,7 @@ import '../../Data/repo/profile_repo.dart';
 import '../../Data/web_services/profile_services.dart';
 import '../../Data/web_services/Course_services.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
+import '../navgpage/navigation_page.dart';
 
 
 class Routes {
@@ -151,7 +152,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AddGoalView());
 
       case Routes.homeLayout:
-        return MaterialPageRoute(builder: (_) => BottomBar());
+        return MaterialPageRoute(builder: (_) => navgscreen());
 
 
 
