@@ -82,9 +82,10 @@ class _ProfileViewState extends State<ProfileView> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(AppSize.s50))),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 50, top: 180,right: 50),
+            Center(
+             // padding: EdgeInsets.only(left: 50, top: 100,right: 50),
               child: Container(
+                margin: EdgeInsets.only(top:1 / 825 * screensize.height * 100),
                 padding: EdgeInsets.all(AppPadding.p18),
                 height: 1 / 825 * screensize.height * 480,
                 width: 1 / 393 * screensize.width * 300,
@@ -129,13 +130,16 @@ class _ProfileViewState extends State<ProfileView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        profile.email,
-                                        style: getMediumStyle(
-                                            fontSize: 16,
-                                            color: ColorManager.black),
+                                      SizedBox(
+                                        width: 200,
+                                        child: Text(
+                                          profile.email,
+                                          style: getMediumStyle(
+                                              fontSize: 16,
+                                              color: ColorManager.black),
+                                        ),
                                       ),
-                                      Icon(Icons.email)
+                                   //   Icon(Icons.email)
                                     ],
                                   ),
                                   SizedBox(
@@ -146,7 +150,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                          profile.age.toString() + " Years old",
+                                          profile.age.toString() + " "+AppStrings.yearsOld.tr(),
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -178,9 +182,16 @@ class _ProfileViewState extends State<ProfileView> {
             BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
                 if (state is ProfilesLoaded) {
-                  return Padding(
-                    padding: EdgeInsets.only(left: 135, top: 100,right: 135),
-                    child: Container(
+                  return Center(
+                    child:
+                    InkWell(
+                      onTap: () async {
+                        final image = await _picker.pickImage(source: ImageSource.gallery);
+                        var img = File(image!.path);
+                        add_image_services().Upload(img);
+                      },
+                   child: Container(
+                      margin: EdgeInsets.only(top:1 / 825 * screensize.height *10 ),
                       height: 1 / 825 * screensize.height * 130,
                       width: 1 / 393 * screensize.width * 120,
                       child: profile.image.isEmpty
@@ -188,13 +199,7 @@ class _ProfileViewState extends State<ProfileView> {
                               ImageAssets.profilePhoto,
                               fit: BoxFit.cover,
                             )
-                          : InkWell(
-                              onTap: () async {
-                                final image = await _picker.pickImage(source: ImageSource.gallery);
-                                var img = File(image!.path);
-                                add_image_services().Upload(img);
-                              },
-                              child: CircleAvatar(
+                          : CircleAvatar(
                                 minRadius: 22,
                                 child: Image.network(
                                   AppStrings.baseUrl +

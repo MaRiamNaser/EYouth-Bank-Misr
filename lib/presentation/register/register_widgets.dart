@@ -84,7 +84,6 @@ Widget passwordTextFormField(TextEditingController passwordController) {
           return AppStrings.pleaseEnterYourPassword.tr();
         }else if(val!.length < 8){
           return AppStrings.passwordShouldBeMoreThanEightChars.tr();
-
         }
         return null;
       },

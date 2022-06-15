@@ -36,7 +36,7 @@ class RegisterationWebServices {
               },
               body: jsonEncode(<String, String>{
             
-                "email": email,
+                "username": email,
                 "password": password
                 
               }));
