@@ -1,4 +1,5 @@
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
+import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -247,9 +248,10 @@ class ContinueButton extends StatelessWidget {
                   showFlutterToast(
                       AppStrings.YouHaveBeenRegistredSuccessfully.tr());
                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                  currentindex = 0;
                 } else {
-                  print(AppStrings.userNotAdded.tr());
-                  showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+              
+                  showFlutterToast(AppStrings.yourPasswordCannotIncludeYourUsername.tr());
                 }
               }
             }

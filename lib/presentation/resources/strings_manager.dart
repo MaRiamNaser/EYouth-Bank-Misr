@@ -70,4 +70,6 @@ class AppStrings {
   static String thisUserIsAlreadyExist = "thisUserIsAlreadyExist";
 
   static String pleaseEnterAgeBetween10And15 = "pleaseEnterAgeBetween10And15";
+  static String yourPasswordCannotIncludeYourUsername = "yourPasswordCannotIncludeYourUsername";
+  static String loginLanguage = "loginLanguage";
 }

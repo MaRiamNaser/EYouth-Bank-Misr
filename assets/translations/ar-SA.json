@@ -60,5 +60,7 @@
  "YouHaveBeenRegistredSuccessfully":"لقد تم التسجيل بنجاح",
  "userNotAdded":"المستخدم لم يضاف",
  "thisUserIsAlreadyExist":"هذا المستخدم موجود بالفعل",
- "pleaseEnterAgeBetween10And15" : "من فضلك ادخل عمر بين 10 او 15 سنة"
+ "pleaseEnterAgeBetween10And15" : "من فضلك ادخل عمر بين 10 او 15 سنة",
+ "yourPasswordCannotIncludeYourUsername" :"كلمة المرور لا يمكن ان تحتوي على اسم المستخدم",
+ "loginLanguage" :"English"
 }

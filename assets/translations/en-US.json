@@ -60,6 +60,8 @@
  "YouHaveBeenRegistredSuccessfully":"You have been registred successfully",
  "userNotAdded":"user not added !",
  "thisUserIsAlreadyExist":"This user is already exist!",
- "pleaseEnterAgeBetween10And15" : "please Enter Age Between 10 & 15"
+ "pleaseEnterAgeBetween10And15" : "please Enter Age Between 10 & 15",
+ "yourPasswordCannotIncludeYourUsername" :"Your Password Cannot Include Your Username",
+ "loginLanguage":"العربية"
 
 }
