@@ -123,8 +123,9 @@ class _coursesViewState extends State<coursesView> {
                   isLoop: true,
                 ),
               ),
-            BlocBuilder<CourseCubit, CourseState>(
-            builder: (context, state) {
+            SingleChildScrollView(
+              child: BlocBuilder<CourseCubit, CourseState>(
+              builder: (context, state) {
       if (state is CoursesLoaded) {
         AllCourses = (state).courses;
         print(AllCourses[0].id);
@@ -132,44 +133,42 @@ class _coursesViewState extends State<coursesView> {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
+              crossAxisCount: 2,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0,
 
           ),
           itemCount: AllCourses.length,
           itemBuilder: (context, index) {
-            return InkWell(
-              onTap: (){
-                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p14),
-                child: Column(
-            
-                  children: [
-            
-                    Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30)
-                      ,
-                      image: DecorationImage(
-                        image: NetworkImage(AllCourses[index].image)
-                            ,fit: BoxFit.cover,
-                      )),
+              return InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p14),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 140,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)
+                        ,
+                        image: DecorationImage(
+                          image: NetworkImage(AllCourses[index].image)
+                              ,fit: BoxFit.cover,
+                        )),
 
-                  //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(AllCourses[index].title),
-                  ],
+                    //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(AllCourses[index].title),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
           },
         );
       }
@@ -181,7 +180,8 @@ class _coursesViewState extends State<coursesView> {
 
 
 
-    )
+    ),
+            )
 
           ],
         ),

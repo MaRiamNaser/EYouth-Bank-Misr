@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bank_misr/Data/web_services/goalConfirmEdit_services.dart';
+import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
-import 'package:bank_misr/Data/web_services/goal_services.dart';
+
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -18,7 +18,13 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
-import '../../Data/web_services/goalConfirmDelete_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
+import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
+import '../../Data/web_services/goal_services/goal_services.dart';
 import '../bottomBar/bottomBar.dart';
 import '../home/home_view.dart';
 import '../resources/color_manager.dart';
@@ -33,10 +39,11 @@ class Goalsview extends StatefulWidget {
 
 
 class _GoalViewState extends State<Goalsview> {
+  goalConfirmChecked checked=goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-
   confirmDeleteServices delete= confirmDeleteServices();
   confirmEditServices edit= confirmEditServices();
+  var token;
  late List<Goal> goals=[];
 @override
    void initState() {
@@ -48,6 +55,8 @@ class _GoalViewState extends State<Goalsview> {
    Load()async
    {
     goals = await GoalRepo(GoalServices()).GetAllGoals(await appPreferences.getLocalToken());
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    token=sharedPreferences.getString("token");
     setState(() {
 
     });
@@ -125,11 +134,12 @@ class _GoalViewState extends State<Goalsview> {
                 children: [
                   goals.length == 0? Center(child: Text(AppStrings.thereIsNoGoals.tr())): 
                     ListView.separated(
+
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => buildgoal(goals[index],index),
                     separatorBuilder: (context, index) => SizedBox(
-                      height: 10.0,
+                      height: 12.0,
                     ),
                     itemCount:goals.length,
                   ),
@@ -149,25 +159,20 @@ class _GoalViewState extends State<Goalsview> {
 
       Padding(
 
-        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 10),
         child: Container(
           decoration: BoxDecoration(
               border:Border.all(color:ColorManager.grey,width: 1.5),
               borderRadius: BorderRadius.only(topLeft:Radius.circular(20),bottomRight:Radius.circular(20), )
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              Expanded(
+              Padding(
 
-                child: Row(
-
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text((index+1).toString(),
                         style: getBoldtStyle(
                           fontSize: FontSize.s16,
@@ -177,28 +182,19 @@ class _GoalViewState extends State<Goalsview> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Container(
-                      width: 170,
+              Container(
+                      width: 190,
                       child: Text(
-
                         goal.title,
                         style: getBoldtStyle(
                           fontSize:FontSize.s16,
                           color:ColorManager.black,
-
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-
+                        maxLines: 3,
+                        overflow: TextOverflow.visible,
                       ),
                     ),
-
-                    Row(
-
-mainAxisAlignment: MainAxisAlignment.end,
-
-                      children: [
-                        IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
+              IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s20,color:ColorManager.green, onPressed: () {
                           setState(() {
 
                             showDialog(context: context, builder: (BuildContext context) {
@@ -240,15 +236,12 @@ mainAxisAlignment: MainAxisAlignment.end,
                                       ),
                                       child: TextButton(
                                         child: Text('Ok',style:getRegularStyle(color: ColorManager.white) ,),
-                                         onPressed: () async {
-                                        var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/${goal.id}'),
-                                            headers: <String,String>{"Content-Type": "application/json",
-                                              HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()});
-                                        print(response.statusCode);
-                                        Navigator.pushReplacementNamed(context, Routes.goals);
+                                        onPressed: ()
+                                         {checked.Checked(token, goal.id);
+                                           print(goal.id);
+                                          Navigator.pushReplacementNamed(context, Routes.goals);
 
-
-          },
+                                        },
                                         // async {
                                         //   var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/${goal.id}'),
                                         //       headers: <String,String>{"Content-Type": "application/json",
@@ -272,25 +265,23 @@ mainAxisAlignment: MainAxisAlignment.end,
                           });
                         },
                         ),
-                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {
+              IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {
                           edit.confirmEdit(goal.id,goal.title,goal.description,context);
                         },
 
                         ),
-                        IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () async {
+              IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () async {
                           // confirmDelete(goal.id);
                           delete.confirmDelete(goal.id, context);
 
                         },
 
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+
             ],
+
           ),
+
         ),
       );
 
