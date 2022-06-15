@@ -140,33 +140,36 @@ class _coursesViewState extends State<coursesView> {
           ),
           itemCount: AllCourses.length,
           itemBuilder: (context, index) {
-              return InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: AppPadding.p14),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 140,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)
-                        ,
-                        image: DecorationImage(
-                          image: NetworkImage(AllCourses[index].image)
-                              ,fit: BoxFit.cover,
-                        )),
 
-                    //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(AllCourses[index].title),
-                    ],
-                  ),
+            return InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: AppPadding.p14),
+                child: Column(
+            
+                  children: [
+            
+                    Container(
+                      height: 130,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30)
+                      ,
+                      image: DecorationImage(
+                        image: NetworkImage(AllCourses[index].image)
+                            ,fit: BoxFit.cover,
+                      )),
+
+                  //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(AllCourses[index].title),
+                  ],
+
                 ),
               );
           },

@@ -75,91 +75,89 @@ class _AddBodyState extends State<AddBody> {
               maxRadius: 34),
         )
       ],),
-        body:
-        SingleChildScrollView(
-          child:
-            Column(
-              children: [
-                Center(
-                  child: SizedBox(height: 1/825 * screensize.height *160 ,
-                      width: 1/393* screensize.width * 250,
-                      child:Lottie.asset(photo)),
-                ),
-                SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
-                Container(
-                  padding: EdgeInsets.all(AppPadding.p18),
-                  height: 1/825 * screensize.height *498 ,
-                  width: 1/393* screensize.width * 300,
-                  decoration:  BoxDecoration(
-                    border: Border.all(
-                        color: ColorManager.grey
-                    ),
-                    borderRadius: BorderRadius.only(topRight:Radius.circular(AppSize.s50) ,bottomLeft: Radius.circular(AppSize.s50)),
+        body: SingleChildScrollView(
+          child: Column(
+                children: [
+                  Center(
+                    child: SizedBox(height: 1/825 * screensize.height *140 ,
+                        width: 1/393* screensize.width * 250,
+                        child:Lottie.asset(photo)),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Text(AppStrings.title.tr()),
-                        SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
-                        getTextField(choice==AppStrings.Goal.tr()?AppStrings.GoalTitlehere.tr():AppStrings.TaskTitlehere.tr(),1/825 * screensize.height *80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
-                          setState(() {
-                            titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
-                            titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
-                          });
-                        }),
-                        SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                         Text(AppStrings.Description.tr()),
-                        SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
-                        getTextField(choice==AppStrings.Goal.tr()?AppStrings.writeGoalHere.tr():AppStrings.writeTaskHere.tr(),1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
-                          setState(() {
-                            titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
-                            titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
-                          });
-                        }),
-                        SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
-                        Text(AppStrings.amount.tr()),
-                        SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
-                        getTextField2(AppStrings.amount.tr(),1/825 * screensize.height *55,2,AppPadding.p2,AppSize.s20,amountTextController,(text){},
-                        ),
-                        SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
-                        Center(
-                          child: Container(
-                            height: 1/825 * screensize.height *46 ,
-                            width: 1/393* screensize.width * 133,
-                            decoration:BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: color,
-                            ) ,
-                  
-                            child: TextButton(onPressed: ()async{
-                              if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                  
-                                if(
-                                 await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
-                                   {
-                                     showDialog(context: context, builder: (BuildContext context) {
-                                       return  alertdialog(choice,alertPhoto);
-                                     });
-                                   }
-                              }
-                            },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children:  [
-                                    Text(AppStrings.add.tr(),style: getRegularStyle(color: color2),),
-                                    Icon(Icons.add,color:  color2,)
-                                  ],
-                                )),
-                          ),
-                        )
-                      ],
+                  SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
+                  Container(
+                    padding: EdgeInsets.all(AppPadding.p18),
+                    height: 1/825 * screensize.height *498 ,
+                    width: 1/393* screensize.width * 300,
+                    decoration:  BoxDecoration(
+                      border: Border.all(
+                          color: ColorManager.grey
+                      ),
+                      borderRadius: BorderRadius.only(topRight:Radius.circular(AppSize.s50) ,bottomLeft: Radius.circular(AppSize.s50)),
                     ),
-                  ),
-                )
-              ],
-            ),
-          ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                           Text(AppStrings.title.tr()),
+                          SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                          getTextField(choice==AppStrings.Goal.tr()?AppStrings.GoalTitlehere.tr():AppStrings.TaskTitlehere.tr(),1/825 * screensize.height *80,2,AppPadding.p2,AppSize.s20,titleTextController,(text){
+                            setState(() {
+                              titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
+                              titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
+                            });
+                          },context,screensize),
+                          SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
+                           Text(AppStrings.Description.tr()),
+                          SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
+                          getTextField(choice==AppStrings.Goal.tr()?AppStrings.writeGoalHere.tr():AppStrings.writeTaskHere.tr(),1/825 * screensize.height *140,8,AppPadding.p20,AppSize.s20,descTextController,(text){
+                            setState(() {
+                              titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
+                              titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
+                            });
+                          },context,screensize),
+                          SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                          Text(AppStrings.amount.tr()),
+                          SizedBox(height: 1/825 * screensize.height * AppSize.s8 ,),
+                          getTextField2(AppStrings.amount.tr(),1/825 * screensize.height *65,2,AppPadding.p2,AppSize.s20,amountTextController,(text){},
+                          context,screensize),
+                          SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
+                          Center(
+                            child: Container(
+                              height: 1/825 * screensize.height *46 ,
+                              width: 1/393* screensize.width * 133,
+                              decoration:BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: color,
+                              ) ,
+                    
+                              child: TextButton(onPressed: ()async{
+                                if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
+                    
+                                  if(
+                                   await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
+                                     {
+                                       showDialog(context: context, builder: (BuildContext context) {
+                                         return  alertdialog(choice,alertPhoto);
+                                       });
+                                     }
+                                }
+                              },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children:  [
+                                      Text(AppStrings.add.tr(),style: getRegularStyle(color: color2),),
+                                      Icon(Icons.add,color:  color2,)
+                                    ],
+                                  )),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+        ),
         );
   }
 }

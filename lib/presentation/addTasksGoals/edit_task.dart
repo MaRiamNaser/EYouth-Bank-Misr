@@ -90,7 +90,7 @@ class _EditTaskState extends State<EditTask> {
                       titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                       titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
                     });
-                  }),
+                  },context,screensize),
                   SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
                   const Text("Description"),
                   SizedBox(height: 1/825 * screensize.height *AppSize.s8 ,),
@@ -99,7 +99,7 @@ class _EditTaskState extends State<EditTask> {
                       titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color=ColorManager.darkPrimary:color=ColorManager.lightPrimary;
                       titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty?color2=ColorManager.white:color2=ColorManager.grey;
                     });
-                  }),
+                  },context,screensize),
                   SizedBox(height: 1/825 * screensize.height *AppSize.s18 ,),
                   Center(
                     child: Container(

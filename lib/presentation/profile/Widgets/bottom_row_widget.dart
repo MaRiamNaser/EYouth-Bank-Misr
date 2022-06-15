@@ -9,8 +9,12 @@ class RowWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
+    child: SizedBox(
+    height: 1/825 * screensize.height * 50,
+    width: 1/393* screensize.width * 50,
           child: Image.asset(
-              "assets/images/Icon awesome-tasks.png"),
+              "assets/images/Icon awesome-tasks.png")
+    ),
         ),
         SizedBox(
           height: 1/825 * screensize.height * 50,
@@ -20,8 +24,11 @@ class RowWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
+    child: SizedBox(
+    height: 1/825 * screensize.height * 50,
+    width: 1/393* screensize.width * 50,
           child: Image.asset(
-              "assets/images/Icon awesome-coins.png"),
+              "assets/images/Icon awesome-coins.png")),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 35.0),
@@ -33,9 +40,11 @@ class RowWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20.0),
+          padding: const EdgeInsets.only(top: 20.0),child: SizedBox(
+    height: 1/825 * screensize.height * 50,
+    width: 1/393* screensize.width * 50,
           child: Image.asset(
-              "assets/images/Icon awesome-wallet.png"),
+              "assets/images/Icon awesome-wallet.png")),
         ),
       ],
     )

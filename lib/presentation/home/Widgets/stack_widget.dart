@@ -31,49 +31,36 @@ class StackWidget extends StatelessWidget {
                 SizedBox(height: 1/825 * screensize.height * 25,),
                  Center(child: Text( profile.fullname.split(" ").length>1?(profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]):profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
                  Center(child: Text( AppStrings.setyourGoalsLearnEarn.tr(),style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
-                SizedBox(height: 1/825 * screensize.height * 38,),
+              //  SizedBox(height: 1/825 * screensize.height * 38,),
               //  Text(AppStrings.Balance.tr(),style: getMediumStyle(fontSize: 21,color: ColorManager.white)),
-                SizedBox(height: 6.0)
               ],
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(left:130,top: 135,right: 130),
+        Align(
+          alignment: Alignment.bottomCenter,
           child: Container(
-            height: 140 ,
-            width: 140 ,
+            height:1/825 * screensize.height * 150 ,
+            width:1/825 * screensize.height * 150 ,
+            margin: EdgeInsets.only(top: 110),
             decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color:Colors.grey),
-                borderRadius: BorderRadius.circular(80)
+              color: Colors.white,
+              border: Border.all(color:Colors.grey),
+              shape: BoxShape.circle,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                height:  125 ,
-                width: 125 ,
-                decoration: BoxDecoration(
-                    color: Colors.white,
+            child: Center(
+                child :Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
+                    Text(AppStrings.EGP.tr(),style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
-                    borderRadius: BorderRadius.circular(80)
-                ),
-                child: Center(
-                    child :Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
-                        Text(AppStrings.EGP.tr(),style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
-
-                      ],
-                    )
-                ),
-
-              ),
+                  ],
+                )
             ),
 
           ),
-        ),
+        )
       ],
     );
   }
