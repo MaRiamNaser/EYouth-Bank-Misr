@@ -123,8 +123,9 @@ class _coursesViewState extends State<coursesView> {
                   isLoop: true,
                 ),
               ),
-            BlocBuilder<CourseCubit, CourseState>(
-            builder: (context, state) {
+            SingleChildScrollView(
+              child: BlocBuilder<CourseCubit, CourseState>(
+              builder: (context, state) {
       if (state is CoursesLoaded) {
         AllCourses = (state).courses;
         print(AllCourses[0].id);
@@ -132,13 +133,14 @@ class _coursesViewState extends State<coursesView> {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
+              crossAxisCount: 2,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0,
 
           ),
           itemCount: AllCourses.length,
           itemBuilder: (context, index) {
+
             return InkWell(
               onTap: (){
                 Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
@@ -167,9 +169,9 @@ class _coursesViewState extends State<coursesView> {
                     ),
                     Text(AllCourses[index].title),
                   ],
+
                 ),
-              ),
-            );
+              );
           },
         );
       }
@@ -181,7 +183,8 @@ class _coursesViewState extends State<coursesView> {
 
 
 
-    )
+    ),
+            )
 
           ],
         ),

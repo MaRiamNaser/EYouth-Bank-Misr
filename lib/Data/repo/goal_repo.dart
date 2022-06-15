@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../models/goal.dart';
-import '../web_services/goal_services.dart';
+
+import '../web_services/goal_services/goal_services.dart';
 
 class GoalRepo
 {
