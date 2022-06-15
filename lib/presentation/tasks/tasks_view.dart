@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:bank_misr/Data/models/Task.dart';
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmDelete_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmEdit_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
@@ -15,13 +18,13 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../Data/repo/task_repo.dart';
-import '../../Data/web_services/taskConfirmDelete_services.dart';
-import '../../Data/web_services/taskConfirmEdit_services.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Data/repo/task_repo.dart';
 import '../../Data/web_services/balance_services.dart';
-import '../../Data/web_services/task_services.dart';
+
+import '../../Data/web_services/task_services/taskConfirmChecked_services.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
 import '../resources/routes_manager.dart';
@@ -34,6 +37,7 @@ class TasksView extends StatefulWidget {
 }
 
 class _TasksViewState extends State<TasksView> {
+  taskConfirmChecked checked=taskConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
   taskconfirmDeleteServices delete= taskconfirmDeleteServices();
   taskConfirmEditServices edit= taskConfirmEditServices();
@@ -148,37 +152,33 @@ class _TasksViewState extends State<TasksView> {
   Widget buildtask(Task task, int index) =>
 
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 5),
         child: Container(
+          width: double.infinity,
           decoration: BoxDecoration(
               border:Border.all(color:ColorManager.grey,width: 1.5),
               borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
           ),
           child: Row(
+
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
-              Expanded(
+                        Padding(
 
-                child: Row(
-
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         (index+1).toString(),
                         style: getBoldtStyle(
                           fontSize: FontSize.s16,
                           color:ColorManager.black,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+
                       ),
                     ),
-                    Container(
-                      width: 167,
+                        Container(
+                      width: 190,
                       child: Text(
 
                         task.title,
@@ -188,14 +188,11 @@ class _TasksViewState extends State<TasksView> {
 
 
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        overflow: TextOverflow.visible,
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    Row(
-
-                      children: [
                         IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
                         setState(() async {
 
@@ -241,11 +238,9 @@ class _TasksViewState extends State<TasksView> {
 
                                       child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
                                       onPressed: ()
-                                        async {
-                                        var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/${task.id}'),
-                                        headers: <String,String>{"Content-Type": "application/json",
-                                        HttpHeaders.authorizationHeader:token});
-                                        print(response.statusCode);
+                                      {
+                                        checked.Checked(token,task.id);
+
                                         Navigator.of(context).pop();
                                         currentindex=2;
                                         Navigator.pushReplacementNamed(context, Routes.homeLayout);
@@ -276,11 +271,10 @@ class _TasksViewState extends State<TasksView> {
 
                         ),
                       ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+
+
+              ////////////////////////////
+
           ),
         ),
       );

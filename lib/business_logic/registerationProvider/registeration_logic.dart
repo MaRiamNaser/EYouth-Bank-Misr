@@ -86,7 +86,6 @@ registerStatus =false;
              registerStatus = true;
              localToken = response["data"]["token"];
              currentUser = User.fromJson(response["data"]["user"]);
-
            appPreferences.saveTokenAndUserIdToSharedPrefrences( localToken!, currentUser!.sId!);
           }else{
             registerStatus = false;

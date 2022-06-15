@@ -13,21 +13,15 @@ class BalanceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
     return Container(
-      height: 140,
-      width: 140,
+      height:1/825 * screensize.height * 150,
+      width:1/825 * screensize.height * 150,
       decoration: BoxDecoration(
+           shape: BoxShape.circle,
           color: Colors.white,
           border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(80)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Container(
-          height:  125,
-          width:  125,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(80)),
-          child: Center(
+       //   borderRadius: BorderRadius.circular(80)
+       ),
+      child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -45,8 +39,6 @@ class BalanceWidget extends StatelessWidget {
                   ),
                 ],
               )),
-        ),
-      ),
     );
   }
 }

@@ -51,6 +51,7 @@ class AppStrings {
   static String youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
   static String en = "en";
   static String ar = "ar";
+
   static String amount = "Amount";
   static String Submit = "Submit";
   static String Ok = "Ok";
@@ -68,6 +69,20 @@ class AppStrings {
       "YouHaveBeenRegistredSuccessfully";
   static String userNotAdded = "userNotAdded";
   static String thisUserIsAlreadyExist = "thisUserIsAlreadyExist";
+
+  static String amount="Amount";
+  static String Submit="Submit";
+  static String  Ok= "Ok";
+  static String EGP_Has_Been_Added_To_Your_Wallet= "Wallet";
+  static String EGP2_Has_Been_Added_To_Your_Wallet= "Wallet2";
+  static String Your_Balance_Now_is="Your Balance Now is";
+  static String Well_Done="Well Done";
+  static String Goal_Has_Been_Added="Goal_Has_Been_Added";
+  static String Task_Has_Been_Added="Task_Has_Been_Added";
+    static String notifications ="notifications";
+     static String signOut ="signOut";
+     static const passwordShouldBeMoreThanEightChars = "passwordShouldBeMoreThanEightChars";
+    static String yearsOld="Years old";
 
   static String pleaseEnterAgeBetween10And15 = "pleaseEnterAgeBetween10And15";
   static String yourPasswordCannotIncludeYourUsername = "yourPasswordCannotIncludeYourUsername";
