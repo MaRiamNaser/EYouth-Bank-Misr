@@ -56,6 +56,13 @@
     "Well Done": "Well Done",
  "Goal_Has_Been_Added": "Goal Has Been Added !",
  "Task_Has_Been_Added": "Task Has Been Added !",
+ "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !",
+ "YouHaveBeenRegistredSuccessfully":"You have been registred successfully",
+ "userNotAdded":"user not added !",
+ "thisUserIsAlreadyExist":"This user is already exist!",
+ "pleaseEnterAgeBetween10And15" : "please Enter Age Between 10 & 15",
+ "yourPasswordCannotIncludeYourUsername" :"Your Password Cannot Include Your Username",
+ "loginLanguage":"العربية"
  "Years old":"Years old",
  "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !"
 
