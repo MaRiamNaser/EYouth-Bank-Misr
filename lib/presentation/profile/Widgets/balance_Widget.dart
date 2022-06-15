@@ -19,7 +19,15 @@ class BalanceWidget extends StatelessWidget {
            shape: BoxShape.circle,
           color: Colors.white,
           border: Border.all(color: Colors.grey),
-       //   borderRadius: BorderRadius.circular(80)
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0.0, 1.0), //(x,y)
+              blurRadius: 6.0,
+            )
+          ]
+
+        //   borderRadius: BorderRadius.circular(80)
        ),
       child: Center(
               child: Column(

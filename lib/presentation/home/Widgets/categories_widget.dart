@@ -1,4 +1,3 @@
-import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,8 +5,13 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../../Data/models/Category.dart';
+import '../../courses/coursesView.dart';
+import '../../goals/goals_view.dart';
+import '../../tasks/tasks_view.dart';
 class CategoriesWidget extends StatefulWidget {
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();
@@ -29,13 +33,19 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         return InkWell(
           onTap: () {
             if(index == 1){
-              Navigator.pushNamed(context, Routes.courses,arguments: 1);
-              
+              //Navigator.pushNamed(context, Routes.courses,arguments: 1);
+              pushNewScreen(context, screen: BlocProvider(
+                create: (context) => blocGenerator().courseCubit,
+                child :coursesView(1),
+              ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }else if(index == 0){
-             Navigator.pushNamed(context, Routes.goals);
-              
+              pushNewScreen(context, screen: Goalsview()
+                  ,withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }else if(index == 2){
-              Navigator.pushNamed(context, Routes.tasks);
+              pushNewScreen(context, screen: BlocProvider(
+                create: (context) => blocGenerator().courseCubit,
+                child :TasksView(),
+              ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }
 
           },
