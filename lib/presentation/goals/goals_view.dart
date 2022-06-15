@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bank_misr/Data/web_services/goalConfirmEdit_services.dart';
+import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
-import 'package:bank_misr/Data/web_services/goal_services.dart';
+
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -18,7 +18,13 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
-import '../../Data/web_services/goalConfirmDelete_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
+import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
+import '../../Data/web_services/goal_services/goal_services.dart';
 import '../bottomBar/bottomBar.dart';
 import '../home/home_view.dart';
 import '../resources/color_manager.dart';
@@ -30,10 +36,11 @@ class Goalsview extends StatefulWidget {
 }
 
 class _GoalViewState extends State<Goalsview> {
+  goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-
   confirmDeleteServices delete = confirmDeleteServices();
   confirmEditServices edit = confirmEditServices();
+  var token;
   late List<Goal> goals = [];
 
   @override
@@ -43,11 +50,17 @@ class _GoalViewState extends State<Goalsview> {
     Load();
   }
 
-  Load() async {
-    goals = await GoalRepo(GoalServices())
-        .GetAllGoals(await appPreferences.getLocalToken());
-    setState(() {});
+  Load() async
+  {
+    goals = await GoalRepo(GoalServices()).GetAllGoals(
+        await appPreferences.getLocalToken());
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
+    setState(() {
+
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +150,7 @@ class _GoalViewState extends State<Goalsview> {
     );
   }
 
+
   Widget buildgoal(Goal goal, int index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         child: Container(
@@ -147,42 +161,46 @@ class _GoalViewState extends State<Goalsview> {
                 bottomRight: Radius.circular(20),
               )),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children:
+                  [
                     Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            (index + 1).toString()+" -",
-                            style: getMediumStyle(
-                              fontSize: FontSize.s16,
-                              color: ColorManager.black,
+                          children:
+                          [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                (index + 1).toString()+" -",
+                                style: getMediumStyle(
+                                  fontSize: FontSize.s16,
+                                  color: ColorManager.black,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
               Container(
-                width: 279 ,
-                child: Text(
-                  goal.title,
-                  style: getMediumStyle(
-                    fontSize: 16,
-                    color: ColorManager.black,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )
-                      ],
+                    width: 279 ,
+                    child: Text(
+                      goal.title,
+                      style: getMediumStyle(
+                        fontSize: 16,
+                        color: ColorManager.black,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Divider(height: 2,),
-                    Row(
+                  )
+                      ],
+                      ),
+          Divider(height: 2,),
+          Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
@@ -250,21 +268,13 @@ class _GoalViewState extends State<Goalsview> {
                                                   style: getRegularStyle(
                                                       color: ColorManager.white),
                                                 ),
-                                                onPressed: () async {
-                                                  var response = await http.delete(
-                                                      Uri.parse(
-                                                          'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/${goal.id}'),
-                                                      headers: <String, String>{
-                                                        "Content-Type":
-                                                        "application/json",
-                                                        HttpHeaders
-                                                            .authorizationHeader:
-                                                        await appPreferences
-                                                            .getLocalToken()
-                                                      });
-                                                  print(response.statusCode);
-                                                  Navigator.pushReplacementNamed(
+                                                onPressed: (){
+                                                  checked.Checked(token, goal.id);
+                                                  Navigator
+                                                      .pushReplacementNamed(
                                                       context, Routes.goals);
+
+
                                                 },
                                               ),
                                             ),
@@ -292,118 +302,23 @@ class _GoalViewState extends State<Goalsview> {
                             delete.confirmDelete(goal.id, context);
                           },
                         ),
-                      ],
-                    ),
+                               ]
+
+          ),
+
+
                   ],
                 ),
               ),
             ],
           ),
         ),
-      );
+  );
 
-// void confirmDelete(String id) {
-//   showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
-//     title: Text("Delete"),
-//     content: Text(" Are you sure !?"),
-//     actions: [
-//       FlatButton(child: Text("yes"),
-//         onPressed: () async {
-//           var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id'),
-//               headers: <String,String>{"Content-Type": "application/json",
-//                 HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
-//           print(response.statusCode);
-//           Navigator.push(context, MaterialPageRoute(builder: (context)=> Goalsview()));
-//
-//
-//         }, ),
-//       FlatButton(onPressed: (){
-//         Navigator.pop(context);
-//
-//       }, child: Text("no")),
-//     ],
-//
-//   )
-//   );
-//
-// }
-// void confirmEdit(String Id,String Title, String Description) {
-//   Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(Id,Title,Description)));
-// }
+
 
 }
 
-// Widget buildtask(GoalsList goals) =>
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-//       child: Container(
-//         height: 50,
-//         decoration: BoxDecoration(
-//
-//           border:Border.all(color:ColorManager.grey,width: 1.5),
-//           borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-//         ),
-//         child: Row(
-//           children: [
-//
-//             Expanded(
-//
-//               child: Row(
-//
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Padding(
-//
-//                     padding: const EdgeInsets.all(12.0),
-//                     child: Text(
-//                       '${goals.number}'+"-",
-//                       style: getBoldtStyle(
-//                         fontSize: FontSize.s16,
-//                         color:ColorManager.black,
-//                       ),
-//                       maxLines: 2,
-//                       overflow: TextOverflow.ellipsis,
-//                     ),
-//                   ),
-//                   Container(
-//                     width: 170,
-//                     child: Text(
-//
-//                       '${goals.name}',
-//                       style: getBoldtStyle(
-//                         fontSize:FontSize.s16,
-//                         color: Colors.black,
-//
-//                       ),
-//                       maxLines: 2,
-//                       overflow: TextOverflow.ellipsis,
-//                       textAlign: TextAlign.left,
-//                     ),
-//                   ),
-//
-//                   Row(
-//
-//
-//                     children: [
-//
-//                       IconButton(icon: (Icon(Icons.check_circle_outline,)),color:ColorManager.green, onPressed: () {
-//
-//                       },
-//
-//                       ),
-//                       IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {  },
-//
-//                       ),
-//                       IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {  },
-//
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
+
+
+

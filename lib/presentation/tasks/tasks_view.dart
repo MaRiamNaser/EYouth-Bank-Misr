@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:bank_misr/Data/models/Task.dart';
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmDelete_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmEdit_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
@@ -15,13 +18,13 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../Data/repo/task_repo.dart';
-import '../../Data/web_services/taskConfirmDelete_services.dart';
-import '../../Data/web_services/taskConfirmEdit_services.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Data/repo/task_repo.dart';
 import '../../Data/web_services/balance_services.dart';
-import '../../Data/web_services/task_services.dart';
+
+import '../../Data/web_services/task_services/taskConfirmChecked_services.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
 import '../resources/routes_manager.dart';
@@ -34,6 +37,7 @@ class TasksView extends StatefulWidget {
 }
 
 class _TasksViewState extends State<TasksView> {
+  taskConfirmChecked checked=taskConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
   taskconfirmDeleteServices delete= taskconfirmDeleteServices();
   taskConfirmEditServices edit= taskConfirmEditServices();
@@ -146,137 +150,165 @@ class _TasksViewState extends State<TasksView> {
 
   }
   Widget buildtask(Task task, int index) =>
-
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         child: Container(
           decoration: BoxDecoration(
-              border:Border.all(color:ColorManager.grey,width: 1.5),
-              borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-          ),
+              border: Border.all(color: ColorManager.grey, width: 1.5),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              )),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               Expanded(
-
-                child: Row(
-
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        (index+1).toString(),
-                        style: getBoldtStyle(
-                          fontSize: FontSize.s16,
-                          color:ColorManager.black,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Container(
-                      width: 167,
-                      child: Text(
-
-                        task.title,
-                        style: getBoldtStyle(
-                          fontSize:FontSize.s16,
-                          color: Colors.black,
-
-
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
+                  children:
+                  [
                     Row(
-
-                      children: [
-                        IconButton(icon: (Icon(Icons.check_circle_outline,)),iconSize: FontSize.s25,color:ColorManager.green, onPressed: () {
-                        setState(() async {
-
-                          await balanceServices().EditBalance(token, 20);
-                          showDialog(context: context, builder: (BuildContext context) {
-                            return AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                              scrollable: true,
-                              backgroundColor: ColorManager.primary,
-                              title:  Center(
-                                child: Text(AppStrings.Well_Done.tr(),
-                                  style: getBoldtStyle(fontSize:18,color: ColorManager.white),),
-                              ),
-                              content: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Lottie.asset("assets/images/7455-loading1.json",height: 145,width:250, ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                          width: 190,
-                                          child: Text("${AppStrings.EGP2_Has_Been_Added_To_Your_Wallet.tr()}\n ${AppStrings.Your_Balance_Now_is.tr()} ${balance+20}",
-                                            style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),
-                                            textAlign: TextAlign.center,
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                Center(
-                                  child: Container(
-                                    height:30 ,
-                                    width:100 ,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: ColorManager.darkPrimary,
-                                    ),
-                                    child: TextButton(
-
-                                      child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
-                                      onPressed: ()
-                                        async {
-                                        var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/${task.id}'),
-                                        headers: <String,String>{"Content-Type": "application/json",
-                                        HttpHeaders.authorizationHeader:token});
-                                        print(response.statusCode);
-                                        Navigator.of(context).pop();
-                                        currentindex=2;
-                                        Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                                      },
-                                    ),
-                                  ),
-                                )
-
-                              ],
-                            );
-
-                          });
-
-                        });
-                        },
+                      children:
+                      [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            (index + 1).toString() + " -",
+                            style: getMediumStyle(
+                              fontSize: FontSize.s16,
+                              color: ColorManager.black,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        IconButton(icon: (Icon(Icons.edit_rounded)),color:ColorManager.black, onPressed: () {
-                          // confirmEdit(task.id,task.title,task.description);
-                          edit.confirmEdit(task.id, task.title,task.description, context);
-                        },
-
-                        ),
-                        IconButton(icon: (Icon(Icons.delete_rounded)),color:ColorManager.error, onPressed: () {
-                          // confirmDelete(task.id);
-                          delete.confirmDelete(task.id, context);
-
-                        },
-
-                        ),
+                        Container(
+                          width: 279,
+                          child: Text(
+                            task.title,
+                            style: getMediumStyle(
+                              fontSize: 16,
+                              color: ColorManager.black,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
                       ],
                     ),
+                    Divider(height: 2,),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.check_circle, color: Colors.green,
+                              size: 28,),
+                            onPressed: () {
+                              setState(() {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
+                                        scrollable: true,
+                                        backgroundColor: ColorManager.primary,
+                                        title: Center(
+                                          child: Text(
+                                            "Great",
+                                            style: getBoldtStyle(
+                                                fontSize: 18,
+                                                color: ColorManager.white),
+                                          ),
+                                        ),
+                                        content: Container(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Lottie.asset(
+                                                "assets/images/7455-loading1.json",
+                                                height: 145,
+                                                width: 250,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: SizedBox(
+                                                    width: 190,
+                                                    child: Text(
+                                                      " Great work you earn 20 EGP ",
+                                                      style: getSemiBoldStyle(
+                                                          fontSize: 14,
+                                                          color:
+                                                          ColorManager.white),
+                                                      textAlign: TextAlign
+                                                          .center,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          Center(
+                                            child: Container(
+                                              height: 30,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(15),
+                                                color: ColorManager.darkPrimary,
+                                              ),
+                                              child: TextButton(
+                                                child: Text(
+                                                  'Ok',
+                                                  style: getRegularStyle(
+                                                      color: ColorManager
+                                                          .white),
+                                                ),
+                                                onPressed: (){
+                                                  checked.Checked(token, task.id);
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                      context, Routes.tasks);
+
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              });
+                            },
+                          ),
+
+                          IconButton(
+                            icon: (Icon(Icons.edit_rounded)),
+                            color: ColorManager.black,
+                            onPressed: () {
+                              edit.confirmEdit(
+                                  task.id, task.title, task.description,
+                                  context);
+                            },
+                          ),
+                          IconButton(
+                            icon: (Icon(Icons.delete_rounded)),
+                            color: ColorManager.error,
+                            onPressed: () async {
+                              // confirmDelete(goal.id);
+                              delete.confirmDelete(task.id, context);
+                            },
+                          ),
+                        ]
+
+                    ),
+
+
                   ],
                 ),
               ),
@@ -284,34 +316,7 @@ class _TasksViewState extends State<TasksView> {
           ),
         ),
       );
-  // void confirmDelete(String id) {
-  //   showDialog(context: context, builder: (BuildContext context)=>AlertDialog(
-  //     title: Text("Delete"),
-  //     content: Text(" Are you sure !?"),
-  //     actions: [
-  //       FlatButton(child: Text("yes"),
-  //         onPressed: () async {
-  //         var response=await  http.delete(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/delete/$id'),
-  //             headers: <String,String>{"Content-Type": "application/json",
-  //               HttpHeaders.authorizationHeader:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE1YjMzMDQ2ZGNiZjBkZWVjYzQzNmUiLCJpYXQiOjE2NTUwMjcwODJ9.XdHxFQGF4NGEQik_2V-Qbw5nZaERO8J7KIALYBBwJj8"});
-  //         print(response.statusCode);
-  //           Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
-  //
-  //
-  //         }, ),
-  //       FlatButton(onPressed: (){
-  //         Navigator.pop(context);
-  //
-  //       }, child: Text("no")),
-  //     ],
-  //
-  //   )
-  //   );
-  //
-  // }
-  // void confirmEdit(String Id,String Title, String Description) {
-  //   Navigator.push(context, MaterialPageRoute(builder: (context)=> EditTask(Id,Title,Description)));
-  // }
+
 
 
 }
