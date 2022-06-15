@@ -51,6 +51,7 @@ class AppStrings {
   static String youAreLoggedInSuccessfully = "youAreLoggedInSuccessfully";
   static String en = "en";
   static String ar = "ar";
+
   static String amount = "Amount";
   static String Submit = "Submit";
   static String Ok = "Ok";
