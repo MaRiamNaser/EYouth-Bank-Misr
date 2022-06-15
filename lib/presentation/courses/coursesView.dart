@@ -1,3 +1,4 @@
+import 'package:bank_misr/presentation/course/course_view.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../Data/models/Course.dart';
 import '../../business_logic/courseBloc/course_cubit.dart';
@@ -143,7 +145,10 @@ class _coursesViewState extends State<coursesView> {
 
             return InkWell(
               onTap: (){
-                Navigator.pushNamed(context, Routes.courseViewRoute,arguments: [AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]);
+                pushNewScreen(context, screen: BlocProvider(
+                  create: (context) => blocGenerator().videoCubit,
+                  child :CourseView([AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]),
+                ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: AppPadding.p14),

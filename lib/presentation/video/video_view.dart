@@ -62,31 +62,33 @@ class _VideoViewState extends State<VideoView> {
         //   title: Text("Video Name"),
         //
         // ),
-        body: Column(children: [
-          SizedBox(
-            height: 1/825 * screensize.height * AppSize.s14,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(0),
-            child:InkWell(
-              onTap: () {
-                final _newCode = video.videoLink;
-                _ytbPlayerController.load(_newCode);
-                _ytbPlayerController.stop();
-              },
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child:  YoutubePlayerIFrame(controller: _ytbPlayerController)
-              ),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            SizedBox(
+              height: 1/825 * screensize.height * AppSize.s14,
             ),
-          )
-          ,
-          SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
-              Description(video.description),
-          SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
-          Expanded(
-            child: QuizWidget(video.quiz),
-          )
-        ]));
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child:InkWell(
+                onTap: () {
+                  final _newCode = video.videoLink;
+                  _ytbPlayerController.load(_newCode);
+                  _ytbPlayerController.stop();
+                },
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child:  YoutubePlayerIFrame(controller: _ytbPlayerController)
+                ),
+              ),
+            )
+            ,
+            SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
+                Description(video.description),
+            SizedBox(height: 1/825 * screensize.height * AppSize.s20,),
+            Container(
+              child: QuizWidget(video.quiz),
+            )
+          ]),
+        ));
   }
 }
