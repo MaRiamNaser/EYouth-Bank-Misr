@@ -137,11 +137,6 @@ _changeLanguage(){
                                             ],
                                           ),
 
-
-
-
-
-
                                     ),
 
 
@@ -251,38 +246,43 @@ _changeLanguage(){
 
                               Expanded(
 
-                                child: Container(
-
-                                           child: (
-                                      Container(
-                                        height: 60,
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-
-                                            IconButton(
-                                              alignment: Alignment.bottomRight,
-                                              icon: Icon(
-                                                Icons.logout,
+                                child: GestureDetector(
+                                  onTap: (){
+                                      Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                                  },
+                                  child: Container(
+                                
+                                             child: (
+                                        Container(
+                                          height: 60,
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                
+                                              IconButton(
+                                                alignment: Alignment.bottomRight,
+                                                icon: Icon(
+                                                  Icons.logout,
+                                                ),
+                                                color: ColorManager.black,
+                                                onPressed: () {
+                                            
+                                                },
                                               ),
-                                              color: ColorManager.black,
-                                              onPressed: () {
-                                          
-                                              },
-                                            ),
-                                          
-                  
-                  
-                  
-                  
-                                          ],
-                                        ),
-                                      )
-                  
-                  
-                  
-
+                                            
+                                                  
+                                                  
+                                                  
+                                                  
+                                            ],
+                                          ),
+                                        )
+                                                  
+                                                  
+                                                  
+                                
+                                    ),
                                   ),
                                 ),
                               ),

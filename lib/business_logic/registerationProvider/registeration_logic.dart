@@ -12,7 +12,7 @@ class RegisterationProvider extends ChangeNotifier {
   RegisterationWebServices registerationWebServices =
       RegisterationWebServices();
 
-      AppPreferences appPreferences =AppPreferences();
+  AppPreferences appPreferences =AppPreferences();
 
   String? fullName;
   String? userName;
@@ -46,11 +46,9 @@ notifyListeners();
 }
 void setPassword(String password){
   this.password = password;
-
 notifyListeners();
   
 }
-
 void setAge(String age){
   this.age = age;
 
@@ -58,7 +56,7 @@ notifyListeners();
   
 }
 
-changeregisterStatus(bool registerStatus){
+  changeregisterStatus(bool registerStatus){
   this.registerStatus = registerStatus;
   notifyListeners();
 }
@@ -111,4 +109,31 @@ registerStatus =false;
     index = index - 1;
     notifyListeners();
   }
+ 
+
+  Future<bool> isUserNameExist() async {
+    //registerationWebServices.isUserNameExist("dododo");
+    late Map<String, dynamic> response = Map();
+    bool isExist = false;
+ await   registerationWebServices.isUserNameExist(this.userName!).then((value) {
+      response = jsonDecode(value);
+      isExist = response["data"];
+
+      });
+      notifyListeners();
+    return isExist;
+  }
+
+  Future<bool> isEmailExist() async {
+     late Map<String, dynamic> response = Map();
+    bool isExist = false;
+   await   registerationWebServices.isEmailExist(this.email!).then((value) {
+        response = jsonDecode(value);
+      isExist = response["data"];
+    });
+      notifyListeners();
+    return isExist;
+  }
+
+
 }
