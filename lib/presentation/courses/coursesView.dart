@@ -171,7 +171,8 @@ class _coursesViewState extends State<coursesView> {
                   ],
 
                 ),
-              );
+              )
+            );
           },
         );
       }

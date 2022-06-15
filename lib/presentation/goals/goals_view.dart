@@ -36,33 +36,31 @@ class Goalsview extends StatefulWidget {
 }
 
 class _GoalViewState extends State<Goalsview> {
-  goalConfirmChecked checked=goalConfirmChecked();
+  goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-  confirmDeleteServices delete= confirmDeleteServices();
-  confirmEditServices edit= confirmEditServices();
+  confirmDeleteServices delete = confirmDeleteServices();
+  confirmEditServices edit = confirmEditServices();
   var token;
- late List<Goal> goals=[];
-@override
-   void initState() {
+  late List<Goal> goals = [];
+
+  @override
+  void initState() {
     // TODO: implement initState
     super.initState();
-     Load();
+    Load();
+  }
 
-   }
-   Load()async
-   {
-    goals = await GoalRepo(GoalServices()).GetAllGoals(await appPreferences.getLocalToken());
-    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    token=sharedPreferences.getString("token");
+  Load() async
+  {
+    goals = await GoalRepo(GoalServices()).GetAllGoals(
+        await appPreferences.getLocalToken());
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
     setState(() {
 
-
-
-  Load() async {
-    goals = await GoalRepo(GoalServices())
-        .GetAllGoals(await appPreferences.getLocalToken());
-    setState(() {});
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -170,37 +168,39 @@ class _GoalViewState extends State<Goalsview> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children:
+                  [
                     Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            (index + 1).toString()+" -",
-                            style: getMediumStyle(
-                              fontSize: FontSize.s16,
-                              color: ColorManager.black,
+                          children:
+                          [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                (index + 1).toString()+" -",
+                                style: getMediumStyle(
+                                  fontSize: FontSize.s16,
+                                  color: ColorManager.black,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
               Container(
-                width: 279 ,
-                child: Text(
-                  goal.title,
-                  style: getMediumStyle(
-                    fontSize: 16,
-                    color: ColorManager.black,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )
-                      ],
+                    width: 279 ,
+                    child: Text(
+                      goal.title,
+                      style: getMediumStyle(
+                        fontSize: 16,
+                        color: ColorManager.black,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Divider(height: 2,),
-                    Row(
+                  )
+                      ],
+                      ),
+          Divider(height: 2,),
+          Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
@@ -268,21 +268,13 @@ class _GoalViewState extends State<Goalsview> {
                                                   style: getRegularStyle(
                                                       color: ColorManager.white),
                                                 ),
-                                                onPressed: () async {
-                                                  var response = await http.delete(
-                                                      Uri.parse(
-                                                          'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/${goal.id}'),
-                                                      headers: <String, String>{
-                                                        "Content-Type":
-                                                        "application/json",
-                                                        HttpHeaders
-                                                            .authorizationHeader:
-                                                        await appPreferences
-                                                            .getLocalToken()
-                                                      });
-                                                  print(response.statusCode);
-                                                  Navigator.pushReplacementNamed(
+                                                onPressed: (){
+                                                  checked.Checked(token, goal.id);
+                                                  Navigator
+                                                      .pushReplacementNamed(
                                                       context, Routes.goals);
+
+
                                                 },
                                               ),
                                             ),
@@ -310,12 +302,23 @@ class _GoalViewState extends State<Goalsview> {
                             delete.confirmDelete(goal.id, context);
                           },
                         ),
-
-            ],
+                               ]
 
           ),
 
+
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+  );
+
+
+
+}
+
+
 
 

@@ -83,7 +83,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.homeViewRoute:
 
-
         return MaterialPageRoute(builder: (_) =>
             BlocProvider(
               create: (context) => blocGenerator().profileCubit,
