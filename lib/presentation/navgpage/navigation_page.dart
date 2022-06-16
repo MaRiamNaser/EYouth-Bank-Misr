@@ -11,6 +11,7 @@ import '../home/home_view.dart';
 import '../profile/profile_view.dart';
 import '../resources/routes_manager.dart';
 import '../setting/setting.dart';
+import 'floattingBotton.dart';
 
 class navgscreen extends StatefulWidget {
   @override
@@ -22,7 +23,15 @@ class _navgscreenState extends State<navgscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
+    return MultiBlocProvider(
+  providers: [
+
+    BlocProvider(
+      create: (context) =>blocGenerator().profileCubit),
+    BlocProvider(
+    create: (context) => blocGenerator().courseCubit)
+  ],
+  child: PersistentTabView(
       context,
       controller: _controller,
       screens: _buildScreens(),
@@ -31,7 +40,7 @@ class _navgscreenState extends State<navgscreen> {
       backgroundColor: Colors.white, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
+      stateManagement: false, // Default is true.
       hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -48,31 +57,23 @@ class _navgscreenState extends State<navgscreen> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style15, // Choose the nav bar style with this property.
-      onItemSelected: (int){
+      navBarStyle: NavBarStyle.style16,
+      onItemSelected: (int)
+      {
         setState(() {
 
         });
-      },
-    );
+      },// Choose the nav bar style with this property.
+    ),
+);
   }
   List<Widget> _buildScreens() {
     return [
-      BlocProvider(
-
-        create: (context) => blocGenerator().profileCubit,
-        child: HomeView(),
-      ),
-      BlocProvider(
-        create: (context) => blocGenerator().courseCubit,
-        child :coursesView(0),
-      ),
+    HomeView(),
+     coursesView(0),
       Container(),
-      BlocProvider(
-        create: (context) => blocGenerator().profileCubit,
-        child: ProfileView(),
-      ),
-
+      //floattingbotton(),
+      ProfileView(),
       settingView(),
     ];
   }
@@ -95,6 +96,12 @@ class _navgscreenState extends State<navgscreen> {
         icon: Icon(Icons.add,color: Colors.white,),
         activeColorPrimary: ColorManager.darkPrimary,
         inactiveColorPrimary: CupertinoColors.systemGrey,
+        onPressed: (context){
+          showDialog(
+          context: context!,
+          builder: (BuildContext context1) {
+         return floattingbotton(context); },);
+        }
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.supervised_user_circle),

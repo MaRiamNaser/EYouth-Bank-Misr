@@ -136,8 +136,8 @@ class _AddBodyState extends State<AddBody> {
                                   if(
                                    await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
                                      {
-                                       showDialog(context: context, builder: (BuildContext context) {
-                                         return  alertdialog(choice,alertPhoto);
+                                       showDialog(context: context, builder: (BuildContext context1) {
+                                         return  alertdialog(choice,alertPhoto,context);
                                        });
                                      }
                                 }
