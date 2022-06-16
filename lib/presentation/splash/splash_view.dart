@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bank_misr/data/web_services/registeration_services.dart';
+import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
 
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';

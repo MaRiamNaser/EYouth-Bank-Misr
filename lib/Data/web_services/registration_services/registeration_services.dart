@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bank_misr/data/web_services/registration_services/registration_api_links.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
@@ -30,7 +31,7 @@ class RegisterationWebServices {
   Future<dynamic> signIn( String email, String password) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + "user/login"),
+          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.loginLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -53,12 +54,10 @@ class RegisterationWebServices {
     }
   }
 
-  Future<bool> signUp(String fullname, String username, String email,
-      String password, String age) async {
-
+  Future<bool> signUp(String fullname, String username, String email,String password, String age) async {
      try {
       Response response = await dio.post(
-          'user/register',
+          ApiStrings.registerLink,
          data:jsonEncode(<String, String>{
                 "fullname": fullname,
                 "username": username,
@@ -83,10 +82,10 @@ class RegisterationWebServices {
 
   }
 
-    Future<dynamic> isUserNameExist( String userName) async {
+  Future<dynamic> isUserNameExist( String userName) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + "user/registerUsernameexist"),
+          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.isUserNameExistLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -104,11 +103,10 @@ class RegisterationWebServices {
     }
   }
 
-
  Future<dynamic> isEmailExist( String email) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + "user/registerEmailexist"),
+          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.isEmailExistLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
