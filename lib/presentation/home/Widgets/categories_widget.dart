@@ -1,5 +1,6 @@
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -18,6 +19,8 @@ class CategoriesWidget extends StatefulWidget {
 }
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
+
+
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -47,7 +50,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 child :TasksView(),
               ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }
-
+    
           },
           child: Column(
             children: [
@@ -62,11 +65,12 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         image: DecorationImage(
                             image: AssetImage(categories[index].img),
                             fit: BoxFit.fill)),
-                    child: Text(
+                    child:
+       Text(
                       categories[index].title.tr(),
                       style: getBoldtStyle(
                           fontSize: 28, color: ColorManager.white),
-                    ),
+                    )
                   ),
                 ],
               ),

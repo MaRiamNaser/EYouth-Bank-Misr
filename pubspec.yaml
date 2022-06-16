@@ -52,6 +52,7 @@ dependencies:
   image_picker:
   persistent_bottom_nav_bar: ^4.0.2
   device_preview:
+  feature_discovery: ^0.14.1
 
 
 

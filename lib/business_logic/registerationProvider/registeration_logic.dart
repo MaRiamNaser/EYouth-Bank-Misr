@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/data/models/User.dart';
-import 'package:bank_misr/data/web_services/registeration_services.dart';
+import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

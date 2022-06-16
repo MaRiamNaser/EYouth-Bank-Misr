@@ -10,6 +10,7 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:bank_misr/presentation/setting/setting.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -56,6 +57,7 @@ class _RegisterNamePageState extends State<LoginView> {
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
