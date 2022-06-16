@@ -1,6 +1,7 @@
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/resources/theme_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,15 +51,17 @@ late AppPreferences _appPreferences ;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.getRoute,
-      initialRoute: Routes.splashRoute,
-      theme: getApplicationTheme(),
-      home: SplashView(),
+    return  FeatureDiscovery(
+      child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
+        theme: getApplicationTheme(),
+        home: SplashView(),
+      ),
     );
   }
 }
