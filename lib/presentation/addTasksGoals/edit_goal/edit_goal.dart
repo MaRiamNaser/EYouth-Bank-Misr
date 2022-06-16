@@ -117,7 +117,7 @@ class _EditGoalState extends State<EditGoal> {
                         if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
                           goals.add(GoalsList(number: 4,name: titleTextController.text));
                           showDialog(context: context, builder: (BuildContext context) {
-                            return  alertdialog(choice,alertPhoto);
+                            return  alertdialog(choice,alertPhoto,context);
                           });
                           // if(
                           // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))

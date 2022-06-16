@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -57,7 +58,7 @@ class _GoalViewState extends State<Goalsview> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
     setState(() {
-
+      
     });
   }
 
@@ -88,13 +89,6 @@ class _GoalViewState extends State<Goalsview> {
       //     ,)
       //   ,
       //   ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorManager.primary,
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.addGoalViewRoute);
-        },
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -270,11 +264,10 @@ class _GoalViewState extends State<Goalsview> {
                                                 ),
                                                 onPressed: (){
                                                   checked.Checked(token, goal.id);
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                      context, Routes.goals);
+                                                  Navigator.of(context).pop();
+                                                  setState(() {
 
-
+                                                  });
                                                 },
                                               ),
                                             ),

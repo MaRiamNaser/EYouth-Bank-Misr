@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../Data/repo/task_repo.dart';
 
@@ -30,127 +31,120 @@ import '../bottomBar/bottomBar.dart';
 import '../resources/routes_manager.dart';
 import 'package:http/http.dart' as http;
 
-
 class TasksView extends StatefulWidget {
   @override
   State<TasksView> createState() => _TasksViewState();
 }
 
 class _TasksViewState extends State<TasksView> {
-  taskConfirmChecked checked=taskConfirmChecked();
+  taskConfirmChecked checked = taskConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-  taskconfirmDeleteServices delete= taskconfirmDeleteServices();
-  taskConfirmEditServices edit= taskConfirmEditServices();
+  taskconfirmDeleteServices delete = taskconfirmDeleteServices();
+  taskConfirmEditServices edit = taskConfirmEditServices();
   var token;
-  late List<Task> tasks=[];
+  late List<Task> tasks = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Load();
-
   }
-  Load()async
-  {
 
-    tasks=await TaskRepo(TaskServices()).GetAllTasks(await appPreferences.getLocalToken());
-    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    token=sharedPreferences.getString("token");
-    setState(() {
-
-    });
+  Load() async {
+    tasks = await TaskRepo(TaskServices())
+        .GetAllTasks(await appPreferences.getLocalToken());
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         floatingActionButton: FloatingActionButton(
-          backgroundColor: ColorManager.primary,
-           child: Icon(Icons.add),
-            onPressed: (){
-            Navigator.pushNamed(context, Routes.addTaskViewRoute,arguments: 1);
-        },),
-      appBar: AppBar(title: Text(AppStrings.Tasks.tr()),  actions: [
-        Padding(
-          padding: const EdgeInsets.only(right:10.0),
-          child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.asset(
-                ImageAssets.profilePhoto,
-                fit: BoxFit.fitWidth,
-                width: 45,
-              ),
-              maxRadius: 34),
-        )
-      ],),
+      appBar: AppBar(
+        title: Text(AppStrings.Tasks.tr()),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],
+      ),
       // appBar: AppBar(
       //   title: Text(
       //     "Tasks",
       //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
       //     ,)
       //   ,),
-    body: Column(
-    children: [
-    Container(
-      child: ImageSlideshow(
-        width: double.infinity,
-        height: 200,
-        initialPage: 0,
+      body: Column(
         children: [
-          Image.asset(
-            'assets/images/multitask.gif',
-            fit: BoxFit.fill,
-          ),
-          Image.asset(
-            'assets/images/multitask.gif',
-            fit: BoxFit.cover,
-          ),
-        ],
-        onPageChanged: (value) {
-          print('Page changed: $value');
-        },
-        isLoop: true,
-      ),
-    ),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-             Center(
-                  child: SizedBox(height: 190 ,
-                      width:  210,
-                      child:Lottie.asset(ImageAssets.TaskPhoto)),
+          Container(
+            child: ImageSlideshow(
+              width: double.infinity,
+              height: 200,
+              initialPage: 0,
+              children: [
+                Image.asset(
+                  'assets/images/multitask.gif',
+                  fit: BoxFit.fill,
                 ),
-          ],
-      ),
-      Expanded(
-      child: SingleChildScrollView(
-         scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-            tasks.length == 0? Center(child: Text(AppStrings.thereIsNoTasks.tr())): 
-          ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => buildtask(tasks[index],index),
-            separatorBuilder: (context, index) => SizedBox(
-              height: 10.0,
+                Image.asset(
+                  'assets/images/multitask.gif',
+                  fit: BoxFit.cover,
+                ),
+              ],
+              onPageChanged: (value) {
+                print('Page changed: $value');
+              },
+              isLoop: true,
             ),
-            itemCount: tasks.length,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                    height: 190,
+                    width: 210,
+                    child: Lottie.asset(ImageAssets.TaskPhoto)),
+              ),
+            ],
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  tasks.length == 0
+                      ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
+                      : ListView.separated(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) =>
+                              buildtask(tasks[index], index),
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 10.0,
+                          ),
+                          itemCount: tasks.length,
+                        ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
-      ),
-      )
-    ],
-    ),
-
-
     );
-
-
   }
-  Widget buildtask(Task task, int index) =>
-      Padding(
+
+  Widget buildtask(Task task, int index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         child: Container(
           decoration: BoxDecoration(
@@ -167,11 +161,9 @@ class _TasksViewState extends State<TasksView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children:
-                  [
+                  children: [
                     Row(
-                      children:
-                      [
+                      children: [
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Text(
@@ -198,18 +190,25 @@ class _TasksViewState extends State<TasksView> {
                         )
                       ],
                     ),
-                    Divider(height: 2,),
+                    Divider(
+                      height: 2,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.check_circle, color: Colors.green,
-                              size: 28,),
-                            onPressed: () {
+                            icon: Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 28,
+                            ),
+                            onPressed: () async {
+                              checked.Checked(token, task.id);
+                              await balanceServices().EditBalance(token, 20);
                               setState(() {
                                 showDialog(
                                     context: context,
-                                    builder: (BuildContext context) {
+                                    builder: (BuildContext context1) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
@@ -218,7 +217,7 @@ class _TasksViewState extends State<TasksView> {
                                         backgroundColor: ColorManager.primary,
                                         title: Center(
                                           child: Text(
-                                            "Great",
+                                            AppStrings.Well_Done.tr(),
                                             style: getBoldtStyle(
                                                 fontSize: 18,
                                                 color: ColorManager.white),
@@ -227,7 +226,7 @@ class _TasksViewState extends State<TasksView> {
                                         content: Container(
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Lottie.asset(
@@ -237,17 +236,17 @@ class _TasksViewState extends State<TasksView> {
                                               ),
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.all(8.0),
                                                 child: SizedBox(
                                                     width: 190,
                                                     child: Text(
-                                                      " Great work you earn 20 EGP ",
+                                                      AppStrings.EGP2_Has_Been_Added_To_Your_Wallet.tr(),
                                                       style: getSemiBoldStyle(
                                                           fontSize: 14,
-                                                          color:
-                                                          ColorManager.white),
-                                                      textAlign: TextAlign
-                                                          .center,
+                                                          color: ColorManager
+                                                              .white),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                     )),
                                               ),
                                             ],
@@ -260,22 +259,25 @@ class _TasksViewState extends State<TasksView> {
                                               width: 100,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(15),
+                                                    BorderRadius.circular(15),
                                                 color: ColorManager.darkPrimary,
                                               ),
                                               child: TextButton(
                                                 child: Text(
-                                                  'Ok',
+                                                  AppStrings.Ok.tr(),
                                                   style: getRegularStyle(
-                                                      color: ColorManager
-                                                          .white),
+                                                      color:
+                                                          ColorManager.white),
                                                 ),
-                                                onPressed: (){
-                                                  checked.Checked(token, task.id);
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                      context, Routes.tasks);
-
+                                                onPressed: () {
+                                                  Navigator.of(context1).pop();
+                                                  Navigator.of(context).pop();
+                                                  pushNewScreen(context,
+                                                      screen: TasksView(),
+                                                      withNavBar: true,
+                                                      pageTransitionAnimation:
+                                                          PageTransitionAnimation
+                                                              .cupertino);
                                                 },
                                               ),
                                             ),
@@ -286,14 +288,12 @@ class _TasksViewState extends State<TasksView> {
                               });
                             },
                           ),
-
                           IconButton(
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
                             onPressed: () {
-                              edit.confirmEdit(
-                                  task.id, task.title, task.description,
-                                  context);
+                              edit.confirmEdit(task.id, task.title,
+                                  task.description, context);
                             },
                           ),
                           IconButton(
@@ -302,13 +302,10 @@ class _TasksViewState extends State<TasksView> {
                             onPressed: () async {
                               // confirmDelete(goal.id);
                               delete.confirmDelete(task.id, context);
+
                             },
                           ),
-                        ]
-
-                    ),
-
-
+                        ]),
                   ],
                 ),
               ),
@@ -316,10 +313,4 @@ class _TasksViewState extends State<TasksView> {
           ),
         ),
       );
-
-
-
 }
-
-
-

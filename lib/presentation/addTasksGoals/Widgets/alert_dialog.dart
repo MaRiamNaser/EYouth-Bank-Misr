@@ -1,17 +1,24 @@
+import 'package:bank_misr/presentation/goals/goals_view.dart';
+import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../../home/home_view.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
+import '../addTask/add_task.dart';
 
 class alertdialog extends StatelessWidget {
   String choice;
   String alertphoto;
-  alertdialog(this.choice,this.alertphoto);
+  BuildContext context2;
+  alertdialog(this.choice,this.alertphoto, this.context2);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,9 @@ class alertdialog extends StatelessWidget {
               child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context,choice==AppStrings.Goal.tr()?Routes.goals: Routes.tasks);
+                //Navigator.pushReplacementNamed(context,choice==AppStrings.Goal.tr()?Routes.goals: Routes.tasks);
+                Navigator.pop(context2);
+                pushNewScreen(context2, screen:choice==AppStrings.Goal.tr()?Goalsview(): TasksView(),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
               },
             ),
           ),

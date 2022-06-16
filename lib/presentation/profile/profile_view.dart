@@ -150,7 +150,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                          profile.age.toString() + " "+AppStrings.yearsOld.tr(),
+                                          profile.age.toString() + " "+AppStrings.yearsOld,
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
