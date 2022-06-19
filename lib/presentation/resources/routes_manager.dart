@@ -1,4 +1,10 @@
+import 'package:bank_misr/Data/repo/goal_repo.dart';
+import 'package:bank_misr/Data/repo/task_repo.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
+import 'package:bank_misr/Data/web_services/goal_services/goal_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
+import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
+import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
 import 'package:bank_misr/data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
@@ -63,13 +69,29 @@ class blocGenerator {
   late ProfileRepo profileRepo;
   late ProfileCubit profileCubit;
 
+  late GoalRepo goalRepo;
+  late GoalCubit goalCubit;
+
+  late TaskRepo taskRepo;
+  late TaskCubit taskCubit;
+
   blocGenerator() {
     courseRepo = CourseRepo(CourseServices());
     courseCubit = CourseCubit(courseRepo);
+
     videoRepo = VideoRepo(VideoServices());
     videoCubit = VideoCubit(videoRepo);
+
     profileRepo = ProfileRepo(ProfileServices());
     profileCubit = ProfileCubit(profileRepo);
+
+    goalRepo=GoalRepo(GoalServices());
+    goalCubit =GoalCubit(goalRepo);
+
+    taskRepo =TaskRepo(TaskServices());
+    taskCubit=TaskCubit(taskRepo);
+
+
   }
 }
 

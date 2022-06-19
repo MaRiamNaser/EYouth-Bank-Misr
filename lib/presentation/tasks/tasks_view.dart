@@ -4,6 +4,7 @@ import 'package:bank_misr/Data/web_services/task_services/taskConfirmDelete_serv
 import 'package:bank_misr/Data/web_services/task_services/taskConfirmEdit_services.dart';
 import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
@@ -14,6 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -52,11 +54,9 @@ class _TasksViewState extends State<TasksView> {
   }
 
   Load() async {
-    tasks = await TaskRepo(TaskServices())
-        .GetAllTasks(await appPreferences.getLocalToken());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
-    setState(() {});
+    tasks = await BlocProvider.of<TaskCubit>(context).GetAllTasks(token);
   }
 
   @override
@@ -125,16 +125,28 @@ class _TasksViewState extends State<TasksView> {
                 children: [
                   tasks.length == 0
                       ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
-                      : ListView.separated(
+                      : BlocBuilder<TaskCubit, TaskState>(
+                    builder: (context, state) {
+                      if(state is TasksLoaded) {
+                        tasks=(state).tasks;
+                        return ListView.separated(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) =>
                               buildtask(tasks[index], index),
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 10.0,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(
+                                height: 10.0,
+                              ),
                           itemCount: tasks.length,
-                        ),
+                        );
+                      }
+                      else
+                        {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                    },
+                  ),
                 ],
               ),
             ),
@@ -144,7 +156,8 @@ class _TasksViewState extends State<TasksView> {
     );
   }
 
-  Widget buildtask(Task task, int index) => Padding(
+  Widget buildtask(Task task, int index) =>
+      Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         child: Container(
           decoration: BoxDecoration(
@@ -226,7 +239,7 @@ class _TasksViewState extends State<TasksView> {
                                         content: Container(
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Lottie.asset(
@@ -236,17 +249,19 @@ class _TasksViewState extends State<TasksView> {
                                               ),
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                const EdgeInsets.all(8.0),
                                                 child: SizedBox(
                                                     width: 190,
                                                     child: Text(
-                                                      AppStrings.EGP2_Has_Been_Added_To_Your_Wallet.tr(),
+                                                      AppStrings
+                                                          .EGP2_Has_Been_Added_To_Your_Wallet
+                                                          .tr(),
                                                       style: getSemiBoldStyle(
                                                           fontSize: 14,
                                                           color: ColorManager
                                                               .white),
                                                       textAlign:
-                                                          TextAlign.center,
+                                                      TextAlign.center,
                                                     )),
                                               ),
                                             ],
@@ -259,7 +274,7 @@ class _TasksViewState extends State<TasksView> {
                                               width: 100,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(15),
+                                                BorderRadius.circular(15),
                                                 color: ColorManager.darkPrimary,
                                               ),
                                               child: TextButton(
@@ -267,7 +282,7 @@ class _TasksViewState extends State<TasksView> {
                                                   AppStrings.Ok.tr(),
                                                   style: getRegularStyle(
                                                       color:
-                                                          ColorManager.white),
+                                                      ColorManager.white),
                                                 ),
                                                 onPressed: () {
                                                   Navigator.of(context1).pop();
@@ -276,8 +291,8 @@ class _TasksViewState extends State<TasksView> {
                                                       screen: TasksView(),
                                                       withNavBar: true,
                                                       pageTransitionAnimation:
-                                                          PageTransitionAnimation
-                                                              .cupertino);
+                                                      PageTransitionAnimation
+                                                          .cupertino);
                                                 },
                                               ),
                                             ),
@@ -302,7 +317,6 @@ class _TasksViewState extends State<TasksView> {
                             onPressed: () async {
                               // confirmDelete(goal.id);
                               delete.confirmDelete(task.id, context);
-
                             },
                           ),
                         ]),
