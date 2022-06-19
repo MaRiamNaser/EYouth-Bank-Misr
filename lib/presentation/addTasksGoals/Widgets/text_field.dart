@@ -47,6 +47,8 @@ Container getTextField2(String hintText, double height, int lines, double paddin
         keyboardType: TextInputType.number ,
         maxLength: 4,
         textInputAction: TextInputAction.done,
+          onSubmitted: (value){
+          },
         onEditingComplete : () => FocusScope.of(context).unfocus(),
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

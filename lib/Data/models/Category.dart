@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class Category
 {
+  /// Categories Shows in Home Page
+
   String title;
   String img;
 
