@@ -115,25 +115,7 @@ class _EditGoalState extends State<EditGoal> {
 
                       child: TextButton(onPressed: ()async{
                         if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                          goals.add(GoalsList(number: 4,name: titleTextController.text));
-                          showDialog(context: context, builder: (BuildContext context) {
-                            return  alertdialog(choice,alertPhoto,context);
-                          });
-                          // if(
-                          // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
-                          //   {
-
-                          //   }
-                        }
-                      },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children:  [
-                              FlatButton(child: Text("Edit",style: TextStyle(color: ColorManager.white),),
-                          onPressed: () async {
-                            //TODO Add this logic to web service layer.
-                                print(Title);
-                                var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$ID'),
+                          var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$ID'),
                               headers: <String,String>{"Content-Type": "application/json",
 
                                 HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()},
@@ -143,12 +125,15 @@ class _EditGoalState extends State<EditGoal> {
                                     "description": descTextController.text,
                                   })
                           );
-                          print(response.body);
-
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Goalsview()));
-
-
-                        }, ),
+                          showDialog(context: context, builder: (BuildContext context1) {
+                            return  alertdialog(choice,alertPhoto,context);
+                          });
+                        }
+                      },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children:  [
+                              Text("Edit",style: TextStyle(color: color2),),
                               Icon(Icons.add,color:  color2,)
                             ],
                           )),

@@ -25,11 +25,12 @@ class _navgscreenState extends State<navgscreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
   providers: [
-
     BlocProvider(
       create: (context) =>blocGenerator().profileCubit),
     BlocProvider(
-    create: (context) => blocGenerator().courseCubit)
+    create: (context) => blocGenerator().courseCubit),
+    BlocProvider(
+    create: (context) => blocGenerator().goalCubit),
   ],
   child: PersistentTabView(
       context,

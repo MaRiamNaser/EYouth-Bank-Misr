@@ -13,17 +13,16 @@ import '../../../Data/models/Category.dart';
 import '../../courses/coursesView.dart';
 import '../../goals/goals_view.dart';
 import '../../tasks/tasks_view.dart';
+
 class CategoriesWidget extends StatefulWidget {
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();
 }
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
-
-
   @override
   Widget build(BuildContext context) {
-    var screensize=MediaQuery.of(context).size;
+    var screensize = MediaQuery.of(context).size;
 
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
@@ -35,47 +34,55 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            if(index == 1){
+            if (index == 1) {
               //Navigator.pushNamed(context, Routes.courses,arguments: 1);
-              pushNewScreen(context, screen: BlocProvider(
-                create: (context) => blocGenerator().courseCubit,
-                child :coursesView(1),
-              ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
-            }else if(index == 0){
-              pushNewScreen(context, screen: Goalsview()
-                  ,withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
-            }else if(index == 2){
-              pushNewScreen(context, screen: BlocProvider(
-                create: (context) => blocGenerator().courseCubit,
-                child :TasksView(),
-              ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+              pushNewScreen(context,
+                  screen: BlocProvider(
+                    create: (context) => blocGenerator().courseCubit,
+                    child: coursesView(1),
+                  ),
+                  withNavBar: true,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
+            } else if (index == 0) {
+              pushNewScreen(context,
+                  screen:  Goalsview(),
+                  withNavBar: true,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
+            } else if (index == 2) {
+              pushNewScreen(context,
+                  screen: BlocProvider(
+                    create: (context) => blocGenerator().taskCubit,
+                    child: TasksView(),
+                  ),
+                  withNavBar: true,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }
-    
           },
           child: Column(
             children: [
               Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 1/825 * screensize.height * 130, left: 25,right: 25),
-                    width: 1/393* screensize.width * 360,
-                    height: 1/825 * screensize.height * 180.5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
-                            image: AssetImage(categories[index].img),
-                            fit: BoxFit.fill)),
-                    child:
-       Text(
-                      categories[index].title.tr(),
-                      style: getBoldtStyle(
-                          fontSize: 28, color: ColorManager.white),
-                    )
-                  ),
+                      padding: EdgeInsets.only(
+                          top: 1 / 825 * screensize.height * 130,
+                          left: 25,
+                          right: 25),
+                      width: 1 / 393 * screensize.width * 360,
+                      height: 1 / 825 * screensize.height * 180.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                              image: AssetImage(categories[index].img),
+                              fit: BoxFit.fill)),
+                      child: Text(
+                        categories[index].title.tr(),
+                        style: getBoldtStyle(
+                            fontSize: 28, color: ColorManager.white),
+                      )),
                 ],
               ),
               SizedBox(
-                height: 1/825 * screensize.height * AppSize.s20,
+                height: 1 / 825 * screensize.height * AppSize.s20,
               ),
             ],
           ),

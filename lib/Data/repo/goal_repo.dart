@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
+import 'package:bank_misr/Data/web_services/goal_services/goalConfirmDelete_services.dart';
+
 import '../models/goal.dart';
 
 import '../web_services/goal_services/goal_services.dart';
@@ -17,4 +20,17 @@ class GoalRepo
     var list=jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Goal.fromJson(e)).toList();
   }
+  Future<bool> ConfirmDelete(id)async
+  {
+    var code= await confirmDeleteServices().ConfirmDelete(id);
+    if(code==200)
+      {
+        return true;
+      }
+    else
+      {
+        return false;
+      }
+  }
+
 }

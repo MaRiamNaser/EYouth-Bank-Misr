@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
@@ -20,8 +22,6 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
@@ -51,17 +51,11 @@ class _GoalViewState extends State<Goalsview> {
     Load();
   }
 
-  Load() async
-  {
-    goals = await GoalRepo(GoalServices()).GetAllGoals(
-        await appPreferences.getLocalToken());
+  Load() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
-    setState(() {
-      
-    });
+    goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +76,6 @@ class _GoalViewState extends State<Goalsview> {
           )
         ],
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Goals",
-      //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-      //     ,)
-      //   ,
-      //   ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -124,26 +111,38 @@ class _GoalViewState extends State<Goalsview> {
                 ),
               ],
             ),
-                    goals.length == 0
-                        ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
-                        : Container(
+             BlocBuilder<GoalCubit, GoalState>(
+                    builder: (context, state) {
+                      if(state is GoalsLoaded) {
+                        goals=(state).goals;
+                        return
+                          goals.isEmpty
+                              ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
+                              :Container(
                           child: ListView.separated(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) =>
-                                  buildgoal(goals[index], index),
-                              separatorBuilder: (context, index) => SizedBox(
-                                height: 0.0,
-                              ),
-                              itemCount: goals.length,
-                            ),
-                        ),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>
+                                buildgoal(goals[index], index),
+                            separatorBuilder: (context, index) =>
+                                SizedBox(
+                                  height: 0.0,
+                                ),
+                            itemCount: goals.length,
+                          ),
+                        );
+                      }
+                      else
+                        {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                    },
+                  ),
           ],
         ),
       ),
     );
   }
-
 
   Widget buildgoal(Goal goal, int index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
@@ -162,48 +161,52 @@ class _GoalViewState extends State<Goalsview> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children:
-                  [
+                  children: [
                     Row(
-                          children:
-                          [
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(
-                                (index + 1).toString()+" -",
-                                style: getMediumStyle(
-                                  fontSize: FontSize.s16,
-                                  color: ColorManager.black,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-              Container(
-                    width: 279 ,
-                    child: Text(
-                      goal.title,
-                      style: getMediumStyle(
-                        fontSize: 16,
-                        color: ColorManager.black,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                      ],
-                      ),
-          Divider(height: 2,),
-          Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        IconButton(
-                            icon: Icon(Icons.check_circle,color:Colors.green,size: 28,),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            (index + 1).toString() + " -",
+                            style: getMediumStyle(
+                              fontSize: FontSize.s16,
+                              color: ColorManager.black,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Container(
+                          width: 279,
+                          child: Text(
+                            goal.title,
+                            style: getMediumStyle(
+                              fontSize: 16,
+                              color: ColorManager.black,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    ),
+                    Divider(
+                      height: 2,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 28,
+                            ),
                             onPressed: () {
                               setState(() {
                                 showDialog(
                                     context: context,
-                                    builder: (BuildContext context) {
+                                    builder: (BuildContext context1) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
@@ -221,7 +224,7 @@ class _GoalViewState extends State<Goalsview> {
                                         content: Container(
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Lottie.asset(
@@ -231,16 +234,17 @@ class _GoalViewState extends State<Goalsview> {
                                               ),
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.all(8.0),
                                                 child: SizedBox(
                                                     width: 190,
                                                     child: Text(
                                                       "Did you achieve it ",
                                                       style: getSemiBoldStyle(
                                                           fontSize: 14,
-                                                          color:
-                                                          ColorManager.white),
-                                                      textAlign: TextAlign.center,
+                                                          color: ColorManager
+                                                              .white),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                     )),
                                               ),
                                             ],
@@ -253,21 +257,20 @@ class _GoalViewState extends State<Goalsview> {
                                               width: 100,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(15),
+                                                    BorderRadius.circular(15),
                                                 color: ColorManager.darkPrimary,
                                               ),
                                               child: TextButton(
                                                 child: Text(
                                                   'Ok',
                                                   style: getRegularStyle(
-                                                      color: ColorManager.white),
+                                                      color:
+                                                          ColorManager.white),
                                                 ),
-                                                onPressed: (){
-                                                  checked.Checked(token, goal.id);
-                                                  Navigator.of(context).pop();
-                                                  setState(() {
+                                                onPressed: () {
+                                                  Navigator.of(context1).pop();
+                                                  BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
 
-                                                  });
                                                 },
                                               ),
                                             ),
@@ -278,40 +281,28 @@ class _GoalViewState extends State<Goalsview> {
                               });
                             },
                           ),
-
-                        IconButton(
-                          icon: (Icon(Icons.edit_rounded)),
-                          color: ColorManager.black,
-                          onPressed: () {
-                            edit.confirmEdit(
-                                goal.id, goal.title, goal.description, context);
-                          },
-                        ),
-                        IconButton(
-                          icon: (Icon(Icons.delete_rounded)),
-                          color: ColorManager.error,
-                          onPressed: () async {
-                            // confirmDelete(goal.id);
-                            delete.confirmDelete(goal.id, context);
-                          },
-                        ),
-                               ]
-
-          ),
-
-
+                          IconButton(
+                            icon: (Icon(Icons.edit_rounded)),
+                            color: ColorManager.black,
+                            onPressed: () {
+                              edit.confirmEdit(goal.id, goal.title,
+                                  goal.description, context);
+                            },
+                          ),
+                          IconButton(
+                            icon: (Icon(Icons.delete_rounded)),
+                            color: ColorManager.error,
+                            onPressed: () async {
+                              // confirmDelete(goal.id);
+                              delete.confirmDelete(goal.id, context);
+                            },
+                          ),
+                        ]),
                   ],
                 ),
               ),
             ],
           ),
         ),
-  );
-
-
-
+      );
 }
-
-
-
-
