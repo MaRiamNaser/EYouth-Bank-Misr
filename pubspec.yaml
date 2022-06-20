@@ -59,6 +59,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -80,6 +81,7 @@ flutter:
     - assets/images/
     - assets/translations/ar-SA.json
     - assets/translations/en-US.json
+    - assets/config/
   fonts:
     - family: Montserrat
       fonts:

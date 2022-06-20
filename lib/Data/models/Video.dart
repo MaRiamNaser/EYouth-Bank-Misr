@@ -12,6 +12,7 @@ Video videoFromJson(String str) => Video.fromJson(json.decode(str));
 String videoToJson(Video data) => json.encode(data.toJson());
 
 class Video {
+  /// Video Model
   Video({
     required this.id,
      required this.title,

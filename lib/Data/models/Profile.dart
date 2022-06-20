@@ -9,6 +9,7 @@ Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
 String profileToJson(Profile data) => json.encode(data.toJson());
 
 class Profile {
+  /// User Profile Model
   Profile({
     required this.id,
     required this.fullname,

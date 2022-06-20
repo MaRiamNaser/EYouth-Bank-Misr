@@ -8,6 +8,7 @@ class ProfileServices
 {
   Future<String> GetProfile (String token)async
   {
+    /// Request from Api to Get User Profile details
     EndPoints endPoints=EndPoints();
     try{
       var response= await getRequest(endPoints.profileLink,token: token);

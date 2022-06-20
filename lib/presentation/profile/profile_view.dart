@@ -232,4 +232,8 @@ class _ProfileViewState extends State<ProfileView> {
       ),
     );
   }
+  Future<void> _refresh()async {
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+  }
+
 }

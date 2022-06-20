@@ -60,12 +60,12 @@ class alertdialog extends StatelessWidget {
               child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.of(context2).popUntil((route) => route.isFirst);
+                Navigator.popUntil(context2, (route) => route.isFirst);
                 pushNewScreen(context2, screen:choice==
                     AppStrings.Goal.tr()?
                  Goalsview()
                 :
-                 TasksView(),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                TasksView(),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
               },
             ),
           ),
