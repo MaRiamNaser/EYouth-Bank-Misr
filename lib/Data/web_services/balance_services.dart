@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 class balanceServices
 {
   Future<String> EditBalance (String token,int amount)async
-  {
+  {    EndPoints endPoints=EndPoints();
     try{
-      var response= await putRequest(balanceLink,jsonEncode(<String, dynamic>{
+      var response= await putRequest(endPoints.balanceLink,jsonEncode(<String, dynamic>{
         "balance": amount,
       }), token);
       print(response.statusCode);

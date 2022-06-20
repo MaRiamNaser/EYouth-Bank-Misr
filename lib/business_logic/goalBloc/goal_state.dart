@@ -18,3 +18,7 @@ class GoalDeleted extends GoalState
 {
 
 }
+class GoalEdited extends GoalState
+{
+
+}

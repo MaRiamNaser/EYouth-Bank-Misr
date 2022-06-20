@@ -2,6 +2,8 @@ import 'dart:convert';
 
 
 
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmDelete_services.dart';
+
 import '../models/Task.dart';
 
 import '../web_services/task_services/task_services.dart';
@@ -19,5 +21,17 @@ class TaskRepo
     print(body);
     var list=jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Task.fromJson(e)).toList();
+  }
+  Future<bool> ConfirmDelete(id)async
+  {
+    var code= await taskConfirmDeleteServices().ConfirmDelete(id);
+    if(code==200)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 }

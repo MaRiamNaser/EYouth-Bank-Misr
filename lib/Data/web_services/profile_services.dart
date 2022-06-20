@@ -8,8 +8,9 @@ class ProfileServices
 {
   Future<String> GetProfile (String token)async
   {
+    EndPoints endPoints=EndPoints();
     try{
-      var response= await getRequest(profileLink,token: token);
+      var response= await getRequest(endPoints.profileLink,token: token);
       return response.body;
     }catch(e)
     {

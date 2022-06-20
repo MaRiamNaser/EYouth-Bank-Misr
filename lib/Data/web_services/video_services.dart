@@ -6,8 +6,9 @@ class VideoServices
 {
   Future<String> GetAllVideos (String courseid)async
   {
+    EndPoints endPoints=EndPoints();
     try{
-      var response= await getRequest(singleCourseLink+courseid) ;
+      var response= await getRequest(endPoints.singleCourseLink+courseid) ;
       return response.body;
     }catch(e)
     {

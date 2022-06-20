@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:bank_misr/Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
+import 'package:bank_misr/presentation/addTasksGoals/edit_task.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
 import 'package:bank_misr/presentation/goals/goals_view.dart';
@@ -16,15 +18,16 @@ import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/text_field.dart';
 
 String ID="";
 String Title="";
 String Description="";
 class EditGoal extends StatefulWidget {
-
 
  EditGoal(String id, String title, String description)
  {
@@ -44,16 +47,23 @@ class _EditGoalState extends State<EditGoal> {
   String photo=ImageAssets.GoalPhoto;
   String choice="Goal";
   String alertPhoto=ImageAssets.alertGoal;
+
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
   AppPreferences appPreferences = AppPreferences();
+  goalConfirmEdit goaledit= goalConfirmEdit();
+  var token="";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     titleTextController.text=Title;
+        titleTextController.text=Title;
         descTextController.text=Description;
+  }
+  Load() async {
+
+    token = await appPreferences.getLocalToken();
   }
 
 
@@ -113,22 +123,15 @@ class _EditGoalState extends State<EditGoal> {
                         color: color,
                       ) ,
 
-                      child: TextButton(onPressed: ()async{
-                        if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                          var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$ID'),
-                              headers: <String,String>{"Content-Type": "application/json",
-
-                                HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()},
-                              body: jsonEncode(
-                                  <String, String>{
-                                    "title": titleTextController.text,
-                                    "description": descTextController.text,
-                                  })
-                          );
+                      child: TextButton(onPressed: (){
+                        goaledit.Edit(token, ID, titleTextController.text,descTextController.text);
+                        print ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                        print (token,);
                           showDialog(context: context, builder: (BuildContext context1) {
-                            return  alertdialog(choice,alertPhoto,context);
+                          return  alertdialog(choice,alertPhoto,context);
                           });
-                        }
+
+
                       },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
