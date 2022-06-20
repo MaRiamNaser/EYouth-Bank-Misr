@@ -4,6 +4,7 @@ import 'package:bank_misr/Data/web_services/goal_services/goalConfirmDelete_serv
 
 import '../models/goal.dart';
 
+import '../web_services/goal_services/goalConfirmEdit_services.dart';
 import '../web_services/goal_services/goal_services.dart';
 
 class GoalRepo
@@ -22,7 +23,7 @@ class GoalRepo
   }
   Future<bool> ConfirmDelete(id)async
   {
-    var code= await confirmDeleteServices().ConfirmDelete(id);
+    var code= await goalConfirmDeleteServices().ConfirmDelete(id);
     if(code==200)
       {
         return true;
@@ -31,6 +32,18 @@ class GoalRepo
       {
         return false;
       }
+  }
+  Future<bool> ConfirmEdit(token,goalID,title,description)async
+  {
+    var code= await goalConfirmEdit().Edit(token,goalID,title,description);
+    if(code==200)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:bank_misr/Data/repo/goal_repo.dart';
+import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -32,4 +33,19 @@ class GoalCubit extends Cubit<GoalState> {
          return false;
        }
    }
+  Future<bool>EditGoal(token, goalID, title, description)
+  async {
+    bool status=await goalRepo.ConfirmEdit(token, goalID, title, description);
+    if(status ==true)
+    {
+      emit(GoalEdited());
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+
    }

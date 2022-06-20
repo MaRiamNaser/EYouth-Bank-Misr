@@ -38,6 +38,7 @@ class _AddBodyState extends State<AddBody> {
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
   var amountTextController=TextEditingController();
+  EndPoints endPoints=EndPoints();
 
   String title;
   String photo;
@@ -134,7 +135,7 @@ class _AddBodyState extends State<AddBody> {
                                 if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
                     
                                   if(
-                                   await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?goalCreateLink:taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
+                                   await AddTaskServices().AddTaskorGoal(choice==AppStrings.Goal.tr()?endPoints.goalCreateLink:endPoints.taskCreateLink, titleTextController.text, descTextController.text,token!,userid,amountTextController.text))
                                      {
                                        showDialog(context: context, builder: (BuildContext context1) {
                                          return  alertdialog(choice,alertPhoto,context);
