@@ -20,6 +20,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
     child: TextFormField(
+      key: Key("Password"),
          validator: (value) {
              
     if (value == null || value.isEmpty) {
@@ -53,7 +54,7 @@ Widget userNameTextFormField(TextEditingController userNameController) {
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
     child: TextFormField(
-      
+      key: Key("userName"),
     validator: (value) {
     if (value == null || value.isEmpty) {
       return AppStrings.pleaseEnterYourUserName.tr();
@@ -101,6 +102,7 @@ class LoginButton extends StatelessWidget {
       ),
       //  color: ColorManager.lightGrey,
       child: TextButton(
+        key: Key("loginButton"),
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all<Color>(ColorManager.grey),
           backgroundColor:
