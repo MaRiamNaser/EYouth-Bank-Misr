@@ -7,6 +7,7 @@ import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -182,13 +183,14 @@ class _ProfileViewState extends State<ProfileView> {
             BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
                 if (state is ProfilesLoaded) {
+                  profile=(state).profile;
                   return Center(
                     child:
                     InkWell(
                       onTap: () async {
                         final image = await _picker.pickImage(source: ImageSource.gallery);
                         var img = File(image!.path);
-                        add_image_services().Upload(img);
+                        BlocProvider.of<ProfileCubit>(context).AddProfilePicture(token, img.path);
                       },
                    child: Container(
                       margin: EdgeInsets.only(top:1 / 825 * screensize.height *10 ),
@@ -201,20 +203,12 @@ class _ProfileViewState extends State<ProfileView> {
                             )
                           : CircleAvatar(
                                 minRadius: 22,
-                                child: Image.network(
+                                backgroundImage: NetworkImage (
                                   AppStrings.baseUrl +
                                       "userimage/" +
-                                      profile.image.split("\\")[1],
-                                  errorBuilder: (BuildContext context,
-                                      Object exception,
-                                      StackTrace? stackTrace) {
-                                    print(profile.image);
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  },
-                                  fit: BoxFit.cover,
+                                      profile.image.split("/")[1],
                                 ),
-                              ),
+                ),
                             ),
                     ),
                   );

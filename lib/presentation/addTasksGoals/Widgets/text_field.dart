@@ -36,7 +36,7 @@ Container getTextField2(String hintText, double height, int lines, double paddin
   return Container(
       padding: EdgeInsets.only(left: AppPadding.p12,top: padding),
       height:  height,
-      width:1/393* screensize.width* 180,
+      width:1/393* screensize.width* 110,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.only(topRight:Radius.circular(raduis) ,bottomLeft: Radius.circular(raduis)),
           color: ColorManager.lightPrimary),

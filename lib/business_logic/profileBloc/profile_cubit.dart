@@ -16,4 +16,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfilesLoaded(profile));
     return profile;
   }
+
+  Future<void> AddProfilePicture(token ,String path) async {
+   await profileRepo.AddProfilePicture(token, path);
+    emit(ProfilePictureAdded());
+    GetProfile(token);
+  }
 }

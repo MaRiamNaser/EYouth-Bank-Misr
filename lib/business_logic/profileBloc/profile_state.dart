@@ -13,3 +13,7 @@ class ProfilesError extends ProfileState
 {
 
 }
+class ProfilePictureAdded extends ProfileState
+{
+
+}

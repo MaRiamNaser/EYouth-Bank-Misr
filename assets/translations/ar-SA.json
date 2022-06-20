@@ -64,6 +64,11 @@
  "yourPasswordCannotIncludeYourUsername" :"كلمة المرور لا يمكن ان تحتوي على اسم المستخدم",
  "loginLanguage" :"English",
  "Years old": "سنه",
- "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف"
+ "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف",
+ "Repetition": "ألتكرار",
+ "Once": "مره واحده",
+ "Daily": "يوميا",
+ "Weekly": "اسبوعيا",
+ "Monthly": "شهريا"
 
 }
