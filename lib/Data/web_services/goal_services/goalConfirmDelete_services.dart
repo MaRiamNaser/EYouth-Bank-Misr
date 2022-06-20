@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import '../../../presentation/goals/goals_view.dart';
 
 
-class confirmDeleteServices
+class goalConfirmDeleteServices
 { AppPreferences appPreferences=AppPreferences();
      // TODO remove this ui and put  to presentation layer , just leave the request to server
      //TODO rename the service and page.
@@ -25,26 +25,7 @@ class confirmDeleteServices
       return response.statusCode;
     }
 
-  void confirmDelete(String id ,BuildContext context1) {
-    showDialog(context: context1, builder: (BuildContext context)=>AlertDialog(
-      title: Text("Delete"),
-      content: Text(" Are you sure !?"),
-      actions: [
-        FlatButton(child: Text("yes"),
-          onPressed: () async {
 
-        BlocProvider.of<GoalCubit>(context1).DeleteGoal(id);
-        Navigator.pop(context);
-
-          }, ),
-        FlatButton(onPressed: (){
-        }, child: Text("no")),
-      ],
-
-    )
-    );
-
-  }
 
 }
 

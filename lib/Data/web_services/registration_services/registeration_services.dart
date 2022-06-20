@@ -5,11 +5,13 @@ import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
+import '../../api_links.dart';
+
 class RegisterationWebServices {
   late Dio dio;
   late Dio authenticatedDio;
   String? token;
-
+  EndPoints endPoints=EndPoints();
   RegisterationWebServices() {
     BaseOptions options = BaseOptions(
       baseUrl: AppStrings.baseUrl,
@@ -31,7 +33,7 @@ class RegisterationWebServices {
   Future<dynamic> signIn( String email, String password) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.loginLink),
+          await http.post(Uri.parse(AppStrings.baseUrl + endPoints.loginLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -57,7 +59,7 @@ class RegisterationWebServices {
   Future<bool> signUp(String fullname, String username, String email,String password, String age) async {
      try {
       Response response = await dio.post(
-          ApiStrings.registerLink,
+          endPoints.registerLink,
          data:jsonEncode(<String, String>{
                 "fullname": fullname,
                 "username": username,
@@ -85,7 +87,7 @@ class RegisterationWebServices {
   Future<dynamic> isUserNameExist( String userName) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.isUserNameExistLink),
+          await http.post(Uri.parse(AppStrings.baseUrl + endPoints.isUserNameExistLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -106,7 +108,7 @@ class RegisterationWebServices {
  Future<dynamic> isEmailExist( String email) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.isEmailExistLink),
+          await http.post(Uri.parse(AppStrings.baseUrl + endPoints.isEmailExistLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },

@@ -27,6 +27,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../Data/repo/task_repo.dart';
 import '../../Data/web_services/balance_services.dart';
 
+import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/task_services/taskConfirmChecked_services.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
@@ -41,8 +42,8 @@ class TasksView extends StatefulWidget {
 class _TasksViewState extends State<TasksView> {
   taskConfirmChecked checked = taskConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-  taskconfirmDeleteServices delete = taskconfirmDeleteServices();
-  taskConfirmEditServices edit = taskConfirmEditServices();
+  taskConfirmDeleteServices delete = taskConfirmDeleteServices();
+  // confirmEditServices edit = confirmEditServices();
   var token;
   late List<Task> tasks = [];
   bool undo=false;
@@ -78,80 +79,70 @@ class _TasksViewState extends State<TasksView> {
           )
         ],
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Tasks",
-      //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-      //     ,)
-      //   ,),
-      body: Column(
-        children: [
-          Container(
-            child: ImageSlideshow(
-              width: double.infinity,
-              height: 200,
-              initialPage: 0,
-              children: [
-                Image.asset(
-                  'assets/images/multitask.gif',
-                  fit: BoxFit.fill,
-                ),
-                Image.asset(
-                  'assets/images/multitask.gif',
-                  fit: BoxFit.cover,
-                ),
-              ],
-              onPageChanged: (value) {
-                print('Page changed: $value');
-              },
-              isLoop: true,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: SizedBox(
-                    height: 190,
-                    width: 210,
-                    child: Lottie.asset(ImageAssets.TaskPhoto)),
-              ),
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: ImageSlideshow(
+                width: double.infinity,
+                height: 200,
+                initialPage: 0,
                 children: [
-                  tasks.length == 0
-                      ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
-                      : BlocBuilder<TaskCubit, TaskState>(
-                    builder: (context, state) {
-                      if(state is TasksLoaded) {
-                        tasks=(state).tasks;
-                        return ListView.separated(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) =>
-                              buildtask(tasks[index], index),
-                          separatorBuilder: (context, index) =>
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                          itemCount: tasks.length,
-                        );
-                      }
-                      else
-                        {
-                          return Center(child: CircularProgressIndicator(),);
-                        }
-                    },
+                  Image.asset(
+                    'assets/images/multitask.gif',
+                    fit: BoxFit.fill,
+                  ),
+                  Image.asset(
+                    'assets/images/multitask.gif',
+                    fit: BoxFit.cover,
                   ),
                 ],
+                onPageChanged: (value) {
+                  print('Page changed: $value');
+                },
+                isLoop: true,
               ),
             ),
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: SizedBox(
+                      height: 160,
+                      width: 230,
+                      child: Lottie.asset(ImageAssets.TaskPhoto)),
+                ),
+              ],
+            ),
+            BlocBuilder<TaskCubit, TaskState>(
+              builder: (context, state) {
+                if(state is TasksLoaded) {
+                  tasks=(state).tasks;
+                  return
+                    tasks.isEmpty
+                        ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
+                        :Container(
+                      child: ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            buildtask(tasks[index], index),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(
+                              height: 0.0,
+                            ),
+                        itemCount: tasks.length,
+                      ),
+                    );
+                }
+                else
+                {
+                  return Center(child: CircularProgressIndicator(),);
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -312,6 +303,76 @@ class _TasksViewState extends State<TasksView> {
                                                             .cupertino);
                                                   },
                                                 ),
+                            onPressed: () {
+                              setState(() {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context1) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
+                                        scrollable: true,
+                                        backgroundColor: ColorManager.primary,
+                                        title: Center(
+                                          child: Text(
+                                            "congratulation",
+                                            style: getBoldtStyle(
+                                                fontSize: 18,
+                                                color: ColorManager.white),
+                                          ),
+                                        ),
+                                        content: Container(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Lottie.asset(
+                                                "assets/images/7455-loading1.json",
+                                                height: 145,
+                                                width: 250,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: SizedBox(
+                                                    width: 190,
+                                                    child: Text(
+                                                      "Did you achieve it ",
+                                                      style: getSemiBoldStyle(
+                                                          fontSize: 14,
+                                                          color: ColorManager
+                                                              .white),
+                                                      textAlign:
+                                                      TextAlign.center,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          Center(
+                                            child: Container(
+                                              height: 30,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(15),
+                                                color: ColorManager.darkPrimary,
+                                              ),
+                                              child: TextButton(
+                                                child: Text(
+                                                  'Ok',
+                                                  style: getRegularStyle(
+                                                      color:
+                                                      ColorManager.white),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context1).pop();
+                                                  BlocProvider.of<TaskCubit>(context).DeleteTask(task.id);
+
+                                                },
                                               ),
                                             )
                                           ],
@@ -325,16 +386,34 @@ class _TasksViewState extends State<TasksView> {
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
                             onPressed: () {
-                              edit.confirmEdit(task.id, task.title,
-                                  task.description, context);
+                              // edit.confirmEdit(task.id, task.title,
+                              //     task.description, context);
                             },
                           ),
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
                             color: ColorManager.error,
-                            onPressed: () async {
+                            onPressed: ()  {
                               // confirmDelete(goal.id);
-                              delete.confirmDelete(task.id, context);
+                              // delete.confirmDelete(goal.id, context);
+                              showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
+                                title: Text("Delete"),
+                                content: Text(" Are you sure !?"),
+                                actions: [
+                                  FlatButton(child: Text("yes"),
+                                    onPressed: () async {
+
+                                      BlocProvider.of<TaskCubit>(context).DeleteTask(task.id);
+                                      Navigator.pop(context1);
+
+                                    }, ),
+                                  FlatButton(onPressed: (){
+                                  }, child: Text("no")),
+                                ],
+
+                              )
+                              );
+
                             },
                           ),
                         ]),

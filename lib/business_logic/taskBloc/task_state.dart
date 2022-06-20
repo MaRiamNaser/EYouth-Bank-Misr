@@ -14,3 +14,7 @@ class TasksError extends TaskState
 {
 
 }
+class TaskDeleted extends TaskState
+{
+
+}

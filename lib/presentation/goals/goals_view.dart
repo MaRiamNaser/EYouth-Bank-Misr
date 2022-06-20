@@ -39,8 +39,8 @@ class Goalsview extends StatefulWidget {
 class _GoalViewState extends State<Goalsview> {
   goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-  confirmDeleteServices delete = confirmDeleteServices();
-  confirmEditServices edit = confirmEditServices();
+  goalConfirmDeleteServices delete = goalConfirmDeleteServices();
+  goalConfirmEdit edit = goalConfirmEdit();
   var token;
   late List<Goal> goals = [];
 
@@ -285,16 +285,35 @@ class _GoalViewState extends State<Goalsview> {
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
                             onPressed: () {
-                              edit.confirmEdit(goal.id, goal.title,
-                                  goal.description, context);
+                              // edit.confirmEdit(goal.id, goal.title,
+                              //     goal.description, context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
                             },
                           ),
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
                             color: ColorManager.error,
-                            onPressed: () async {
+                            onPressed: ()  {
                               // confirmDelete(goal.id);
-                              delete.confirmDelete(goal.id, context);
+                              // delete.confirmDelete(goal.id, context);
+                              showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
+                                title: Text("Delete"),
+                                content: Text(" Are you sure !?"),
+                                actions: [
+                                  FlatButton(child: Text("yes"),
+                                    onPressed: () async {
+
+                                      BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
+                                      Navigator.pop(context1);
+
+                                    }, ),
+                                  FlatButton(onPressed: (){
+                                  }, child: Text("no")),
+                                ],
+
+                              )
+                              );
+
                             },
                           ),
                         ]),
