@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../models/Profile.dart';
+import '../web_services/add_profile_image_services.dart';
 import '../web_services/profile_services.dart';
 
 class ProfileRepo {
@@ -16,4 +17,16 @@ class ProfileRepo {
     var list = jsonresponse["data"];
     return Profile.fromJson(list);
   }
+
+  Future<bool> AddProfilePicture(token ,String path) async {
+    /// Call Profile Web Service to assign Data to Profile Model
+    var response = await add_image_services().addimage(token,path);
+    if (response.statusCode == 200) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 }

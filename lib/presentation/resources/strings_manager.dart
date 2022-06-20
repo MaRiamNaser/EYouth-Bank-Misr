@@ -76,4 +76,9 @@ class AppStrings {
   static String pleaseEnterAgeBetween10And15 = "pleaseEnterAgeBetween10And15";
   static String yourPasswordCannotIncludeYourUsername = "yourPasswordCannotIncludeYourUsername";
   static String loginLanguage = "loginLanguage";
+  static String repetition ="Repetition";
+  static String Once="Once";
+  static String Daily="Daily";
+  static String Weekly ="Weekly";
+  static String Monthly="Monthly";
 }

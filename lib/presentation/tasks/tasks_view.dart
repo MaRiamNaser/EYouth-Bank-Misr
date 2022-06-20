@@ -43,10 +43,12 @@ class _TasksViewState extends State<TasksView> {
   taskConfirmChecked checked = taskConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
   taskConfirmDeleteServices delete = taskConfirmDeleteServices();
+
   // confirmEditServices edit = confirmEditServices();
   var token;
   late List<Task> tasks = [];
-  bool undo=false;
+  bool undo = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -116,28 +118,26 @@ class _TasksViewState extends State<TasksView> {
             ),
             BlocBuilder<TaskCubit, TaskState>(
               builder: (context, state) {
-                if(state is TasksLoaded) {
-                  tasks=(state).tasks;
-                  return
-                    tasks.isEmpty
-                        ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
-                        :Container(
-                      child: ListView.separated(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) =>
-                            buildtask(tasks[index], index),
-                        separatorBuilder: (context, index) =>
-                            SizedBox(
+                if (state is TasksLoaded) {
+                  tasks = (state).tasks;
+                  return tasks.isEmpty
+                      ? Center(child: Text(AppStrings.thereIsNoTasks.tr()))
+                      : Container(
+                          child: ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>
+                                buildtask(tasks[index], index),
+                            separatorBuilder: (context, index) => SizedBox(
                               height: 0.0,
                             ),
-                        itemCount: tasks.length,
-                      ),
-                    );
-                }
-                else
-                {
-                  return Center(child: CircularProgressIndicator(),);
+                            itemCount: tasks.length,
+                          ),
+                        );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               },
             ),
@@ -147,8 +147,7 @@ class _TasksViewState extends State<TasksView> {
     );
   }
 
-  Widget buildtask(Task task, int index) =>
-      Padding(
+  Widget buildtask(Task task, int index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         child: Container(
           decoration: BoxDecoration(
@@ -201,187 +200,109 @@ class _TasksViewState extends State<TasksView> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           IconButton(
-                            icon: Icon(
-                              Icons.check_circle,
-                              color: Colors.green,
-                              size: 28,
-                            ),
-                            onPressed: () async {
-                              undo = false;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: const Text('Task Has Been Done'),
-                                    action: SnackBarAction(
-                                      label: 'Undo',
-                                      onPressed: () {
-                                        undo = true;
-                                      },
-                                    ),
-                                    duration: Duration(seconds: 3),
+                              icon: Icon(
+                                Icons.check_circle,
+                                color: Colors.green,
+                                size: 28,
+                              ),
+                              onPressed: () async {
+                                undo = false;
+                               await ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: const Text('Task Has Been Done'),
+                                  action: SnackBarAction(
+                                    label: 'Undo',
+                                    onPressed: () {
+                                      undo = true;
+                                    },
+                                  ),
+                                  duration: Duration(seconds: 4),
 
-                                  ));
-                              if (undo == false) {
-                                Future.delayed(Duration(seconds: 3));
-                                checked.Checked(token, task.id);
-                                await balanceServices().EditBalance(token, 20);
-                                setState(() {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context1) {
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.0))),
-                                          scrollable: true,
-                                          backgroundColor: ColorManager.primary,
-                                          title: Center(
-                                            child: Text(
-                                              AppStrings.Well_Done.tr(),
-                                              style: getBoldtStyle(
-                                                  fontSize: 18,
-                                                  color: ColorManager.white),
-                                            ),
-                                          ),
-                                          content: Container(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Lottie.asset(
-                                                  "assets/images/7455-loading1.json",
-                                                  height: 145,
-                                                  width: 250,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.all(8.0),
-                                                  child: SizedBox(
-                                                      width: 190,
-                                                      child: Text(
-                                                        AppStrings
-                                                            .EGP2_Has_Been_Added_To_Your_Wallet
-                                                            .tr(),
-                                                        style: getSemiBoldStyle(
-                                                            fontSize: 14,
-                                                            color: ColorManager
-                                                                .white),
-                                                        textAlign:
-                                                        TextAlign.center,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              child: Container(
-                                                height: 30,
-                                                width: 100,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(15),
-                                                  color: ColorManager
-                                                      .darkPrimary,
-                                                ),
-                                                child: TextButton(
-                                                  child: Text(
-                                                    AppStrings.Ok.tr(),
-                                                    style: getRegularStyle(
-                                                        color:
-                                                        ColorManager.white),
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context1)
-                                                        .pop();
-                                                    Navigator.of(context).pop();
-                                                    pushNewScreen(context,
-                                                        screen: TasksView(),
-                                                        withNavBar: true,
-                                                        pageTransitionAnimation:
-                                                        PageTransitionAnimation
-                                                            .cupertino);
-                                                  },
-                                                ),
-                            onPressed: () {
-                              setState(() {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context1) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20.0))),
-                                        scrollable: true,
-                                        backgroundColor: ColorManager.primary,
-                                        title: Center(
-                                          child: Text(
-                                            "congratulation",
-                                            style: getBoldtStyle(
-                                                fontSize: 18,
-                                                color: ColorManager.white),
-                                          ),
-                                        ),
-                                        content: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Lottie.asset(
-                                                "assets/images/7455-loading1.json",
-                                                height: 145,
-                                                width: 250,
-                                              ),
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.all(8.0),
-                                                child: SizedBox(
-                                                    width: 190,
-                                                    child: Text(
-                                                      "Did you achieve it ",
-                                                      style: getSemiBoldStyle(
-                                                          fontSize: 14,
-                                                          color: ColorManager
-                                                              .white),
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        actions: [
-                                          Center(
-                                            child: Container(
-                                              height: 30,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(15),
-                                                color: ColorManager.darkPrimary,
-                                              ),
-                                              child: TextButton(
-                                                child: Text(
-                                                  'Ok',
-                                                  style: getRegularStyle(
-                                                      color:
-                                                      ColorManager.white),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context1).pop();
-                                                  BlocProvider.of<TaskCubit>(context).DeleteTask(task.id);
-
-                                                },
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      });
-                                });
-                              }
-                            },
-                          ),
+                                )).closed.then((value)
+                               async {
+                                 if (undo == false) {
+                                   checked.Checked(token, task.id);
+                                   await balanceServices()
+                                       .EditBalance(token, 20);
+                                   showDialog(
+                                     context: context,
+                                     builder: (BuildContext context1) {
+                                       return AlertDialog(
+                                           shape: RoundedRectangleBorder(
+                                               borderRadius: BorderRadius.all(
+                                                   Radius.circular(20.0))),
+                                           scrollable: true,
+                                           backgroundColor: ColorManager.primary,
+                                           title: Center(
+                                             child: Text(
+                                               AppStrings.Well_Done.tr(),
+                                               style: getBoldtStyle(
+                                                   fontSize: 18,
+                                                   color: ColorManager.white),
+                                             ),
+                                           ),
+                                           content: Container(
+                                             child: Column(
+                                               mainAxisAlignment:
+                                               MainAxisAlignment.center,
+                                               mainAxisSize: MainAxisSize.min,
+                                               children: [
+                                                 Lottie.asset(
+                                                   "assets/images/7455-loading1.json",
+                                                   height: 145,
+                                                   width: 250,
+                                                 ),
+                                                 Padding(
+                                                   padding:
+                                                   const EdgeInsets.all(8.0),
+                                                   child: SizedBox(
+                                                       width: 190,
+                                                       child: Text(
+                                                         AppStrings
+                                                             .EGP2_Has_Been_Added_To_Your_Wallet
+                                                             .tr(),
+                                                         style: getSemiBoldStyle(
+                                                             fontSize: 14,
+                                                             color: ColorManager
+                                                                 .white),
+                                                         textAlign:
+                                                         TextAlign.center,
+                                                       )),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                           actions: [
+                                             Center(
+                                                 child: Container(
+                                                   height: 30,
+                                                   width: 100,
+                                                   decoration: BoxDecoration(
+                                                     borderRadius:
+                                                     BorderRadius.circular(15),
+                                                     color: ColorManager.darkPrimary,
+                                                   ),
+                                                   child: TextButton(
+                                                     child: Text(
+                                                       AppStrings.Ok.tr(),
+                                                       style: getRegularStyle(
+                                                           color:
+                                                           ColorManager.white),
+                                                     ),
+                                                     onPressed: () {
+                                                       Navigator.of(context1).pop();
+                                                       BlocProvider.of<TaskCubit>(
+                                                           context)
+                                                           .DeleteTask(task.id);
+                                                     },
+                                                   ),
+                                                 )),
+                                           ]);
+                                     },
+                                   );
+                                 }
+                               });
+                              }),
                           IconButton(
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
@@ -393,27 +314,30 @@ class _TasksViewState extends State<TasksView> {
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
                             color: ColorManager.error,
-                            onPressed: ()  {
+                            onPressed: () {
                               // confirmDelete(goal.id);
                               // delete.confirmDelete(goal.id, context);
-                              showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
-                                title: Text("Delete"),
-                                content: Text(" Are you sure !?"),
-                                actions: [
-                                  FlatButton(child: Text("yes"),
-                                    onPressed: () async {
-
-                                      BlocProvider.of<TaskCubit>(context).DeleteTask(task.id);
-                                      Navigator.pop(context1);
-
-                                    }, ),
-                                  FlatButton(onPressed: (){
-                                  }, child: Text("no")),
-                                ],
-
-                              )
-                              );
-
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context1) =>
+                                      AlertDialog(
+                                        title: Text("Delete"),
+                                        content: Text(" Are you sure !?"),
+                                        actions: [
+                                          FlatButton(
+                                            child: Text("yes"),
+                                            onPressed: () async {
+                                              BlocProvider.of<TaskCubit>(
+                                                      context)
+                                                  .DeleteTask(task.id);
+                                              Navigator.pop(context1);
+                                            },
+                                          ),
+                                          FlatButton(
+                                              onPressed: () {},
+                                              child: Text("no")),
+                                        ],
+                                      ));
                             },
                           ),
                         ]),
