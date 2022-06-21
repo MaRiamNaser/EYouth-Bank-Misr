@@ -2,16 +2,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import '../../Data/models/Task.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 
 Widget buildItem(String name , int index,int points) =>
+
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
       child: Container(
+
+        height: 80,
         decoration: BoxDecoration(
             border: Border.all(color: ColorManager.grey, width: 1.5),
             borderRadius: BorderRadius.only(
@@ -25,10 +28,12 @@ Widget buildItem(String name , int index,int points) =>
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
+
                     children: [
+
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
@@ -37,14 +42,28 @@ Widget buildItem(String name , int index,int points) =>
                             fontSize: FontSize.s16,
                             color: ColorManager.black,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+
                         ),
                       ),
+
+                      Padding(
+              padding: const EdgeInsets.only(right: 10),
+                  child:    CircularProfileAvatar(
+                        ' ',
+                        child: Icon(
+                          Icons.person,
+                          size: 35,
+                        ),
+                        borderColor: Colors.black,
+                        borderWidth: 1.5,
+                        elevation: 3,
+                        radius: 25,
+                      ),),
                       Container(
-                        width: 279,
+
+                        width: 160,
                         child: Text(
-                          "Name",
+                          "$name",
                           style: getMediumStyle(
                             fontSize: 16,
                             color: ColorManager.black,
@@ -52,7 +71,20 @@ Widget buildItem(String name , int index,int points) =>
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      )
+                      ),
+                      Container(
+
+                        child: Text(
+                          "$points"+" pts",
+                          style: getMediumStyle(
+                            fontSize: 16,
+                            color: ColorManager.black,
+
+                          ),
+
+                        ),
+                      ),
+
                     ],
                   ),
 
