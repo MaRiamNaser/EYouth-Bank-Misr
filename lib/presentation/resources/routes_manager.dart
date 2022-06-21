@@ -1,10 +1,19 @@
+import 'package:bank_misr/Data/repo/goal_repo.dart';
+import 'package:bank_misr/Data/repo/task_repo.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
+
 import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentindex_cubit.dart';
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
 import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
 import 'package:bank_misr/data/repo/authentication/signin_repo.dart';
 import 'package:bank_misr/data/repo/authentication/signup_repo.dart';
 import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
+
+import 'package:bank_misr/Data/web_services/goal_services/goal_services.dart';
+import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
+import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
+import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
+
 import 'package:bank_misr/data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
@@ -72,13 +81,22 @@ class blocGenerator {
 
   late CurrentindexCubit currentindexCubit ;
 
+  late GoalRepo goalRepo;
+  late GoalCubit goalCubit;
+
+  late TaskRepo taskRepo;
+  late TaskCubit taskCubit;
+
   blocGenerator() {
     courseRepo = CourseRepo(CourseServices());
     courseCubit = CourseCubit(courseRepo);
+
     videoRepo = VideoRepo(VideoServices());
     videoCubit = VideoCubit(videoRepo);
+
     profileRepo = ProfileRepo(ProfileServices());
     profileCubit = ProfileCubit(profileRepo);
+
 
     signInRepo = SignInRepo(RegisterationWebServices());
     signInCubit = Signin1Cubit(signInRepo);
@@ -87,6 +105,14 @@ class blocGenerator {
     signUpCubit = SignUpCubit(signUpRepo);
 
     currentindexCubit = CurrentindexCubit();
+
+    goalRepo=GoalRepo(GoalServices());
+    goalCubit =GoalCubit(goalRepo);
+
+    taskRepo =TaskRepo(TaskServices());
+    taskCubit=TaskCubit(taskRepo);
+
+
   }
 }
 
@@ -131,7 +157,7 @@ class RouteGenerator {
          i=settings.arguments as int;
         return MaterialPageRoute(builder: (_) => BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(i),
+    child :coursesView(),
   ),);
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());

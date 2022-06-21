@@ -1,16 +1,29 @@
 
 
-import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+import '../../../presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import '../../../presentation/addTasksGoals/edit_goal/edit_goal.dart';
-import '../../../presentation/goals/goals_view.dart';
 
+class goalConfirmEdit {
+  Future<String> Edit(String token, String goalID, String title, String description) async {
+    if(title.isNotEmpty&&description.isNotEmpty) {
+      var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$goalID'),
+          headers: <String,String>{"Content-Type": "application/json",
 
-class confirmEditServices
-{
-  void confirmEdit(String Id,String Title, String Description,BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(Id,Title,Description)));
-  }
+            HttpHeaders.authorizationHeader:token},
+          body: jsonEncode(
+              <String, String>{
+                "title": title,
+                "description":description,
+              })
+      );
 
-}
+      return response.body;
+    }
+    else{ return "wrong";}
+}}
+

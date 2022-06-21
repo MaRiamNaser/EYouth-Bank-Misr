@@ -45,6 +45,7 @@ Widget userNameTextFormField(TextEditingController userNameController) {
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
     child: TextFormField(
+
       validator: (value) {
         if (value == null || value.isEmpty) {
           return AppStrings.pleaseEnterYourUserName.tr();
@@ -53,6 +54,7 @@ Widget userNameTextFormField(TextEditingController userNameController) {
       },
 
       controller: userNameController,
+
       // keyboardType: TextInputType.phone,
       decoration: InputDecoration(
         labelText: AppStrings.userName.tr(),
@@ -78,6 +80,7 @@ class LoginButton extends StatelessWidget {
   LoginButton(this.formKey, this.emailController, this.passwordController,
       this.context2);
   @override
+
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>  blocGenerator().signInCubit,
@@ -114,6 +117,7 @@ class LoginButton extends StatelessWidget {
               child: Text(AppStrings.loginTitle.tr()),
             ),
           );
+
         },
       ),
     );

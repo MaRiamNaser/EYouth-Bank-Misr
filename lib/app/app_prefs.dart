@@ -11,7 +11,6 @@ class AppPreferences {
   late SharedPreferences _sharedPreferences;
 
 getLocalToken()async{
-
   SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
   return sharedPreferences.getString("token");
 }

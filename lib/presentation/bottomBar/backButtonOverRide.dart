@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 Future<bool> onWillPop(context) async {
-  return (await showDialog(
+  return (
+      await showDialog(
     context: context,
     builder: (context) => new AlertDialog(
       title: new Text('Are you sure?'),
@@ -17,5 +18,5 @@ Future<bool> onWillPop(context) async {
         ),
       ],
     ),
-  )) ?? false;
+  ));
 }

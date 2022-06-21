@@ -1,5 +1,11 @@
 import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+
+import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
+import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
+import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
 import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
@@ -15,8 +21,11 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+
 import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/goal_services/goal_services.dart';
@@ -31,8 +40,8 @@ class Goalsview extends StatefulWidget {
 class _GoalViewState extends State<Goalsview> {
   goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
-  confirmDeleteServices delete = confirmDeleteServices();
-  confirmEditServices edit = confirmEditServices();
+  goalConfirmDeleteServices delete = goalConfirmDeleteServices();
+  goalConfirmEdit edit = goalConfirmEdit();
   var token;
   late List<Goal> goals = [];
 
@@ -49,6 +58,7 @@ class _GoalViewState extends State<Goalsview> {
     
   }
 
+
   Load() async{
     goals = await GoalRepo(GoalServices())
         .GetAllGoals(await appPreferences.getLocalToken());
@@ -63,8 +73,8 @@ class _GoalViewState extends State<Goalsview> {
      print(profile.balance.toString()+"  *********************88");
     balance1 = profile.balance;
     
-  }
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +95,7 @@ class _GoalViewState extends State<Goalsview> {
           )
         ],
       ),
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorManager.primary,
         child: Icon(Icons.add),
@@ -92,6 +103,7 @@ class _GoalViewState extends State<Goalsview> {
           Navigator.pushNamed(context, Routes.addGoalViewRoute);
         },
       ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -127,19 +139,33 @@ class _GoalViewState extends State<Goalsview> {
                 ),
               ],
             ),
-            goals.length == 0
-                ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
-                : Container(
-                    child: ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          buildgoal(goals[index], index),
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: 0.0,
-                      ),
-                      itemCount: goals.length,
-                    ),
+
+             BlocBuilder<GoalCubit, GoalState>(
+                    builder: (context, state) {
+                      if(state is GoalsLoaded) {
+                        goals=(state).goals;
+                        return
+                          goals.isEmpty
+                              ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
+                              :Container(
+                          child: ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>
+                                buildgoal(goals[index], index),
+                            separatorBuilder: (context, index) =>
+                                SizedBox(
+                                  height: 0.0,
+                                ),
+                            itemCount: goals.length,
+                          ),
+                        );
+                      }
+                      else
+                        {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                    },
                   ),
           ],
         ),
@@ -196,11 +222,13 @@ class _GoalViewState extends State<Goalsview> {
                     Divider(
                       height: 2,
                     ),
+
                     Container(
                       alignment: Alignment.topCenter,
                       margin: EdgeInsets.all(20),
                       child:Text("") //ProgressGoalIndicator(balance1, goal.amount),
                     ),
+
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -214,7 +242,7 @@ class _GoalViewState extends State<Goalsview> {
                               setState(() {
                                 showDialog(
                                     context: context,
-                                    builder: (BuildContext context) {
+                                    builder: (BuildContext context1) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
@@ -276,12 +304,18 @@ class _GoalViewState extends State<Goalsview> {
                                                           ColorManager.white),
                                                 ),
                                                 onPressed: () {
+
                                                   checked.Checked(
                                                       token, goal.id);
                                                   Navigator
                                                       .pushReplacementNamed(
                                                           context,
                                                           Routes.goals);
+
+                                                  Navigator.of(context1).pop();
+                                                  BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
+
+
                                                 },
                                               ),
                                             ),
@@ -296,16 +330,46 @@ class _GoalViewState extends State<Goalsview> {
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
                             onPressed: () {
+
                               edit.confirmEdit(goal.id, goal.title,
                                   goal.description, context);
+
+                              // edit.confirmEdit(goal.id, goal.title,
+                              //     goal.description, context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
+
                             },
                           ),
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
                             color: ColorManager.error,
+
                             onPressed: () async {
                               // confirmDelete(goal.id);
                               delete.confirmDelete(goal.id, context);
+
+                            onPressed: ()  {
+                              // confirmDelete(goal.id);
+                              // delete.confirmDelete(goal.id, context);
+                              showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
+                                title: Text("Delete"),
+                                content: Text(" Are you sure !?"),
+                                actions: [
+                                  FlatButton(child: Text("yes"),
+                                    onPressed: () async {
+
+                                      BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
+                                      Navigator.pop(context1);
+
+                                    }, ),
+                                  FlatButton(onPressed: (){
+                                  }, child: Text("no")),
+                                ],
+
+                              )
+                              );
+
+
                             },
                           ),
                         ]),
@@ -316,6 +380,7 @@ class _GoalViewState extends State<Goalsview> {
           ),
         ),
       );
+
 
 
       Widget ProgressGoalIndicator(int total_balance, int goal_amount){
@@ -331,4 +396,5 @@ class _GoalViewState extends State<Goalsview> {
                         roundedEdges: Radius.circular(10),
         );
       }
+
 }

@@ -1,4 +1,5 @@
 class Quiz {
+  /// Quiz Model
   Quiz({
     required this.head,
     required this.answer,

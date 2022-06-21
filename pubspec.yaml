@@ -47,13 +47,25 @@ dependencies:
   image_picker: null
   lottie: null
   persistent_bottom_nav_bar: ^4.0.2
+
   provider: null
   rflutter_alert: ^2.0.4
   shared_preferences: null
   youtube_player_iframe: null
   step_progress_indicator: ^1.0.2
+  device_preview:
+  feature_discovery: ^0.14.1
+  circular_profile_avatar: ^2.0.5
+  flutter_polygon: ^0.3.0+2
+  cached_network_image:
+
+
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  test:
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,6 +88,7 @@ flutter:
     - assets/images/
     - assets/translations/ar-SA.json
     - assets/translations/en-US.json
+    - assets/config/
   fonts:
     - family: Montserrat
       fonts:

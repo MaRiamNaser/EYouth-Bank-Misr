@@ -17,18 +17,15 @@ import '../resources/routes_manager.dart';
 import '../resources/strings_manager.dart';
 
 class coursesView extends StatefulWidget {
-  int i;
-  coursesView(this.i);
+
 
   @override
-  State<coursesView> createState() => _coursesViewState(i);
+  State<coursesView> createState() => _coursesViewState();
 }
 
 class _coursesViewState extends State<coursesView> {
   @override
   late List<Course> AllCourses;
-  int i;
-  _coursesViewState(this.i);
   @override
   void initState() {
     // TODO: implement initState
