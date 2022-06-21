@@ -15,7 +15,7 @@ class AddTaskServices {
             "description": description,
             "amount":amount!=""?int.parse(amount):0,
           }),token);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return true;
       } else {
         print(response.statusCode);

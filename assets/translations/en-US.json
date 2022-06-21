@@ -64,6 +64,11 @@
  "yourPasswordCannotIncludeYourUsername" :"Your Password Cannot Include Your Username",
  "loginLanguage":"العربية",
  "Years old":"Years old",
- "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !"
+ "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !",
+ "Repetition": "Repetition",
+ "Once": "Once",
+ "Daily": "Daily",
+ "Weekly": "Weekly",
+ "Monthly": "Monthly"
 
 }

@@ -1,3 +1,4 @@
+import 'package:bank_misr/presentation/bottomBar/backButtonOverRide.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -63,6 +64,7 @@ class _navgscreenState extends State<navgscreen> {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style16,
+      onWillPop:(bool)=> onWillPop(context),
       onItemSelected: (int)
       {
         setState(() {
