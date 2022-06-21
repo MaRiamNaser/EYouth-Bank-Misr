@@ -1,16 +1,24 @@
 import 'package:bank_misr/Data/repo/goal_repo.dart';
 import 'package:bank_misr/Data/repo/task_repo.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
+
+import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentindex_cubit.dart';
+import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
+import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
+import 'package:bank_misr/data/repo/authentication/signin_repo.dart';
+import 'package:bank_misr/data/repo/authentication/signup_repo.dart';
+import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
+
 import 'package:bank_misr/Data/web_services/goal_services/goal_services.dart';
 import 'package:bank_misr/Data/web_services/task_services/task_services.dart';
 import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
+
 import 'package:bank_misr/data/web_services/video_services.dart';
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
-import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/course/course_view.dart';
 import 'package:bank_misr/presentation/courses/coursesView.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
@@ -22,13 +30,9 @@ import 'package:bank_misr/presentation/splash/splash_view.dart';
 import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:bank_misr/presentation/video/video_view.dart';
 import 'package:flutter/material.dart';
-
-
 import '../../Data/models/Video.dart';
 import '../goals/goals_view.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../Data/repo/course_repo.dart';
 import '../../Data/repo/profile_repo.dart';
 import '../../Data/web_services/profile_services.dart';
@@ -52,11 +56,11 @@ class Routes {
 
    static const String addTaskViewRoute = "/addTaskViewRoute";
    static const String addGoalViewRoute = "/addGoalViewRoute";
-  static const String homeLayout = "/homeLayout";
+   static const String homeLayout = "/homeLayout";
 
   static const String goals= "/goals";
   static const String tasks= "/tasks";
-    static const String courses= "/courses";
+  static const String courses= "/courses";
 
 
 }
@@ -68,6 +72,14 @@ class blocGenerator {
   late VideoCubit videoCubit;
   late ProfileRepo profileRepo;
   late ProfileCubit profileCubit;
+  
+  late SignInRepo signInRepo;
+  late Signin1Cubit signInCubit;
+
+    late SignUpRepo signUpRepo;
+  late SignUpCubit signUpCubit;
+
+  late CurrentindexCubit currentindexCubit ;
 
   late GoalRepo goalRepo;
   late GoalCubit goalCubit;
@@ -85,6 +97,15 @@ class blocGenerator {
     profileRepo = ProfileRepo(ProfileServices());
     profileCubit = ProfileCubit(profileRepo);
 
+
+    signInRepo = SignInRepo(RegisterationWebServices());
+    signInCubit = Signin1Cubit(signInRepo);
+
+    signUpRepo = SignUpRepo(RegisterationWebServices());
+    signUpCubit = SignUpCubit(signUpRepo);
+
+    currentindexCubit = CurrentindexCubit();
+
     goalRepo=GoalRepo(GoalServices());
     goalCubit =GoalCubit(goalRepo);
 
@@ -101,9 +122,18 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) =>  LoginView(),);
       case Routes.registerRoute:
-        return MaterialPageRoute(builder: (_) => RegisterView());
+        return MaterialPageRoute(builder: (_) =>  MultiBlocProvider(
+          providers: [
+            BlocProvider(
+  create: (context) => blocGenerator().signUpCubit,
+  ),
+             BlocProvider(
+  create: (context) => blocGenerator().currentindexCubit,
+  )
+
+          ],child: RegisterView()));
       case Routes.homeViewRoute:
 
         return MaterialPageRoute(builder: (_) =>
@@ -116,7 +146,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Container());
       case Routes.tasksRoute:
         return MaterialPageRoute(builder: (_) => TasksView());
-
          case Routes.profileViewRoute:
         return MaterialPageRoute(builder: (_) => ProfileView());
          case Routes.addTaskViewRoute:

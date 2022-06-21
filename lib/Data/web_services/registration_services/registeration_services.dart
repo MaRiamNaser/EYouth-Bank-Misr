@@ -43,10 +43,8 @@ class RegisterationWebServices {
                 "password": password
                 
               }));
-              print(response.body);
+
       if (response.statusCode == 200) {
-        print("************************************************************");
-        print(response);
         return response.body;
       } else {
         return response.body;
@@ -56,32 +54,33 @@ class RegisterationWebServices {
     }
   }
 
-  Future<bool> signUp(String fullname, String username, String email,String password, String age) async {
+  Future<dynamic> signUp(String fullname, String username, String email,String password, String age) async {
      try {
-      Response response = await dio.post(
-          endPoints.registerLink,
-         data:jsonEncode(<String, String>{
+
+             var response = await http.post(Uri.parse(AppStrings.baseUrl + ApiStrings.registerLink),
+              headers: <String, String>{
+                "Content-Type": "application/json",
+              },
+              body: jsonEncode(<String, dynamic>{
+            
+
                 "fullname": fullname,
                 "username": username,
                 "email": email,
                 "password": password,
-                "age": age
+                "age":int.parse(age)
               }));
-
                 if (response.statusCode == 200) {
-                    return true;
+                    return response.body;
 
                 }else{
-                  return false;
+                  return response.body;
                 }
-
-
     
     } catch (e) {
       print(e.toString());
             return false;
     }
-
   }
 
   Future<dynamic> isUserNameExist( String userName) async {

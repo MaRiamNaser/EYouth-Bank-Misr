@@ -18,7 +18,7 @@ class GoalRepo
     var body = await _goalServices.GetAllGoals(token);
     print(body);
     var jsonresponse =json.decode(body) ;
-    var list=jsonresponse["data"] as List<dynamic>;
+    var list = jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Goal.fromJson(e)).toList();
   }
   Future<bool> ConfirmDelete(id)async
