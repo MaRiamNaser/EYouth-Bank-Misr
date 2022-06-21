@@ -1,10 +1,8 @@
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+
 
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
@@ -48,13 +46,7 @@ class _addGoalViewState extends State<addGoalview> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                new CircularPercentIndicator(
-                  radius: 60.0,
-                  lineWidth: 5.0,
-                  percent: 1.0,
-                  center: new Text("100%"),
-                  progressColor: Colors.green,
-                ),
+        
                 Image(
                   image: AssetImage('assets/images/goals.png'),
                   height: 120.0,

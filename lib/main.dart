@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 void main() async{
 
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding?.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp( 
     
