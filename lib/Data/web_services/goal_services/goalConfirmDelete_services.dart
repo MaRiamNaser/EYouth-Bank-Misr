@@ -22,6 +22,7 @@ class goalConfirmDeleteServices
           'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id'),
           headers: <String,String>{"Content-Type": "application/json",
             HttpHeaders.authorizationHeader:await appPreferences.getLocalToken() });
+      print(response.statusCode);
       return response.statusCode;
     }
 

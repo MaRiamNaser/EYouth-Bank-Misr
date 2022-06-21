@@ -17,3 +17,7 @@ class ProfilePictureAdded extends ProfileState
 {
 
 }
+class BalanceAdded extends ProfileState
+{
+
+}
