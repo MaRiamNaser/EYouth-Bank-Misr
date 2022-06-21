@@ -1,4 +1,5 @@
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/theme_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:feature_discovery/feature_discovery.dart';

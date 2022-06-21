@@ -16,3 +16,9 @@ List<Category>categories=[
   Category(AppStrings.Courses, ImageAssets.coursesPhoto),
   Category(AppStrings.Tasks, ImageAssets.tasksPhoto)
 ];
+
+List<Category>categories2=[
+  Category("Mohamed Wael", "assets/images/child1.jpg"),
+  Category("Ahmed Wael","assets/images/child2.jfif"),
+  Category("Rehame Wael", "assets/images/child3.png")
+];

@@ -13,7 +13,7 @@ class balanceServices
         "balance": amount,
       }), token);
       print(response.statusCode);
-      return response.body;
+      return response.statusCode.toString();
     }catch(e)
     {
       return "Error";

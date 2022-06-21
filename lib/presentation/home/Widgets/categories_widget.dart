@@ -39,7 +39,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               pushNewScreen(context,
                   screen: BlocProvider(
                     create: (context) => blocGenerator().courseCubit,
-                    child: coursesView(1),
+                    child: coursesView(),
                   ),
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);

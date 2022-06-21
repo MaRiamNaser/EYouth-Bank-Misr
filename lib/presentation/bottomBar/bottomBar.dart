@@ -44,7 +44,7 @@ class _BottomBarState extends State<BottomBar> {
     ),
   BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(0),
+    child :coursesView(),
   ),
     BlocProvider(
   create: (context) => blocGenerator().profileCubit,
@@ -56,7 +56,7 @@ class _BottomBarState extends State<BottomBar> {
     AddTaskView(),
     AddGoalView(),
 
-    coursesView(0),
+    coursesView(),
     TasksView(),
     Goalsview()
     

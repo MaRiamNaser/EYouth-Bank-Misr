@@ -128,7 +128,7 @@ class RouteGenerator {
          i=settings.arguments as int;
         return MaterialPageRoute(builder: (_) => BlocProvider(
   create: (context) => blocGenerator().courseCubit,
-    child :coursesView(i),
+    child :coursesView(),
   ),);
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());
