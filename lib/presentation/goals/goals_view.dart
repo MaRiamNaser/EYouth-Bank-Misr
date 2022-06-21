@@ -53,12 +53,9 @@ class _GoalViewState extends State<Goalsview> {
   Load() async
   {
     goals = await GoalRepo(GoalServices()).GetAllGoals(
-        await appPreferences.getLocalToken());
+    await appPreferences.getLocalToken());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
-    setState(() {
-
-    });
   }
 
 
@@ -81,13 +78,6 @@ class _GoalViewState extends State<Goalsview> {
           )
         ],
       ),
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Goals",
-      //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-      //     ,)
-      //   ,
-      //   ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorManager.primary,
         child: Icon(Icons.add),

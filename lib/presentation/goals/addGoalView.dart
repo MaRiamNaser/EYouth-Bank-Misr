@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
@@ -27,14 +28,6 @@ class _addGoalViewState extends State<addGoalview> {
 
 
     return Scaffold(
-
-      // appBar: AppBar(
-      //   leading: Icon(Icons.arrow_back,color: Colors.black,size: 25,),
-      //   title: Text(
-      //     "Add Goal",
-      //     style: getBoldtStyle(fontSize:FontSize.s18,color: Colors.black)
-      //     ,)
-      //   ,),
         appBar: AppBar(title: Text(AppStrings.addGoal),  actions: [
           Padding(
             padding: const EdgeInsets.only(right:10.0),
@@ -54,6 +47,14 @@ class _addGoalViewState extends State<addGoalview> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
+                new CircularPercentIndicator(
+                  radius: 60.0,
+                  lineWidth: 5.0,
+                  percent: 1.0,
+                  center: new Text("100%"),
+                  progressColor: Colors.green,
+                ),
                 Image(
                   image: AssetImage('assets/images/goals.png'),
                   height: 120.0,
