@@ -50,7 +50,7 @@ class RegisterationWebServices {
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        return response.body;
+        return null;
       }
     } catch (e) {
       return false;
@@ -79,12 +79,12 @@ class RegisterationWebServices {
                     return response.body;
 
                 }else{
-                  return response.body;
+                  return null;
                 }
     
     } catch (e) {
-      print(e.toString());
-            return false;
+   
+            return null;
     }
   }
 
@@ -104,7 +104,7 @@ class RegisterationWebServices {
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        return response.body;
+        return null;
       }
     } catch (e) {
       return false;
@@ -128,7 +128,7 @@ class RegisterationWebServices {
 
         return response.body;
       } else {
-        return response.body;
+        return null;
       }
     } catch (e) {
       return false;

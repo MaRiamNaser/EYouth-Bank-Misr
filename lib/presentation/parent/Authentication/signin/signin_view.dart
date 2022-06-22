@@ -72,43 +72,12 @@ class _ParentSignInViewState extends State<ParentSignInView> {
               crossAxisAlignment: CrossAxisAlignment.end,
             
               children: [
-               
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                   children: [                      
-                      Container(
-                        margin: EdgeInsets.only(left: AppMargin.m20),
-                        child: Text(
-                            "Hello,",
-                             style: getBoldtStyle(color: ColorManager.black,fontSize: AppSize.s40),
-                              textAlign: TextAlign.justify
-                          ),
-                      ),
-
-                     
-                   ],
-                 ),
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                   children: [                      
-                      Container(
-                        margin: EdgeInsets.only(left: AppMargin.m20),
-                        child: Text(
-                            "Welcome back",
-                             style: getBoldtStyle(color: ColorManager.primary,fontSize: AppSize.s40),
-                              textAlign: TextAlign.justify
-                          ),
-                      ),
-                      
-                     
-                   ],
-                 ),
-       
+                helloWidget(),
+                welcomeBackWidget(),
                 userNameTextFormField(emailController),
                 passwordTextFormField(passwordController),
                 forgetPasswordWidget(),
-                SignInButton(
-                    formKey, emailController, passwordController, context),
+                SignInButton(formKey, emailController, passwordController, context),
                 newToTheAppWidget(context),
               ],
             ),
