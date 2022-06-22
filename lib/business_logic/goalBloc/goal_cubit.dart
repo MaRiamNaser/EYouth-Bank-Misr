@@ -46,6 +46,4 @@ class GoalCubit extends Cubit<GoalState> {
       return false;
     }
   }
-
-
    }

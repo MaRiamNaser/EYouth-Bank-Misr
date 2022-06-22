@@ -36,7 +36,8 @@ class GoalRepo
   Future<bool> ConfirmEdit(token,goalID,title,description)async
   {
     var code= await goalConfirmEdit().Edit(token,goalID,title,description);
-    if(code==200)
+    print(code+" ssssssssssssssssssss");
+    if(code=="200")
     {
       return true;
     }

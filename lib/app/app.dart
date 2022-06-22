@@ -16,6 +16,7 @@ import '../presentation/goals/addGoalView.dart';
 import '../presentation/goals/goals_view.dart';
 import '../presentation/home/Widgets/stack_widget.dart';
 import '../presentation/home/home_view.dart';
+import '../presentation/home/parentHomeView/ParentNavBarView.dart';
 import '../presentation/login/login_view.dart';
 import '../presentation/profile/profile_view.dart';
 import '../presentation/rankingPage/rankingView.dart';
@@ -62,7 +63,7 @@ late AppPreferences _appPreferences ;
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),
-        home: SplashView(),
+        home: ParentHomeView(),
       ),
     );
   }

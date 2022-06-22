@@ -333,15 +333,16 @@ class _GoalViewState extends State<Goalsview> {
 
                               edit.confirmEdit(goal.id, goal.title,
                                   goal.description, context);
-
-                              // edit.confirmEdit(goal.id, goal.title,
-                              //     goal.description, context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
+                              pushNewScreen(context,
+                                  screen:  EditGoal(goal.id,goal.title,Description),
+                                  withNavBar: true,
+                                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
 
                             },
                           ),
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
+                            key: Key("deleteGoal"),
                             color: ColorManager.error,
 
                             onPressed: () async {

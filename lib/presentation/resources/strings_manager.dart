@@ -81,4 +81,5 @@ class AppStrings {
   static String Daily="Daily";
   static String Weekly ="Weekly";
   static String Monthly="Monthly";
+  static String YourRank="Your Rank :";
 }
