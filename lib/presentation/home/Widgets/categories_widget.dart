@@ -50,10 +50,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             } else if (index == 2) {
               pushNewScreen(context,
-                  screen: BlocProvider(
-                    create: (context) => blocGenerator().taskCubit,
-                    child: TasksView(),
-                  ),
+                  screen:  TasksView(),
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }

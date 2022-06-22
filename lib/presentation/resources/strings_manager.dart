@@ -81,4 +81,7 @@ class AppStrings {
   static String Daily="Daily";
   static String Weekly ="Weekly";
   static String Monthly="Monthly";
+
+  static String child = "child";
+  static String parent = "parent";
 }

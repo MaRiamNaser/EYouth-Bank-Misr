@@ -72,12 +72,12 @@ Widget userNameTextFormField(TextEditingController userNameController) {
   );
 }
 
-class LoginButton extends StatelessWidget {
+class SignInButton extends StatelessWidget {
   final formKey;
   final emailController;
   final passwordController;
   final context2;
-  LoginButton(this.formKey, this.emailController, this.passwordController,
+  SignInButton(this.formKey, this.emailController, this.passwordController,
       this.context2);
   @override
 
@@ -169,7 +169,7 @@ Widget newToTheAppWidget(BuildContext context) {
           text: AppStrings.registerTitle.tr(),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              Navigator.pushNamed(context, Routes.registerRoute);
+              Navigator.pushReplacementNamed(context, Routes.parentSignUpRoute);
             },
           style: getBoldtStyle(
             color: ColorManager.red,

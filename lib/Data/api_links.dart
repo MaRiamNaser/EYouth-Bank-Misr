@@ -29,10 +29,10 @@ String AddProfileImageLink=baseLink +'user/image';
 
 class EndPoints{
   // Authentication
-   String loginLink = "user/login";
-   String registerLink = "user/register";
-   String isEmailExistLink ="user/registerEmailexist";
-   String isUserNameExistLink = "user/registerUsernameexist";
+  static String loginLink = "user/login";
+  static String registerLink = "user/register";
+  static String isEmailExistLink ="user/registerEmailexist";
+  static String isUserNameExistLink = "user/registerUsernameexist";
 
 
   String profileLink=baseLink+"user/myaccount";
