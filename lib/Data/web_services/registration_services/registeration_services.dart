@@ -14,7 +14,7 @@ class RegisterationWebServices {
   EndPoints endPoints=EndPoints();
   RegisterationWebServices() {
     BaseOptions options = BaseOptions(
-      baseUrl: AppStrings.baseUrl,
+      baseUrl: baseLink,
       receiveDataWhenStatusError: true,
       connectTimeout: 20 * 1000,
       receiveTimeout: 20 * 1000,
@@ -22,7 +22,7 @@ class RegisterationWebServices {
     );
     dio = Dio(options);
     BaseOptions authenticatedDioOptions = BaseOptions(
-        baseUrl: AppStrings.baseUrl,
+        baseUrl: baseLink,
         receiveDataWhenStatusError: true,
         connectTimeout: 20 * 1000,
         receiveTimeout: 20 * 1000,
@@ -33,7 +33,9 @@ class RegisterationWebServices {
   Future<dynamic> signIn( String email, String password) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + EndPoints.loginLink),
+
+          await http.post(Uri.parse(endPoints.loginLink),
+
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -57,7 +59,9 @@ class RegisterationWebServices {
   Future<dynamic> signUp(String fullname, String username, String email,String password, String age) async {
      try {
 
-             var response = await http.post(Uri.parse(AppStrings.baseUrl + EndPoints.registerLink),
+
+             var response = await http.post(Uri.parse(EndPoints().registerLink),
+
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -86,7 +90,9 @@ class RegisterationWebServices {
   Future<dynamic> isUserNameExist( String userName) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + EndPoints.isUserNameExistLink),
+
+          await http.post(Uri.parse(endPoints.isUserNameExistLink),
+
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
@@ -107,7 +113,9 @@ class RegisterationWebServices {
  Future<dynamic> isEmailExist( String email) async {
     try {
       var response =
-          await http.post(Uri.parse(AppStrings.baseUrl + EndPoints.isEmailExistLink),
+
+          await http.post(Uri.parse(endPoints.isEmailExistLink),
+
               headers: <String, String>{
                 "Content-Type": "application/json",
               },

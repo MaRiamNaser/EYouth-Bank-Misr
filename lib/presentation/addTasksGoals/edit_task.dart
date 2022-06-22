@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:bank_misr/Data/web_services/task_services/taskConfirmEdit_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/goals/addGoalView.dart';
@@ -15,6 +17,7 @@ import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 // import '../Widgets/text_field.dart';
@@ -40,20 +43,29 @@ class EditTask extends StatefulWidget {
 Color color=ColorManager.lightPrimary;
 Color color2=ColorManager.grey;
 class _EditTaskState extends State<EditTask> {
-  String title=AppStrings.addGoal;
-  String photo=ImageAssets.GoalPhoto;
-  String choice="Goal";
-  String alertPhoto=ImageAssets.alertGoal;
+  String title=AppStrings.addTask;
+  String photo=ImageAssets.TaskPhoto;
+  String choice="Task";
+  String alertPhoto=ImageAssets.alertTask;
   var titleTextController=TextEditingController();
   var descTextController=TextEditingController();
   AppPreferences appPreferences = AppPreferences();
+  taskConfirmEdit taskedit=taskConfirmEdit();
+  var token="";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     titleTextController.text=Title;
     descTextController.text=Description;
+    Load();
   }
+  Load() async {
+
+    token = await appPreferences.getLocalToken();
+    print("token :"+token);
+  }
+
   @override
   Widget build(BuildContext context) {
     var screensize=MediaQuery.of(context).size;
@@ -112,40 +124,17 @@ class _EditTaskState extends State<EditTask> {
 
                       child: TextButton(onPressed: ()async{
                         if(titleTextController.text.isNotEmpty&&descTextController.text.isNotEmpty) {
-                          goals.add(GoalsList(number: 4,name: titleTextController.text));
-                          showDialog(context: context, builder: (BuildContext context) {
+                          BlocProvider.of<TaskCubit>(context).EditTask(token, ID, titleTextController.text,descTextController.text);
+
+                          showDialog(context: context, builder: (BuildContext context1) {
                             return  alertdialog(choice,alertPhoto,context);
                           });
-                          // if(
-                          // await AddTaskServices().AddTask("", titleTextController.text, descTextController.text))
-                          //   {
-
-                          //   }
                         }
                       },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children:  [
-                              FlatButton(child: Text("Edit",style: TextStyle(color: ColorManager.white),),
-                                onPressed: () async {
-                                  print(Title);
-                                  //TODO add this logic to web service.
-                                  var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/task/edit/$ID'),
-                                      headers: <String,String>{"Content-Type": "application/json",
-
-                                        HttpHeaders.authorizationHeader:await appPreferences.getLocalToken()},
-                                      body: jsonEncode(
-                                          <String, String>{
-                                            "title": titleTextController.text,
-                                            "description": descTextController.text,
-                                          })
-                                  );
-                                  print(response.body);
-
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> TasksView()));
-
-
-                                }, ),
+                              Text("Edit",style: TextStyle(color: color2),),
                               Icon(Icons.add,color:  color2,)
                             ],
                           )),

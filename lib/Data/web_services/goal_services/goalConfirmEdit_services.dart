@@ -7,11 +7,13 @@ import 'package:http/http.dart' as http;
 
 import '../../../presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import '../../../presentation/addTasksGoals/edit_goal/edit_goal.dart';
+import '../../../presentation/resources/strings_manager.dart';
+import '../../api_links.dart';
 
 class goalConfirmEdit {
   Future<String> Edit(String token, String goalID, String title, String description) async {
     if(title.isNotEmpty&&description.isNotEmpty) {
-      var response=await http.put(Uri.parse('http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/edit/$goalID'),
+      var response=await http.put(Uri.parse(EndPoints().editGoalLink+goalID),
           headers: <String,String>{"Content-Type": "application/json",
 
             HttpHeaders.authorizationHeader:token},
@@ -21,8 +23,8 @@ class goalConfirmEdit {
                 "description":description,
               })
       );
-
-      return response.body;
+        print(response.statusCode.toString()+"\n"+response.body.toString());
+      return response.statusCode.toString();
     }
     else{ return "wrong";}
 }}

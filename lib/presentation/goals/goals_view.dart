@@ -5,6 +5,9 @@ import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+
+import 'package:bank_misr/presentation/home/parentHomeView/ParentNavBarView.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
@@ -29,6 +32,13 @@ import '../../Data/web_services/goal_services/goal_services.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../bottomBar/bottomBar.dart';
 import '../home/home_view.dart';
+
+import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
+import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
+import '../../Data/web_services/goal_services/goal_services.dart';
+import '../bottomBar/bottomBar.dart';
+import '../home/home_view.dart';
+import '../home/parentHomeView/parentHomeView.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 class Goalsview extends StatefulWidget {
@@ -65,7 +75,7 @@ class _GoalViewState extends State<Goalsview> {
     goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
   
   }
-
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -148,129 +158,105 @@ class _GoalViewState extends State<Goalsview> {
                         }
                     },
                   ),
+
           ],
         ),
       ),
     );
   }
   Widget buildgoal(Goal goal, int index) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: ColorManager.grey, width: 1.5),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+    child: Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: ColorManager.grey, width: 1.5),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            (index + 1).toString() + " -",
-                            style: getMediumStyle(
-                              fontSize: FontSize.s16,
-                              color: ColorManager.black,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        (index + 1).toString() + " -",
+                        style: getMediumStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.black,
                         ),
-                        Container(
-                          width: 279,
-                          child: Text(
-                            goal.title,
-                            style: getMediumStyle(
-                              fontSize: 16,
-                              color: ColorManager.black,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      ],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-               
                     Container(
-                      margin: EdgeInsets.only(left: AppMargin.m12, right:AppMargin.m12),
-                      child: ProgressGoalIndicator(balance1, goal.amount)),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.check_circle,
-                              color: Colors.green,
-                              size: 28,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context1) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20.0))),
-                                        scrollable: true,
-                                        backgroundColor: ColorManager.primary,
-                                        title: Center(
-                                          child: Text(
-                                            "congratulation",
-                                            style: getBoldtStyle(
-                                                fontSize: 18,
-                                                color: ColorManager.white),
+                      width: 279,
+                      child: Text(
+                        goal.title,
+                        style: getMediumStyle(
+                          fontSize: 16,
+                          color: ColorManager.black,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(
+                  height: 2,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                     parentrole!=1?  IconButton(
+                        icon: Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: 28,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context1) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0))),
+                                    scrollable: true,
+                                    backgroundColor: ColorManager.primary,
+                                    title: Center(
+                                      child: Text(
+                                        "congratulation",
+                                        style: getBoldtStyle(
+                                            fontSize: 18,
+                                            color: ColorManager.white),
+                                      ),
+                                    ),
+                                    content: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Lottie.asset(
+                                            "assets/images/7455-loading1.json",
+                                            height: 145,
+                                            width: 250,
                                           ),
-                                        ),
-                                        content: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Lottie.asset(
-                                                "assets/images/7455-loading1.json",
-                                                height: 145,
-                                                width: 250,
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: SizedBox(
-                                                    width: 190,
-                                                    child: Text(
-                                                      "Did you achieve it ",
-                                                      style: getSemiBoldStyle(
-                                                          fontSize: 14,
-                                                          color: ColorManager
-                                                              .white),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        actions: [
-                                          Center(
-                                            child: Container(
-                                              height: 30,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                color: ColorManager.darkPrimary,
-                                              ),
-                                              child: TextButton(
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.all(8.0),
+                                            child: SizedBox(
+                                                width: 190,
                                                 child: Text(
                                                   'Ok',
                                                   style: getRegularStyle(
@@ -296,7 +282,10 @@ class _GoalViewState extends State<Goalsview> {
                             onPressed: () {
                               // edit.confirmEdit(goal.id, goal.title,
                               //     goal.description, context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
+                              pushNewScreen(context,
+                              screen:  EditGoal(goal.id,goal.title,goal.description),
+                              withNavBar: true,
+                              pageTransitionAnimation: PageTransitionAnimation.cupertino);
                             },
                           ),
                           IconButton(
@@ -315,6 +304,8 @@ class _GoalViewState extends State<Goalsview> {
                                       Navigator.pop(context1);
                                     }, ),
                                   FlatButton(onPressed: (){
+                                   Navigator.pop(context1);
+
                                   }, child: Text("no")),
                                 ],
                               )

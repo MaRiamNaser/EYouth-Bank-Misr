@@ -1,8 +1,12 @@
 import 'package:bank_misr/Data/models/Task.dart';
 import 'package:bank_misr/Data/repo/task_repo.dart';
+import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
+
+import 'package:bank_misr/presentation/addTasksGoals/edit_task.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
+import '../../Data/models/goal.dart';
 part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
@@ -24,6 +28,19 @@ class TaskCubit extends Cubit<TaskState> {
     {
       emit(TaskDeleted());
       GetAllTasks(token1);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  Future<bool>EditTask(token, taskID, title, description)
+  async {
+    bool status=await taskRepo.ConfirmEdit(token, taskID, title, description);
+    if(status ==true)
+    {
+      emit(TaskEdit());
       return true;
     }
     else

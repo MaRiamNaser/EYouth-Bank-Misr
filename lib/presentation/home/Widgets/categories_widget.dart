@@ -37,20 +37,17 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             if (index == 1) {
               //Navigator.pushNamed(context, Routes.courses,arguments: 1);
               pushNewScreen(context,
-                  screen: BlocProvider(
-                    create: (context) => blocGenerator().courseCubit,
-                    child: coursesView(),
-                  ),
+                  screen: coursesView(),
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             } else if (index == 0) {
               pushNewScreen(context,
-                  screen:  Goalsview(),
+                  screen: Goalsview(),
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             } else if (index == 2) {
               pushNewScreen(context,
-                  screen:  TasksView(),
+                  screen :TasksView(),
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             }

@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:http/http.dart' as http;
+
+import '../../api_links.dart';
 
 class GoalServices {
   Future<String> GetAllGoals(String token) async {
@@ -9,7 +12,7 @@ class GoalServices {
       var response =
       await http.get(
         Uri.parse(
-            'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/getall'),
+          EndPoints().getGoalsLink  ),
         headers: <String, String>{
           "Content-Type": "application/json",
           HttpHeaders.authorizationHeader:
@@ -21,4 +24,5 @@ class GoalServices {
       return "Error";
     }
   }
+
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_task.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
@@ -60,10 +61,12 @@ class _EditGoalState extends State<EditGoal> {
     super.initState();
         titleTextController.text=Title;
         descTextController.text=Description;
+        Load();
   }
   Load() async {
 
     token = await appPreferences.getLocalToken();
+    print("token :"+token);
   }
 
 
@@ -124,14 +127,10 @@ class _EditGoalState extends State<EditGoal> {
                       ) ,
 
                       child: TextButton(onPressed: (){
-                        goaledit.Edit(token, ID, titleTextController.text,descTextController.text);
-                        print ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                        print (token,);
+                        BlocProvider.of<GoalCubit>(context).EditGoal(token, ID, titleTextController.text,descTextController.text);
                           showDialog(context: context, builder: (BuildContext context1) {
                           return  alertdialog(choice,alertPhoto,context);
                           });
-
-
                       },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -4,6 +4,7 @@ import 'package:bank_misr/Data/web_services/add_profile_image_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
+import 'package:bank_misr/presentation/rankingPage/rankingView.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,8 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Data/api_links.dart';
 import '../../Data/models/Profile.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../resources/color_manager.dart';
@@ -85,10 +88,10 @@ class _ProfileViewState extends State<ProfileView> {
             Center(
              // padding: EdgeInsets.only(left: 50, top: 100,right: 50),
               child: Container(
-                margin: EdgeInsets.only(top:1 / 825 * screensize.height * 100),
+                margin: EdgeInsets.only(top:1 / 825 * screensize.height * 80),
                 padding: EdgeInsets.all(AppPadding.p18),
-                height: 1 / 825 * screensize.height * 480,
-                width: 1 / 393 * screensize.width * 300,
+                height: 1 / 825 * screensize.height * 550,
+                width: 1 / 393 * screensize.width * 330,
                 decoration: BoxDecoration(
                     color: ColorManager.lightGrey,
                     border: Border.all(color: ColorManager.grey),
@@ -101,7 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                       profile = (state).profile;
                       return SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
+                          padding: const EdgeInsets.only(top: 40.0),
                           child: Container(
                             child: Center(
                               child: Column(
@@ -127,15 +130,56 @@ class _ProfileViewState extends State<ProfileView> {
                                     height: 1 / 825 * screensize.height * 10,
                                   ),
                                   Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children:[
+                                          // IconButton(onPressed: (){}, icon:Icon( Icons.leaderboard),color: ColorManager.darkPrimary,iconSize: 25),
+
+                                         InkWell(onTap: (){
+                                           pushNewScreen(context,
+                                               screen: rankingView(),
+                                               withNavBar: true,
+                                               pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                                         },child: Icon(Icons.leaderboard,color: ColorManager.darkPrimary,size: 25,)),
+                                          Text(" Ranking")
+
+
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children:[
+
+                                          Icon(Icons.star,color: ColorManager.darkPrimary,size: 25,),
+                                          Text(" Points")
+
+
+                                        ],
+                                      ),
+
+
+                                      //   Icon(Icons.email)
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1 / 825 * screensize.height * 15,
+                                  ),
+                                  Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        width: 200,
+
                                         child: Text(
                                           profile.email,
                                           style: getMediumStyle(
-                                              fontSize: 16,
+                                              fontSize: 18,
                                               color: ColorManager.black),
                                         ),
                                       ),
@@ -147,10 +191,10 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                          profile.age.toString() + " "+AppStrings.yearsOld,
+                                          profile.age.toString() + " "+AppStrings.yearsOld.tr(),
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -203,7 +247,7 @@ class _ProfileViewState extends State<ProfileView> {
                           : CircleAvatar(
                                 minRadius: 22,
                                 backgroundImage: NetworkImage (
-                                  AppStrings.baseUrl +
+                                  baseLink+
                                       "userimage/" +
                                       profile.image.split("/")[1],
                                 ),
