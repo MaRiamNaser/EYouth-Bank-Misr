@@ -18,6 +18,7 @@ class Goal {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.amount,
   });
 
   String id;
@@ -28,6 +29,7 @@ class Goal {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  int amount;
 
   factory Goal.fromJson(Map<String, dynamic> json) => Goal(
     id: json["_id"],
@@ -38,6 +40,7 @@ class Goal {
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
     v: json["__v"],
+    amount: json["amount"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +52,6 @@ class Goal {
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
     "__v": v,
+    "amount": amount
   };
 }

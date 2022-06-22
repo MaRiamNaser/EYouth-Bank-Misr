@@ -8,20 +8,13 @@ import 'package:provider/provider.dart';
 
 void main() async{
 
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding?.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp( 
     
   
       EasyLocalization(
-      child: Phoenix(child: MultiProvider(
-              providers: [
-    ChangeNotifierProvider<RegisterationProvider>(
-      create: (context) =>
-        RegisterationProvider(),
-    ),
-  ],
-        child: MyApp())),
+      child: Phoenix(child: MyApp()),
       supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],
       path: ASSET_PATH_LOCALISATIONS)
       );
