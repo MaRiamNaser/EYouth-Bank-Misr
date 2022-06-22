@@ -1,4 +1,5 @@
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
+import 'package:bank_misr/data/models/User.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -103,12 +104,13 @@ class LoginButton extends StatelessWidget {
               ),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                 await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
-                  if (state is UserSignedIn) {
+                User? user= await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
+                  if (user!=null) {
                     showFlutterToast(
                     AppStrings.youAreLoggedInSuccessfully.tr());
                     Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                  } else {
+                  }
+                   else {
                     showFlutterToast(
                         AppStrings.yourEmailOrPasswordMayBeWrong.tr());
                   }
@@ -121,7 +123,7 @@ class LoginButton extends StatelessWidget {
         },
       ),
     );
-    ;
+  
   }
 }
 

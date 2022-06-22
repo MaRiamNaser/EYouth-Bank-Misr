@@ -17,7 +17,6 @@ import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../business_logic/registerationProvider/registeration_logic.dart';
 import '../Widgets/text_field.dart';
 
 class AddBody extends StatefulWidget {
