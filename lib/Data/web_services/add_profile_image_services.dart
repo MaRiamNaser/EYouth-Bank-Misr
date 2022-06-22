@@ -18,6 +18,7 @@ class add_image_services
     };
 
     var request = http.MultipartRequest('PUT', Uri.parse(EndPoints().addProfileImageLink));
+
     request.files.add(await http.MultipartFile.fromPath('image',path));
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();

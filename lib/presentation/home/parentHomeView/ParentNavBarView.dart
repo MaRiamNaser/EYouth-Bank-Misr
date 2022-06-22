@@ -14,6 +14,7 @@ import '../../navgpage/floattingBotton.dart';
 import '../../resources/routes_manager.dart';
 import '../../setting/setting.dart';
 
+
 class parentnavgscreen extends StatefulWidget {
   Category child;
   parentnavgscreen(this.child);
@@ -27,7 +28,12 @@ class _parentnavgscreenState extends State<parentnavgscreen> {
   Category child;
 
   _parentnavgscreenState(this.child);
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    parentrole=1;
+  }
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
