@@ -57,7 +57,7 @@ class RegisterationWebServices {
   Future<dynamic> signUp(String fullname, String username, String email,String password, String age) async {
      try {
 
-             var response = await http.post(Uri.parse(AppStrings.baseUrl + EndPoints().registerLink),
+             var response = await http.post(Uri.parse(EndPoints().registerLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
