@@ -2,11 +2,7 @@ import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentinde
 import 'package:bank_misr/presentation/register/register_widgets.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
-import 'package:bank_misr/presentation/resources/routes_manager.dart';
-import 'package:bank_misr/presentation/resources/strings_manager.dart';
-import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,13 +14,61 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterNamePageState extends State<RegisterView> {
-
   final formKey = GlobalKey<FormState>();
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
   var ageController = TextEditingController();
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CurrentindexCubit, int>(
+      builder: (context, currentIndex) {
+        return WillPopScope(
+            onWillPop:() => backFunction(currentIndex,context),
+            child: Scaffold(
+              backgroundColor: ColorManager.white,
+              appBar: AppBar(
+                leadingWidth: 120,
+                backgroundColor: ColorManager.white,
+                title: appBarTitle(),
+                leading: leadingAppBar(),
+              ),
+              body: BlocBuilder<CurrentindexCubit, int>(
+                builder: (context, currentIndex) {
+                  return SingleChildScrollView(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height / 20),
+                          currentTextFormField(currentIndex),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height / 20),
+                          currentImage(currentIndex),
+                          circlesRow(currentIndex, context),
+                          const SizedBox(height: AppSize.s12),
+                          ContinueButton(
+                            formKey,
+                            fullNameController,
+                            emailController,
+                            ageController,
+                            userNameController,
+                            passwordController,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ));
+      },
+    );
+  }
 
   Widget currentTextFormField(int index) {
     if (index == 0) {
@@ -45,7 +89,6 @@ class _RegisterNamePageState extends State<RegisterView> {
   Widget currentImage(int index) {
     if (index == 0) {
       return imageLottieWidget(ImageAssets.nameLottie, context);
-      /*imageWidget(ImageAssets.welcomePic, context)*/;
     } else if (index == 1) {
       return imageLottieWidget(ImageAssets.emailLottie, context);
     } else if (index == 2) {
@@ -57,143 +100,5 @@ class _RegisterNamePageState extends State<RegisterView> {
     } else {
       return imageWidget(ImageAssets.welcomePic, context);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CurrentindexCubit, int>(
-      builder: (context, currentIndex) {
-
-        return WillPopScope(
-          onWillPop: () async {
-            if (currentIndex > 0) {
-              BlocProvider.of<CurrentindexCubit>(context).decrement();
-            } else {
-              Navigator.pushReplacementNamed(context, Routes.loginRoute);
-            }
-    
-            return false;
-          },
-          child: Scaffold(
-            backgroundColor: ColorManager.white,
-            appBar: AppBar(
-                leadingWidth: 120,
-                backgroundColor: ColorManager.white,
-                title: Text(
-                  AppStrings.registerTitle.tr(),
-                  style: getSemiBoldStyle(color: ColorManager.black),
-                ),
-                leading: Container(
-                    margin: EdgeInsets.only(left: AppMargin.m12, top: 5),
-                    child: Image(image: AssetImage(ImageAssets.smallLogo)))),
-            /*Image(image: AssetImage(ImageAssets.smallLogo)))*/
-            body: BlocBuilder<CurrentindexCubit, int>(
-              builder: (context, currentIndex) {
-                    return SingleChildScrollView(
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height / 20),
-                        currentTextFormField(currentIndex),
-                        SizedBox(height: MediaQuery.of(context).size.height / 20),
-                        currentImage(currentIndex),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: AppMargin.m18),
-                              child: Column(
-                                children: [
-                                  smileWidget(currentIndex >= 1 ? true : false, context),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        color: currentIndex >= 1
-                                            ? ColorManager.green
-                                            : ColorManager.lightGrey,
-                                        border: Border.all(
-                                            color: ColorManager.lightPrimary),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: circleWidget("1")),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: AppMargin.m18),
-                              child: Column(
-                                children: [
-                                  smileWidget(currentIndex >= 2 ? true : false, context),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        color: currentIndex >= 2
-                                            ? ColorManager.green
-                                            : ColorManager.lightGrey,
-                                        border: Border.all(
-                                            color: ColorManager.lightPrimary),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: circleWidget("2")),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: AppMargin.m18),
-                              child: Column(
-                                children: [
-                                  smileWidget(currentIndex >= 3 ? true : false, context),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        color: currentIndex >= 3
-                                            ? ColorManager.green
-                                            : ColorManager.lightGrey,
-                                        border: Border.all(
-                                            color: ColorManager.lightPrimary),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: circleWidget("3")),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: AppMargin.m18),
-                              child: Column(
-                                children: [
-                                  smileWidget(currentIndex >= 4 ? true : false, context),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        color: currentIndex >= 4
-                                            ? ColorManager.green
-                                            : ColorManager.lightGrey,
-                                        border: Border.all(
-                                            color: ColorManager.lightPrimary),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: circleWidget("4")),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: AppSize.s12),
-                        ContinueButton(
-                            formKey,
-                            fullNameController,
-                            emailController,
-                            ageController,
-                            userNameController,
-                            passwordController,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-        ));
-      },
-  
-    );
   }
 }

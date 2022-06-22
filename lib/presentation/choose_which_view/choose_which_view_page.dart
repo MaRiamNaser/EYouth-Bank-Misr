@@ -21,47 +21,41 @@ class WhichViewPage extends StatefulWidget {
 }
 
 class _WhichViewPageState extends State<WhichViewPage> {
- AppPreferences? _appPreferences;
-
+  AppPreferences? _appPreferences;
 
   @override
   void dispose() {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: ColorManager.white,
-          appBar: AppBar(
+      appBar: AppBar(
         leadingWidth: 120,
         backgroundColor: ColorManager.white,
         actions: [_laguageWidget()],
-      
       ),
       body: Center(
         child: Column(
-
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-     imageWidget(context),
-     SizedBox(height: MediaQuery.of(context).size.height/15,),
-     //whoAreYou1Widget(),
-     whoAreYou2Widget(),
-      SizedBox(height: MediaQuery.of(context).size.height/15,),
-     childButton(context),
-     parentButton(context),
-
-
+            imageWidget(context),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
+            whoAreYou2Widget(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 15,
+            ),
+            childButton(context),
+            parentButton(context),
           ],
-          ),
+        ),
       ),
     );
   }
-
 
   _changeLanguage() {
     _appPreferences = AppPreferences();
@@ -87,5 +81,4 @@ class _WhichViewPageState extends State<WhichViewPage> {
       ),
     );
   }
-
 }
