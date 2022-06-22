@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:bank_misr/Data/web_services/goal_services/goalChecked_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
+
 import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
@@ -9,25 +8,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
 import 'package:bank_misr/Data/repo/goal_repo.dart';
-
+import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
+import 'package:bank_misr/data/models/Profile.dart';
+import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+
 import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/goal_services/goal_services.dart';
-import '../bottomBar/bottomBar.dart';
-import '../home/home_view.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 
@@ -44,17 +45,35 @@ class _GoalViewState extends State<Goalsview> {
   var token;
   late List<Goal> goals = [];
 
+  int balance1=9000;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+          print(" ********************************** *********************88");
+
     Load();
+    loadBalance();
+    
   }
 
-  Load() async {
+
+  Load() async{
+    goals = await GoalRepo(GoalServices())
+        .GetAllGoals(await appPreferences.getLocalToken());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
-    goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
+  }
+
+    loadBalance() async {
+      token = await appPreferences.getLocalToken();
+      print(" ********************************** *********************88");
+     var profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+     print(profile.balance.toString()+"  *********************88");
+    balance1 = profile.balance;
+    
+
   }
 
   @override
@@ -76,6 +95,15 @@ class _GoalViewState extends State<Goalsview> {
           )
         ],
       ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorManager.primary,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.addGoalViewRoute);
+        },
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -111,6 +139,7 @@ class _GoalViewState extends State<Goalsview> {
                 ),
               ],
             ),
+
              BlocBuilder<GoalCubit, GoalState>(
                     builder: (context, state) {
                       if(state is GoalsLoaded) {
@@ -193,6 +222,13 @@ class _GoalViewState extends State<Goalsview> {
                     Divider(
                       height: 2,
                     ),
+
+                    Container(
+                      alignment: Alignment.topCenter,
+                      margin: EdgeInsets.all(20),
+                      child:Text("") //ProgressGoalIndicator(balance1, goal.amount),
+                    ),
+
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -268,8 +304,17 @@ class _GoalViewState extends State<Goalsview> {
                                                           ColorManager.white),
                                                 ),
                                                 onPressed: () {
+
+                                                  checked.Checked(
+                                                      token, goal.id);
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context,
+                                                          Routes.goals);
+
                                                   Navigator.of(context1).pop();
                                                   BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
+
 
                                                 },
                                               ),
@@ -285,19 +330,25 @@ class _GoalViewState extends State<Goalsview> {
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
                             onPressed: () {
-                              // edit.confirmEdit(goal.id, goal.title,
-                              //     goal.description, context);0
+
+                              edit.confirmEdit(goal.id, goal.title,
+                                  goal.description, context);
                               pushNewScreen(context,
                                   screen:  EditGoal(goal.id,goal.title,Description),
                                   withNavBar: true,
                                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
-                              //Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
+
                             },
                           ),
                           IconButton(
                             icon: (Icon(Icons.delete_rounded)),
                             key: Key("deleteGoal"),
                             color: ColorManager.error,
+
+                            onPressed: () async {
+                              // confirmDelete(goal.id);
+                              delete.confirmDelete(goal.id, context);
+
                             onPressed: ()  {
                               // confirmDelete(goal.id);
                               // delete.confirmDelete(goal.id, context);
@@ -319,6 +370,7 @@ class _GoalViewState extends State<Goalsview> {
                               )
                               );
 
+
                             },
                           ),
                         ]),
@@ -329,4 +381,21 @@ class _GoalViewState extends State<Goalsview> {
           ),
         ),
       );
+
+
+
+      Widget ProgressGoalIndicator(int total_balance, int goal_amount){
+      print(total_balance.toString()+"  "+goal_amount.toString());
+      double percentage = (goal_amount/total_balance ) ;
+        return StepProgressIndicator(
+                        totalSteps: 100,
+                        currentStep:percentage.toInt(),
+                        size: 8,
+                        padding: 0,
+                        selectedColor: Colors.green,
+                        unselectedColor: Colors.yellow,
+                        roundedEdges: Radius.circular(10),
+        );
+      }
+
 }

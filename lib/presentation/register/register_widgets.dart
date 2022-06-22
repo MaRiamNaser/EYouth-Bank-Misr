@@ -1,3 +1,5 @@
+import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentindex_cubit.dart';
+import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
@@ -8,9 +10,9 @@ import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 Widget nameTextFormField(TextEditingController fullNameController) {
   return Container(
@@ -148,13 +150,11 @@ Widget ageTextFormField(TextEditingController ageController) {
       validator: (val) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourAge.tr();
-        }else if ((int.parse(val) >= 10 && int.parse(val) <=15) == false) {
+        } else if ((int.parse(val) >= 10 && int.parse(val) <= 15) == false) {
           return AppStrings.pleaseEnterAgeBetween10And15.tr();
         }
         return null;
       },
-
-
       decoration: InputDecoration(
         labelText: AppStrings.age.tr(),
         fillColor: Colors.white,
@@ -171,7 +171,7 @@ Widget ageTextFormField(TextEditingController ageController) {
   );
 }
 
-class ContinueButton extends StatelessWidget {
+class ContinueButton extends StatefulWidget {
   var formKey = GlobalKey<FormState>();
   var fullNameController;
   var emailController;
@@ -183,82 +183,104 @@ class ContinueButton extends StatelessWidget {
       this.ageController, this.userNameController, this.passwordController);
 
   @override
+  State<ContinueButton> createState() => _ContinueButtonState();
+}
+
+class _ContinueButtonState extends State<ContinueButton> {
+  //int current_index=0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
-    RegisterationProvider registerationProviderRead =
-        context.read<RegisterationProvider>();
-    RegisterationProvider registerationProviderWatch =
-        context.watch<RegisterationProvider>();
-    return Container(
-      height: MediaQuery.of(context).size.height / 15,
-      width: MediaQuery.of(context).size.width - AppSize.s20,
-      margin: EdgeInsets.only(
-        left: AppMargin.m20,
-        right: AppMargin.m20,
-      ),
-      //  color: ColorManager.lightGrey,
-      child: TextButton(
-        style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(ColorManager.grey),
-          backgroundColor:
-              MaterialStateProperty.all<Color>(ColorManager.lightPrimary),
-        ),
-        onPressed: () async {
-          if (registerationProviderWatch.index <= 4) {
-            if (registerationProviderWatch.index == 0) {
-              if (formKey.currentState!.validate()) {
-                registerationProviderRead.setFullName(fullNameController.text);
-                registerationProviderRead.increaseIndex();
-              }
-            } else if (registerationProviderWatch.index == 1) {
-              if (formKey.currentState!.validate()) {
-                
-                registerationProviderRead.setEmail(emailController.text);
-                   if(await registerationProviderRead.isEmailExist() == false){
-                      registerationProviderRead.increaseIndex();
 
-                  }else{
-                    showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+    return BlocBuilder<CurrentindexCubit, int>(       
+      builder: (context, current_index) {
+        
+        return Container(
+          height: MediaQuery.of(context).size.height / 15,
+          width: MediaQuery.of(context).size.width - AppSize.s20,
+          margin: EdgeInsets.only(
+            left: AppMargin.m20,
+            right: AppMargin.m20,
+          ),
+          //  color: ColorManager.lightGrey,
+          child: TextButton(
+            style: ButtonStyle(
+              foregroundColor:
+                  MaterialStateProperty.all<Color>(ColorManager.grey),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(ColorManager.lightPrimary),
+            ),
+            onPressed: () async {
+              if (current_index <= 4) {
+                if (current_index == 0) {
+             
+                  if (widget.formKey.currentState!.validate()) {
+                    BlocProvider.of<CurrentindexCubit>(context).increment();
 
+                    
                   }
-              
-              
-              }
-            } else if (registerationProviderWatch.index == 2) {
-              if (formKey.currentState!.validate()) {
-                registerationProviderRead.setAge(ageController.text);
-                registerationProviderRead.increaseIndex();
-              }
-            } else if (registerationProviderWatch.index == 3) {
-              if (formKey.currentState!.validate()) { 
-                registerationProviderRead.setUserName(userNameController.text);
-
-                  if(await registerationProviderRead.isUserNameExist() == false){
-                      registerationProviderRead.increaseIndex();
-                  }else{
-                    await  showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
-                  }
-              }
-            } else if (registerationProviderWatch.index == 4) {
-              if (formKey.currentState!.validate()) {
-                registerationProviderRead.setPassword(passwordController.text);
+                } else if (current_index == 1) {
+                  if (widget.formKey.currentState!.validate()) {
+                    bool isEmailExist = await BlocProvider.of<SignUpCubit>(context).isEmailExist(widget.emailController.text);
+                    if (isEmailExist == false) {
+                    BlocProvider.of<CurrentindexCubit>(context).increment();
                 
-                await registerationProviderRead.signUp();
+                    } else {
+                      showFlutterToast(AppStrings.thisUserIsAlreadyExist.tr());
+                    }
+                  }
+                } else if (current_index == 2) {
+                  if (widget.formKey.currentState!.validate()) {
+                    BlocProvider.of<CurrentindexCubit>(context).increment();
+                  }
+                } else if (current_index == 3) {
+                  if (widget.formKey.currentState!.validate()) {
+                    bool isUserNameExist = await BlocProvider.of<SignUpCubit>(context).isUserNameExist(widget.userNameController.text);
+                    if ( isUserNameExist == false) {
+                    BlocProvider.of<CurrentindexCubit>(context).increment();
+                    } else {
+                      await showFlutterToast(
+                          AppStrings.thisUserIsAlreadyExist.tr());
+                    }
+                  }
+                } else if (current_index== 4) {
+                  if (widget.formKey.currentState!.validate()) {
 
-                if (registerationProviderWatch.registerStatus == true) {
-                  showFlutterToast(
-                      AppStrings.YouHaveBeenRegistredSuccessfully.tr());
-                  Navigator.pushReplacementNamed(context, Routes.loginRoute);
-                  currentindex = 0;
-                } else {
-              
-                  showFlutterToast(AppStrings.yourPasswordCannotIncludeYourUsername.tr());
+                    bool result = await BlocProvider.of<SignUpCubit>(context)
+                        .signUp(
+                            widget.fullNameController.text,
+                            widget.userNameController.text,
+                            widget.emailController.text,
+                            widget.passwordController.text,
+                            widget.ageController.text);
+
+                    if (result == true) {
+                      showFlutterToast(
+                          AppStrings.YouHaveBeenRegistredSuccessfully.tr());
+                      Navigator.pushReplacementNamed(
+                          context, Routes.loginRoute);
+                    //  currentindex = 0;
+                    } else {
+                      showFlutterToast(AppStrings
+                          .yourPasswordCannotIncludeYourUsername
+                          .tr());
+                    }
+                  }
                 }
+                              print(current_index);
+
               }
-            }
-          }
-        },
-        child: Text(AppStrings.continueString.tr()),
-      ),
+            },
+            child: Text(AppStrings.continueString.tr()),
+          ),
+        );
+      },
     );
   }
 }
