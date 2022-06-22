@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Data/models/Quiz.dart';
+import '../../home/parentHomeView/parentHomeView.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_manager.dart';
 import '../../resources/routes_manager.dart';
@@ -157,8 +158,8 @@ class _QuizWidgetState extends State<QuizWidget> {
                                   colors[index1]= Colors.green;
                                 }
                               });
-                             await BlocProvider.of<ProfileCubit>(context).EditBalance(token, 100);
-                              showDialog(context: context, builder: (BuildContext context) {
+                         parentrole!=1?await BlocProvider.of<ProfileCubit>(context).EditBalance(token, 100):null;
+                            parentrole!=1?  showDialog(context: context, builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -205,7 +206,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                             )
                                           ],
                                 );
-                              });
+                              }):null;
                             },
                                 child:  Text(AppStrings.Submit.tr(),style: TextStyle(color: ColorManager.white),),
                                 )

@@ -1,4 +1,7 @@
+import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/presentation/bottomBar/backButtonOverRide.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/childHomeView.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,12 +18,17 @@ import '../setting/setting.dart';
 import 'floattingBotton.dart';
 
 class navgscreen extends StatefulWidget {
+  Category? child;
+  navgscreen({this.child});
+
   @override
-  _navgscreenState createState() => _navgscreenState();
+  _navgscreenState createState() => _navgscreenState(child);
 }
 
 class _navgscreenState extends State<navgscreen> {
   PersistentTabController _controller=PersistentTabController(initialIndex: 0);
+  Category? child;
+  _navgscreenState(this.child);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +84,7 @@ class _navgscreenState extends State<navgscreen> {
   }
   List<Widget> _buildScreens() {
     return [
-    HomeView(),
+  child==null?  HomeView():ChildHomeView(child!),
      coursesView(),
       Container(),
       //floattingbotton(),
