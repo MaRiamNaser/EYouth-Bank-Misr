@@ -340,7 +340,9 @@ class _TasksViewState extends State<TasksView> {
                                             },
                                           ),
                                           FlatButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.of(context1).pop();
+                                              },
                                               child: Text("no")),
                                         ],
                                       ));
