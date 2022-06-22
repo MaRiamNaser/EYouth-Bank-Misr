@@ -4,6 +4,7 @@ import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -40,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
     });
     super.initState();
     loadProfile();
+    parentrole=0;
   }
 
   loadProfile() async {

@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../home/parentHomeView/parentHomeView.dart';
+
 Widget passwordTextFormField(TextEditingController passwordController) {
   return Container(
     margin: EdgeInsets.only(
@@ -103,15 +105,16 @@ class SignInButton extends StatelessWidget {
               ),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                 await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
-                  if (state is UserSignedIn) {
-                    showFlutterToast(
-                    AppStrings.youAreLoggedInSuccessfully.tr());
-                    Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                  } else {
-                    showFlutterToast(
-                        AppStrings.yourEmailOrPasswordMayBeWrong.tr());
-                  }
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ParentHomeView()));
+                 // await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
+                 //  if (state is UserSignedIn) {
+                 //    showFlutterToast(
+                 //    AppStrings.youAreLoggedInSuccessfully.tr());
+                 //    Navigator.pushReplacementNamed(context, Routes.homeLayout);
+                 //  } else {
+                 //    showFlutterToast(
+                 //        AppStrings.yourEmailOrPasswordMayBeWrong.tr());
+                 //  }
                 }
               },
               child: Text(AppStrings.loginTitle.tr()),

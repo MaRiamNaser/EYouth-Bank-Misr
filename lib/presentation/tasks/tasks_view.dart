@@ -50,11 +50,12 @@ class _TasksViewState extends State<TasksView> {
   var token;
   late List<Task> tasks = [];
   bool undo = false;
-
+  late GlobalKey<ScaffoldState> _scaffoldKey ;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
     Load();
   }
 
@@ -67,6 +68,7 @@ class _TasksViewState extends State<TasksView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(AppStrings.Tasks.tr()),
         actions: [
@@ -209,7 +211,7 @@ class _TasksViewState extends State<TasksView> {
                               ),
                               onPressed: () async {
                                 undo = false;
-                               await ScaffoldMessenger.of(context)
+                               await ScaffoldMessenger.of(_scaffoldKey.currentContext!)
                                     .showSnackBar(SnackBar(
                                   content: const Text('Task Has Been Done'),
                                   action: SnackBarAction(
