@@ -70,8 +70,13 @@
  "Daily": "Daily",
  "Weekly": "Weekly",
  "Monthly": "Monthly",
+
+ "child": "Child",
+ "parent": "Parent"
+
  "YourRank": "Your Rank",
  "Ranking": "Ranking",
  "Pts": "Pts"
+
 
 }

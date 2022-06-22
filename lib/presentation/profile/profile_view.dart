@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bank_misr/Data/web_services/add_profile_image_services.dart';
 import 'package:bank_misr/app/app_prefs.dart';
-import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
 import 'package:bank_misr/presentation/rankingPage/rankingView.dart';

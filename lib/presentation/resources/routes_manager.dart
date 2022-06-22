@@ -19,10 +19,13 @@ import 'package:bank_misr/business_logic/courseBloc/course_cubit.dart';
 import 'package:bank_misr/business_logic/videoBloc/video_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
+import 'package:bank_misr/presentation/choose_which_view/choose_which_view_page.dart';
 import 'package:bank_misr/presentation/course/course_view.dart';
 import 'package:bank_misr/presentation/courses/coursesView.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/login/login_view.dart';
+import 'package:bank_misr/presentation/parent/Authentication/signin/signin_view.dart';
+import 'package:bank_misr/presentation/parent/Authentication/signup/signup_view.dart';
 import 'package:bank_misr/presentation/profile/profile_view.dart';
 import 'package:bank_misr/presentation/register/register_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -40,7 +43,6 @@ import '../../Data/web_services/Course_services.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../navgpage/navigation_page.dart';
 
-
 class Routes {
   static const String splashRoute = "/";
   static const String loginRoute = "/login";
@@ -54,15 +56,19 @@ class Routes {
   static const String courseViewRoute = "/courseViewRoute";
   static const String videoViewRoute = "/videoViewRoute";
 
-   static const String addTaskViewRoute = "/addTaskViewRoute";
-   static const String addGoalViewRoute = "/addGoalViewRoute";
-   static const String homeLayout = "/homeLayout";
+  static const String addTaskViewRoute = "/addTaskViewRoute";
+  static const String addGoalViewRoute = "/addGoalViewRoute";
+  static const String homeLayout = "/homeLayout";
 
-  static const String goals= "/goals";
-  static const String tasks= "/tasks";
-  static const String courses= "/courses";
+  static const String goals = "/goals";
+  static const String tasks = "/tasks";
+  static const String courses = "/courses";
 
+  //parent
 
+  static const String parentSignInRoute = "/parentSignInRout";
+  static const String parentSignUpRoute = "/parentSignUpRout";
+  static const String whichViewRoute = "/whichViewRoute";
 }
 
 class blocGenerator {
@@ -72,14 +78,14 @@ class blocGenerator {
   late VideoCubit videoCubit;
   late ProfileRepo profileRepo;
   late ProfileCubit profileCubit;
-  
+
   late SignInRepo signInRepo;
   late Signin1Cubit signInCubit;
 
-    late SignUpRepo signUpRepo;
+  late SignUpRepo signUpRepo;
   late SignUpCubit signUpCubit;
 
-  late CurrentindexCubit currentindexCubit ;
+  late CurrentindexCubit currentindexCubit;
 
   late GoalRepo goalRepo;
   late GoalCubit goalCubit;
@@ -97,7 +103,6 @@ class blocGenerator {
     profileRepo = ProfileRepo(ProfileServices());
     profileCubit = ProfileCubit(profileRepo);
 
-
     signInRepo = SignInRepo(RegisterationWebServices());
     signInCubit = Signin1Cubit(signInRepo);
 
@@ -106,13 +111,11 @@ class blocGenerator {
 
     currentindexCubit = CurrentindexCubit();
 
-    goalRepo=GoalRepo(GoalServices());
-    goalCubit =GoalCubit(goalRepo);
+    goalRepo = GoalRepo(GoalServices());
+    goalCubit = GoalCubit(goalRepo);
 
-    taskRepo =TaskRepo(TaskServices());
-    taskCubit=TaskCubit(taskRepo);
-
-
+    taskRepo = TaskRepo(TaskServices());
+    taskCubit = TaskCubit(taskRepo);
   }
 }
 
@@ -122,62 +125,64 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) =>  LoginView(),);
+        return MaterialPageRoute(
+          builder: (_) => LoginView(),
+        );
       case Routes.registerRoute:
-        return MaterialPageRoute(builder: (_) =>  MultiBlocProvider(
-          providers: [
-            BlocProvider(
-  create: (context) => blocGenerator().signUpCubit,
-  ),
-             BlocProvider(
-  create: (context) => blocGenerator().currentindexCubit,
-  )
-
-          ],child: RegisterView()));
+        return MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(providers: [
+                  BlocProvider(
+                    create: (context) => blocGenerator().signUpCubit,
+                  ),
+                  BlocProvider(
+                    create: (context) => blocGenerator().currentindexCubit,
+                  )
+                ], child: RegisterView()));
       case Routes.homeViewRoute:
-
-        return MaterialPageRoute(builder: (_) =>
-            BlocProvider(
-              create: (context) => blocGenerator().profileCubit,
-              child: HomeView(),
-            ));
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => blocGenerator().profileCubit,
+                  child: HomeView(),
+                ));
 
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => Container());
       case Routes.tasksRoute:
         return MaterialPageRoute(builder: (_) => TasksView());
-         case Routes.profileViewRoute:
+      case Routes.profileViewRoute:
         return MaterialPageRoute(builder: (_) => ProfileView());
-         case Routes.addTaskViewRoute:
+      case Routes.addTaskViewRoute:
         return MaterialPageRoute(builder: (_) => AddTaskView());
-          case Routes.addGoalViewRoute:
+      case Routes.addGoalViewRoute:
         return MaterialPageRoute(builder: (_) => AddGoalView());
       case Routes.courses:
-        int i=0;
-         i=settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => BlocProvider(
-  create: (context) => blocGenerator().courseCubit,
-    child :coursesView(),
-  ),);
+        int i = 0;
+        i = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => blocGenerator().courseCubit,
+            child: coursesView(),
+          ),
+        );
       case Routes.goals:
         return MaterialPageRoute(builder: (_) => Goalsview());
       case Routes.tasks:
         return MaterialPageRoute(builder: (_) => TasksView());
       case Routes.profileViewRoute:
-        return MaterialPageRoute(builder: (_) =>BlocProvider(
-          create: (context) => blocGenerator().profileCubit,
-          child: ProfileView(),
-        )
-        );
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => blocGenerator().profileCubit,
+                  child: ProfileView(),
+                ));
       case Routes.courseViewRoute:
-          List<String> course = settings.arguments as List<String>;
-        return MaterialPageRoute(builder: (_) =>
-            BlocProvider(
-              create: (context) => blocGenerator().videoCubit,
-              child: CourseView(course),
-            ));
+        List<String> course = settings.arguments as List<String>;
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => blocGenerator().videoCubit,
+                  child: CourseView(course),
+                ));
       case Routes.videoViewRoute:
-        Video video=settings.arguments as Video;
+        Video video = settings.arguments as Video;
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
             create: (context) => blocGenerator().videoCubit,
@@ -188,7 +193,8 @@ class RouteGenerator {
             const end = Offset.zero;
             const curve = Curves.ease;
 
-            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
             return SlideTransition(
               position: animation.drive(tween),
@@ -204,7 +210,12 @@ class RouteGenerator {
       case Routes.homeLayout:
         return MaterialPageRoute(builder: (_) => navgscreen());
 
-
+      case Routes.parentSignInRoute:
+        return MaterialPageRoute(builder: (_) => ParentSignInView());
+      case Routes.parentSignUpRoute:
+        return MaterialPageRoute(builder: (_) => ParentSignUpView());
+      case Routes.whichViewRoute:
+        return MaterialPageRoute(builder: (_) => WhichViewPage());
 
       default:
         return unDefinedRoute();
@@ -213,15 +224,11 @@ class RouteGenerator {
 
   static Route<dynamic> unDefinedRoute() {
     return MaterialPageRoute(
-        builder: (_) =>
-            Scaffold(
+        builder: (_) => Scaffold(
               appBar: AppBar(
-                title:  Text(
-                    AppStrings.noRouteFound),
+                title: Text(AppStrings.noRouteFound),
               ),
-              body:  Center(
-                  child: Text(
-                      AppStrings.noRouteFound)),
+              body: Center(child: Text(AppStrings.noRouteFound)),
             ));
   }
 }

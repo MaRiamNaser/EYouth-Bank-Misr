@@ -1,5 +1,4 @@
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
-import 'package:bank_misr/data/models/User.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -73,12 +72,12 @@ Widget userNameTextFormField(TextEditingController userNameController) {
   );
 }
 
-class LoginButton extends StatelessWidget {
+class SignInButton extends StatelessWidget {
   final formKey;
   final emailController;
   final passwordController;
   final context2;
-  LoginButton(this.formKey, this.emailController, this.passwordController,
+  SignInButton(this.formKey, this.emailController, this.passwordController,
       this.context2);
   @override
 
@@ -104,13 +103,12 @@ class LoginButton extends StatelessWidget {
               ),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                User? user= await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
-                  if (user!=null) {
+                 await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
+                  if (state is UserSignedIn) {
                     showFlutterToast(
                     AppStrings.youAreLoggedInSuccessfully.tr());
                     Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                  }
-                   else {
+                  } else {
                     showFlutterToast(
                         AppStrings.yourEmailOrPasswordMayBeWrong.tr());
                   }
@@ -123,7 +121,7 @@ class LoginButton extends StatelessWidget {
         },
       ),
     );
-  
+    ;
   }
 }
 
@@ -171,7 +169,7 @@ Widget newToTheAppWidget(BuildContext context) {
           text: AppStrings.registerTitle.tr(),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              Navigator.pushNamed(context, Routes.registerRoute);
+              Navigator.pushReplacementNamed(context, Routes.parentSignUpRoute);
             },
           style: getBoldtStyle(
             color: ColorManager.red,

@@ -70,8 +70,13 @@
  "Daily": "يوميا",
  "Weekly": "اسبوعيا",
  "Monthly": "شهريا",
+
+ "child": "طفل",
+ "parent":"أب"
+
  "YourRank": "ترتيبك",
  "Ranking": "ترتيب",
  "Pts": "نقطه"
+
 
 }

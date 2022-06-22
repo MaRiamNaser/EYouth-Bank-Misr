@@ -1,12 +1,10 @@
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
-import 'package:bank_misr/data/models/User.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -73,12 +71,12 @@ Widget userNameTextFormField(TextEditingController userNameController) {
   );
 }
 
-class LoginButton extends StatelessWidget {
+class SignUpButton extends StatelessWidget {
   final formKey;
   final emailController;
   final passwordController;
   final context2;
-  LoginButton(this.formKey, this.emailController, this.passwordController,
+  SignUpButton(this.formKey, this.emailController, this.passwordController,
       this.context2);
   @override
 
@@ -104,26 +102,25 @@ class LoginButton extends StatelessWidget {
               ),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                User? user= await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
-                  if (user!=null) {
+                 await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
+                  if (state is UserSignedIn) {
                     showFlutterToast(
                     AppStrings.youAreLoggedInSuccessfully.tr());
                     Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                  }
-                   else {
+                  } else {
                     showFlutterToast(
                         AppStrings.yourEmailOrPasswordMayBeWrong.tr());
                   }
                 }
               },
-              child: Text(AppStrings.loginTitle.tr()),
+              child: Text(AppStrings.registerTitle.tr()),
             ),
           );
 
         },
       ),
     );
-  
+    ;
   }
 }
 
@@ -153,29 +150,51 @@ Widget forgetPasswordWidget() {
   );
 }
 
-Widget newToTheAppWidget(BuildContext context) {
+Widget appDescription(){
   return Container(
-    margin: EdgeInsets.only(
-        right: AppMargin.m20,
-        top: AppMargin.m20,
-        bottom: AppMargin.m20,
-        left: AppMargin.m20),
-    //child: Text('Don\'t have an account? Create'),
-    child: Text.rich(TextSpan(children: [
-      TextSpan(
-          text: AppStrings.newToTheApp.tr(),
-          style: getRegularStyle(
-            color: ColorManager.black,
-          )),
-      TextSpan(
-          text: AppStrings.registerTitle.tr(),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              Navigator.pushNamed(context, Routes.registerRoute);
-            },
-          style: getBoldtStyle(
-            color: ColorManager.red,
-          )),
-    ])),
-  );
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: Text(
+                      "This app you can add your child as a relative and add tasks or goals to him to manage his life",
+                      style: getLightStyle(color: ColorManager.grey),
+                      textAlign: TextAlign.justify
+                    ),
+                  );
+}
+
+Widget greetingScentence(){
+
+  return  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                     children: [                      
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: AppMargin.m20),
+                            child: Text(
+                                "Let's get to know you",
+                                 style: getBoldtStyle(color: ColorManager.primary,fontSize: AppSize.s30),
+                                  textAlign: TextAlign.justify
+                              ),
+                          ),
+                        ),
+                       
+                     ],
+                   );
+}
+
+Widget helloWidget(){
+
+  return  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                     children: [                      
+                        Container(
+                          margin: EdgeInsets.only(left: AppMargin.m20),
+                          child: Text(
+                              "Hello,",
+                               style: getBoldtStyle(color: ColorManager.black,fontSize: AppSize.s40),
+                                textAlign: TextAlign.justify
+                            ),
+                        ),
+                       
+                     ],
+                   );
 }

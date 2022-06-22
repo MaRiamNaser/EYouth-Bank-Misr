@@ -75,9 +75,7 @@ class _navgscreenState extends State<navgscreen> {
       onWillPop:(bool)=> onWillPop(context),
       onItemSelected: (int)
       {
-        setState(() {
 
-        });
       },// Choose the nav bar style with this property.
     ),
 );

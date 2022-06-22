@@ -2,7 +2,6 @@ import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
-import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -47,7 +46,6 @@ class _HomeViewState extends State<HomeView> {
     token = await appPreferences.getLocalToken();
     profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
     balance = profile.balance;
-    print(balance.toString() + " the balance");
     setState(() {});
   }
 
