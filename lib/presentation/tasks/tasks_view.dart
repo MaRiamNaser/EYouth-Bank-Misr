@@ -309,6 +309,10 @@ class _TasksViewState extends State<TasksView> {
                             onPressed: () {
                               // edit.confirmEdit(task.id, task.title,
                               //     task.description, context);
+                              pushNewScreen(context,
+                                  screen:  EditTask(task.id,task.title,task.description),
+                                  withNavBar: true,
+                                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
                             },
                           ),
                           IconButton(

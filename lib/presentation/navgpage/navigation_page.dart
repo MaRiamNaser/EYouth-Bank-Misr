@@ -76,7 +76,7 @@ class _navgscreenState extends State<navgscreen> {
   }
   List<Widget> _buildScreens() {
     return [
-    HomeView(),
+      HomeView(),
      coursesView(),
       Container(),
       //floattingbotton(),

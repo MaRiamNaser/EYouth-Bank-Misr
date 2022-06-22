@@ -17,7 +17,7 @@ class add_image_services
       'Authorization': token
     };
 
-    var request = http.MultipartRequest('PUT', Uri.parse(baseLink+'user/image'));
+    var request = http.MultipartRequest('PUT', Uri.parse(EndPoints().addProfileImageLink));
     request.files.add(await http.MultipartFile.fromPath('image',path));
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();

@@ -84,6 +84,7 @@ class _parentnavgscreenState extends State<parentnavgscreen> {
     return [
       ChildHomeView(child),
       Container(),
+
       settingView(),
     ];
   }

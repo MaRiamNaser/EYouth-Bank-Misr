@@ -288,7 +288,7 @@ class _GoalViewState extends State<Goalsview> {
                               // edit.confirmEdit(goal.id, goal.title,
                               //     goal.description, context);0
                               pushNewScreen(context,
-                                  screen:  EditGoal(goal.id,goal.title,Description),
+                                  screen:  EditGoal(goal.id,goal.title,goal.description),
                                   withNavBar: true,
                                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
                               //Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));

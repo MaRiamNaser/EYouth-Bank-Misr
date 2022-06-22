@@ -29,10 +29,10 @@ String AddProfileImageLink=baseLink +'user/image';
 
 class EndPoints{
   // Authentication
-   String loginLink = "user/login";
-   String registerLink = "user/register";
-   String isEmailExistLink ="user/registerEmailexist";
-   String isUserNameExistLink = "user/registerUsernameexist";
+   String loginLink = baseLink+"user/login";
+   String registerLink = baseLink+"user/register";
+   String isEmailExistLink =baseLink+"user/registerEmailexist";
+   String isUserNameExistLink =baseLink+ "user/registerUsernameexist";
 
 
   String profileLink=baseLink+"user/myaccount";
@@ -47,5 +47,6 @@ class EndPoints{
   String getTasksLink=baseLink+"task/getall";
   String deleteTaskLink=baseLink+"task/delete/";
   String editTaskLink=baseLink+"task/edit/";
+   String addProfileImageLink=baseLink+"user/image/";
 
 }
