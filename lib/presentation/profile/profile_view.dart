@@ -86,10 +86,10 @@ class _ProfileViewState extends State<ProfileView> {
             Center(
              // padding: EdgeInsets.only(left: 50, top: 100,right: 50),
               child: Container(
-                margin: EdgeInsets.only(top:1 / 825 * screensize.height * 100),
+                margin: EdgeInsets.only(top:1 / 825 * screensize.height * 80),
                 padding: EdgeInsets.all(AppPadding.p18),
-                height: 1 / 825 * screensize.height * 480,
-                width: 1 / 393 * screensize.width * 300,
+                height: 1 / 825 * screensize.height * 550,
+                width: 1 / 393 * screensize.width * 330,
                 decoration: BoxDecoration(
                     color: ColorManager.lightGrey,
                     border: Border.all(color: ColorManager.grey),
@@ -102,7 +102,7 @@ class _ProfileViewState extends State<ProfileView> {
                       profile = (state).profile;
                       return SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
+                          padding: const EdgeInsets.only(top: 40.0),
                           child: Container(
                             child: Center(
                               child: Column(
@@ -128,15 +128,50 @@ class _ProfileViewState extends State<ProfileView> {
                                     height: 1 / 825 * screensize.height * 10,
                                   ),
                                   Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children:[
+
+                                         Icon(Icons.leaderboard,color: ColorManager.darkPrimary,size: 25,),
+                                          Text(" Ranking")
+
+
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children:[
+
+                                          Icon(Icons.star,color: ColorManager.darkPrimary,size: 25,),
+                                          Text(" Points")
+
+
+                                        ],
+                                      ),
+
+
+                                      //   Icon(Icons.email)
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1 / 825 * screensize.height * 15,
+                                  ),
+                                  Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        width: 200,
+
                                         child: Text(
                                           profile.email,
                                           style: getMediumStyle(
-                                              fontSize: 16,
+                                              fontSize: 18,
                                               color: ColorManager.black),
                                         ),
                                       ),
@@ -148,7 +183,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.center,
                                     children: [
                                       Text(
                                           profile.age.toString() + " "+AppStrings.yearsOld,
