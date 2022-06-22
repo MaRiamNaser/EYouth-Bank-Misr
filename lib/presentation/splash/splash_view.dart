@@ -63,5 +63,14 @@ class _SplashViewState extends State<SplashView> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+    hhh();
   }
+
+}
+
+
+Widget hhh(){
+
+
+  return Container();
 }
