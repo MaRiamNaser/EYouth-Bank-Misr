@@ -53,8 +53,7 @@ dependencies:
   shared_preferences: null
   youtube_player_iframe: null
   step_progress_indicator: ^1.0.2
-  device_preview:
-  feature_discovery: ^0.14.1
+
   circular_profile_avatar: ^2.0.5
   flutter_polygon: ^0.3.0+2
   cached_network_image:
@@ -73,9 +72,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  flutter_test:
-    sdk: flutter
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

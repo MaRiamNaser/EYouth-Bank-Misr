@@ -1,4 +1,5 @@
 import 'package:bank_misr/presentation/home/parentHomeView/childHomeView.dart';
+import 'package:bank_misr/presentation/navgpage/navigation_page.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,14 @@ class ParentHomeView extends StatefulWidget {
   @override
   _ParentHomeViewState createState() => _ParentHomeViewState();
 }
-
+int parentrole=0;
 class _ParentHomeViewState extends State<ParentHomeView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    parentrole=1;
+  }
   @override
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
@@ -35,6 +42,19 @@ class _ParentHomeViewState extends State<ParentHomeView> {
 
       ],
       child: Scaffold(
+        floatingActionButton: Container(
+          height:50 ,
+          width:140 ,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: ColorManager.darkPrimary,
+          ),
+          child: TextButton(
+            child: Text("Add Child",style:getRegularStyle(fontSize: 16,color: ColorManager.white) ,),
+            onPressed: () {
+            },
+          ),
+        ),
         appBar: AppBar(title: Text("Home"),),
         body: SingleChildScrollView(
           child: Column(
@@ -106,7 +126,7 @@ class _ParentHomeViewState extends State<ParentHomeView> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>parentnavgscreen(categories2[index])));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>navgscreen(child: categories2[index],)));
                     },
                     child: Column(
                       children: [

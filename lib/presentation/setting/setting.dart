@@ -1,4 +1,5 @@
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -10,8 +11,10 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../login/login_view.dart';
 import '../resources/assets_manager.dart';
 bool langSwitch = false;
 bool notifySwitch = false;
@@ -246,9 +249,19 @@ _changeLanguage(){
 
                               Expanded(
 
-                                child: GestureDetector(
+                                child: InkWell(
                                   onTap: (){
-                                      Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                                    Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return parentrole!=1?LoginView():ParentHomeView();
+                                        },
+                                      ),
+                                          (_) => false,
+                                    );
+                                    //Navigator.popUntil(context, (route) => route is LoginView);
+
+
                                   },
                                   child: Container(
                                 

@@ -7,6 +7,7 @@ import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/taskBloc/task_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/ParentNavBarView.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
@@ -31,6 +32,7 @@ import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/task_services/taskConfirmChecked_services.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
+import '../home/parentHomeView/parentHomeView.dart';
 import '../resources/routes_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -199,7 +201,7 @@ class _TasksViewState extends State<TasksView> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          IconButton(
+                          parentrole!=1?IconButton(
                               icon: Icon(
                                 Icons.check_circle,
                                 color: Colors.green,
@@ -302,7 +304,7 @@ class _TasksViewState extends State<TasksView> {
                                    );
                                  }
                                });
-                              }),
+                              }):SizedBox(),
                           IconButton(
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
