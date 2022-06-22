@@ -62,7 +62,7 @@ late AppPreferences _appPreferences ;
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),
-        home: ParentHomeView(),
+        home: SplashView(),
       ),
     );
   }

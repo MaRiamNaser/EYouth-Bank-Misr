@@ -41,11 +41,13 @@ import '../home/home_view.dart';
 import '../home/parentHomeView/parentHomeView.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
+import 'Goal.dart';
 class Goalsview extends StatefulWidget {
   @override
   State<Goalsview> createState() => _GoalViewState();
 }
 class _GoalViewState extends State<Goalsview> {
+
   goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
   goalConfirmDeleteServices delete = goalConfirmDeleteServices();
@@ -53,6 +55,7 @@ class _GoalViewState extends State<Goalsview> {
   var token;
   late List<Goal> goals = [];
   int balance1=100;
+  int progress=0;
  late Profile profile;
   @override
   void initState() {
@@ -74,7 +77,6 @@ class _GoalViewState extends State<Goalsview> {
     token = sharedPreferences.getString("token");
     goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
   
-  }
   }
   @override
   Widget build(BuildContext context) {
@@ -142,8 +144,11 @@ class _GoalViewState extends State<Goalsview> {
                           child: ListView.separated(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemBuilder: (context, index) =>
-                                buildgoal(goals[index], index),
+                            itemBuilder: (context, index) {
+                              int amount=goals[index].amount==0?1:goals[index].amount;
+                              progress=((balance1/amount)*100).toInt();
+                             return buildgoal(goals[index], index);
+                            },
                             separatorBuilder: (context, index) =>
                                 SizedBox(
                                   height: 0.0,
@@ -213,6 +218,23 @@ class _GoalViewState extends State<Goalsview> {
                 Divider(
                   height: 2,
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(margin: EdgeInsets.all(13),
+                        child: ProgressGoalIndicator(progress)),
+                    Container(
+                      margin: EdgeInsets.all(13),
+                      child: Row(
+                        children: [
+                          Text("Progress : ",style: getLightStyle(color: Colors.black),),
+                          Text(progress>100?"100 %":progress.toString()+" %",style: getRegularStyle(color: Colors.black),)
+                        ],
+                      ),
+                    )
+
+                  ],
+                ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -228,54 +250,68 @@ class _GoalViewState extends State<Goalsview> {
                                 context: context,
                                 builder: (BuildContext context1) {
                                   return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0))),
-                                    scrollable: true,
-                                    backgroundColor: ColorManager.primary,
-                                    title: Center(
-                                      child: Text(
-                                        "congratulation",
-                                        style: getBoldtStyle(
-                                            fontSize: 18,
-                                            color: ColorManager.white),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0))),
+                                      scrollable: true,
+                                      backgroundColor: ColorManager.primary,
+                                      title: Center(
+                                        child: Text(
+                                          "congratulation",
+                                          style: getBoldtStyle(
+                                              fontSize: 18,
+                                              color: ColorManager.white),
+                                        ),
                                       ),
-                                    ),
-                                    content: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Lottie.asset(
-                                            "assets/images/7455-loading1.json",
-                                            height: 145,
-                                            width: 250,
-                                          ),
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: SizedBox(
-                                                width: 190,
-                                                child: Text(
-                                                  'Ok',
-                                                  style: getRegularStyle(
-                                                      color:
-                                                          ColorManager.white),
+                                      content: Container(
+                                          child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Lottie.asset(
+                                                  ImageAssets.GoalPhoto,
+                                                  height: 145,
+                                                  width: 250,
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.of(context1).pop();
-                                                  BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
-                                                },
-                                              ),
-                                            ),
+                                                Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child:  Container(
+                                                      height: 30,
+                                                      width: 100,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.circular(15),
+                                                        color: ColorManager.darkPrimary,
+                                                      ),
+                                                      child: TextButton(
+                                                        child: Text(
+                                                          AppStrings.Ok.tr(),
+                                                          style: getRegularStyle(
+                                                              color:
+                                                              ColorManager.white),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context1)
+                                                              .pop();
+                                                          BlocProvider.of<
+                                                              GoalCubit>(
+                                                              context)
+                                                              .DeleteGoal(
+                                                              goal.id);
+                                                        },
+                                                      ),
+                                                    )
+                                                ),
+                                              ]
                                           )
-                                        ],
-                                      );
-                                    });
-                              });
-                            },
-                          ),
+                                      )
+                                  );
+                                });
+                          });
+                          }
+                          ):SizedBox(),
                           IconButton(
                             icon: (Icon(Icons.edit_rounded)),
                             color: ColorManager.black,
@@ -321,15 +357,14 @@ class _GoalViewState extends State<Goalsview> {
         ),
       );
 
-            Widget ProgressGoalIndicator(int total_balance, int goal_amount){
-      double percentage = (total_balance /goal_amount)*100 ;
+            Widget ProgressGoalIndicator(int progress){
         return StepProgressIndicator(
                         totalSteps: 100,
-                        currentStep:percentage.toInt()>100?100:percentage.toInt(),
+                        currentStep:progress>100?100:progress,
                         size: 8,
                         padding: 0,
-                        selectedColor: Colors.green,
-                        unselectedColor: Colors.yellow,
+                        selectedColor: Colors.blue,
+                        unselectedColor: Colors.grey,
                         roundedEdges: Radius.circular(10),
         );
       }

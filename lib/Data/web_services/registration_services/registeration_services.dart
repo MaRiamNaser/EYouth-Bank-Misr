@@ -31,6 +31,7 @@ class RegisterationWebServices {
   }
 
   Future<dynamic> signIn( String email, String password) async {
+    print(email+" "+password);
     try {
       var response =
 

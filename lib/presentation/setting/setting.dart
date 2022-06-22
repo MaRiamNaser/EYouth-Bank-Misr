@@ -1,4 +1,5 @@
 import 'package:bank_misr/app/app_prefs.dart';
+import 'package:bank_misr/presentation/choose_which_view/choose_which_view_page.dart';
 import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
@@ -16,41 +17,44 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login/login_view.dart';
 import '../resources/assets_manager.dart';
+
 bool langSwitch = false;
 bool notifySwitch = false;
 bool signoutSwitch = false;
 
 class settingView extends StatefulWidget {
-
   @override
   State<settingView> createState() => _SettingViewState();
 }
 
 class _SettingViewState extends State<settingView> {
-late AppPreferences _appPreferences ;
+  late AppPreferences _appPreferences;
 
-_changeLanguage(){
+  _changeLanguage() {
     _appPreferences = AppPreferences();
     _appPreferences.changeAppLanguage();
     Phoenix.rebirth(context);
-}
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.Setting.tr()),  actions: [
-        Padding(
-          padding: const EdgeInsets.only(right:10.0),
-          child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.asset(
-                ImageAssets.profilePhoto,
-                fit: BoxFit.fitWidth,
-                width: 45,
-              ),
-              maxRadius: 34),
-        )
-      ],),
+      appBar: AppBar(
+        title: Text(AppStrings.Setting.tr()),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.asset(
+                  ImageAssets.profilePhoto,
+                  fit: BoxFit.fitWidth,
+                  width: 45,
+                ),
+                maxRadius: 34),
+          )
+        ],
+      ),
       // appBar: AppBar(
       //   leading: Icon(Icons.arrow_back,color:ColorManager.black,size:FontSize.s20,),
       //   title: Text(
@@ -70,9 +74,10 @@ _changeLanguage(){
               ],
             ),
           ),
-   SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           Expanded(
-
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -88,30 +93,30 @@ _changeLanguage(){
                   //   itemCount: 2,
                   // ),
 
-
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: ColorManager.primary,
-                          border:Border.all(color:ColorManager.grey,width: 1.5),
-                          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-                      ),
+                          color: ColorManager.primary,
+                          border:
+                              Border.all(color: ColorManager.grey, width: 1.5),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15),
+                          )),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
                             Padding(
-
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 AppStrings.Laguage.tr(),
                                 style: getBoldtStyle(
                                   fontSize: FontSize.s16,
-                                  color:ColorManager.black,
+                                  color: ColorManager.black,
                                 ),
                               ),
-
                             ),
                             Expanded(
                               child: Container(
@@ -120,30 +125,25 @@ _changeLanguage(){
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Container(
-                                      child:
-                                          Row(
-                                            children: [
-                                               Text(AppStrings.ar.tr()),
-                                              Container(
-
-                                                child: Switch(
-                                                  activeColor: ColorManager.green,
-                                                  value: langSwitch,
-                                                  onChanged: (value) {
-                                                    _changeLanguage();
-                                                    setState(()
-                                                    {langSwitch = value;});
-                                                  },
-                                                ),
-                                              ),
-                                                  Text(AppStrings.en.tr()),
-                                            ],
+                                      child: Row(
+                                        children: [
+                                          Text(AppStrings.ar.tr()),
+                                          Container(
+                                            child: Switch(
+                                              activeColor: ColorManager.green,
+                                              value: langSwitch,
+                                              onChanged: (value) {
+                                                _changeLanguage();
+                                                setState(() {
+                                                  langSwitch = value;
+                                                });
+                                              },
+                                            ),
                                           ),
-
+                                          Text(AppStrings.en.tr()),
+                                        ],
+                                      ),
                                     ),
-
-
-
                                   ],
                                 ),
                               ),
@@ -158,54 +158,48 @@ _changeLanguage(){
                     child: Container(
                       decoration: BoxDecoration(
                           color: ColorManager.primary,
-                          border:Border.all(color:ColorManager.grey,width: 1.5),
-                          borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-                      ),
+                          border:
+                              Border.all(color: ColorManager.grey, width: 1.5),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15),
+                          )),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
                             Padding(
-
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 AppStrings.notifications.tr(),
                                 style: getBoldtStyle(
-
                                   fontSize: FontSize.s16,
-                                  color:ColorManager.black,
+                                  color: ColorManager.black,
                                 ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
-
                             ),
                             Expanded(
-
                               child: Container(
-
                                 child: Row(
-
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                          Container(
-                                            child: Switch(
-                                              activeColor: ColorManager.green,
-                                              value: notifySwitch,
-                                              onChanged: (value) {
-                                                setState(()
-                                                {notifySwitch = value;});
-                                              },
-                                            ),
-                                          ),
-                                        ],
+                                    Container(
+                                      child: Switch(
+                                        activeColor: ColorManager.green,
+                                        value: notifySwitch,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            notifySwitch = value;
+                                          });
+                                        },
                                       ),
                                     ),
-
-
-
-
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -213,90 +207,64 @@ _changeLanguage(){
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
-                          Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return WhichViewPage();
+                          },
+                        ),
+                        (_) => false,
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
                             color: ColorManager.primary,
-                            border:Border.all(color:ColorManager.grey,width: 1.5),
-                            borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-                        ),
+                            border: Border.all(
+                                color: ColorManager.grey, width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                            )),
                         child: Padding(
-
                           padding: const EdgeInsets.all(8.0),
-
                           child: Row(
-
                             children: [
                               Padding(
-
-
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   AppStrings.signOut.tr(),
                                   style: getBoldtStyle(
                                     fontSize: FontSize.s16,
-                                    color:ColorManager.black,
+                                    color: ColorManager.black,
                                   ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-
                               ),
-
                               Expanded(
-
-                                child: InkWell(
-                                  onTap: (){
-                                    Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return parentrole!=1?LoginView():ParentHomeView();
-                                        },
-                                      ),
-                                          (_) => false,
-                                    );
-                                    //Navigator.popUntil(context, (route) => route is LoginView);
-
-
-                                  },
-                                  child: Container(
-                                
-                                             child: (
-                                        Container(
-                                          height: 60,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                
-                                              IconButton(
-                                                alignment: Alignment.bottomRight,
-                                                icon: Icon(
-                                                  Icons.logout,
-                                                ),
-                                                color: ColorManager.black,
-                                                onPressed: () {
-                                            
-                                                },
-                                              ),
-                                            
-                                                  
-                                                  
-                                                  
-                                                  
-                                            ],
+                                child: Container(
+                                  child: (Container(
+                                    height: 60,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                          alignment: Alignment.bottomRight,
+                                          icon: Icon(
+                                            Icons.logout,
                                           ),
-                                        )
-                                                  
-                                                  
-                                                  
-                                
+                                          color: ColorManager.black,
+                                          onPressed: () {},
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                  )),
                                 ),
                               ),
                             ],
@@ -305,91 +273,12 @@ _changeLanguage(){
                       ),
                     ),
                   ),
-
                 ],
-
               ),
             ),
           )
         ],
       ),
     );
-
   }
 }
-
-
-
-
-//
-// class Buildtask extends StatefulWidget {
-//
-//
-//   @override
-//   State<Buildtask> createState() => _BuildtaskState();
-// }
-//
-// class _BuildtaskState extends State<Buildtask> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//
-//       padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-//       child: Container(
-//         decoration: BoxDecoration(
-//             border:Border.all(color:ColorManager.grey,width: 1.5),
-//             borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight:Radius.circular(15), )
-//         ),
-//         child: Row(
-//           children: [
-//
-//             Expanded(
-//
-//               child: Container(
-//                 height: 60,
-//                 child: Row(
-//
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   children: [
-//
-//                     Padding(
-//
-//
-//                       padding: const EdgeInsets.all(12.0),
-//                       child: Text(
-//                         'Captain',
-//                         style: getBoldtStyle(
-//                           fontSize: FontSize.s16,
-//                           color:ColorManager.black,
-//                         ),
-//                         maxLines: 2,
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//
-//                     ),
-//                     SizedBox(width: 150,),
-//                     Container(
-//                       child: Switch(
-//                         value: isSwitched,
-//                         onChanged: (value) {
-//                           setState(()
-//                           {isSwitched = value;});
-//                         },
-//                       ),
-//                     ),
-//
-//
-//
-//
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );;
-//   }
-// }
-
