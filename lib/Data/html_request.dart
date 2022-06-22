@@ -33,8 +33,7 @@ Future<http.Response> putRequest(String Url, String jsonEncode,String token)asyn
 }
 
 Future<http.Response> deleteRequest(String Url,{String id=""})async {
-  var response =await http.get(Uri.parse(Url),
+  var response =await http.delete(Uri.parse(Url),
       headers: <String, String>{"Content-Type": "application/json",HttpHeaders.authorizationHeader:id});
   return response;
 }
-

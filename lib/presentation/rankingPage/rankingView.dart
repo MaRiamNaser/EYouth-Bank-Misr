@@ -26,7 +26,7 @@ class _rankingViewState extends State<rankingView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(title: Text(AppStrings.Home.tr()),  actions: [
+        appBar: AppBar(title: Text(AppStrings.Ranking.tr()),  actions: [
           CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

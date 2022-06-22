@@ -84,6 +84,7 @@ class _navgscreenState extends State<navgscreen> {
   }
   List<Widget> _buildScreens() {
     return [
+
   child==null?  HomeView():ChildHomeView(child!),
      coursesView(),
       Container(),

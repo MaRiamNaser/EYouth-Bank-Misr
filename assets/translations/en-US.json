@@ -63,13 +63,15 @@
  "pleaseEnterAgeBetween10And15" : "please Enter Age Between 10 & 15",
  "yourPasswordCannotIncludeYourUsername" :"Your Password Cannot Include Your Username",
  "loginLanguage":"العربية",
- "Years old":"Years old",
+ "yearsOld":"Years old",
  "passwordShouldBeMoreThanEightChars":"The password should be more than 8 characters !",
  "Repetition": "Repetition",
  "Once": "Once",
  "Daily": "Daily",
  "Weekly": "Weekly",
  "Monthly": "Monthly",
- "YourRank": "Your Rank :"
+ "YourRank": "Your Rank",
+ "Ranking": "Ranking",
+ "Pts": "Pts"
 
 }

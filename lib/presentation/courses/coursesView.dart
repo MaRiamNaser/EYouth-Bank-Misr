@@ -1,6 +1,7 @@
 import 'package:bank_misr/presentation/course/course_view.dart';
 import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,40 +58,6 @@ class _coursesViewState extends State<coursesView> {
                 maxRadius: 34),
           )
         ],),
-        // appBar: i==1?AppBar(
-        //   leadingWidth: 60,
-        //   title: Text(
-        //     "Courses",
-        //     style: getBoldtStyle(fontSize:FontSize.s20,color: ColorManager.white)
-        //     ,),
-        // ):null
-
-        //   leading: Padding(
-        //     padding: const EdgeInsets.only(left:8.0),
-        //     child: Container(
-        //
-        //       child: CircleAvatar(
-        //
-        //         backgroundImage: AssetImage("assets/images/BM Juniors colored small.jpg"),
-        //
-        //       ),
-        //     ),
-        //   ),
-        //
-        //   actions: [
-        //     Padding(
-        //       padding: const EdgeInsets.only(right:10.0),
-        //       child: CircleAvatar(
-        //           backgroundColor: Colors.white,
-        //           child: Image.asset(
-        //             ImageAssets.profilePhoto,
-        //             fit: BoxFit.fitWidth,
-        //             width: 45,
-        //           ),
-        //           maxRadius: 34),
-        //     )
-        //   ],
-        // ),
 
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -153,18 +120,26 @@ class _coursesViewState extends State<coursesView> {
             
                   children: [
             
-                    Container(
-                      height: 130,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30)
-                      ,
-                      image: DecorationImage(
-                        image: NetworkImage(AllCourses[index].image)
-                            ,fit: BoxFit.cover,
-                      )),
+                    CachedNetworkImage(
+
+                      imageUrl: AllCourses[index].image,
+                      imageBuilder:(context, imageProvider) =>
+                          Container(
+                        height: 130,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)
+                        ,
+                        image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover,
+                        )),
 
                   //    child: (Image.network(AllCourses[index].image,fit: BoxFit.cover,)),
+                      ),
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error)
+                      => Icon(Icons.error),
                     ),
                     SizedBox(
                       height: 10,
@@ -180,7 +155,7 @@ class _coursesViewState extends State<coursesView> {
       }
       else
       {
-        return Center(child: CircularProgressIndicator());
+        return  Container(margin: EdgeInsets.only(top: 100),child: Center(child: CircularProgressIndicator()));
       }
     }
 

@@ -241,6 +241,7 @@ class _GoalViewState extends State<Goalsview> {
                                                 )),
                                           ),
                                         ],
+
                                       ),
                                     ),
                                     actions: [

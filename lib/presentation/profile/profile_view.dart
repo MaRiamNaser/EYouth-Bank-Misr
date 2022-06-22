@@ -5,6 +5,7 @@ import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/registerationProvider/registeration_logic.dart';
 import 'package:bank_misr/presentation/profile/Widgets/balance_Widget.dart';
 import 'package:bank_misr/presentation/profile/Widgets/bottom_row_widget.dart';
+import 'package:bank_misr/presentation/rankingPage/rankingView.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -15,8 +16,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Data/api_links.dart';
 import '../../Data/models/Profile.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../resources/color_manager.dart';
@@ -134,8 +137,14 @@ class _ProfileViewState extends State<ProfileView> {
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children:[
+                                          // IconButton(onPressed: (){}, icon:Icon( Icons.leaderboard),color: ColorManager.darkPrimary,iconSize: 25),
 
-                                         Icon(Icons.leaderboard,color: ColorManager.darkPrimary,size: 25,),
+                                         InkWell(onTap: (){
+                                           pushNewScreen(context,
+                                               screen: rankingView(),
+                                               withNavBar: true,
+                                               pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                                         },child: Icon(Icons.leaderboard,color: ColorManager.darkPrimary,size: 25,)),
                                           Text(" Ranking")
 
 
@@ -186,7 +195,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                          profile.age.toString() + " "+AppStrings.yearsOld,
+                                          profile.age.toString() + " "+AppStrings.yearsOld.tr(),
                                           style: getMediumStyle(
                                               fontSize: 16,
                                               color: ColorManager.black)),
@@ -239,7 +248,7 @@ class _ProfileViewState extends State<ProfileView> {
                           : CircleAvatar(
                                 minRadius: 22,
                                 backgroundImage: NetworkImage (
-                                  AppStrings.baseUrl +
+                                  baseLink+
                                       "userimage/" +
                                       profile.image.split("/")[1],
                                 ),

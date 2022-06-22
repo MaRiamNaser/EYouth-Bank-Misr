@@ -18,3 +18,7 @@ class TaskDeleted extends TaskState
 {
 
 }
+class TaskEdit extends TaskState
+{
+
+}
