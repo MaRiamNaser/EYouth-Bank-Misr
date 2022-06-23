@@ -8,6 +8,7 @@ class SignInRepo {
   String? token;
   SignInRepo(this._registerationWebServices);
 
+  ///Sign in cubit returns user if signed in successfully.
   Future<User> signIn(String email, String password) async {
     var body = await _registerationWebServices.signIn(email, password);
     var jsonresponse = json.decode(body);
@@ -16,6 +17,7 @@ class SignInRepo {
     return User.fromJson(user);
   }
 
+  ///Get token of current user. 
   String? getToken() {
     if (token != null) {
       return token;
