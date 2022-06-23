@@ -65,10 +65,7 @@ List<String>  course;
               maxRadius: 34),
         )
       ],),
-      // appBar: AppBar(
-      //   title: Text(course[1]),
-      //   iconTheme: IconThemeData(color: Colors.black),
-      // ),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
