@@ -4,7 +4,10 @@ import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/goalBloc/goal_cubit.dart';
 import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
 import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
+import 'package:bank_misr/presentation/resources/values_manager.dart';
+
 import 'package:bank_misr/presentation/home/parentHomeView/ParentNavBarView.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:bank_misr/Data/models/goal.dart';
@@ -21,6 +24,15 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import '../../Data/models/Profile.dart';
+import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
+import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
+import '../../Data/web_services/goal_services/goal_services.dart';
+import '../../business_logic/profileBloc/profile_cubit.dart';
+import '../bottomBar/bottomBar.dart';
+import '../home/home_view.dart';
+
 import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/goal_services/goal_services.dart';
@@ -29,30 +41,46 @@ import '../home/home_view.dart';
 import '../home/parentHomeView/parentHomeView.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
+import 'Goal.dart';
 class Goalsview extends StatefulWidget {
   @override
   State<Goalsview> createState() => _GoalViewState();
 }
 class _GoalViewState extends State<Goalsview> {
+
   goalConfirmChecked checked = goalConfirmChecked();
   AppPreferences appPreferences = AppPreferences();
   goalConfirmDeleteServices delete = goalConfirmDeleteServices();
   goalConfirmEdit edit = goalConfirmEdit();
   var token;
   late List<Goal> goals = [];
+  int balance1=100;
+  int progress=0;
+ late Profile profile;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Load();
+    Load2();
   }
   Load() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     token = sharedPreferences.getString("token");
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    setState(() {
+          balance1 = profile.balance;
+    });
+  }
+  Load2() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
     goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
+  
   }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.Goals.tr()),
@@ -105,33 +133,37 @@ class _GoalViewState extends State<Goalsview> {
                 ),
               ],
             ),
-            BlocBuilder<GoalCubit, GoalState>(
-              builder: (context, state) {
-                if(state is GoalsLoaded) {
-                  goals=(state).goals;
-                  return
-                    goals.isEmpty
-                        ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
-                        :Container(
-                      child: ListView.separated(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) =>
-                            buildgoal(goals[index], index),
-                        separatorBuilder: (context, index) =>
-                            SizedBox(
-                              height: 0.0,
-                            ),
-                        itemCount: goals.length,
-                      ),
-                    );
-                }
-                else
-                {
-                  return Center(child: CircularProgressIndicator(),);
-                }
-              },
-            ),
+             BlocBuilder<GoalCubit, GoalState>(
+                    builder: (context, state) {
+                      if(state is GoalsLoaded) {
+                        goals=(state).goals;
+                        return
+                          goals.isEmpty
+                              ? Center(child: Text(AppStrings.thereIsNoGoals.tr()))
+                              :Container(
+                          child: ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              int amount=goals[index].amount==0?1:goals[index].amount;
+                              progress=((balance1/amount)*100).toInt();
+                             return buildgoal(goals[index], index);
+                            },
+                            separatorBuilder: (context, index) =>
+                                SizedBox(
+                                  height: 0.0,
+                                ),
+                            itemCount: goals.length,
+                          ),
+                        );
+                      }
+                      else
+                        {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                    },
+                  ),
+
           ],
         ),
       ),
@@ -186,6 +218,23 @@ class _GoalViewState extends State<Goalsview> {
                 Divider(
                   height: 2,
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(margin: EdgeInsets.all(13),
+                        child: ProgressGoalIndicator(progress)),
+                    Container(
+                      margin: EdgeInsets.all(13),
+                      child: Row(
+                        children: [
+                          Text("Progress : ",style: getLightStyle(color: Colors.black),),
+                          Text(progress>100?"100 %":progress.toString()+" %",style: getRegularStyle(color: Colors.black),)
+                        ],
+                      ),
+                    )
+
+                  ],
+                ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -201,120 +250,124 @@ class _GoalViewState extends State<Goalsview> {
                                 context: context,
                                 builder: (BuildContext context1) {
                                   return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0))),
-                                    scrollable: true,
-                                    backgroundColor: ColorManager.primary,
-                                    title: Center(
-                                      child: Text(
-                                        "congratulation",
-                                        style: getBoldtStyle(
-                                            fontSize: 18,
-                                            color: ColorManager.white),
-                                      ),
-                                    ),
-                                    content: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Lottie.asset(
-                                            "assets/images/7455-loading1.json",
-                                            height: 145,
-                                            width: 250,
-                                          ),
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.all(8.0),
-                                            child: SizedBox(
-                                                width: 190,
-                                                child: Text(
-                                                  "Did you achieve it ",
-                                                  style: getSemiBoldStyle(
-                                                      fontSize: 14,
-                                                      color: ColorManager
-                                                          .white),
-                                                  textAlign:
-                                                  TextAlign.center,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      Center(
-                                        child: Container(
-                                          height: 30,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(15),
-                                            color: ColorManager.darkPrimary,
-                                          ),
-                                          child: TextButton(
-                                            child: Text(
-                                              'Ok',
-                                              style: getRegularStyle(
-                                                  color:
-                                                  ColorManager.white),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context1).pop();
-                                              BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
-                                            },
-                                          ),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0))),
+                                      scrollable: true,
+                                      backgroundColor: ColorManager.primary,
+                                      title: Center(
+                                        child: Text(
+                                          "congratulation",
+                                          style: getBoldtStyle(
+                                              fontSize: 18,
+                                              color: ColorManager.white),
                                         ),
+                                      ),
+                                      content: Container(
+                                          child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Lottie.asset(
+                                                  ImageAssets.GoalPhoto,
+                                                  height: 145,
+                                                  width: 250,
+                                                ),
+                                                Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(8.0),
+                                                    child:  Container(
+                                                      height: 30,
+                                                      width: 100,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.circular(15),
+                                                        color: ColorManager.darkPrimary,
+                                                      ),
+                                                      child: TextButton(
+                                                        child: Text(
+                                                          AppStrings.Ok.tr(),
+                                                          style: getRegularStyle(
+                                                              color:
+                                                              ColorManager.white),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context1)
+                                                              .pop();
+                                                          BlocProvider.of<
+                                                              GoalCubit>(
+                                                              context)
+                                                              .DeleteGoal(
+                                                              goal.id);
+                                                        },
+                                                      ),
+                                                    )
+                                                ),
+                                              ]
+                                          )
                                       )
-                                    ],
                                   );
                                 });
                           });
-                        },
-                      ):SizedBox(),
-                      IconButton(
-                        icon: (Icon(Icons.edit_rounded)),
-                        color: ColorManager.black,
-                        onPressed: () {
-                          // edit.confirmEdit(goal.id, goal.title,
-                          //     goal.description, context);0
-                          pushNewScreen(context,
-                              screen:  EditGoal(goal.id,goal.title,Description),
+                          }
+                          ):SizedBox(),
+                          IconButton(
+                            icon: (Icon(Icons.edit_rounded)),
+                            color: ColorManager.black,
+                            onPressed: () {
+                              // edit.confirmEdit(goal.id, goal.title,
+                              //     goal.description, context);
+                              pushNewScreen(context,
+                              screen:  EditGoal(goal.id,goal.title,goal.description),
                               withNavBar: true,
                               pageTransitionAnimation: PageTransitionAnimation.cupertino);
-                          //Navigator.push(context, MaterialPageRoute(builder: (context)=> EditGoal(goal.id,goal.title,Description)));
-                        },
-                      ),
-                      IconButton(
-                        icon: (Icon(Icons.delete_rounded)),
-                        key: Key("deleteGoal"),
-                        color: ColorManager.error,
-                        onPressed: ()  {
-                          // confirmDelete(goal.id);
-                          // delete.confirmDelete(goal.id, context);
-                          showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
-                            title: Text("Delete"),
-                            content: Text(" Are you sure !?"),
-                            actions: [
-                              FlatButton(child: Text("yes"),
-                                onPressed: () async {
-                                  BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
-                                  Navigator.pop(context1);
-                                }, ),
-                              FlatButton(onPressed: (){
-                              }, child: Text("no")),
-                            ],
-                          )
-                          );
-                        },
-                      ),
-                    ]),
-              ],
-            ),
+                            },
+                          ),
+                          IconButton(
+                            icon: (Icon(Icons.delete_rounded)),
+                            color: ColorManager.error,
+                            onPressed: ()  {
+                              // confirmDelete(goal.id);
+                              // delete.confirmDelete(goal.id, context);
+                              showDialog(context: context, builder: (BuildContext context1)=>AlertDialog(
+                                title: Text("Delete"),
+                                content: Text(" Are you sure !?"),
+                                actions: [
+                                  FlatButton(child: Text("yes"),
+                                    onPressed: () async {
+                                      BlocProvider.of<GoalCubit>(context).DeleteGoal(goal.id);
+                                      Navigator.pop(context1);
+                                    }, ),
+                                  FlatButton(onPressed: (){
+                                   Navigator.pop(context1);
+
+                                  }, child: Text("no")),
+                                ],
+                              )
+                              );
+                            },
+                          ),
+                        ]),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
+
+            Widget ProgressGoalIndicator(int progress){
+        return StepProgressIndicator(
+                        totalSteps: 100,
+                        currentStep:progress>100?100:progress,
+                        size: 8,
+                        padding: 0,
+                        selectedColor: Colors.blue,
+                        unselectedColor: Colors.grey,
+                        roundedEdges: Radius.circular(10),
+        );
+      }
+
+
 }

@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
-  static String baseUrl =
-      'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/';
+
   static String noRouteFound = "noRouteFound";
   static String registerTitle = "registerTitle";
   static String addGoal = "addGoal";
@@ -81,5 +80,11 @@ class AppStrings {
   static String Daily="Daily";
   static String Weekly ="Weekly";
   static String Monthly="Monthly";
-  static String YourRank="Your Rank :";
+  static String child = "child";
+  static String parent = "parent";
+  static String YourRank="Your Rank";
+  static String Ranking="Ranking";
+  static String Pts="Pts";
+
+
 }

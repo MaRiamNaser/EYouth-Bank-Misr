@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 import '../../../presentation/goals/goals_view.dart';
+import '../../../presentation/resources/strings_manager.dart';
+import '../../api_links.dart';
 
 
 class goalConfirmDeleteServices
@@ -19,7 +21,7 @@ class goalConfirmDeleteServices
     Future<int> ConfirmDelete(id)
    async {
       var response=await  http.delete(Uri.parse(
-          'http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/goal/delete/$id'),
+          EndPoints().deleteGoalLink+id),
           headers: <String,String>{"Content-Type": "application/json",
             HttpHeaders.authorizationHeader:await appPreferences.getLocalToken() });
       print(response.statusCode);

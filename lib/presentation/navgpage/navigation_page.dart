@@ -75,15 +75,14 @@ class _navgscreenState extends State<navgscreen> {
       onWillPop:(bool)=> onWillPop(context),
       onItemSelected: (int)
       {
-        setState(() {
 
-        });
       },// Choose the nav bar style with this property.
     ),
 );
   }
   List<Widget> _buildScreens() {
     return [
+
   child==null?  HomeView():ChildHomeView(child!),
      coursesView(),
       Container(),

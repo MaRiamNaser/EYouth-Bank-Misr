@@ -6,6 +6,7 @@ import 'package:bank_misr/Data/web_services/task_services/taskConfirmDelete_serv
 
 import '../models/Task.dart';
 
+import '../web_services/task_services/taskConfirmEdit_services.dart';
 import '../web_services/task_services/task_services.dart';
 
 class TaskRepo
@@ -26,6 +27,19 @@ class TaskRepo
   {
     var code= await taskConfirmDeleteServices().ConfirmDelete(id);
     if(code==200)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  Future<bool> ConfirmEdit(token,goalID,title,description)async
+  {
+    var code= await taskConfirmEdit().Edit(token,goalID,title,description);
+    print(code+" ssssssssssssssssssss");
+    if(code=="200")
     {
       return true;
     }

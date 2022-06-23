@@ -1,9 +1,10 @@
 
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import '../../Data/models/Task.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
@@ -35,9 +36,9 @@ Widget buildItem(String name , int index,int points) =>
                     children: [
 
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          (index + 1).toString() + " -",
+                          (index + 1).toString() + "-",
                           style: getMediumStyle(
                             fontSize: FontSize.s16,
                             color: ColorManager.black,
@@ -47,7 +48,7 @@ Widget buildItem(String name , int index,int points) =>
                       ),
 
                       Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 8),
                   child:    CircularProfileAvatar(
                         ' ',
                         child: Icon(
@@ -61,9 +62,9 @@ Widget buildItem(String name , int index,int points) =>
                       ),),
                       Container(
 
-                        width: 160,
+                        width: 170,
                         child: Text(
-                          "$name",
+                          "$name"+" ",
                           style: getMediumStyle(
                             fontSize: 16,
                             color: ColorManager.black,
@@ -75,7 +76,7 @@ Widget buildItem(String name , int index,int points) =>
                       Container(
 
                         child: Text(
-                          "$points"+" pts",
+                          "$points"+AppStrings.Pts.tr(),
                           style: getMediumStyle(
                             fontSize: 16,
                             color: ColorManager.black,

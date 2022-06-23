@@ -63,13 +63,20 @@
  "pleaseEnterAgeBetween10And15" : "من فضلك ادخل عمر بين 10 او 15 سنة",
  "yourPasswordCannotIncludeYourUsername" :"كلمة المرور لا يمكن ان تحتوي على اسم المستخدم",
  "loginLanguage" :"English",
- "Years old": "سنه",
+ "yearsOld": "سنه",
  "passwordShouldBeMoreThanEightChars":"الرقم السري يجب ان يكون اكثر من 8 حروف",
  "Repetition": "ألتكرار",
  "Once": "مره واحده",
  "Daily": "يوميا",
  "Weekly": "اسبوعيا",
  "Monthly": "شهريا",
- "YourRank": "ترتيبك"
+
+ "child": "طفل",
+ "parent":"أب",
+
+ "YourRank": "ترتيبك",
+ "Ranking": "ترتيب",
+ "Pts": "نقطه"
+
 
 }

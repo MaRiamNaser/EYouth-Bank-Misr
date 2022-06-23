@@ -78,19 +78,13 @@ class _addGoalViewState extends State<addGoalview> {
                       ),
                       SizedBox(height: 15,),
                       Container(
-
                         decoration: BoxDecoration(
-
                             border:Border.all(color: Colors.grey,width: 1.2),
                             borderRadius: BorderRadius.circular(10),
                             color: ColorManager.primary
-
-
                         ),
 
-
                         child: TextFormField(
-
                           style: TextStyle(
                             color: ColorManager.black,
                             fontWeight:FontWeightManager.semiBold,
