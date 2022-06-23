@@ -59,23 +59,26 @@ class RegisterationWebServices {
 
   Future<dynamic> signUp(String fullname, String username, String email,String password, String age) async {
      try {
-
-
              var response = await http.post(Uri.parse(EndPoints().registerLink),
 
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
               body: jsonEncode(<String, dynamic>{
-            
-
                 "fullname": fullname,
                 "username": username,
                 "email": email,
                 "password": password,
                 "age":int.parse(age)
               }));
-                if (response.statusCode == 200) {
+              print("********************************************************************************zft");
+              print(response.statusCode);
+              print(fullname);
+              print(username);
+              print(email);
+              print(password);
+              print(age);
+                if (response.statusCode == 201) {
                     return response.body;
 
                 }else{
@@ -103,6 +106,8 @@ class RegisterationWebServices {
               print(response.body);
       if (response.statusCode == 200) {
         return response.body;
+      }if (response.statusCode == 404) {
+        return response.body;
       } else {
         return null;
       }
@@ -114,7 +119,6 @@ class RegisterationWebServices {
  Future<dynamic> isEmailExist( String email) async {
     try {
       var response =
-
           await http.post(Uri.parse(endPoints.isEmailExistLink),
 
               headers: <String, String>{
@@ -123,15 +127,16 @@ class RegisterationWebServices {
               body: jsonEncode(<String, String>{
                 "email": email
               }));
-              print(response.body);
-      if (response.statusCode == 200) {
 
+      if (response.statusCode == 200) {
+        return response.body;
+      }if (response.statusCode == 404) {
         return response.body;
       } else {
         return null;
       }
     } catch (e) {
-      return false;
+      return null;
     }
   }
 }
