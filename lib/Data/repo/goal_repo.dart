@@ -12,7 +12,7 @@ class GoalRepo
   final GoalServices _goalServices;
 
   GoalRepo(this._goalServices);
-
+  ///* Call goal Web Service to get Data of goals
   Future<List<Goal>> GetAllGoals(token)async
   {
     var body = await _goalServices.GetAllGoals(token);
@@ -21,6 +21,7 @@ class GoalRepo
     var list = jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Goal.fromJson(e)).toList();
   }
+  ///* Call goal Web Service to delete goal by using id
   Future<bool> ConfirmDelete(id)async
   {
     var code= await goalConfirmDeleteServices().ConfirmDelete(id);
@@ -33,6 +34,7 @@ class GoalRepo
         return false;
       }
   }
+  ///* Call goal Web Service to Edit goal by using (token ,Id,title,Description)
   Future<bool> ConfirmEdit(token,goalID,title,description)async
   {
     var code= await goalConfirmEdit().Edit(token,goalID,title,description);
