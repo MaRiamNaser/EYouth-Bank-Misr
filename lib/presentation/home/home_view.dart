@@ -55,19 +55,10 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: Text(AppStrings.Home.tr()), actions: [
-          CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.asset(
-                ImageAssets.profilePhoto,
-                fit: BoxFit.fitWidth,
-                width: 45,
-              ),
-              maxRadius: 34)
-        ]),
+        appBar: AppBar(title: Text(AppStrings.Home.tr()), ),
 
         // appBar: CustomAppBar(),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[200],
         body: RefreshIndicator(
           onRefresh:_refresh ,
           child: SingleChildScrollView(child:

@@ -15,6 +15,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../Data/models/Course.dart';
 import '../../Data/models/Video.dart';
+import '../matching/matching_lesson.dart';
 import '../resources/routes_manager.dart';
 import '../resources/strings_manager.dart';
 
@@ -100,10 +101,11 @@ List<String>  course;
                       return InkWell(
                         onTap: () {
                           balance += 100;
-                          pushNewScreen(context, screen: BlocProvider(
-                            create: (context) => blocGenerator().videoCubit,
-                            child: VideoView(AllVideos[index]),
-                          ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                          pushNewScreen(context, screen:  MatchingLesson(),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+//                          pushNewScreen(context, screen: BlocProvider(
+//                            create: (context) => blocGenerator().videoCubit,
+//                            child: VideoView(AllVideos[index]),
+//                          ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
                         },
                         child: Column(
                           children: [

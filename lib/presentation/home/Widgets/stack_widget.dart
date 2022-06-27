@@ -43,13 +43,12 @@ class StackWidget extends StatelessWidget {
             margin: EdgeInsets.only(top: 110),
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color:Colors.grey),
               shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
+                    blurRadius: 20.0,
                   )
                 ]
             ),
