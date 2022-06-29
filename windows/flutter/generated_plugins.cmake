@@ -3,7 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+
+  flutter_tts
+
   audioplayers_windows
+
   url_launcher_windows
 )
 

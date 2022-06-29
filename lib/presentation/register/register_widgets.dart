@@ -107,9 +107,6 @@ Widget passwordTextFormField(TextEditingController passwordController) {
         }
         return null;
       },
-
-      // controller: _phoneController,
-      // keyboardType: TextInputType.phone,
       obscureText: true,
       decoration: InputDecoration(
         labelText: AppStrings.password.tr(),
