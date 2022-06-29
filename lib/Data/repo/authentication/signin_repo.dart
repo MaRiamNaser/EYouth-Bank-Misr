@@ -23,6 +23,7 @@ class SignInRepo {
       }
   }
 
+  ///Get token of current user. 
   String? getToken() {
     if (token != null) {
       return token;

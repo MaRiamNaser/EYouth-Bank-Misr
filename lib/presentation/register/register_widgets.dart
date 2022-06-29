@@ -1,6 +1,7 @@
 import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentindex_cubit.dart';
 import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
+import 'package:bank_misr/presentation/register/extensions.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
@@ -36,8 +37,6 @@ Widget nameTextFormField(TextEditingController fullNameController) {
         return null;
       },
 
-      // controller: _phoneController,
-      // keyboardType: TextInputType.phone,
       decoration: InputDecoration(
         labelText: AppStrings.name.tr(),
         fillColor: Colors.white,
@@ -54,6 +53,7 @@ Widget nameTextFormField(TextEditingController fullNameController) {
   );
 }
 
+
 Widget emailTextFormField(TextEditingController emailController) {
   return Container(
     margin:const EdgeInsets.only(
@@ -64,9 +64,10 @@ Widget emailTextFormField(TextEditingController emailController) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourEmail.tr();
         }else if(!(val.contains("@") && val.contains(".com"))){
+          return "This is not a correct format";
+        }/*else if(val.isValidEmail()){
           return "This is not an email format";
-
-        }
+        }*/
         return null;
       },
 
@@ -97,6 +98,12 @@ Widget passwordTextFormField(TextEditingController passwordController) {
           return AppStrings.pleaseEnterYourPassword.tr();
         } else if (val.length < 8) {
           return AppStrings.passwordShouldBeMoreThanEightChars.tr();
+        }else if (val.length < 8) {
+          return AppStrings.passwordShouldBeMoreThanEightChars.tr();
+        }else if(!((val.contains( RegExp(r'[A-Z]') )  || val.contains( RegExp(r'[a-z]')) ) )){
+          return "Your password must contain at least one character";
+        }else if(!( val.contains( RegExp(r'[0-9]') ))){
+          return "Your pssword must contain at least one number";
         }
         return null;
       },
@@ -129,9 +136,12 @@ Widget userNameTextFormField(TextEditingController fullNameController) {
       validator: (val) {
         if (val!.isEmpty) {
           return AppStrings.pleaseEnterYourUserName.tr();
-        }else if(!(val.contains( RegExp(r'[A-Z]'))  || val.contains( RegExp(r'[a-z]')))){
+        }else if(!((val.contains( RegExp(r'[A-Z]') )  || val.contains( RegExp(r'[a-z]')) ) )){
           return "Your user name must have at least one character";
+        }else if(!( val.contains( RegExp(r'[0-9]') ))){
+          return "Your user name must have at least one number";
         }
+       
         return null;
       },
       decoration: InputDecoration(
