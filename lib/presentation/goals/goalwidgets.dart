@@ -100,7 +100,8 @@ Widget buildgoal(Goal goal, int index ,context, int progress) =>
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context1) {
-                                  return AlertDialog(
+                                  return
+                                    AlertDialog(
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20.0))),

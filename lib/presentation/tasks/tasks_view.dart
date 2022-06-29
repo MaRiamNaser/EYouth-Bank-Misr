@@ -107,6 +107,7 @@ class _TasksViewState extends State<TasksView> {
                 onPageChanged: (value) {
                   print('Page changed: $value');
                 },
+
                 isLoop: true,
               ),
             ),
