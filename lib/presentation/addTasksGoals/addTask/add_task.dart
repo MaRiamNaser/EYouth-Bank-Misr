@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -12,13 +13,21 @@ import '../Widgets/text_field.dart';
 
 
 class AddTaskView extends StatefulWidget {
+  List<Category>? childs;
+
+  AddTaskView({this.childs});
+
+
   @override
-  _AddTaskViewState createState() => _AddTaskViewState();
+  _AddTaskViewState createState() => _AddTaskViewState(childs);
 }
 
 class _AddTaskViewState extends State<AddTaskView> {
+  List<Category>? childs;
+
+  _AddTaskViewState(this.childs);
   @override
   Widget build(BuildContext context) {
-    return AddBody(AppStrings.addTask.tr(),ImageAssets.TaskPhoto,AppStrings.Task.tr(),ImageAssets.alertTask);
+    return AddBody(AppStrings.addTask.tr(),ImageAssets.TaskPhoto,AppStrings.Task.tr(),ImageAssets.alertTask,childs:childs);
   }
 }

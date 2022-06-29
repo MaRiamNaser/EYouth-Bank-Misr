@@ -72,7 +72,7 @@ class _ParentSignUpViewState extends State<ParentSignUpView> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 helloWidget(),   
-                greetingScentence(),
+                letsGetToKnowYouWidget(),
                 SizedBox(height: AppSize.s30,),
                 appDescription(),             
                 userNameTextFormField(emailController),

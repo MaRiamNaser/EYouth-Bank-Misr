@@ -1,12 +1,16 @@
+import 'package:bank_misr/presentation/addTasksGoals/addGoal/add_goal.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/add_child_alert.dart';
 import 'package:bank_misr/presentation/home/parentHomeView/childHomeView.dart';
 import 'package:bank_misr/presentation/navgpage/navigation_page.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../../Data/models/Category.dart';
+import '../../addTasksGoals/addTask/add_task.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
 import '../../resources/values_manager.dart';
@@ -18,6 +22,7 @@ class ParentHomeView extends StatefulWidget {
 }
 int parentrole=0;
 class _ParentHomeViewState extends State<ParentHomeView> {
+  bool floatExtended=false;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,19 +47,65 @@ class _ParentHomeViewState extends State<ParentHomeView> {
 
       ],
       child: Scaffold(
-        floatingActionButton: Container(
-          height:50 ,
-          width:140 ,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: ColorManager.darkPrimary,
-          ),
-          child: TextButton(
-            child: Text("Add Child",style:getRegularStyle(fontSize: 16,color: ColorManager.white) ,),
-            onPressed: () {
-            },
-          ),
-        ),
+           floatingActionButton:
+           SpeedDial(
+             animatedIcon: AnimatedIcons.add_event,
+             animatedIconTheme: IconThemeData(size: 22.0),
+             visible: true,
+             curve: Curves.bounceIn,
+             overlayColor: Colors.black,
+             overlayOpacity: 0.5,
+             onOpen: () => print('OPENING DIAL'),
+             onClose: () => print('DIAL CLOSED'),
+             tooltip: 'Speed Dial',
+             heroTag: 'speed-dial-hero-tag',
+             backgroundColor: Colors.white,
+             foregroundColor: Colors.black,
+             elevation: 8.0,
+             shape: CircleBorder(),
+             children: [
+               SpeedDialChild(
+                   child: Icon(Icons.accessibility),
+                   backgroundColor: Colors.red,
+                   label: 'Add Child',
+                   onTap: () {
+                     showDialog(context: context, builder: (BuildContext context) {
+                       return AddChildAlert();
+                     },);
+                   }
+               ),
+               SpeedDialChild(
+                 child: Icon(Icons.playlist_add_check_sharp),
+                 backgroundColor: Colors.blue,
+                 label: 'Add Task',
+                 onTap: () {
+                   pushNewScreen(context, screen:AddTaskView(childs: categories2),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                 },
+               ),
+               SpeedDialChild(
+                 child: Icon(Icons.add_task),
+                 backgroundColor: Colors.green,
+                 label: 'Add Goal',
+                 onTap: () {
+                   pushNewScreen(context, screen:AddGoalView(childs: categories2),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                 },
+               ),
+             ],
+           ),
+
+//        Container(
+//          height:50 ,
+//          width:140 ,
+//          decoration: BoxDecoration(
+//            borderRadius: BorderRadius.circular(15),
+//            color: ColorManager.darkPrimary,
+//          ),
+//          child: TextButton(
+//            child: Text("Add Child",style:getRegularStyle(fontSize: 16,color: ColorManager.white) ,),
+//            onPressed: () {
+//            },
+//          ),
+//        ),
         appBar: AppBar(title: Text("Home"),),
         body: SingleChildScrollView(
           child: Column(

@@ -8,14 +8,22 @@ class SignInRepo {
   String? token;
   SignInRepo(this._registerationWebServices);
 
-  Future<User> signIn(String email, String password) async {
+  Future<User?> signIn(String email, String password) async {
     var body = await _registerationWebServices.signIn(email, password);
-    var jsonresponse = json.decode(body);
-    var user = jsonresponse["data"]["user"];
-    token = jsonresponse["data"]["token"];
-    return User.fromJson(user);
+    if(body!=null) {
+      print(body.toString());
+      var jsonresponse = json.decode(body);
+      var user = jsonresponse["data"]["user"];
+      token = jsonresponse["data"]["token"];
+      return User.fromJson(user);
+    }
+    else
+      {
+        return null;
+      }
   }
 
+  ///Get token of current user. 
   String? getToken() {
     if (token != null) {
       return token;
