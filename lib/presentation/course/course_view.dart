@@ -19,7 +19,10 @@ import '../../Data/models/MatcingItem.dart';
 import '../../Data/models/Video.dart';
 import '../Lesson8/banknoteTest.dart';
 import '../Lesson8/lesson8.dart';
+import '../lesson2/lesson2.dart';
 import '../lesson4/pageslider.dart';
+import '../lesson4/slide_show.dart';
+import '../lesson5/ready_to_test_page.dart';
 import '../lesson7/lesson7.dart';
 import '../matching/matching_lesson.dart';
 import '../resources/routes_manager.dart';
@@ -50,16 +53,15 @@ List<String>  course;
       AllVideos = [
         Video(id: "1", title: "Lesson 1", widget: VideoView(
             Video(id: "This is Lesson one ",title: "What is Egypt Currency ",widget: navgscreen(),))),
-        Video(id: "2", title: "Lesson 2", widget:MatchingLesson(matching1,matching2) ),
-        Video(id: "3", title: "Lesson 3", widget:MatchingLesson(matching1,matching2) ),
-        Video(id: "4", title: "Lesson 4", widget:pageslider() ),
-        Video(id: "5", title: "Lesson 5", widget: MatchingLesson(matching3,matching4)),
+        Video(id: "2", title: "Lesson 2", widget: SixBoxesGame()),
+        Video(id: "3", title: "Lesson 3", widget:pageslider() ),
+        Video(id: "4", title: "Lesson 4", widget:Slideshow() ),
+        Video(id: "5", title: "Lesson 5", widget: ReadyToTestPage()),
         Video(id: "6", title: "Lesson 6", widget:MatchingLesson(matching1,matching2) ),
         Video(id: "7", title: "Lesson 7", widget:lesson7() ),
         Video(id: "8", title: "Lesson 8", widget:banknoteTest()),
-        Video(id: "1", title: "Lesson 9", widget: VideoView(
-            Video(id: "This is Lesson Nine ",title: "What is Egypt Currency ",widget: navgscreen()))),
-        Video(id: "1", title: "Lesson 10", widget: MatchingLesson(matching1,matching2))
+        Video(id: "1", title: "Lesson 9", widget: VideoView(Video(id: "This is Lesson Nine ",title: "What is Egypt Currency ",widget: navgscreen()))),
+        Video(id: "1", title: "Lesson 10", widget: MatchingLesson(matching3,matching4))
 
       ];
     });

@@ -11,6 +11,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'dart:math';
 
+import '../resources/assets_manager.dart';
+
 List<String> titles = [
   "First Problem",
   "Second Problem",
@@ -24,17 +26,6 @@ List<String> contents = [
 ];
 int index = 0;
 
-class Lesson2 extends StatelessWidget {
-  const Lesson2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SixBoxesGame(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 
 class SixBoxesGame extends StatefulWidget {
   const SixBoxesGame({Key? key}) : super(key: key);
@@ -102,10 +93,22 @@ class _SixBoxesGameState extends State<SixBoxesGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        title: Text("Lesson 2 stages"),
-      ),
+        appBar: AppBar(
+          title: Text("Lesson 2"),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    ImageAssets.profilePhoto,
+                    fit: BoxFit.fitWidth,
+                    width: 45,
+                  ),
+                  maxRadius: 34),
+            )
+          ],
+        ),
       body: Container(
         margin: EdgeInsets.only(top: 10),
         child: GridView.builder(

@@ -106,7 +106,7 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
                     Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Lesson2()),
+                        builder: (context) => SixBoxesGame()),
                   );
              
                   },

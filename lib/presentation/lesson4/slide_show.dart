@@ -229,9 +229,8 @@ class _SlideshowState extends State<Slideshow> {
   @override
   Widget build(BuildContext context) {
     
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
+        return Scaffold(
+          appBar: AppBar(title: Text("Lesson 4")),
             body: PageView.builder(
               controller: controller,
               itemCount: frontContent.length + 1,
@@ -258,8 +257,7 @@ class _SlideshowState extends State<Slideshow> {
                   return _buildFrontContentCard(frontContent[currentIndex - 1], active);}
               },
             ),
-          ),
-        );
+          );
       }
     
   }
