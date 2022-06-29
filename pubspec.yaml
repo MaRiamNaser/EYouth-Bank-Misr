@@ -56,6 +56,12 @@ dependencies:
   step_progress_indicator: ^1.0.2
   circular_profile_avatar: ^2.0.5
   flutter_polygon: ^0.3.0+2
+  carousel_slider: ^4.1.1
+  page_slider: ^0.0.2
+  audioplayers: ^1.0.1
+
+
+
 
 
 
@@ -63,6 +69,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test:
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

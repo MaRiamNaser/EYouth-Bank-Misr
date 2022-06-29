@@ -1,15 +1,12 @@
 import 'package:bank_misr/presentation/course/course_view.dart';
-import 'package:bank_misr/presentation/resources/font_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import '../../Data/models/Course.dart';
 import '../../business_logic/courseBloc/course_cubit.dart';
 import '../resources/assets_manager.dart';
@@ -33,7 +30,6 @@ class _coursesViewState extends State<coursesView> {
     super.initState();
     Load();
   }
-
   Load() async {
     AllCourses = await BlocProvider.of<CourseCubit>(context).GetAllCourses("Url");
   }
@@ -67,7 +63,6 @@ class _coursesViewState extends State<coursesView> {
         child: Column(
 
           children: [
-
             Container(
                 child: ImageSlideshow(
                   width: double.infinity,
@@ -104,10 +99,10 @@ class _coursesViewState extends State<coursesView> {
               mainAxisSpacing: 5.0,
 
           ),
-          itemCount: AllCourses.length,
-          itemBuilder: (context, index) {
-
-            return InkWell(
+            itemCount: AllCourses.length,
+            itemBuilder: (context, index) {
+            return
+              InkWell(
               onTap: (){
                 pushNewScreen(context, screen: BlocProvider(
                   create: (context) => blocGenerator().videoCubit,
@@ -158,12 +153,8 @@ class _coursesViewState extends State<coursesView> {
         return  Container(margin: EdgeInsets.only(top: 100),child: Center(child: CircularProgressIndicator()));
       }
     }
-
-
-
     ),
-            )
-
+            ),
           ],
         ),
       ),

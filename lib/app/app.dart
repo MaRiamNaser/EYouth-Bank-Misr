@@ -7,6 +7,8 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../presentation/Lesson8/banknoteTest.dart';
+import '../presentation/Lesson8/lesson8.dart';
 import '../presentation/addTasksGoals/addGoal/add_goal.dart';
 import '../presentation/addTasksGoals/addTask/add_task.dart';
 import '../presentation/bottomBar/bottomBar.dart';
@@ -16,6 +18,9 @@ import '../presentation/goals/addGoalView.dart';
 import '../presentation/goals/goals_view.dart';
 import '../presentation/home/Widgets/stack_widget.dart';
 import '../presentation/home/home_view.dart';
+
+import '../presentation/lesson4/pageslider.dart';
+import '../presentation/lesson7/lesson7.dart';
 import '../presentation/login/login_view.dart';
 import '../presentation/profile/profile_view.dart';
 import '../presentation/rankingPage/rankingView.dart';
@@ -62,7 +67,7 @@ late AppPreferences _appPreferences ;
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),
-        home: SplashView(),
+        home: banknoteTest(),
       ),
     );
   }

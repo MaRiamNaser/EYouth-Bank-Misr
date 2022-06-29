@@ -39,11 +39,9 @@ class _navgscreenState extends State<navgscreen> {
     BlocProvider(
     create: (context) => blocGenerator().courseCubit),
     BlocProvider(
-    create: (context) => blocGenerator().goalCubit
-    ),
+    create: (context) => blocGenerator().goalCubit),
     BlocProvider(
-        create: (context) => blocGenerator().taskCubit
-    ),
+        create: (context) => blocGenerator().taskCubit),
   ],
   child: PersistentTabView(
       context,
