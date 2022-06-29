@@ -17,11 +17,11 @@ class ApiBaseLink {
  }
 
 }
-String baseLink="http://ec2-54-198-82-67.compute-1.amazonaws.com:5000/";
+String baseLink="http://ec2-54-166-203-69.compute-1.amazonaws.com:5000/";
 
 String profileLink = baseLink + "user/myaccount";
 String singleCourseLink = baseLink + "course/single/";
-String videosLink = baseLink + "video/single/";
+String lessonsLink = baseLink + "lesson/single/";
 String goalCreateLink = baseLink+ "goal/create/";
 String taskCreateLink = baseLink + "task/create/";
 String balanceLink =baseLink+ "user/editbalance";
@@ -39,7 +39,7 @@ class EndPoints{
 
   String profileLink=baseLink+"user/myaccount";
   String singleCourseLink=baseLink+"course/single/";
-  String videosLink=baseLink+"video/single/";
+  String lessonsLink=baseLink+"lesson/single/";
   String goalCreateLink=baseLink+"goal/create/";
   String taskCreateLink=baseLink+"task/create/";
   String balanceLink=baseLink+"user/editbalance";
@@ -49,6 +49,7 @@ class EndPoints{
   String getTasksLink=baseLink+"task/getall";
   String deleteTaskLink=baseLink+"task/delete/";
   String editTaskLink=baseLink+"task/edit/";
-   String addProfileImageLink=baseLink+"user/image/";
+  String addProfileImageLink=baseLink+"user/image/";
+  String api_getallCourses=baseLink+"course/getall";
 
 }

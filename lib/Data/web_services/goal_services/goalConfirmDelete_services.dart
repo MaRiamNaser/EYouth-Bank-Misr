@@ -18,6 +18,8 @@ class goalConfirmDeleteServices
 { AppPreferences appPreferences=AppPreferences();
      // TODO remove this ui and put  to presentation layer , just leave the request to server
      //TODO rename the service and page.
+
+///* Request from Api to delete this goal
     Future<int> ConfirmDelete(id)
    async {
       var response=await  http.delete(Uri.parse(

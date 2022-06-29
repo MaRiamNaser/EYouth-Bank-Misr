@@ -64,10 +64,19 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                       width: 1 / 393 * screensize.width * 360,
                       height: 1 / 825 * screensize.height * 180.5,
                       decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 18.0,
+                            )
+                          ]
+,
                           borderRadius: BorderRadius.circular(30),
                           image: DecorationImage(
                               image: AssetImage(categories[index].img),
-                              fit: BoxFit.fill)),
+                              fit: BoxFit.fill)
+                      ),
                       child: Text(
                         categories[index].title.tr(),
                         style: getBoldtStyle(

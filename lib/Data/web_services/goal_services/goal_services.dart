@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../../api_links.dart';
 
 class GoalServices {
+
+  ///* Request from Api to get all goals for one user
   Future<String> GetAllGoals(String token) async {
     try {
       var response =
