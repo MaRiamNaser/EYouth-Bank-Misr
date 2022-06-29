@@ -9,6 +9,7 @@ import 'package:bank_misr/presentation/matching/Widgets/title_widget.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../resources/color_manager.dart';
@@ -35,8 +36,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
   List<MatchingItem> items = [];
   List<MatchingItem> items2 = [];
   var player = AudioPlayer();
-//  List<MatchingItem>match1=[];
-//  List<MatchingItem>match2=[];
+  var _flutterTts=FlutterTts();
   _MatchingLessonState(List<MatchingItem>match11,List<MatchingItem>match22)
   {
     this.items=match11.toList();
@@ -54,7 +54,32 @@ class _MatchingLessonState extends State<MatchingLesson> {
     print(matching1[0].accepting);
     print(items[0].accepting);
   }
+  void initializeTts() {
+    _flutterTts.setStartHandler(() {
+      setState(() {
 
+      });
+    });
+    _flutterTts.setCompletionHandler(() {
+      setState(() {
+
+      });
+    });
+    _flutterTts.setErrorHandler((message) {
+      setState(() {
+
+      });
+    });
+    _flutterTts.setSpeechRate(0.4);
+  }
+  void speak(String text) async {
+    await _flutterTts.speak(text);
+  }
+
+  void stop() async {
+    await _flutterTts.stop();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,6 +135,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                         InkWell(
                             onTap: !gameover && items[index].accepting == false
                                 ? () {
+                              items[index].img.isNotEmpty? speak(items[index].imgName):speak(items[index].name);
                                     setState(() {
                                       items.forEach((element) {
                                         element.chossing = false;

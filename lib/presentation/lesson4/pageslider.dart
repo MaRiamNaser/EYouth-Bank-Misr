@@ -4,6 +4,7 @@ import 'package:bank_misr/presentation/lesson4/pagesliderWidgets.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import '../resources/assets_manager.dart';
 
 class pageslider extends StatefulWidget {
@@ -16,10 +17,13 @@ class _pagesliderState extends State<pageslider> {
   PageController controller=PageController();
   List<Widget> _list=[];
   int _curr=0;
+  final _flutterTts = FlutterTts();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    initializeTts();
+    speak("Hello , welcome back!");
     _list=<Widget>[
       new Container(child:new Pages(image:slide[0].img)),
       new Container(child:new Pages(text: slide[0].description,)),
@@ -27,9 +31,38 @@ class _pagesliderState extends State<pageslider> {
       new Container(child:new Pages(image:slide[2].img,text: slide[2].description)),
     ];
   }
-  Widget build(BuildContext context) {
-    return Scaffold(
+  void initializeTts() {
+    _flutterTts.setStartHandler(() {
+      setState(() {
 
+      });
+    });
+    _flutterTts.setCompletionHandler(() {
+      setState(() {
+
+      });
+    });
+    _flutterTts.setErrorHandler((message) {
+      setState(() {
+
+      });
+    });
+    _flutterTts.setSpeechRate(0.4);
+  }
+  void speak(String text) async {
+    await _flutterTts.speak(text);
+  }
+
+  void stop() async {
+    await _flutterTts.stop();
+
+  }
+
+
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
         appBar: AppBar(title: Text("Lesson 4"),  actions: [
           CircleAvatar(
               backgroundColor: Colors.white,
@@ -80,6 +113,7 @@ class _pagesliderState extends State<pageslider> {
                   child:Icon(Icons.arrow_forward_outlined ,color: ColorManager.white,),
                 backgroundColor:onPressedValue? ColorManager.darkPrimary:Colors.grey,
                 onPressed: onPressedValue==true?() {
+                  speak("Hello , welcome back!");
 
                   setState(() {
                     controller.jumpToPage(_curr + 1);

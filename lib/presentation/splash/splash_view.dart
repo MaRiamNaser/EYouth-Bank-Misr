@@ -11,6 +11,7 @@ import 'package:bank_misr/presentation/lesson5/ready_to_test_page.dart';
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
 import 'package:flutter/material.dart';
 import '../resources/assets_manager.dart';
+import '../resources/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -27,14 +28,14 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-  //Navigator.pushReplacementNamed(context, Routes.whichViewRoute);
+  Navigator.pushReplacementNamed(context, Routes.whichViewRoute);
   
-                      Navigator.push(
+                  /*    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 ReadyToTestPage()),
-                      );
+                      );*/
   }
 
   @override

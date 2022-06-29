@@ -23,7 +23,7 @@ class TargetTitleWidget extends StatelessWidget {
       ),
       child: Text(item.name,
           style: getSemiBoldStyle(
-              color: ColorManager.white)),
+              color: ColorManager.white),textAlign: TextAlign.center,),
     )
 ;
   }
