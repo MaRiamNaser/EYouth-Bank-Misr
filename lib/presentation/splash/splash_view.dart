@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
-
+import 'package:bank_misr/presentation/choose_which_view/choose_which_view_page.dart';
+import 'package:bank_misr/presentation/lesson2/lesson2.dart';
+import 'package:bank_misr/presentation/lesson4/characteristics_of_money.dart';
+import 'package:bank_misr/presentation/lesson4/slide_show.dart';
+import 'package:bank_misr/presentation/lesson5/page/category_page.dart';
+import 'package:bank_misr/presentation/lesson5/fake_data/categories.dart' as Categories;
+import 'package:bank_misr/presentation/lesson5/ready_to_test_page.dart';
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
-import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-
 import '../resources/assets_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -25,7 +27,14 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.whichViewRoute);
+  //Navigator.pushReplacementNamed(context, Routes.whichViewRoute);
+  
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ReadyToTestPage()),
+                      );
   }
 
   @override
@@ -51,7 +60,9 @@ class _SplashViewState extends State<SplashView> {
             ),
              Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text("Powered by Eyouth Tech team."),
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      child: Text("Powered by Eyouth Tech team.")),
                   )
           ],
        
@@ -63,14 +74,7 @@ class _SplashViewState extends State<SplashView> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
-    hhh();
+  
   }
 
-}
-
-
-Widget hhh(){
-
-
-  return Container();
 }

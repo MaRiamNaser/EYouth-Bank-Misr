@@ -56,6 +56,14 @@ dependencies:
   step_progress_indicator: ^1.0.2
   circular_profile_avatar: ^2.0.5
   flutter_polygon: ^0.3.0+2
+  flutter_tts:
+  animated_text_kit:
+  awesome_dialog: ^2.2.1
+  flip_card:
+  flutter_cube: ^0.1.1
+  font_awesome_flutter:
+  multi_select_flutter:
+  
 
 
 
