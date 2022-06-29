@@ -31,6 +31,6 @@ class ImageAssets {
        
   static String  alertGoal="assets/images/5301-goal-achieved.json";
   static String  alertTask="assets/images/79585-man-with-task.json";
-
+   static String alertComplete="assets/images/23885-completed-happiness.json";
 
 }

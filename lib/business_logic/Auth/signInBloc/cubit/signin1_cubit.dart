@@ -17,7 +17,8 @@ class Signin1Cubit extends Cubit<Signin1State> {
   Future<User?> signIn(String email, String password) async {
     user = await signinRepo.signIn(email, password);
     token = signinRepo.getToken();
-     if(token != null){
+     if(user != null)
+     {
            appPreferences.saveTokenAndUserIdToSharedPrefrences(token!, user!.sId!);
             emit(UserSignedIn(user!));
              return user!;

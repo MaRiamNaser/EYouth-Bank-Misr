@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bank_misr/Data/models/Profile.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -43,13 +44,12 @@ class StackWidget extends StatelessWidget {
             margin: EdgeInsets.only(top: 110),
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color:Colors.grey),
               shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey,
                     offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
+                    blurRadius: 20.0,
                   )
                 ]
             ),
@@ -57,9 +57,9 @@ class StackWidget extends StatelessWidget {
                 child :Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),),
-                    Text(AppStrings.EGP.tr(),style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),),
 
+                    AutoSizeText(profile.balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),minFontSize: 20,maxLines: 1,),
+                    AutoSizeText(AppStrings.EGP.tr(),style: getBoldtStyle(fontSize: 20,color: ColorManager.primary),minFontSize: 10,maxLines: 1,),
                   ],
                 )
             ),

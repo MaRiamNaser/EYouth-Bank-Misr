@@ -10,18 +10,17 @@ class ProfileRepo {
   final ProfileServices _ProfileServices;
 
   ProfileRepo(this._ProfileServices);
-
+  /// Call Profile Web Service to assign Data to Profile Model
   Future<Profile> GetProfile(token) async {
-    /// Call Profile Web Service to assign Data to Profile Model
+
 
     var body = await _ProfileServices.GetProfile(token);
     var jsonresponse = json.decode(body);
     var list = jsonresponse["data"];
     return Profile.fromJson(list);
   }
-
+  /// Call Profile Web Service to assign Data to Profile Model
   Future<bool> AddProfilePicture(token ,String path) async {
-    /// Call Profile Web Service to assign Data to Profile Model
     var response = await add_image_services().addimage(token,path);
     if (response.statusCode == 200) {
       return true;
@@ -30,8 +29,8 @@ class ProfileRepo {
       return false;
     }
   }
+  /// Call Profile Web Service to assign Data to Profile Model
   Future<bool> EditBalance(token ,int amount) async {
-    /// Call Profile Web Service to assign Data to Profile Model
     var response = await balanceServices().EditBalance(token, amount);
     if (response == "200") {
       return true;

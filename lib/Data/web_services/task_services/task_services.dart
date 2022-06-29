@@ -7,6 +7,8 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../api_links.dart';
 
 class TaskServices {
+
+  ///* Request from Api to get all tasks for one user
   Future<String> GetAllTasks(String token) async {
     try {
       var response = await http.get(

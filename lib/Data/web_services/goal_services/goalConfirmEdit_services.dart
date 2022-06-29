@@ -11,6 +11,8 @@ import '../../../presentation/resources/strings_manager.dart';
 import '../../api_links.dart';
 
 class goalConfirmEdit {
+
+  ///* Request from Api to Edit this goal
   Future<String> Edit(String token, String goalID, String title, String description) async {
     if(title.isNotEmpty&&description.isNotEmpty) {
       var response=await http.put(Uri.parse(EndPoints().editGoalLink+goalID),
