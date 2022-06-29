@@ -13,6 +13,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'dart:math';
 import 'package:bank_misr/presentation/lesson5/fake_data/categories.dart' as Categories;
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 List<String> titles = [
   "First Problem",
@@ -112,7 +113,7 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
+      builder: (BuildContext context1) {
         return WillPopScope(
           onWillPop: () async {
             return false;
@@ -127,15 +128,10 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
                   FlatButton(
                     onPressed: () {
                    
-                      Navigator.of(context).pop();
+                      Navigator.of(context1).pop();
                       stop();
+                      pushNewScreen(context, screen: CategoryPage(Categories.categories.first),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CategoryPage(Categories.categories.first)),
-                      );
                     },
                     child: Text("Yes"),
                     color: ColorManager.green,

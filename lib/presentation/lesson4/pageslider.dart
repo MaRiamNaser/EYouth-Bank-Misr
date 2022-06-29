@@ -14,22 +14,32 @@ class pageslider extends StatefulWidget {
 
 class _pagesliderState extends State<pageslider> {
   bool onPressedValue=true;
+  var flag=false;
   PageController controller=PageController();
   List<Widget> _list=[];
   int _curr=0;
   final _flutterTts = FlutterTts();
+  int index=1;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initializeTts();
-    speak("Hello , welcome back!");
+    // speak("Hello , welcome back!");
+    speak(slide[0].description);
+
     _list=<Widget>[
-      new Container(child:new Pages(image:slide[0].img)),
-      new Container(child:new Pages(text: slide[0].description,)),
-      new Container(child:new Pages(image:slide[1].img)),
+      new Container(child:new Pages(image:slide[0].img,text: slide[0].description)),
+      new Container(child:new Pages(image:slide[1].img,text: slide[1].description)),
       new Container(child:new Pages(image:slide[2].img,text: slide[2].description)),
+
     ];
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    stop();
   }
   void initializeTts() {
     _flutterTts.setStartHandler(() {
@@ -47,6 +57,17 @@ class _pagesliderState extends State<pageslider> {
 
       });
     });
+    _flutterTts.setPauseHandler(() {
+      setState(() {
+
+      });
+    });
+    _flutterTts.setContinueHandler(() {
+      setState(() {
+
+      });
+    });
+
     _flutterTts.setSpeechRate(0.4);
   }
   void speak(String text) async {
@@ -58,12 +79,11 @@ class _pagesliderState extends State<pageslider> {
 
   }
 
-
   Widget build(BuildContext context) {
 
 
     return Scaffold(
-        appBar: AppBar(title: Text("Lesson 4"),  actions: [
+        appBar: AppBar(title: Text("Lesson 3"),  actions: [
           CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
@@ -104,7 +124,8 @@ class _pagesliderState extends State<pageslider> {
                   ),
               FloatingActionButton(
                   backgroundColor: ColorManager.darkPrimary,
-                  onPressed: (){
+                  onPressed: () async {
+                          stop();
                     setState(() {});
                   },
                   child:Icon(Icons.volume_up_rounded,color: ColorManager.white,)
@@ -113,11 +134,13 @@ class _pagesliderState extends State<pageslider> {
                   child:Icon(Icons.arrow_forward_outlined ,color: ColorManager.white,),
                 backgroundColor:onPressedValue? ColorManager.darkPrimary:Colors.grey,
                 onPressed: onPressedValue==true?() {
-                  speak("Hello , welcome back!");
-
+                  speak(slide[index].description);
+                  index++;
                   setState(() {
                     controller.jumpToPage(_curr + 1);
                     onPressedValue = false;
+
+
                   },);
                   Timer(Duration(seconds: 1,), () {
                     setState(() {

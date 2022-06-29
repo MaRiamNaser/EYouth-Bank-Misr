@@ -12,9 +12,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../matching/Widgets/alert_dialog.dart';
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/values_manager.dart';
@@ -31,7 +33,7 @@ class VideoView extends StatefulWidget {
 class _VideoViewState extends State<VideoView> {
   late BetterPlayerController betterPlayerController;
   Video video;
-
+  var visable=false;
   _VideoViewState(this.video);
 
   @override
@@ -52,6 +54,18 @@ class _VideoViewState extends State<VideoView> {
         ),
         betterPlayerDataSource: betterPlayerDataSource
     );
+    betterPlayerController.videoPlayerController?.addListener(checkend);
+
+  }
+  checkend()
+  async {
+    var time=await betterPlayerController.videoPlayerController!.position;
+    print("yes"+betterPlayerController.videoPlayerController!.value.duration.toString()
+        +time.toString());
+    if(betterPlayerController.videoPlayerController!.value.duration! < time!)
+      {
+        showDialog(context: context, builder: (BuildContext context) { return AlertDialogLesson(); }, );
+      }
   }
   @override
   void dispose() {
@@ -62,6 +76,7 @@ class _VideoViewState extends State<VideoView> {
 
   @override
   Widget build(BuildContext context) {
+    checkend();
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -80,10 +95,6 @@ class _VideoViewState extends State<VideoView> {
             )
           ],
         ),
-        // appBar: AppBar(
-        //   title: Text("Video Name"),
-        //
-        // ),
         body: SingleChildScrollView(
           child: Column(children: [
             SizedBox(
@@ -107,7 +118,7 @@ class _VideoViewState extends State<VideoView> {
               child: QuizWidget(Quiz(head: "What is Egypt Currency", answer: "EGP", options: [
                 "Euro","EGP","Dollar"
               ])),
-            )
+            ),
           ]),
         ));
   }

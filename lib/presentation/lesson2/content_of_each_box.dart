@@ -67,7 +67,7 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
+    builder: (BuildContext context1) {
       return WillPopScope(
         onWillPop: ()async{
           return false;
@@ -102,13 +102,8 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
                   onTap: () {   
                       index = 0;
                     stop();
-                    Navigator.of(context).pop();
-                    Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SixBoxesGame()),
-                  );
-             
+                    Navigator.of(context1).pop();
+                      Navigator.of(context).pop();
                   },
                   child: Expanded(
                     flex: 2,
@@ -129,7 +124,7 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
                 
                         index = index + 1;
 
-                    Navigator.of(context).pop();
+                    Navigator.of(context1).pop();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

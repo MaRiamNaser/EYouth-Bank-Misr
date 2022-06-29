@@ -8,6 +8,8 @@ class SmallBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height:50 ,
+      width: 50,
       padding: EdgeInsets.all(8),
       child: Center(child: child),
       decoration: BoxDecoration(
