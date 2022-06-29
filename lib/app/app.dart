@@ -70,7 +70,7 @@ late AppPreferences _appPreferences ;
         initialRoute: Routes.splashRoute,
         theme: getApplicationTheme(),
 
-        home: navgscreen(),
+        home: SplashView(),
       ),
     );
   }

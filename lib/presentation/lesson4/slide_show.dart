@@ -59,14 +59,7 @@ class _SlideshowState extends State<Slideshow> {
   void load({String tag = 'Durability'}) {
     // Map the slides to the data payload
     frontContent = ["Durability", "Portability", "Divisibility","Uniformity","Limited Supply","Acceptability"];
-    backContent = [
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill."];
-       
+
     // Update the active tag
     setState(() {
       activeTag = tag;
@@ -259,5 +252,4 @@ class _SlideshowState extends State<Slideshow> {
             ),
           );
       }
-    
   }
