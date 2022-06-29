@@ -25,6 +25,7 @@ import '../lesson4/slide_show.dart';
 import '../lesson5/ready_to_test_page.dart';
 import '../lesson7/lesson7.dart';
 import '../matching/matching_lesson.dart';
+import '../matching/matching_levels.dart';
 import '../resources/routes_manager.dart';
 import '../resources/strings_manager.dart';
 
@@ -61,8 +62,7 @@ List<String>  course;
         Video(id: "7", title: "Lesson 7", widget:lesson7() ),
         Video(id: "8", title: "Lesson 8", widget:banknoteTest()),
         Video(id: "1", title: "Lesson 9", widget: VideoView(Video(id: "This is Lesson Nine ",title: "What is Egypt Currency ",widget: navgscreen()))),
-        Video(id: "1", title: "Lesson 10", widget: MatchingLesson(matching3,matching4))
-
+        Video(id: "1", title: "Lesson 10", widget: MatchingLevels())
       ];
     });
 
