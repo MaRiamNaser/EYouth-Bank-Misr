@@ -109,10 +109,8 @@ class _coursesViewState extends State<coursesView> {
 
             return InkWell(
               onTap: (){
-                pushNewScreen(context, screen: BlocProvider(
-                  create: (context) => blocGenerator().videoCubit,
-                  child :CourseView([AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]),
-                ),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                pushNewScreen(context, screen: CourseView([AllCourses[index].image,AllCourses[index].title,AllCourses[index].id]),
+                withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: AppPadding.p14),

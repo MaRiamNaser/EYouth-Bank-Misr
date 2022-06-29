@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bank_misr/Data/api_links.dart';
+import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/Data/web_services/task_services/addTask_services.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
+import 'package:bank_misr/presentation/addTasksGoals/Widgets/childs_alert_dialog.dart';
 import 'package:bank_misr/presentation/goals/Goal.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -24,12 +26,12 @@ class AddBody extends StatefulWidget {
   String photo;
   String choice;
   String alertPhoto;
-
-  AddBody(this.title, this.photo, this.choice, this.alertPhoto);
+  List<Category>? childs;
+  AddBody(this.title, this.photo, this.choice, this.alertPhoto, {this.childs});
 
   @override
   _AddBodyState createState() =>
-      _AddBodyState(this.title, this.photo, choice, alertPhoto);
+      _AddBodyState(this.title, this.photo, choice, alertPhoto,childs: childs);
 }
 
 Color color = ColorManager.lightPrimary;
@@ -47,8 +49,9 @@ class _AddBodyState extends State<AddBody> {
   String alertPhoto;
   var token;
   var userid;
+  List<Category>? childs;
 
-  _AddBodyState(this.title, this.photo, this.choice, this.alertPhoto);
+  _AddBodyState(this.title, this.photo, this.choice, this.alertPhoto,{this.childs});
 
   @override
   void initState() {
@@ -257,7 +260,9 @@ class _AddBodyState extends State<AddBody> {
                             onPressed: () async {
                               if (titleTextController.text.isNotEmpty &&
                                   descTextController.text.isNotEmpty) {
-                                if (await AddTaskServices().AddTaskorGoal(
+                              if(childs==null)
+                                {
+                                  if (await AddTaskServices().AddTaskorGoal(
                                     choice == AppStrings.Goal.tr()
                                         ? endPoints.goalCreateLink
                                         : endPoints.taskCreateLink,
@@ -272,7 +277,15 @@ class _AddBodyState extends State<AddBody> {
                                         return alertdialog(
                                             choice, alertPhoto, context);
                                       });
-                                }
+                                }}
+                              else
+                                  {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context1) {
+                                          return ChildAlertDiaglog(childs!);
+                                        });
+                                  }
                               }
                             },
                             child: Row(

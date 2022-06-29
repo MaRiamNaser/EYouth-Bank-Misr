@@ -34,7 +34,6 @@ class RegisterationWebServices {
     print(email+" "+password);
     try {
       var response =
-
           await http.post(Uri.parse(endPoints.loginLink),
 
               headers: <String, String>{
@@ -46,7 +45,6 @@ class RegisterationWebServices {
                 "password": password
                 
               }));
-
       if (response.statusCode == 200) {
         return response.body;
       } else {

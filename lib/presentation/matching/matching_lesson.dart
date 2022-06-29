@@ -15,8 +15,17 @@ import '../resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
 class MatchingLesson extends StatefulWidget {
+  List<MatchingItem>match1=[];
+  List<MatchingItem>match2=[];
+
+  MatchingLesson(List<MatchingItem>match1, List<MatchingItem>match2)
+  {
+    this.match1=match1.toList();
+    this.match2=match2.toList();
+  }
+
   @override
-  _MatchingLessonState createState() => _MatchingLessonState();
+  _MatchingLessonState createState() => _MatchingLessonState(match1,match2);
 }
 
 class _MatchingLessonState extends State<MatchingLesson> {
@@ -26,6 +35,13 @@ class _MatchingLessonState extends State<MatchingLesson> {
   List<MatchingItem> items = [];
   List<MatchingItem> items2 = [];
   var player = AudioPlayer();
+//  List<MatchingItem>match1=[];
+//  List<MatchingItem>match2=[];
+  _MatchingLessonState(List<MatchingItem>match11,List<MatchingItem>match22)
+  {
+    this.items=match11.toList();
+    this.items2=match22.toList();
+  }
 
   @override
   void initState() {
@@ -33,17 +49,17 @@ class _MatchingLessonState extends State<MatchingLesson> {
     super.initState();
     score = 0;
     gameover = false;
-    items = List<MatchingItem>.from(matching3);
-    items2 = List<MatchingItem>.from(matching4);
     items.shuffle();
     items2.shuffle();
+    print(matching1[0].accepting);
+    print(items[0].accepting);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lesson2"),
+        title: Text("Lesson "),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -117,7 +133,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                                       setState(() {
                                         items2[index].accepting = true;
                                         selectedItem?.accepting = true;
-                                        player.stop();
+                                        //player.stop();
                                         player.play(
                                             AssetSource("sounds/true.wav"));
                                         selectedItem = null;

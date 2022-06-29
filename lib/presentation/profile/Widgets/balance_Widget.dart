@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -18,7 +19,6 @@ class BalanceWidget extends StatelessWidget {
       decoration: BoxDecoration(
            shape: BoxShape.circle,
           color: Colors.white,
-          border: Border.all(color: Colors.grey),
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
@@ -26,20 +26,13 @@ class BalanceWidget extends StatelessWidget {
               blurRadius: 6.0,
             )
           ]
-
-        //   borderRadius: BorderRadius.circular(80)
        ),
       child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    balance.toString(),
-                    style: getBoldtStyle(
-                        fontSize: 40,
-                        color: ColorManager.primary),
-                  ),
-                  Text(
+                  AutoSizeText(balance.toString(),style: getBoldtStyle(fontSize:40,color: ColorManager.primary),minFontSize: 20,maxLines: 1,)
+                  ,Text(
                     AppStrings.EGP.tr(),
                     style: getBoldtStyle(
                         fontSize: 20,

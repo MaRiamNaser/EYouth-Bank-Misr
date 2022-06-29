@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Quiz.dart';
 import 'package:bank_misr/Data/models/Video.dart';
 import 'package:bank_misr/Data/web_services/add_profile_image_services.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -48,9 +49,6 @@ class _VideoViewState extends State<VideoView> {
               enableOverflowMenu: false,
                 controlBarColor: Colors.black26
             )
-            ,startAt: Duration(
-            seconds: 8
-        )
         ),
         betterPlayerDataSource: betterPlayerDataSource
     );
@@ -101,12 +99,14 @@ class _VideoViewState extends State<VideoView> {
             SizedBox(
               height: 1 / 825 * screensize.height * AppSize.s20,
             ),
-            Description(video.description),
+            Description("This is Lesson ${video.id}"),
             SizedBox(
               height: 1 / 825 * screensize.height * AppSize.s20,
             ),
             Container(
-              child: QuizWidget(video.quiz),
+              child: QuizWidget(Quiz(head: "What is Egypt Currency", answer: "EGP", options: [
+                "Euro","EGP","Dollar"
+              ])),
             )
           ]),
         ));

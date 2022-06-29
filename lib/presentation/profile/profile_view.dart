@@ -107,7 +107,7 @@ class _ProfileViewState extends State<ProfileView> {
                       profile = (state).profile;
                       return SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 40.0),
+                          padding: const EdgeInsets.only(top: 50.0),
                           child: Container(
                             child: Center(
                               child: ProfileDetailsView(profile,screensize),
@@ -138,8 +138,6 @@ class _ProfileViewState extends State<ProfileView> {
                             .AddProfilePicture(token, img.path);
                       },
                       child: Container(
-                        margin: EdgeInsets.only(
-                            top: 1 / 825 * screensize.height * 10),
                         height: 1 / 825 * screensize.height * 130,
                         width: 1 / 393 * screensize.width * 120,
                         child: profile.image.isEmpty

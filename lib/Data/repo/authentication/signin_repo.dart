@@ -11,6 +11,7 @@ class SignInRepo {
   Future<User?> signIn(String email, String password) async {
     var body = await _registerationWebServices.signIn(email, password);
     if(body!=null) {
+      print(body.toString());
       var jsonresponse = json.decode(body);
       var user = jsonresponse["data"]["user"];
       token = jsonresponse["data"]["token"];
