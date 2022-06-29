@@ -27,26 +27,15 @@ List<String> contents = [
 ];
 int index = 0;
 
-class ReadyToTestPage extends StatelessWidget {
+
+class ReadyToTestPage extends StatefulWidget {
   const ReadyToTestPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SixBoxesGame(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  _ReadyToTestPageState createState() => _ReadyToTestPageState();
 }
 
-class SixBoxesGame extends StatefulWidget {
-  const SixBoxesGame({Key? key}) : super(key: key);
-
-  @override
-  _SixBoxesGameState createState() => _SixBoxesGameState();
-}
-
-class _SixBoxesGameState extends State<SixBoxesGame> {
+class _ReadyToTestPageState extends State<ReadyToTestPage> {
   bool isSpeaking = false;
   final TextEditingController _controller = TextEditingController();
   final _flutterTts = FlutterTts();
