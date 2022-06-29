@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -15,6 +16,7 @@ class banknoteTest extends StatefulWidget {
 
 class _banknoteTestState extends State<banknoteTest> {
   bool onPressedValue=true;
+  var player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,8 @@ class _banknoteTestState extends State<banknoteTest> {
                   }
           else
                   {
+                    player.play(
+                        AssetSource("sounds/false.wav"));
                    // put the buzz voice HERE
                   }
         }, child: Container
