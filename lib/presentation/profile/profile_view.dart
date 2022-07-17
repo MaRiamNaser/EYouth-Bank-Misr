@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Data/api_links.dart';
 import '../../Data/models/Profile.dart';
+import '../../Data/models/User.dart';
 import '../../business_logic/profileBloc/profile_cubit.dart';
 import '../resources/color_manager.dart';
 import '../resources/styles_manager.dart';
@@ -33,11 +34,12 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  late Profile profile;
+  late User profile;
   bool visable = true;
   final ImagePicker _picker = ImagePicker();
   AppPreferences appPreferences = AppPreferences();
   var token;
+  var userid;
 
   @override
   void initState() {
@@ -55,7 +57,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   Load() async {
     token = await appPreferences.getLocalToken();
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    userid = await appPreferences.getuserid();
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token,userid);
   }
 
   @override
@@ -128,6 +131,7 @@ class _ProfileViewState extends State<ProfileView> {
               builder: (context, state) {
                 if (state is ProfilesLoaded) {
                   profile = (state).profile;
+                  print(profile.image.toString());
                   return Center(
                     child: InkWell(
                       onTap: () async {
@@ -140,17 +144,10 @@ class _ProfileViewState extends State<ProfileView> {
                       child: Container(
                         height: 1 / 825 * screensize.height * 130,
                         width: 1 / 393 * screensize.width * 120,
-                        child: profile.image.isEmpty
-                            ? Image.asset(
-                                ImageAssets.profilePhoto,
-                                fit: BoxFit.cover,
-                              )
-                            : CircleAvatar(
+                        child: CircleAvatar(
                                 minRadius: 22,
                                 backgroundImage: NetworkImage (
-                                  baseLink+
-                                      "userimage/" +
-                                      profile.image.split("/")[1],
+                                profile.image,
                                 ),
                               ),
                       ),
@@ -172,6 +169,6 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Future<void> _refresh() async {
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token,userid);
   }
 }

@@ -5,8 +5,10 @@ import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../Data/models/User.dart';
+
 class AddGoalView extends StatefulWidget {
-  List<Category>? childs;
+  List<User>? childs;
   AddGoalView({this.childs});
 
   @override
@@ -14,7 +16,7 @@ class AddGoalView extends StatefulWidget {
 }
 
 class _AddGoalViewState extends State<AddGoalView> {
-  List<Category>? childs;
+  List<User>? childs;
 
   _AddGoalViewState(this.childs);
 

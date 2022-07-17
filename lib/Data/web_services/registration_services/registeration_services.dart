@@ -62,22 +62,32 @@ class RegisterationWebServices {
  ///returns future of json response.
   Future<dynamic> signUp(String fullname, String username, String email,String password, String age) async {
      try {
+       print(fullname+" "+username+" "+email+" "+password);
              var response = await http.post(Uri.parse(EndPoints().registerLink),
               headers: <String, String>{
                 "Content-Type": "application/json",
               },
-              body: jsonEncode(<String, dynamic>{
+              body:age.isEmpty? jsonEncode(<String, dynamic>{
                 "fullname": fullname,
                 "username": username,
                 "email": email,
                 "password": password,
-                "age":int.parse(age)
+                "role":"Parent",
+              }):jsonEncode(<String, dynamic>{
+                "fullname": fullname,
+                "username": username,
+                "email": email,
+                "password": password,
+                "age":int.parse(age),
+                "role":"Kid",
               }));
+             print(response.statusCode.toString()+" "+response.body.toString());
+
                 if (response.statusCode == 201) {
                     return response.body;
 
                 }else{
-                  return null;
+                  return response.body;
                 }
     
     } catch (e) {

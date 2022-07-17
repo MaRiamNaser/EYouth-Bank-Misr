@@ -9,11 +9,11 @@ import '../../api_links.dart';
 class TaskServices {
 
   ///* Request from Api to get all tasks for one user
-  Future<String> GetAllTasks(String token) async {
+  Future<String> GetAllTasks(String token, userid) async {
     try {
       var response = await http.get(
         Uri.parse(
-            baseLink+'task/getall'),
+            EndPoints().getTasksLink+userid),
         headers: <String, String>{
           "Content-Type": "application/json",
           HttpHeaders.authorizationHeader:

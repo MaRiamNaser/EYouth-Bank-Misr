@@ -34,9 +34,9 @@
     "Videos" : "Videos",
     "Profile" : "Profile",
     "Setting" : "Setting",
-    "Laguage" : "Laguage",
+    "Laguage" : "Language",
     "notifications" : "Notifications",
-    "signOut" : "signOut",
+    "signOut" : "SignOut",
     "yourEmailOrPasswordMayBeWrong":"your email or password may be wrong!",
     "forgetPassword":"Forget Password?",
     "newToTheApp":"New to the app? ",
@@ -76,7 +76,19 @@
 
  "YourRank": "Your Rank",
  "Ranking": "Ranking",
- "Pts": "Pts"
+ "Pts": "Pts",
+ "Lessons": "Lessons",
+ "PoweredbyEyouthTechteam": "PoweredbyEyouthTechteam",
+ "who are you ?": "who are you ?",
+ "Hello,": "Hello,",
+ "Welcome back": "Welcome back",
+ "Let's get to know you": "Let's get to know you",
+ "This app you can add your child as a relative and add tasks or goals to him to manage his life": "This app you can add your child as a relative and add tasks or goals to him to manage his life",
+ "Accounts Of Your Children": "Accounts Of Your Children",
+ "Add Child": "Add Child",
+ "Account": "Account",
+ "Current Balance : ": "Current Balance : ",
+ "Progress : ": "Progress : "
 
 
 }

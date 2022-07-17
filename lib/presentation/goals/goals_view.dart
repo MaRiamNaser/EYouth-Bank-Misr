@@ -26,6 +26,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '../../Data/models/Profile.dart';
+import '../../Data/models/User.dart';
 import '../../Data/web_services/goal_services/goalConfirmDelete_services.dart';
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/goal_services/goal_services.dart';
@@ -55,9 +56,11 @@ class _GoalViewState extends State<Goalsview> {
   goalConfirmEdit edit = goalConfirmEdit();
   var token;
   late List<Goal> goals = [];
-  int balance1=0;
+  int  balance1=0;
   int progress=0;
- late Profile profile;
+ late User profile;
+  late var userid;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -66,20 +69,31 @@ class _GoalViewState extends State<Goalsview> {
     Load2();
   }
   Load() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    token = sharedPreferences.getString("token");
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
-    balance1 = profile.balance;
+    token = await appPreferences.getLocalToken();
+    userid= await appPreferences.getuserid();
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token,userid);
+    balance1 = profile.balance!;
   }
   Load2() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    token = sharedPreferences.getString("token");
-    goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token);
+    token =await appPreferences.getLocalToken();
+    userid=await appPreferences.getuserid();
+    goals = await BlocProvider.of<GoalCubit>(context).GetAllGoals(token,userid);
   }
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          pushNewScreen(context,
+              screen: AddGoalView(),
+              withNavBar: true,
+              pageTransitionAnimation: PageTransitionAnimation.cupertino);
+        },
+        child: Icon(Icons.add,color: Colors.black,),
+        backgroundColor:Colors.white,
+
+      ),
       appBar: AppBar(
         title: Text(AppStrings.Goals.tr()),
         actions: [

@@ -85,6 +85,16 @@ class AppStrings {
   static String YourRank="Your Rank";
   static String Ranking="Ranking";
   static String Pts="Pts";
-
-
+  static String Lessons="Lessons";
+  static String PoweredbyEyouthTechteam="PoweredbyEyouthTechteam";
+  static String whoareyou="who are you ?";
+  static String Hello="Hello,";
+  static String Welcomeback="Welcome back";
+  static String Lets_get_to_know_you="Let's get to know you";
+  static String This_app_you_can_add="This app you can add your child as a relative and add tasks or goals to him to manage his life";
+  static String AccountsOfYourChildren="Accounts Of Your Children";
+  static String AddChild ="Add Child";
+  static String Account="Account";
+  static String CurrentBalance="Current Balance : ";
+  static String Progress="Progress : ";
 }

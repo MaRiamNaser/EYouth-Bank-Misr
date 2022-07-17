@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bank_misr/Data/api_links.dart';
-import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/Data/web_services/task_services/addTask_services.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/alert_dialog.dart';
 import 'package:bank_misr/presentation/addTasksGoals/Widgets/childs_alert_dialog.dart';
@@ -19,6 +18,8 @@ import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Data/models/Category.dart';
+import '../../../Data/models/User.dart';
 import '../Widgets/text_field.dart';
 
 class AddBody extends StatefulWidget {
@@ -26,7 +27,7 @@ class AddBody extends StatefulWidget {
   String photo;
   String choice;
   String alertPhoto;
-  List<Category>? childs;
+  List<User>? childs;
   AddBody(this.title, this.photo, this.choice, this.alertPhoto, {this.childs});
 
   @override
@@ -49,8 +50,8 @@ class _AddBodyState extends State<AddBody> {
   String alertPhoto;
   var token;
   var userid;
-  List<Category>? childs;
-
+  List<User>? childs;
+  late List<Category>?childds;
   _AddBodyState(this.title, this.photo, this.choice, this.alertPhoto,{this.childs});
 
   @override
@@ -58,6 +59,9 @@ class _AddBodyState extends State<AddBody> {
     // TODO: implement initState
     super.initState();
     load();
+    if(childs!=null) {
+      childds = List.generate(childs!.length, (index) => Category(childs![index].username!, childs![index].image));
+    }
   }
 
   Future<void> load() async {
@@ -264,12 +268,11 @@ class _AddBodyState extends State<AddBody> {
                                 {
                                   if (await AddTaskServices().AddTaskorGoal(
                                     choice == AppStrings.Goal.tr()
-                                        ? endPoints.goalCreateLink
-                                        : endPoints.taskCreateLink,
+                                        ? endPoints.goalCreateLink+userid
+                                        : endPoints.taskCreateLink+userid,
                                     titleTextController.text,
                                     descTextController.text,
                                     token!,
-                                    userid,
                                     amountTextController.text)) {
                                   showDialog(
                                       context: context,
@@ -283,7 +286,13 @@ class _AddBodyState extends State<AddBody> {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context1) {
-                                          return ChildAlertDiaglog(childs!);
+                                          return ChildAlertDiaglog(childs!, choice == AppStrings.Goal.tr()
+                                              ? endPoints.goalCreateManyLink
+                                              : endPoints.taskCreateManyLink,
+                                              titleTextController.text,
+                                              descTextController.text,
+                                              token!,
+                                              amountTextController.text,choice, alertPhoto,context1);
                                         });
                                   }
                               }

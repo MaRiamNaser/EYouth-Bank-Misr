@@ -27,6 +27,7 @@ class _ContentOfEachBoxState extends State<ContentOfEachBox> {
   @override
   void initState() {
     super.initState();
+
     Timer.run(() {
       _showMyDialog(context,widget.title, widget.content);
     });
@@ -36,22 +37,17 @@ class _ContentOfEachBoxState extends State<ContentOfEachBox> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: ()async{
-        stop();
         return false;
-
       },
       child: Scaffold(
         body: Container(),
       ),
     );
-    
+
   }
 
   void speak(String text) async {
- 
     await _flutterTts.speak(text);
-
-   
   }
 
 
@@ -73,21 +69,12 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
           return false;
         },
         child: AlertDialog(
-          
-          title:  DefaultTextStyle(
-            style: const TextStyle(fontSize: 40.0, color: Colors.pink),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(title),
-              ],
-            ),
-          ),
           content: SingleChildScrollView(
             child: Column(
         children: [
-             
+
           SizedBox(
-            
+
             child: DefaultTextStyle(
               style: getLightStyle(color: ColorManager.black, fontSize: 20),
               child: Text(content),
@@ -99,47 +86,16 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {   
-                      index = 0;
-                    stop();
+                  onTap: () {
                     Navigator.of(context1).pop();
                       Navigator.of(context).pop();
                   },
-                  child: Expanded(
-                    flex: 2,
+                  child: Container(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: SmallBox(
                           child: Icon(
                         Icons.close,
-                        size: 32,
-                      )),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    stop();
-                     if (index <= 5) {
-                
-                        index = index + 1;
-
-                    Navigator.of(context1).pop();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ContentOfEachBox(titles[index], contents[0], index)),
-                    );
-                     }
-                  },
-                  child: Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: SmallBox(
-                          child: Icon(
-                        Icons.next_plan,
                         size: 32,
                       )),
                     ),
@@ -151,12 +107,12 @@ Future<void> _showMyDialog(BuildContext context, String title, String content) a
         ],
             ),
           ),
-             
+
         ),
       );
     },
   );
 }
-  
+
 }
 

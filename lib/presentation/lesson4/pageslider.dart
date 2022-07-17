@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bank_misr/Data/models/Lesson.dart';
 import 'package:bank_misr/Data/models/lesson4/lesson4slider.dart';
 import 'package:bank_misr/presentation/lesson4/pagesliderWidgets.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
@@ -8,32 +9,37 @@ import 'package:flutter_tts/flutter_tts.dart';
 import '../resources/assets_manager.dart';
 
 class pageslider extends StatefulWidget {
+  Lesson lesson;
+  String img;
+  pageslider(this.lesson, { this.img=""});
+
   @override
-  _pagesliderState createState() => _pagesliderState();
+  _pagesliderState createState() => _pagesliderState(lesson,img);
 }
 
 class _pagesliderState extends State<pageslider> {
-  bool onPressedValue=true;
+  bool onPressedValue=false;
   var flag=false;
   PageController controller=PageController();
-  List<Widget> _list=[];
   int _curr=0;
   final _flutterTts = FlutterTts();
-  int index=1;
+  late int index;
+  Lesson lesson;
+  bool speaking=false;
+  String img;
+  _pagesliderState(this.lesson, this.img);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    index=0;
     initializeTts();
-    // speak("Hello , welcome back!");
-    speak(slide[0].description);
-
-    _list=<Widget>[
-      new Container(child:new Pages(image:slide[0].img,text: slide[0].description)),
-      new Container(child:new Pages(image:slide[1].img,text: slide[1].description)),
-      new Container(child:new Pages(image:slide[2].img,text: slide[2].description)),
-
-    ];
+    speak(lesson.game![0].des);
+    Timer(Duration(seconds: 15), () {
+      setState(() {
+        onPressedValue = true;
+      },);
+    },);
   }
   @override
   void dispose() {
@@ -44,12 +50,12 @@ class _pagesliderState extends State<pageslider> {
   void initializeTts() {
     _flutterTts.setStartHandler(() {
       setState(() {
-
+        speaking=true;
       });
     });
     _flutterTts.setCompletionHandler(() {
       setState(() {
-
+            speaking=false;
       });
     });
     _flutterTts.setErrorHandler((message) {
@@ -72,10 +78,12 @@ class _pagesliderState extends State<pageslider> {
   }
   void speak(String text) async {
     await _flutterTts.speak(text);
+    speaking=true;
   }
 
   void stop() async {
     await _flutterTts.stop();
+    speaking=false;
 
   }
 
@@ -83,7 +91,7 @@ class _pagesliderState extends State<pageslider> {
 
 
     return Scaffold(
-        appBar: AppBar(title: Text("Lesson 3"),  actions: [
+        appBar: AppBar(title: Text(lesson.title),  actions: [
           CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
@@ -94,62 +102,68 @@ class _pagesliderState extends State<pageslider> {
               maxRadius: 34),
 
         ] ),
-        body: PageView(
-          children:
-          _list,
+        body: PageView.builder(
           scrollDirection: Axis.horizontal,
            allowImplicitScrolling: false,
            physics: NeverScrollableScrollPhysics(),
           controller: controller,
+          itemCount: lesson.game!.length,
           onPageChanged: (num){
             setState(() {
               _curr=num;
             });
-          },
+          }, itemBuilder: (BuildContext context, int index) {
+          return Container(child: Pages(image:img.isEmpty?lesson.game![index].img:img,text: lesson.game![index].des));
+        },
         ),
         floatingActionButton:
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:<Widget>[
-
-              FloatingActionButton(
-                   backgroundColor: ColorManager.darkPrimary,
-                  onPressed: (){
-
-                    setState(() {
-                      controller.jumpToPage(_curr-1);
-                    });
-                  },
-                  child:Icon(Icons.arrow_back,color: ColorManager.white,)
-                  ),
-              FloatingActionButton(
-                  backgroundColor: ColorManager.darkPrimary,
-                  onPressed: () async {
-                          stop();
-                    setState(() {});
-                  },
-                  child:Icon(Icons.volume_up_rounded,color: ColorManager.white,)
-              ),
-              FloatingActionButton(
-                  child:Icon(Icons.arrow_forward_outlined ,color: ColorManager.white,),
-                backgroundColor:onPressedValue? ColorManager.darkPrimary:Colors.grey,
-                onPressed: onPressedValue==true?() {
-                  speak(slide[index].description);
-                  index++;
-                  setState(() {
-                    controller.jumpToPage(_curr + 1);
-                    onPressedValue = false;
-
-
-                  },);
-                  Timer(Duration(seconds: 1,), () {
-                    setState(() {
-                      onPressedValue = true;
-                    },);
-                  }, );
-                }:null,
-              ),
-            ]
+        Container(
+          margin: EdgeInsets.only(bottom: 19,left: 23),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children:<Widget>[
+                FloatingActionButton(
+                     backgroundColor:index==0? Colors.grey:ColorManager.darkPrimary,
+                    onPressed:index!=0? (){
+                      setState(() {
+                        index--;
+                        controller.jumpToPage(index);
+                        stop();
+                        onPressedValue = true;
+                      });
+                    }:null,
+                    child:Icon(Icons.arrow_back,color: ColorManager.white,)
+                    ),
+                FloatingActionButton(
+                    backgroundColor: ColorManager.darkPrimary,
+                    onPressed: () async {
+                         speaking?stop():speak(lesson.game![index].des);
+                      setState(() {});
+                    },
+                    child:Icon(Icons.volume_up_rounded,color: ColorManager.white,)
+                ),
+                FloatingActionButton(
+                    child:Icon(Icons.arrow_forward_outlined ,color: ColorManager.white,),
+                  backgroundColor:onPressedValue? ColorManager.darkPrimary:Colors.grey,
+                  onPressed: onPressedValue==true?() {
+                    if (index < lesson.game!.length - 1) {
+                      index++;
+                      speak(lesson.game![index].des);
+                      setState(() {
+                        controller.jumpToPage(index);
+                        onPressedValue = false;
+                      },);
+                      Timer(Duration(seconds: 15), () {
+                        setState(() {
+                          onPressedValue = true;
+                        },);
+                      },);
+                    }}
+                    :
+                    null
+                ),
+              ]
+          ),
         ),
     );
   }

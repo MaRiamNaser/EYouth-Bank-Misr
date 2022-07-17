@@ -6,16 +6,23 @@ class SignUpRepo {
   final RegisterationWebServices _registerationWebServices;
   SignUpRepo(this._registerationWebServices);
 
-  Future<bool> signUp(String fullname,String username,String email,String password,String age) async {
+  Future<String> signUp(String fullname,String username,String email,String password,String age) async {
+    print(fullname+" "+username+" "+email+" "+password+"*************************");
+
     var body = await _registerationWebServices.signUp(fullname, username, email, password, age);
+   // print(body.toString());
        if(body != null){
     var jsonresponse = json.decode(body);
     var apiStatus = jsonresponse["apiStatus"];
-     return apiStatus;
+    var Message = jsonresponse["message"];
+    if(apiStatus)
+     return "True";
+    else {
+      print("jjjjjjjjjjjjjjjjj");
+      return Message;
     }
-    
-  return false;
-   
+    }
+  return "False";
   }
    Future<bool> isEmailExist(String email) async {
     var isEmailExist;

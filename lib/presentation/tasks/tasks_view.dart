@@ -31,6 +31,7 @@ import '../../Data/web_services/balance_services.dart';
 
 import '../../Data/web_services/goal_services/goalConfirmEdit_services.dart';
 import '../../Data/web_services/task_services/taskConfirmChecked_services.dart';
+import '../addTasksGoals/addGoal/add_goal.dart';
 import '../addTasksGoals/edit_task.dart';
 import '../bottomBar/bottomBar.dart';
 import '../home/parentHomeView/parentHomeView.dart';
@@ -47,29 +48,38 @@ class _TasksViewState extends State<TasksView> {
   AppPreferences appPreferences = AppPreferences();
   taskConfirmDeleteServices delete = taskConfirmDeleteServices();
 
-  // confirmEditServices edit = confirmEditServices();
+  var userid;
   var token;
   late List<Task> tasks = [];
   bool undo = false;
-  late GlobalKey<ScaffoldState> _scaffoldKey ;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
     Load();
   }
 
   Load() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    token = sharedPreferences.getString("token");
-    tasks = await BlocProvider.of<TaskCubit>(context).GetAllTasks(token);
+    token = await appPreferences.getLocalToken();
+    userid = await appPreferences.getuserid();
+    tasks = await BlocProvider.of<TaskCubit>(context).GetAllTasks(token,userid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+      pushNewScreen(context,
+          screen: AddTaskView(),
+          withNavBar: true,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino);
+    },
+          child: Icon(Icons.add,color: Colors.black,),
+          backgroundColor:Colors.white,
+        ),
       appBar: AppBar(
         title: Text(AppStrings.Tasks.tr()),
         actions: [
@@ -133,7 +143,7 @@ class _TasksViewState extends State<TasksView> {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) =>
-                                buildtask(tasks[index], index,context,checked,token),
+                                buildtask(tasks[index], index,context,checked,token,_scaffoldKey),
                             separatorBuilder: (context, index) => SizedBox(
                               height: 0.0,
                             ),

@@ -9,12 +9,12 @@ import '../../api_links.dart';
 class GoalServices {
 
   ///* Request from Api to get all goals for one user
-  Future<String> GetAllGoals(String token) async {
+  Future<String> GetAllGoals(String token, userid) async {
     try {
       var response =
       await http.get(
         Uri.parse(
-          EndPoints().getGoalsLink  ),
+          EndPoints().getGoalsLink+userid),
         headers: <String, String>{
           "Content-Type": "application/json",
           HttpHeaders.authorizationHeader:

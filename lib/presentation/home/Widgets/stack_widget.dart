@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bank_misr/Data/models/Profile.dart';
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/presentation/home/home_view.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,7 +11,7 @@ import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:bank_misr/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 class StackWidget extends StatelessWidget {
-  Profile profile;
+  User profile;
   StackWidget(this.profile);
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class StackWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 1/825 * screensize.height * 25,),
-                 Center(child: Text( profile.fullname.split(" ").length>1?(profile.fullname.split(" ")[0]+" "+profile.fullname.split(" ")[1]):profile.fullname,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
+                 Center(child: Text( profile.fullname!.split(" ").length>1?(profile.fullname!.split(" ")[0]+" "+profile.fullname!.split(" ")[1]):profile.fullname!,style: getMediumStyle(fontSize:20,color: ColorManager.white),)),
                  Center(child: Text( AppStrings.setyourGoalsLearnEarn.tr(),style: getMediumStyle(fontSize:15,color: ColorManager.white),)),
               ],
             ),

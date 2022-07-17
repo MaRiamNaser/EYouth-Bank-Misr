@@ -88,7 +88,6 @@ class _parentnavgscreenState extends State<parentnavgscreen> {
   }
   List<Widget> _buildScreens() {
     return [
-      ChildHomeView(child),
       Container(),
 
       settingView(),

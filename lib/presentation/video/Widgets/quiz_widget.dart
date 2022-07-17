@@ -19,7 +19,7 @@ import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
 class QuizWidget extends StatefulWidget {
-  Quiz quiz;
+  Quizz quiz;
 
   QuizWidget(this.quiz);
 
@@ -34,7 +34,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     ColorManager.white,
   ];
   bool isclicked=false;
-  Quiz quiz;
+  Quizz quiz;
   var token;
   _QuizWidgetState(this.quiz);
 

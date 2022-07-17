@@ -6,7 +6,7 @@ abstract class ProfileState {}
 class ProfileInitial extends ProfileState {}
 class ProfilesLoaded extends ProfileState
 {
-  final Profile profile;
+  final User profile;
   ProfilesLoaded(this.profile);
 }
 class ProfilesError extends ProfileState
@@ -20,4 +20,10 @@ class ProfilePictureAdded extends ProfileState
 class BalanceAdded extends ProfileState
 {
 
+}
+class KidSearched extends ProfileState
+{
+
+}
+class KidAdded extends ProfileState {
 }

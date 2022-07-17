@@ -18,7 +18,8 @@ class alertdialog extends StatelessWidget {
   String choice;
   String alertphoto;
   BuildContext context2;
-  alertdialog(this.choice,this.alertphoto, this.context2);
+  String parent;
+  alertdialog(this.choice,this.alertphoto, this.context2, {this.parent=""});
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +61,17 @@ class alertdialog extends StatelessWidget {
               child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.popUntil(context2, (route) => route.isFirst);
-                pushNewScreen(context2, screen:choice==
-                    AppStrings.Goal.tr()?
-                 Goalsview()
-                :
-                TasksView(),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                if(parent!="parent") {
+                  Navigator.popUntil(context2, (route) => route.isFirst);
+                  pushNewScreen(context2, screen: choice ==
+                      AppStrings.Goal.tr() ?
+                  Goalsview()
+                      :
+                  TasksView(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation
+                          .cupertino);
+                }
               },
             ),
           ),

@@ -8,7 +8,7 @@ class AppConfig {
   AppConfig({required this.apiUrl});
 
   static Future<AppConfig> GetApiBaseLink(String env) async {
-    env = env ??'dev';
+    env = env.isEmpty ?'dev':env;
     final contents = await rootBundle.loadString(
       'assets/config/$env.json',
     );

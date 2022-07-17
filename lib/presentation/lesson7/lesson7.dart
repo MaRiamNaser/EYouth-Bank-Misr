@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bank_misr/Data/models/Lesson.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,30 +8,28 @@ import '../resources/assets_manager.dart';
 import 'lesson7Widgets.dart';
 
 class lesson7 extends StatefulWidget {
+  Lesson lesson;
+  lesson7(this.lesson);
+
   @override
-  _lesson7State createState() => _lesson7State();
+  _lesson7State createState() => _lesson7State(lesson);
 }
 
 class _lesson7State extends State<lesson7> {
   bool onPressedValue=true;
   PageController controller=PageController();
-  List<Widget> _list=[];
   int _curr=0;
+  Lesson lesson;
+  _lesson7State(this.lesson);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _list=<Widget>[
-      new Container(child:new Pages(image:slide[0].img)),
-      new Container(child:new Pages(text: slide[0].description,)),
-      new Container(child:new Pages(image:slide[1].img)),
-      new Container(child:new Pages(image:slide[2].img,text: slide[2].description)),
-    ];
   }
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(title: Text("Lesson 7"),  actions: [
+      appBar: AppBar(title: Text(lesson.title),  actions: [
         CircleAvatar(
             backgroundColor: Colors.white,
             child: Image.asset(
@@ -41,9 +40,7 @@ class _lesson7State extends State<lesson7> {
             maxRadius: 34),
 
       ] ),
-      body: PageView(
-        children:
-        _list,
+      body: PageView.builder(
         scrollDirection: Axis.horizontal,
         allowImplicitScrolling: false,
         physics: NeverScrollableScrollPhysics(),
@@ -52,7 +49,9 @@ class _lesson7State extends State<lesson7> {
           setState(() {
             _curr=num;
           });
-        },
+        }, itemBuilder: (BuildContext context, int index) {
+          return  Container(child: Pages(image:lesson.game![index].img,text: lesson.game![index].des,));
+      },
       ),
       floatingActionButton:
       Row(

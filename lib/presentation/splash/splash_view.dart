@@ -9,6 +9,8 @@ import 'package:bank_misr/presentation/lesson5/page/category_page.dart';
 import 'package:bank_misr/presentation/lesson5/fake_data/categories.dart' as Categories;
 import 'package:bank_misr/presentation/lesson5/ready_to_test_page.dart';
 import 'package:bank_misr/presentation/resources/constants_manager.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../resources/assets_manager.dart';
 import '../resources/routes_manager.dart';
@@ -63,7 +65,7 @@ class _SplashViewState extends State<SplashView> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       margin: EdgeInsets.all(10),
-                      child: Text("Powered by Eyouth Tech team.")),
+                      child: Text(AppStrings.PoweredbyEyouthTechteam.tr()))
                   )
           ],
        

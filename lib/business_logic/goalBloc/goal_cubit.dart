@@ -12,10 +12,12 @@ class GoalCubit extends Cubit<GoalState> {
   List<Goal>goals=[];
   GoalCubit(this.goalRepo) : super(GoalInitial());
   var token1;
-  Future<List<Goal>> GetAllGoals(token)
+  var userid;
+  Future<List<Goal>> GetAllGoals(token, userid)
    async{
     token1=token;
-       goals=await goalRepo.GetAllGoals(token);
+    this.userid=userid;
+       goals=await goalRepo.GetAllGoals(token,userid);
       emit(GoalsLoaded(goals));
        return goals;
      }
@@ -25,7 +27,7 @@ class GoalCubit extends Cubit<GoalState> {
      if(status ==true)
        {
          emit(GoalDeleted());
-         GetAllGoals(token1);
+         GetAllGoals(token1,userid);
          return true;
        }
      else

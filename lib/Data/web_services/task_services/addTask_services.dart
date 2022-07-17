@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 
 class AddTaskServices {
 
-  Future<bool> AddTaskorGoal(String Url, String title, String description,String token, String? userid, String amount) async {
+  Future<bool> AddTaskorGoal(String Url, String title, String description,String token, String amount) async {
     try {
-      print(Url);
       var response = await postRequest(
-          Url+userid!,
+          Url,
           jsonEncode(<String, dynamic>{
             "title": title,
             "description": description,
@@ -19,6 +18,7 @@ class AddTaskServices {
            // "repetition":"Once"
           }),token);
       if (response.statusCode == 201) {
+        print(response.body);
         return true;
       } else {
         print(response.statusCode);

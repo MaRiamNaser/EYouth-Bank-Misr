@@ -1,4 +1,6 @@
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
+import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
+import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-Widget passwordTextFormField(TextEditingController passwordController) {
+Widget passwordTextFormField(TextEditingController Controller) {
   return Container(
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
@@ -21,7 +23,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
         return null;
       },
       obscureText: true,
-      controller: passwordController,
+      controller: Controller,
       // keyboardType: TextInputType.phone,
       decoration: InputDecoration(
         labelText: AppStrings.password.tr(),
@@ -39,7 +41,7 @@ Widget passwordTextFormField(TextEditingController passwordController) {
   );
 }
 
-Widget userNameTextFormField(TextEditingController userNameController) {
+Widget userNameTextFormField(TextEditingController Controller,title) {
   return Container(
     margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m30),
@@ -51,11 +53,11 @@ Widget userNameTextFormField(TextEditingController userNameController) {
         return null;
       },
 
-      controller: userNameController,
+      controller: Controller,
 
       // keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-        labelText: AppStrings.userName.tr(),
+        labelText: title,
         fillColor: Colors.white,
         filled: true,
       ),
@@ -70,18 +72,33 @@ Widget userNameTextFormField(TextEditingController userNameController) {
   );
 }
 
-class SignUpButton extends StatelessWidget {
+class SignUpButton extends StatefulWidget {
   final formKey;
-  final emailController;
-  final passwordController;
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  TextEditingController usernameController;
+  TextEditingController fullnameController;
   final context2;
-  SignUpButton(this.formKey, this.emailController, this.passwordController,
-      this.context2);
+  SignUpButton(this.formKey, this.usernameController, this.passwordController,this.fullnameController, this.emailController, this.context2);
+
+  @override
+  _SignUpButtonState createState() => _SignUpButtonState(formKey, usernameController, passwordController,fullnameController, emailController, context2);
+}
+
+class _SignUpButtonState extends State<SignUpButton> {
+  final formKey;
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  TextEditingController usernameController;
+  TextEditingController fullnameController;
+  final context2;
+
+  _SignUpButtonState(this.formKey, this.usernameController,this.passwordController, this.fullnameController, this.emailController, this.context2);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => blocGenerator().signInCubit,
-      child: BlocBuilder<Signin1Cubit, Signin1State>(
+      create: (context) => blocGenerator().signUpCubit,
+      child: BlocBuilder<SignUpCubit, SignUpState>(
         builder: (context, state) {
           return Container(
             height: MediaQuery.of(context).size.height / 15,
@@ -90,7 +107,6 @@ class SignUpButton extends StatelessWidget {
               left: AppMargin.m20,
               right: AppMargin.m20,
             ),
-            //  color: ColorManager.lightGrey,
             child: TextButton(
               style: ButtonStyle(
                 foregroundColor:
@@ -99,16 +115,19 @@ class SignUpButton extends StatelessWidget {
                     MaterialStateProperty.all<Color>(ColorManager.lightPrimary),
               ),
               onPressed: () async {
+                setState(() {
+
+                });
                 if (formKey.currentState!.validate()) {
-                  await BlocProvider.of<Signin1Cubit>(context)
-                      .signIn(emailController.text, passwordController.text);
-                  if (state is UserSignedIn) {
+                  String message=await BlocProvider.of<SignUpCubit>(context)
+                      .signUp(fullnameController.text, usernameController.text, emailController.text, passwordController.text, "");
+                  if (message=="True") {
                     showFlutterToast(
                         AppStrings.youAreLoggedInSuccessfully.tr());
-                    Navigator.pushReplacementNamed(context, Routes.homeLayout);
+                    Navigator.pushReplacementNamed(context, Routes.parentSignInRoute);
                   } else {
                     showFlutterToast(
-                        AppStrings.yourEmailOrPasswordMayBeWrong.tr());
+                        message);
                   }
                 }
               },
@@ -118,14 +137,13 @@ class SignUpButton extends StatelessWidget {
         },
       ),
     );
-    ;
   }
 }
 
 showFlutterToast(String text) async {
   await Fluttertoast.showToast(
     msg: text,
-    toastLength: Toast.LENGTH_LONG,
+    toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.CENTER,
     timeInSecForIosWeb: 1,
     backgroundColor: ColorManager.primary,
@@ -152,7 +170,7 @@ Widget appDescription() {
   return Container(
     margin: EdgeInsets.only(left: 20, right: 20),
     child: Text(
-        "This app you can add your child as a relative and add tasks or goals to him to manage his life",
+        AppStrings.This_app_you_can_add.tr(),
         style: getLightStyle(color: ColorManager.grey),
         textAlign: TextAlign.justify),
   );
@@ -165,7 +183,7 @@ Widget letsGetToKnowYouWidget() {
       Expanded(
         child: Container(
           margin: EdgeInsets.only(left: AppMargin.m20),
-          child: Text("Let's get to know you",
+          child: Text(AppStrings.Lets_get_to_know_you.tr(),
               style: getBoldtStyle(
                   color: ColorManager.primary, fontSize: AppSize.s30),
               textAlign: TextAlign.justify),
@@ -181,7 +199,7 @@ Widget helloWidget() {
     children: [
       Container(
         margin: EdgeInsets.only(left: AppMargin.m20),
-        child: Text("Hello,",
+        child: Text(AppStrings.Hello.tr(),
             style:
                 getBoldtStyle(color: ColorManager.black, fontSize: AppSize.s40),
             textAlign: TextAlign.justify),

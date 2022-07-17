@@ -32,7 +32,7 @@ class AlertDialogLesson extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                   width: 190,
-                  child: Center(child: Text("Congratulations You Have Passed The Lesson !!\n"+"${AppStrings.EGP_Has_Been_Added_To_Your_Wallet.tr()}\n ${AppStrings.Your_Balance_Now_is.tr()} $balance"
+                  child: Center(child: Text("Congratulations You Have Passed The Lesson !!\n Go to the Next One !"
                     ,  style: getSemiBoldStyle(fontSize:14,color: ColorManager.white),))),
             ),
           ],

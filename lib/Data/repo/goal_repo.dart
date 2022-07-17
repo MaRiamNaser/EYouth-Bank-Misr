@@ -13,10 +13,10 @@ class GoalRepo
 
   GoalRepo(this._goalServices);
   ///* Call goal Web Service to get Data of goals
-  Future<List<Goal>> GetAllGoals(token)async
+  Future<List<Goal>> GetAllGoals(token, userid)async
   {
-    var body = await _goalServices.GetAllGoals(token);
-    print(body);
+    var body = await _goalServices.GetAllGoals(token,userid);
+  //  print(body);
     var jsonresponse =json.decode(body) ;
     var list = jsonresponse["data"] as List<dynamic>;
     return list.map((e) => Goal.fromJson(e)).toList();

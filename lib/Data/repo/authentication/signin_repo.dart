@@ -1,7 +1,9 @@
 import 'dart:convert';
 
-import 'package:bank_misr/data/models/User.dart';
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
+
+
 
 class SignInRepo {
   final RegisterationWebServices _registerationWebServices;

@@ -14,11 +14,13 @@ class TaskCubit extends Cubit<TaskState> {
   List<Task> tasks=[];
   TaskCubit(this.taskRepo) : super(TaskInitial());
   var token1;
-  Future<List<Task>> GetAllTasks(token)
+  var userid;
+  Future<List<Task>> GetAllTasks(token, userid)
   async{
-    tasks=await taskRepo.GetAllTasks(token);
+    tasks=await taskRepo.GetAllTasks(token,userid);
     emit(TasksLoaded(tasks));
     token1=token;
+    this.userid=userid;
     return tasks;
   }
   Future<bool>DeleteTask(String id)
@@ -27,7 +29,7 @@ class TaskCubit extends Cubit<TaskState> {
     if(status ==true)
     {
       emit(TaskDeleted());
-      GetAllTasks(token1);
+      GetAllTasks(token1,userid);
       return true;
     }
     else

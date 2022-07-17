@@ -65,9 +65,7 @@ Widget emailTextFormField(TextEditingController emailController) {
           return AppStrings.pleaseEnterYourEmail.tr();
         }else if(!(val.contains("@") && val.contains(".com"))){
           return "This is not a correct format";
-        }/*else if(val.isValidEmail()){
-          return "This is not an email format";
-        }*/
+        }
         return null;
       },
 
@@ -404,7 +402,7 @@ class _ContinueButtonState extends State<ContinueButton> {
                   }
                 } else if (current_index == 4) {
                   if (widget.formKey.currentState!.validate()) {
-                    bool result = await BlocProvider.of<SignUpCubit>(context)
+                    String result = await BlocProvider.of<SignUpCubit>(context)
                         .signUp(
                             widget.fullNameController.text,
                             widget.userNameController.text,
@@ -412,12 +410,11 @@ class _ContinueButtonState extends State<ContinueButton> {
                             widget.passwordController.text,
                             widget.ageController.text);
 
-                    if (result == true) {
+                    if (result == "True") {
                       showFlutterToast(
                           AppStrings.YouHaveBeenRegistredSuccessfully.tr());
                       Navigator.pushReplacementNamed(
                           context, Routes.loginRoute);
-                      //  currentindex = 0;
                     } else {
                       showFlutterToast(AppStrings
                           .yourPasswordCannotIncludeYourUsername

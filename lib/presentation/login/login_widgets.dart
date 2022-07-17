@@ -1,5 +1,5 @@
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
-import 'package:bank_misr/data/models/User.dart';
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/routes_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';

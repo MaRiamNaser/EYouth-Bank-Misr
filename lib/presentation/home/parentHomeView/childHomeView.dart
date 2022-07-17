@@ -1,14 +1,18 @@
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/presentation/home/Widgets/categories_widget.dart';
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Data/models/Category.dart';
+import '../../../app/app_prefs.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/values_manager.dart';
 
 class ChildHomeView extends StatefulWidget {
-  Category child;
+  User child;
   ChildHomeView(this.child);
 
   @override
@@ -16,9 +20,15 @@ class ChildHomeView extends StatefulWidget {
 }
 
 class _ChildHomeViewState extends State<ChildHomeView> {
-  Category child;
+  User child;
+  AppPreferences appPreferences = AppPreferences();
   _ChildHomeViewState(this.child);
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     appPreferences.setuserid(child.sId!);
+  }
   @override
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
@@ -47,7 +57,7 @@ class _ChildHomeViewState extends State<ChildHomeView> {
                         ),
                         Center(
                             child: Text(
-                              "${child.title} Account",
+                              "${child.fullname!.split(" ")[0]} ${AppStrings.Account.tr()}",
                               style: getSemiBoldStyle(
                                   fontSize: 20, color: ColorManager.white),
                             )),
@@ -58,7 +68,7 @@ class _ChildHomeViewState extends State<ChildHomeView> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Hero(
-                    tag: child.img,
+                    tag: child.image,
                     child: Container(
                       height: 1 / 825 * screensize.height * 150,
                       width: 1 / 825 * screensize.height * 150,
@@ -73,7 +83,7 @@ class _ChildHomeViewState extends State<ChildHomeView> {
                               blurRadius: 6.0,
                             )
                           ]
-                          ,image: DecorationImage(image: AssetImage(child.img, ),fit: BoxFit.cover)
+                          ,image: DecorationImage(image: NetworkImage(child.image, ),fit: BoxFit.cover)
                       ),
                     ),
                   ),
@@ -102,9 +112,9 @@ class _ChildHomeViewState extends State<ChildHomeView> {
                   child:
                   Row(
                     children: [
-                      Text("Current Balance : ",style: getSemiBoldStyle(
+                      Text(AppStrings.CurrentBalance.tr(),style: getSemiBoldStyle(
                           fontSize: 16, color: ColorManager.black)),
-                      Text("1400 EGP",style: getSemiBoldStyle(
+                      Text("${child.balance} ${AppStrings.EGP.tr()}",style: getSemiBoldStyle(
                           fontSize: 16, color: ColorManager.green))
                     ],
                   )

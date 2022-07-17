@@ -8,11 +8,12 @@ class SignUpCubit extends Cubit<SignUpState> {
    final SignUpRepo signupRepo;
   SignUpCubit(this.signupRepo) : super(SignUpInitial());
 
-  Future<bool>signUp(String fullname,String username,String email,String password,String age) async {
-   bool result = await signupRepo.signUp(fullname, username, email, password, age);
+  Future<dynamic>signUp(String fullname,String username,String email,String password,String age) async {
+    print(fullname+" "+username+" "+email+" "+password+"*************************");
+   final result = await signupRepo.signUp(fullname, username, email, password, age);
    print("****************************************************************Hello");
    print(result);
-   if(result){
+   if(result=="True"){
     emit(UserSignedUpSuccessfully());
    }else{
     emit(SignUpError());

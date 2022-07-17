@@ -20,6 +20,9 @@ class _ParentSignUpViewState extends State<ParentSignUpView> {
   final formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final usernameController = TextEditingController();
+
 
   late AppPreferences _appPreferences;
   @override
@@ -75,10 +78,12 @@ class _ParentSignUpViewState extends State<ParentSignUpView> {
                 letsGetToKnowYouWidget(),
                 SizedBox(height: AppSize.s30,),
                 appDescription(),             
-                userNameTextFormField(emailController),
+                userNameTextFormField(usernameController,AppStrings.userName.tr()),
+                userNameTextFormField(fullnameController,AppStrings.name.tr()),
+                userNameTextFormField(emailController,AppStrings.email.tr()),
                 passwordTextFormField(passwordController),
-                forgetPasswordWidget(),
-                SignUpButton(formKey, emailController, passwordController, context),
+                SizedBox(height: AppSize.s30,),
+                SignUpButton(formKey, usernameController, passwordController,fullnameController,emailController, context),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:bank_misr/Data/models/Lesson.dart';
 import 'package:bank_misr/data/models/Category.dart';
 import 'package:bank_misr/presentation/lesson2/content_of_each_box.dart';
 import 'package:bank_misr/presentation/lesson2/small_box.dart';
@@ -30,10 +31,11 @@ int index = 0;
 
 
 class ReadyToTestPage extends StatefulWidget {
-  const ReadyToTestPage({Key? key}) : super(key: key);
+  Lesson lesson;
+   ReadyToTestPage(this.lesson, {Key? key}) : super(key: key);
 
   @override
-  _ReadyToTestPageState createState() => _ReadyToTestPageState();
+  _ReadyToTestPageState createState() => _ReadyToTestPageState(lesson);
 }
 
 class _ReadyToTestPageState extends State<ReadyToTestPage> {
@@ -44,6 +46,8 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
   bool isBack = true;
   double angle = 0;
   bool flag = true;
+  Lesson lesson;
+  _ReadyToTestPageState(this.lesson);
 
   void initializeTts() {
     _flutterTts.setStartHandler(() {
@@ -101,7 +105,7 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(
-        title: Text("Lesson 5 stages"),
+        title: Text(lesson.title),
       ),
       body: Container(),
     );
@@ -130,7 +134,7 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
                    
                       Navigator.of(context1).pop();
                       stop();
-                      pushNewScreen(context, screen: CategoryPage(Categories.categories.first),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                      pushNewScreen(context, screen: CategoryPage(lesson),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
 
                     },
                     child: Text("Yes"),
@@ -138,18 +142,9 @@ class _ReadyToTestPageState extends State<ReadyToTestPage> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      if (flag) {
+                      stop();
+                        Navigator.of(context1).pop();
                         Navigator.of(context).pop();
-                        stop();
-                        showCustomDialog( context, "",
-                            "Do you want to revise the previous lessons or would you like to test yourself first?");
-                      }else{
-                        stop();
-
-                      }
-                      setState(() {
-                        flag = false;
-                      });
                     },
                     child: Text("No"),
                     color: Colors.red,

@@ -10,43 +10,36 @@ import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Data/models/Lesson.dart';
+
 
 class QuestionsWidget extends StatelessWidget {
-  final Category? category;
+   final Lesson category;
   final PageController? controller;
   final ValueChanged<int>? onChangedPage;
-  final ValueChanged<Option>? onClickedOption;
 
   const QuestionsWidget({
-    @required this.category,
+    required this.category,
     @required this.controller,
     @required this.onChangedPage,
-    @required this.onClickedOption,
   }) : super();
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-    onWillPop: ()async{
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
-      return false;
-    },
-    child: Scaffold(
+  Widget build(BuildContext context) =>  Scaffold(
       appBar: AppBar(title: Text("Lesson 5"),),
       body: PageView.builder(
             onPageChanged: onChangedPage,
             controller: controller,
-            itemCount: category?.questions?.length,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              final question = category?.questions?[index];
-              return buildQuestion(question: question);
+              //final question = category?.questions?[index];
+              return buildQuestion(question: category.quiz!);
             },
         ),
-    ),
   );
 
   Widget buildQuestion({
-  Question? question,
+  required Quiz question,
   }) =>
       Container(
         padding: const EdgeInsets.all(16),
@@ -55,7 +48,7 @@ class QuestionsWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 32),
             Text(
-              question!.text??"",
+              question.head??"",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             SizedBox(height: 8),
@@ -65,7 +58,6 @@ class QuestionsWidget extends StatelessWidget {
             Expanded(
               child: OptionsWidget(
              question,
-             onClickedOption!,
               ),
             ),
 

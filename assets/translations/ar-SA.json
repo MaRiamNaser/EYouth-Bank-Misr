@@ -76,7 +76,17 @@
 
  "YourRank": "ترتيبك",
  "Ranking": "ترتيب",
- "Pts": "نقطه"
-
-
+ "Pts": "نقطه",
+ "Lessons": "الدروس",
+ "PoweredbyEyouthTechteam": "مدعوم من فريق أيوث تكنولوجي",
+ "who are you ?": "من انت ؟",
+ "Hello,": "اهلا ",
+ "Welcome back": "مرحبا بك",
+ "Let's get to know you": "دعنا نتعرف عليك",
+ "This app you can add your child as a relative and add tasks or goals to him to manage his life": "هذا التطبيق يمكنك من إضافة طفلك كأحد الأقارب وإضافة مهام أو أهداف إليه لإدارة حياته",
+ "Accounts Of Your Children": "حسابات أبنائك",
+ "Add Child": "إضافة طفل",
+ "Account": "حساب",
+ "Current Balance : ": "الرصيد الحالي :",
+ "Progress : ": "التقدم : "
 }

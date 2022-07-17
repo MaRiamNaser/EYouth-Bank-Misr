@@ -3,31 +3,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Data/models/Category.dart';
+import '../../../Data/models/User.dart';
+import '../../../Data/web_services/task_services/addTask_services.dart';
+import '../../parent/Authentication/signup/signup_widgets.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
+import 'alert_dialog.dart';
 
 class ChildAlertDiaglog extends StatefulWidget {
-  List<Category> childs;
-  ChildAlertDiaglog(this.childs);
+  List<User> childs;
+  String Url; String title; String description;String token; String amount;String choice; String alertPhoto; BuildContext context1;
+  ChildAlertDiaglog(this.childs,this.Url, this.title, this.description,this.token, this.amount, this.choice, this.alertPhoto, this.context1);
 
   @override
-  _ChildAlertDiaglogState createState() => _ChildAlertDiaglogState(childs);
+  _ChildAlertDiaglogState createState() => _ChildAlertDiaglogState(childs,this.Url, this.title, this.description,this.token, this.amount, this.choice, this.alertPhoto,this.context1);
 }
 
 class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
-  late List<Category> childs;
-  List<Category> selected_childs=[];
-  _ChildAlertDiaglogState(List<Category> childss)
-  {
-    this.childs=childss.toList();
-  }
-   List<Category> mainList=[];
+  late List<User> childs;
+  String Url; String title; String description;String token; String amount;String choice; String alertPhoto;BuildContext context1;
+  List<User> selected_childs=[];
+  _ChildAlertDiaglogState(this.childs,this.Url, this.title, this.description,this.token, this.amount, this.choice, this.alertPhoto,this.context1);
+   List<User> mainList=[];
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
     mainList=childs.toList();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -45,12 +49,12 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            DropdownButton<Category>(
+            DropdownButton<User>(
               isExpanded: true,
               hint: Text("Select A Child"),
               dropdownColor: ColorManager.lightPrimary,
-              items: childs.map((Category value) {
-                return DropdownMenuItem<Category>(
+              items: mainList.map((User value) {
+                return DropdownMenuItem<User>(
                   value: value,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,15 +62,15 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
                       Row(
                         children: [
                           Hero(
-                            tag: value.img,
+                            tag: value.image,
                             child: CircleAvatar(
                               minRadius: 32,
-                              backgroundImage: AssetImage(value.img),
+                              backgroundImage: NetworkImage(value.image),
                             ),
                           ),
                           SizedBox(width: 40),
                           Text(
-                            value.title,
+                            value.username!,
                             style: getBoldtStyle(
                                 fontSize: 15, color: ColorManager.black),
                           ),
@@ -80,7 +84,7 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
               onChanged: (v) {
                 setState(() {
                   selected_childs.add(v!);
-                  childs.remove(v);
+                  mainList.remove(v);
                 });
               },
             ) ,
@@ -100,15 +104,15 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
                           Row(
                             children: [
                               Hero(
-                                tag: selected_childs[index].img,
+                                tag: selected_childs[index].image,
                                 child: CircleAvatar(
                                   minRadius: 25,
-                                  backgroundImage: AssetImage(selected_childs[index].img),
+                                  backgroundImage: NetworkImage(selected_childs[index].image),
                                 ),
                               ),
                               SizedBox(width: 40),
                               Text(
-                                selected_childs[index].title,
+                                selected_childs[index].username!,
                                 style: getBoldtStyle(
                                     fontSize: 15, color: ColorManager.black),
                               ),
@@ -117,7 +121,7 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
                           InkWell(
                             onTap: (){
                               setState(() {
-                                childs.add(selected_childs[index]);
+                                mainList.add(selected_childs[index]);
                                 selected_childs.remove(selected_childs[index]);
                               });
                             },
@@ -141,7 +145,30 @@ class _ChildAlertDiaglogState extends State<ChildAlertDiaglog> {
             ),
             child: TextButton(
               child: Text(AppStrings.Ok.tr(),style:getRegularStyle(color: ColorManager.white) ,),
-              onPressed: () {
+              onPressed: () async {
+                Map<String, List<String>> queryParams = {
+                  'kidId': selected_childs.map((e) => e.sId!).toList(),
+                };
+
+                String queryString = Uri(queryParameters: queryParams).query;
+
+                 Url = Url + '?' + queryString;
+
+                if (await AddTaskServices().AddTaskorGoal(
+                Url,
+                title,
+                description,
+                token,
+                amount)) {
+                  showFlutterToast("$choice has Been Added !");
+//                showDialog(
+//                context: context,
+//                builder: (BuildContext context1) {
+//                return alertdialog(
+//                choice, alertPhoto, context,parent: "parent",);
+//                });
+                }
+                Navigator.pop(context1);
                 Navigator.pop(context);
               }
                 )

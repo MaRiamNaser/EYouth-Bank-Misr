@@ -95,7 +95,7 @@ Widget whoAreYou2Widget() {
     children: [
       Container(
         margin: EdgeInsets.only(left: AppMargin.m20),
-        child: Text(" who are you?",
+        child: Text(AppStrings.whoareyou.tr(),
             style:
                 getBoldtStyle(color: ColorManager.black, fontSize: AppSize.s30),
             textAlign: TextAlign.justify),

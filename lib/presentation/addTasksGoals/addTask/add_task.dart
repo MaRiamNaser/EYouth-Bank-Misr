@@ -8,12 +8,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Data/models/User.dart';
 import '../Widgets/AddBody.dart';
 import '../Widgets/text_field.dart';
 
 
 class AddTaskView extends StatefulWidget {
-  List<Category>? childs;
+  List<User>? childs;
 
   AddTaskView({this.childs});
 
@@ -23,7 +24,7 @@ class AddTaskView extends StatefulWidget {
 }
 
 class _AddTaskViewState extends State<AddTaskView> {
-  List<Category>? childs;
+  List<User>? childs;
 
   _AddTaskViewState(this.childs);
   @override

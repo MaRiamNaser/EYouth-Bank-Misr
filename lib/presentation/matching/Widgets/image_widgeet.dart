@@ -1,3 +1,4 @@
+import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_misr/Data/models/MatcingItem.dart';
@@ -16,13 +17,13 @@ class ImageWidget extends StatelessWidget {
         backgroundColor: item.accepting ? ColorManager
             .green : Colors.white,
         radius: item.chossing || item.accepting
-            ? 46.0
-            : 35.0,
+            ? 50.0
+            : 40.0,
         child: CircleAvatar(
-          backgroundImage: AssetImage(item.img),
+          backgroundImage: NetworkImage(item.img),
           radius: item.chossing || item.accepting
-              ? 41
-              : 30,
+              ? 46
+              : 35,
           backgroundColor: Colors.white,
         ),
       ),

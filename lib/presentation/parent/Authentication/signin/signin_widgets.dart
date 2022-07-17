@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../Data/models/User.dart';
 import '../../../home/parentHomeView/parentHomeView.dart';
 
 Widget passwordTextFormField(TextEditingController passwordController) {
@@ -78,8 +79,10 @@ class SignInButton extends StatelessWidget {
   final emailController;
   final passwordController;
   final context2;
+
   SignInButton(this.formKey, this.emailController, this.passwordController,
       this.context2);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -103,19 +106,23 @@ class SignInButton extends StatelessWidget {
               ),
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ParentHomeView()));
-                  // await BlocProvider.of<Signin1Cubit>(context).signIn(emailController.text, passwordController.text);
-                  //  if (state is UserSignedIn) {
-                  //    showFlutterToast(
-                  //    AppStrings.youAreLoggedInSuccessfully.tr());
-                  //    Navigator.pushReplacementNamed(context, Routes.homeLayout);
-                  //  } else {
-                  //    showFlutterToast(
-                  //        AppStrings.yourEmailOrPasswordMayBeWrong.tr());
-                  //  }
+                  User? user = await BlocProvider.of<Signin1Cubit>(context)
+                      .signIn(emailController.text, passwordController.text);
+                  if (user != null) {
+                    showFlutterToast(
+                        AppStrings.youAreLoggedInSuccessfully.tr());
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      blocGenerator().profileCubit,
+                                  child: ParentHomeView(),
+                                )));
+                  } else {
+                    showFlutterToast(
+                        AppStrings.yourEmailOrPasswordMayBeWrong.tr());
+                  }
                 }
               },
               child: Text(AppStrings.loginTitle.tr()),
@@ -187,7 +194,7 @@ Widget helloWidget() {
     children: [
       Container(
         margin: EdgeInsets.only(left: AppMargin.m20),
-        child: Text("Hello,",
+        child: Text(AppStrings.Hello.tr(),
             style:
                 getBoldtStyle(color: ColorManager.black, fontSize: AppSize.s40),
             textAlign: TextAlign.justify),
@@ -202,7 +209,7 @@ Widget welcomeBackWidget() {
     children: [
       Container(
         margin: EdgeInsets.only(left: AppMargin.m20),
-        child: Text("Welcome back",
+        child: Text(AppStrings.Welcomeback.tr(),
             style: getBoldtStyle(
                 color: ColorManager.primary, fontSize: AppSize.s40),
             textAlign: TextAlign.justify),

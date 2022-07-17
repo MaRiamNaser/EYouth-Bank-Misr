@@ -1,10 +1,13 @@
 import 'package:bank_misr/Data/models/Category.dart';
 import 'package:bank_misr/Data/models/Profile.dart';
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/app/app_prefs.dart';
 import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
+import 'package:bank_misr/presentation/addTasksGoals/addTask/add_task.dart';
 import 'package:bank_misr/presentation/home/Widgets/stack_widget.dart';
 import 'package:bank_misr/presentation/home/Widgets/welcome_widget.dart';
 import 'package:bank_misr/presentation/home/parentHomeView/parentHomeView.dart';
+import 'package:bank_misr/presentation/navgpage/navigation_page.dart';
 import 'package:bank_misr/presentation/resources/color_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:bank_misr/presentation/resources/styles_manager.dart';
@@ -14,7 +17,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../addTasksGoals/addGoal/add_goal.dart';
 import '../commonWidgets/appBar.dart';
 import '../resources/assets_manager.dart';
 import 'Widgets/categories_widget.dart';
@@ -28,10 +34,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late Profile profile;
+  late User profile;
   late var token;
   AppPreferences appPreferences = AppPreferences();
-
+  late var userid;
   @override
   void initState() {
     // TODO: implement initState
@@ -46,8 +52,9 @@ class _HomeViewState extends State<HomeView> {
 
   loadProfile() async {
     token = await appPreferences.getLocalToken();
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
-    balance = profile.balance;
+    userid = await appPreferences.getuserid();
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token,userid);
+    balance = profile.balance!;
     setState(() {});
   }
 
@@ -56,8 +63,47 @@ class _HomeViewState extends State<HomeView> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(title: Text(AppStrings.Home.tr()), ),
-
-        // appBar: CustomAppBar(),
+        floatingActionButton:  SpeedDial(
+            animatedIcon: AnimatedIcons.add_event,
+            animatedIconTheme: IconThemeData(size: 22.0),
+            visible: true,
+            childMargin: EdgeInsets.only(left: 40),
+            curve: Curves.bounceIn,
+            overlayColor: Colors.black,
+            overlayOpacity: 0.5,
+            onOpen: () => print('OPENING DIAL'),
+            onClose: () => print('DIAL CLOSED'),
+            tooltip: 'Speed Dial',
+            heroTag: 'speed-dial-hero-tag',
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 8.0,
+            shape: CircleBorder(),
+            children: [
+              SpeedDialChild(
+                child: Icon(Icons.playlist_add_check_sharp),
+                backgroundColor: Colors.blue,
+                label: AppStrings.addTask.tr(),
+                onTap: () {
+                  pushNewScreen(context,
+                      screen: AddTaskView(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                },
+              ),
+              SpeedDialChild(
+                child: Icon(Icons.add_task),
+                backgroundColor: Colors.green,
+                label: AppStrings.addGoal.tr(),
+                onTap: () {
+                  pushNewScreen(context,
+                      screen: AddGoalView(),
+                      withNavBar: true,
+                      pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                },
+              ),
+            ],
+          ) ,
         backgroundColor: Colors.grey[200],
         body: RefreshIndicator(
           onRefresh:_refresh ,
@@ -104,6 +150,6 @@ class _HomeViewState extends State<HomeView> {
         ));
   }
   Future<void> _refresh()async {
-    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token);
+    profile = await BlocProvider.of<ProfileCubit>(context).GetProfile(token,userid);
   }
 }

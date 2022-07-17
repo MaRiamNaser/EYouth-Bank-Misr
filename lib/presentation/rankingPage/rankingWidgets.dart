@@ -1,4 +1,4 @@
-
+import 'package:bank_misr/Data/models/User.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,12 +9,9 @@ import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/styles_manager.dart';
 
-Widget buildItem(String name , int index,int points) =>
-
-    Padding(
+Widget buildItem(List<User> ranks, int index) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
       child: Container(
-
         height: 80,
         decoration: BoxDecoration(
             border: Border.all(color: ColorManager.grey, width: 1.5),
@@ -32,39 +29,28 @@ Widget buildItem(String name , int index,int points) =>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          (index + 1).toString() + "-",
+                          (index + 4).toString() + " - ",
                           style: getMediumStyle(
                             fontSize: FontSize.s16,
                             color: ColorManager.black,
                           ),
-
                         ),
                       ),
-
                       Padding(
-              padding: const EdgeInsets.only(right: 8),
-                  child:    CircularProfileAvatar(
-                        ' ',
-                        child: Icon(
-                          Icons.person,
-                          size: 35,
+                        padding: const EdgeInsets.only(right: 8),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(ranks[index].image),
+                          radius: 25,
                         ),
-                        borderColor: Colors.black,
-                        borderWidth: 1.5,
-                        elevation: 3,
-                        radius: 25,
-                      ),),
+                      ),
                       Container(
-
                         width: 170,
                         child: Text(
-                          "$name"+" ",
+                          ranks[index + 3].fullname! + " ",
                           style: getMediumStyle(
                             fontSize: 16,
                             color: ColorManager.black,
@@ -74,22 +60,18 @@ Widget buildItem(String name , int index,int points) =>
                         ),
                       ),
                       Container(
-
                         child: Text(
-                          "$points"+AppStrings.Pts.tr(),
+                          ranks[index + 3].points.toString() +
+                              " " +
+                              AppStrings.Pts.tr(),
                           style: getMediumStyle(
                             fontSize: 16,
                             color: ColorManager.black,
-
                           ),
-
                         ),
                       ),
-
                     ],
                   ),
-
-
                 ],
               ),
             ),

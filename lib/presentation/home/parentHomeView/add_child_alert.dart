@@ -1,19 +1,44 @@
+import 'package:bank_misr/business_logic/profileBloc/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Data/models/User.dart';
+import '../../../app/app_prefs.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
 class AddChildAlert extends StatefulWidget {
+  BuildContext context2;
+  AddChildAlert(this.context2);
+
   @override
-  AddChildAlert_State createState() => AddChildAlert_State();
+  AddChildAlert_State createState() => AddChildAlert_State(context2);
 }
 
 class AddChildAlert_State extends State<AddChildAlert> {
   var searchclick=false;
+  TextEditingController usernamecontroller=TextEditingController();
+  AppPreferences appPreferences = AppPreferences();
+  late var token;
+  late var parentid;
+  User ?user;
+  BuildContext context2;
+  AddChildAlert_State(this.context2);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Load();
+
+  }
+  Load() async {
+    token = await appPreferences.getLocalToken();
+    parentid=await appPreferences.getuserid();
+  }
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -34,6 +59,7 @@ class AddChildAlert_State extends State<AddChildAlert> {
         margin: EdgeInsets.only(
         left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m20),
         child: TextFormField(
+          controller:usernamecontroller ,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return "Please Enter Child User Name";
@@ -55,23 +81,29 @@ class AddChildAlert_State extends State<AddChildAlert> {
           )
         ]),
       ),SizedBox(height: 15),
-             searchclick? Row(
+             user!=null?Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: (){},
+                    onTap: ()async{
+                        await BlocProvider.of<ProfileCubit>(context2).AddKid(token, user!.email!, parentid);
+                        Navigator.of(context).pop();
+                    },
                     child: Row(
                       children: [
-                        Hero(
-                          tag: "Mohamed Wael",
+                        user!.image.isNotEmpty? Hero(
+                          tag: user!.username!,
                           child: CircleAvatar(
                             minRadius: 23,
-                            backgroundImage: AssetImage("assets/images/child1.jpg"),
+                            backgroundImage:NetworkImage(user!.image),
                           ),
+                        ):CircleAvatar(
+                          minRadius: 23,
+                          backgroundImage:AssetImage("assets/images/child1.jpg"),
                         ),
                         SizedBox(width: 20),
                         Text(
-                          "Mohamed Wael",
+                          user!.fullname!,
                           style: getBoldtStyle(
                               fontSize: 15, color: ColorManager.black),
                         ),
@@ -80,7 +112,7 @@ class AddChildAlert_State extends State<AddChildAlert> {
                   ),
                   Icon(Icons.supervised_user_circle,size: 22,color: Colors.grey,)
                 ],
-              ):SizedBox()
+):Padding(padding: EdgeInsets.only(top: 15),child: Text("User Not Found"),)
             ]
         ),
       ),
@@ -95,11 +127,15 @@ class AddChildAlert_State extends State<AddChildAlert> {
               ),
               child: TextButton(
                   child: Text("Search",style:getRegularStyle(color: ColorManager.white) ,),
-                  onPressed: () {
+                  onPressed: () async{
+                    if(usernamecontroller.text.isNotEmpty) {
+                      user =
+                      await BlocProvider.of<ProfileCubit>(context2).SearchKid(
+                          token, usernamecontroller.text);
+                      setState(() {
 
-                    setState(() {
-                      searchclick=!searchclick;
-                    });
+                      });
+                    }
                   }
               )
           ),

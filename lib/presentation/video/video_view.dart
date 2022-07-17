@@ -16,33 +16,35 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '../../Data/models/Lesson.dart';
 import '../matching/Widgets/alert_dialog.dart';
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/values_manager.dart';
 
 class VideoView extends StatefulWidget {
-  Video video;
+  Lesson lesson;
 
-  VideoView(this.video);
+  VideoView(this.lesson);
 
   @override
-  _VideoViewState createState() => _VideoViewState(video);
+  _VideoViewState createState() => _VideoViewState(lesson);
 }
 
 class _VideoViewState extends State<VideoView> {
   late BetterPlayerController betterPlayerController;
-  Video video;
+  Lesson lesson;
   var visable=false;
-  _VideoViewState(this.video);
+  _VideoViewState(this.lesson);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(lesson.video);
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
         BetterPlayerDataSourceType.network,
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4");
+        lesson.video);
     betterPlayerController = BetterPlayerController(
         BetterPlayerConfiguration(
             controlsConfiguration: BetterPlayerControlsConfiguration(
@@ -80,7 +82,7 @@ class _VideoViewState extends State<VideoView> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.Videos.tr()),
+          title: Text(lesson.title),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
@@ -110,12 +112,12 @@ class _VideoViewState extends State<VideoView> {
             SizedBox(
               height: 1 / 825 * screensize.height * AppSize.s20,
             ),
-            Description("This is Lesson ${video.id}"),
+            Description(lesson.description),
             SizedBox(
               height: 1 / 825 * screensize.height * AppSize.s20,
             ),
             Container(
-              child: QuizWidget(Quiz(head: "What is Egypt Currency", answer: "EGP", options: [
+              child: QuizWidget(Quizz(head: "What is Egypt Currency", answer: "EGP", options: [
                 "Euro","EGP","Dollar"
               ])),
             ),

@@ -1,3 +1,4 @@
+import 'package:bank_misr/Data/models/Lesson.dart';
 import 'package:bank_misr/Data/models/MatcingItem.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,15 +9,22 @@ import '../resources/color_manager.dart';
 import 'matching_lesson.dart';
 
 class MatchingLevels extends StatefulWidget {
+  Lesson lesson;
+  MatchingLevels(this.lesson);
+
   @override
-  _MatchingLevelsState createState() => _MatchingLevelsState();
+  _MatchingLevelsState createState() => _MatchingLevelsState(lesson);
 }
 
 class _MatchingLevelsState extends State<MatchingLevels> {
+
+  Lesson lesson;
+  _MatchingLevelsState(this.lesson);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Lesson 10")),
+      appBar: AppBar(title: Text(lesson.title)),
       body: Container(
         margin: EdgeInsets.only(top: 10),
         child: GridView.builder(
@@ -25,14 +33,12 @@ class _MatchingLevelsState extends State<MatchingLevels> {
                 childAspectRatio: 3 / 4,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10),
-            itemCount: 2,
+            itemCount: lesson.levels!.length,
             itemBuilder: (BuildContext ctx, index) {
               return GestureDetector(
                 onTap: () {
-                 if(index==0)
-                  pushNewScreen(context, screen: MatchingLesson(matching1,matching2),withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
-                 else
-                   pushNewScreen(context, screen:MatchingLesson(matching3,matching4) ,withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+                  print(lesson.levels![0].levelNumber);
+                  pushNewScreen(context, screen:MatchingLesson(level: lesson.levels![index]) ,withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
                 },
                 child: Container(
                   margin:
@@ -52,7 +58,9 @@ class _MatchingLevelsState extends State<MatchingLevels> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
-                            child: index == 0
+                            child:
+                            //lesson.levels![index-1].checked!||index==0
+                      true
                                 ? Icon(
                               Icons.done,
                               color: ColorManager.green,

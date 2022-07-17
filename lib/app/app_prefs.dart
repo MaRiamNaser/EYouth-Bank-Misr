@@ -14,7 +14,14 @@ getLocalToken()async{
   SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
   return sharedPreferences.getString("token");
 }
-
+  getuserid()async{
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    return sharedPreferences.getString("userid");
+  }
+  setuserid(String id)async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("userid",id);
+  }
 saveTokenAndUserIdToSharedPrefrences(String localToken, String id) async{
    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
              sharedPreferences.setString("token",localToken);

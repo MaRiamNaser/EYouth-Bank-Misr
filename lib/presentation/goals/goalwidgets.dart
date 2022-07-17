@@ -78,7 +78,7 @@ Widget buildgoal(Goal goal, int index ,context, int progress) =>
                     margin: EdgeInsets.all(13),
                     child: Row(
                       children: [
-                        Text("Progress : ",style: getLightStyle(color: Colors.black),),
+                        Text(AppStrings.Progress.tr(),style: getLightStyle(color: Colors.black),),
                         Text(progress>100?"100 %":progress.toString()+" %",style: getRegularStyle(color: Colors.black),)
                       ],
                     ),
@@ -95,9 +95,9 @@ Widget buildgoal(Goal goal, int index ,context, int progress) =>
                           color: Colors.green,
                           size: 28,
                         ),
-                        onPressed: () {
-                          setState(() {
-                            showDialog(
+                        onPressed: ()
+                           async {
+                          await showDialog(
                                 context: context,
                                 builder: (BuildContext context1) {
                                   return
@@ -161,9 +161,8 @@ Widget buildgoal(Goal goal, int index ,context, int progress) =>
                                       )
                                   );
                                 });
-                          });
-                        }
-                    ):SizedBox(),
+                          })
+                      :SizedBox(),
                     IconButton(
                       icon: (Icon(Icons.edit_rounded)),
                       color: ColorManager.black,

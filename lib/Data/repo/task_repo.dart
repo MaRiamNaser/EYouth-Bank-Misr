@@ -15,9 +15,10 @@ class TaskRepo
 
   TaskRepo(this._taskServices);
   ///* Call task Web Service to get Data of tasks
-  Future<List<Task>> GetAllTasks(token)async
+  Future<List<Task>> GetAllTasks(token, userid)async
   {
-    var body = await _taskServices.GetAllTasks(token);
+    print(userid+" *******************");
+    var body = await _taskServices.GetAllTasks(token,userid);
     var jsonresponse =json.decode(body) ;
     print(body);
     var list=jsonresponse["data"] as List<dynamic>;

@@ -12,17 +12,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../../Data/models/Lesson.dart';
 import '../resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
 class MatchingLesson extends StatefulWidget {
   List<MatchingItem>match1=[];
   List<MatchingItem>match2=[];
-
-  MatchingLesson(List<MatchingItem>match1, List<MatchingItem>match2)
+  Lesson? lesson;
+  Level? level;
+  MatchingLesson({ this.lesson, this.level})
   {
-    this.match1=match1.toList();
-    this.match2=match2.toList();
+    if(lesson!=null) {
+      this.match1 = List.generate(lesson!.game!.length, (index) =>
+          MatchingItem(name: lesson!.game![index].title,
+              img: lesson!.game![index].img ,
+              value: lesson!.game![index].des,
+              imgName: lesson!.game![index].des));
+    }
+    else
+      {
+        this.match1 = List.generate(level!.content!.length, (index) =>
+          MatchingItem(name: level!.content![index].title!,
+              img: "",
+              value: level!.content![index].des!,
+              imgName: level!.content![index].des!));
+
+      }
+
+    this.match2=match1.toList();
   }
 
   @override
@@ -84,7 +102,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lesson "),
+        title: Text("Matching"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -93,10 +111,9 @@ class _MatchingLessonState extends State<MatchingLesson> {
               Padding(
                 padding: EdgeInsets.all(11),
                 child: Container(
-                    alignment: Alignment.center,
-                    height: 120,
+                    height: 90,
                     width: 360,
-                    padding: EdgeInsets.all(11),
+                    padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.all(Radius.circular(AppSize.s25)),
@@ -106,13 +123,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                         children: [
                           TextSpan(
                             text:
-                                "Currency is a term for a country's money in circulation—that is, coins and bills. \n \n",
-                            style: getRegularStyle(
-                                color: Colors.white, fontSize: 14),
-                          ),
-                          TextSpan(
-                            text:
-                                'Try to match each currency with its country :\n',
+                                'Try to match From Left to Right :\n \n',
                             style: getSemiBoldStyle(
                                 color: Colors.white, fontSize: 14),
                           ),
@@ -126,6 +137,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                     )),
               ),
               ListView.builder(
+                padding: EdgeInsets.only(bottom: 15),
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: items.length,
@@ -177,6 +189,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                                             return AlertDialogLesson();
                                           },
                                         );
+                                        Navigator.of(context).pop();
                                       }
                                     } else {
                                       setState(() {
@@ -187,7 +200,7 @@ class _MatchingLessonState extends State<MatchingLesson> {
                                     }
                                   }
                                 : null,
-                            child: items2[index].value.isEmpty
+                            child: items[index].img.isNotEmpty
                                 ?  TargetTitleWidget(items2[index]): TargetDescriptionWidget(items2[index]))
                       ],
                     );

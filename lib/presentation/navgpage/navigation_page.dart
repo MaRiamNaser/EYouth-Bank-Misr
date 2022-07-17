@@ -8,8 +8,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../../Data/models/User.dart';
+import '../addTasksGoals/addGoal/add_goal.dart';
+import '../addTasksGoals/addTask/add_task.dart';
 import '../courses/coursesView.dart';
 import '../home/home_view.dart';
 import '../profile/profile_view.dart';
@@ -18,18 +22,28 @@ import '../setting/setting.dart';
 import 'floattingBotton.dart';
 
 class navgscreen extends StatefulWidget {
-  Category? child;
+  User? child;
   navgscreen({this.child});
 
   @override
   _navgscreenState createState() => _navgscreenState(child);
 }
-
+BuildContext? context12;
+bool pressedd=false;
+double height=5;
+double width=5;
 class _navgscreenState extends State<navgscreen> {
   PersistentTabController _controller=PersistentTabController(initialIndex: 0);
-  Category? child;
+  User? child;
   _navgscreenState(this.child);
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pressedd=false;
+    height=5;
+    width=5;
+  }
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -42,6 +56,10 @@ class _navgscreenState extends State<navgscreen> {
     create: (context) => blocGenerator().goalCubit),
     BlocProvider(
         create: (context) => blocGenerator().taskCubit),
+    BlocProvider(
+        create: (context) => blocGenerator().lessonCubit),
+    BlocProvider(
+        create: (context) => blocGenerator().rankingCubit),
   ],
   child: PersistentTabView(
       context,
@@ -69,7 +87,7 @@ class _navgscreenState extends State<navgscreen> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style16,
+      navBarStyle: NavBarStyle.simple,
       onWillPop:(bool)=> onWillPop(context),
       onItemSelected: (int)
       {
@@ -83,8 +101,6 @@ class _navgscreenState extends State<navgscreen> {
 
   child==null?  HomeView():ChildHomeView(child!),
      coursesView(),
-      Container(),
-      //floattingbotton(),
       ProfileView(),
       settingView(),
     ];
@@ -100,20 +116,9 @@ class _navgscreenState extends State<navgscreen> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.collections),
-        title: (AppStrings.Videos.tr()),
+        title: (AppStrings.Courses.tr()),
         activeColorPrimary: ColorManager.darkPrimary,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.add,color: Colors.white,),
-        activeColorPrimary: ColorManager.darkPrimary,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-        onPressed: (context){
-          showDialog(
-          context: context!,
-          builder: (BuildContext context1) {
-         return floattingbotton(context); },);
-        }
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.supervised_user_circle),
@@ -130,5 +135,5 @@ class _navgscreenState extends State<navgscreen> {
     ];
   }
 
-
 }
+

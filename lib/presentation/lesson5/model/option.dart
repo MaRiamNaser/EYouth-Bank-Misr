@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-class Option {
+class Optionn {
   final String? code;
   final String? text;
   final bool? isCorrect;
 
-  const Option({
+  const Optionn({
     @required this.text,
     @required this.code,
     @required this.isCorrect,

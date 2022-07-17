@@ -1,11 +1,21 @@
+import 'dart:convert';
+
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   String? sId;
   String? fullname;
   String? username;
   String? email;
+  String image = "";
   int? balance;
   int? age;
+  String? role;
+  int? points;
+  int? rank;
+  List<User> children = [];
   String? createdAt;
   String? updatedAt;
 
@@ -14,8 +24,13 @@ class User {
       this.fullname,
       this.username,
       this.email,
+      required this.image,
       this.balance,
       this.age,
+      this.role,
+      this.points,
+      this.rank,
+      required this.children,
       this.createdAt,
       this.updatedAt});
 
@@ -24,8 +39,18 @@ class User {
     fullname = json['fullname'];
     username = json['username'];
     email = json['email'];
+    image=
+    json["image"];
     balance = json['balance'];
     age = json['age'];
+    role=
+    json["role"];
+    points=
+    json["points"];
+    rank=
+    json["rank"];
+    children=
+    List<User>.from(json["children"].map((x) => User.fromJson(x["childData"])));
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }

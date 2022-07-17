@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bank_misr/Data/models/MatcingItem.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,7 +22,7 @@ class TargetTitleWidget extends StatelessWidget {
             ? ColorManager.darkPrimary
             : ColorManager.primary,
       ),
-      child: Text(item.name,
+      child: AutoSizeText(item.name,
           style: getSemiBoldStyle(
               color: ColorManager.white),textAlign: TextAlign.center,),
     )

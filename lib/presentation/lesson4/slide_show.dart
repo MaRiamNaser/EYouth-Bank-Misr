@@ -1,4 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bank_misr/Data/models/Lesson.dart';
+import 'package:bank_misr/presentation/addTasksGoals/edit_goal/edit_goal.dart';
 import 'package:bank_misr/presentation/bottomBar/bottomBar.dart';
 import 'package:bank_misr/presentation/lesson2/small_box.dart';
 import 'package:bank_misr/presentation/lesson2/lesson2.dart';
@@ -11,8 +14,11 @@ import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class Slideshow extends StatefulWidget {
+  Lesson lesson;
+  Slideshow(this.lesson);
+
   @override
-  _SlideshowState createState() => _SlideshowState();
+  _SlideshowState createState() => _SlideshowState(lesson);
 }
 
 class _SlideshowState extends State<Slideshow> {
@@ -23,8 +29,10 @@ class _SlideshowState extends State<Slideshow> {
  late List<String> backContent =[];
   String activeTag = 'Durability';
    final _flutterTts = FlutterTts();
-
+ late String tag;
   int currentPage = 0;
+  Lesson lesson;
+  _SlideshowState(this.lesson);
 
   void speak(String text) async {
     // if (_controller.text.isNotEmpty) {
@@ -44,6 +52,7 @@ class _SlideshowState extends State<Slideshow> {
 
   @override
   void initState() {
+     tag = lesson.game![0].title;
     load();
     controller.addListener(() {
       int next = controller.page!.round();
@@ -61,17 +70,10 @@ class _SlideshowState extends State<Slideshow> {
     super.dispose();
     stop();
   }
-  void load({String tag = 'Durability'}) {
+  void load() {
     // Map the slides to the data payload
-    frontContent = ["Durability", "Portability", "Divisibility","Uniformity","Limited Supply","Acceptability"];
-    backContent = [
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill.",
-    "As we covered, while A cow is fairly durable, but a long trip to market runs the risk of sickness or death for the cow and can severely reduce its value. A pound bill is fairly durable and can be easily replaced if it became worn. Even better, a long trip to market does not threaten the health or valueof the bill."];
-
+    frontContent = lesson.game!.map((e) => e.title).toList();
+    backContent = lesson.game!.map((e) => e.des).toList();
     // Update the active tag
     setState(() {
       activeTag = tag;
@@ -85,33 +87,45 @@ class _SlideshowState extends State<Slideshow> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Your Lessons',
+           lesson.title,
             style:  TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
-     
-          _buildButton('Durability'),
-          _buildButton('Portability'),
-          _buildButton('Divisibility'),
-          _buildButton('Uniformity'),
-          _buildButton('Limited Supply'),
-          _buildButton('Acceptability'),
+
+          Container(
+            child: ListView.builder(
+              padding: EdgeInsets.only(right: 80),
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: frontContent.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return  _buildButton(frontContent[index]);
+                },
+            ),
+          )
         ],
       ),
     );
   }
 
-  FlatButton _buildButton(tag) {
+  SizedBox _buildButton(tag) {
    
-    return FlatButton(
-     
-      child: Text(
-        '#$tag',
-        textAlign: TextAlign.left,
+    return SizedBox(
+      height: 50,
+      width: 40,
+      child: TextButton(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '#$tag',
+            textAlign: TextAlign.left,
+            style: getMediumStyle(color: Colors.black,fontSize: 15),
+          ),
+        ),
+        onPressed: () {
+
+
+        } ,
       ),
-      onPressed: () {
-     
-   
-      } ,
     );
   }
 
@@ -178,54 +192,52 @@ class _SlideshowState extends State<Slideshow> {
         ],
       ),
       child: SingleChildScrollView(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DefaultTextStyle(
-            style: const TextStyle(fontSize: 40.0, color: Colors.pink),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                WavyAnimatedText(title),
-              ],
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              DefaultTextStyle(
+              style:  TextStyle(fontSize: 36.0, color: ColorManager.darkPrimary),
+              child: AutoSizeText(title),
             ),
-          ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                child: Text(
-                  content,
-                  style:getLightStyle(color: ColorManager.black, fontSize: 25),
-                ),
-              ),
-
-                        Container(
-            margin: EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {   
-
-                    stop();
-
-                  },
-                  child: Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: SmallBox(
-                          child: Icon(
-                        Icons.volume_up_rounded,
-                        size: 32,
-                      )),
-                    ),
+                Container(
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                  child: AutoSizeText(
+                    content,
+                    style:getLightStyle(color: ColorManager.black, fontSize: 22,),
+                    textAlign: TextAlign.left,
                   ),
                 ),
-         
-              ],
+
+                          Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+
+                      stop();
+
+                    },
+                    child: Container(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: SmallBox(
+                            child: Icon(
+                          Icons.volume_up_rounded,
+                          size: 32,
+                        )),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
             ),
+
+            ],
           ),
-         
-          ],
         ),
       ),
     );
@@ -233,9 +245,8 @@ class _SlideshowState extends State<Slideshow> {
 
   @override
   Widget build(BuildContext context) {
-    
         return Scaffold(
-          appBar: AppBar(title: Text("Lesson 4")),
+          appBar: AppBar(title: Text(lesson.title)),
             body: PageView.builder(
               controller: controller,
               itemCount: frontContent.length + 1,

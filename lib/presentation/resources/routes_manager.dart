@@ -1,10 +1,13 @@
 import 'package:bank_misr/Data/repo/goal_repo.dart';
 import 'package:bank_misr/Data/repo/task_repo.dart';
 import 'package:bank_misr/Data/repo/video_repo.dart';
+import 'package:bank_misr/Data/web_services/User_services.dart';
+import 'package:bank_misr/Data/web_services/lesson_services.dart';
 
 import 'package:bank_misr/business_logic/Auth/currentIndexBloc/cubit/currentindex_cubit.dart';
 import 'package:bank_misr/business_logic/Auth/signInBloc/cubit/signin1_cubit.dart';
 import 'package:bank_misr/business_logic/Auth/signUpBloc/cubit/signup_cubit.dart';
+import 'package:bank_misr/business_logic/LessonBloc/lesson_cubit.dart';
 import 'package:bank_misr/data/repo/authentication/signin_repo.dart';
 import 'package:bank_misr/data/repo/authentication/signup_repo.dart';
 import 'package:bank_misr/data/web_services/registration_services/registeration_services.dart';
@@ -34,6 +37,9 @@ import 'package:bank_misr/presentation/tasks/tasks_view.dart';
 import 'package:bank_misr/presentation/video/video_view.dart';
 import 'package:flutter/material.dart';
 import '../../Data/models/Video.dart';
+import '../../Data/repo/lesson_repo.dart';
+import '../../Data/repo/user_repo.dart';
+import '../../business_logic/rankingBloc/ranking_cubit.dart';
 import '../goals/goals_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Data/repo/course_repo.dart';
@@ -93,6 +99,11 @@ class blocGenerator {
   late TaskRepo taskRepo;
   late TaskCubit taskCubit;
 
+  late LessonRepo lessonRepo;
+  late LessonCubit lessonCubit;
+
+  late UserRepo userRepo;
+  late RankingCubit rankingCubit;
   blocGenerator() {
     courseRepo = CourseRepo(CourseServices());
     courseCubit = CourseCubit(courseRepo);
@@ -116,6 +127,12 @@ class blocGenerator {
 
     taskRepo = TaskRepo(TaskServices());
     taskCubit = TaskCubit(taskRepo);
+
+    lessonRepo = LessonRepo(LessonServices());
+    lessonCubit = LessonCubit(lessonRepo);
+
+    userRepo = UserRepo(UserServices());
+    rankingCubit = RankingCubit(userRepo);
   }
 }
 
@@ -186,7 +203,7 @@ class RouteGenerator {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
             create: (context) => blocGenerator().videoCubit,
-            child: VideoView(video),
+
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);

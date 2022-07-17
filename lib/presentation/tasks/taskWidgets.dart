@@ -18,9 +18,9 @@ import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
-late GlobalKey<ScaffoldState> _scaffoldKey ;
 
-Widget buildtask(Task task, int index ,context,checked, token) => Padding(
+
+Widget buildtask(Task task, int index ,context,checked, token, GlobalKey<ScaffoldState> _scaffoldKey) => Padding(
   padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
   child: Container(
     decoration: BoxDecoration(
@@ -80,9 +80,11 @@ Widget buildtask(Task task, int index ,context,checked, token) => Padding(
                         ),
                         onPressed: () async {
                           var undo = false;
-                          await ScaffoldMessenger.of(_scaffoldKey.currentContext!)
-                              .showSnackBar(SnackBar(
-                            content: const Text('Task Has Been Done'),
+                          await _scaffoldKey.currentState!.
+                              showSnackBar(SnackBar(
+                            content: Container(
+                              height: 35,
+                                child: const Text('Task Has Been Done')),
                             action: SnackBarAction(
                               label: 'Undo',
                               onPressed: () {

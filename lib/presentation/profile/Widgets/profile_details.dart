@@ -1,4 +1,5 @@
 import 'package:bank_misr/Data/models/Profile.dart';
+import 'package:bank_misr/presentation/rankingPage/rankingView.dart';
 import 'package:bank_misr/presentation/resources/assets_manager.dart';
 import 'package:bank_misr/presentation/resources/strings_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,15 +10,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Data/models/User.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import 'balance_Widget.dart';
 import 'bottom_row_widget.dart';
 
 class ProfileDetailsView extends StatelessWidget {
-  Profile profile;
+  User profile;
   Size screensize;
   ProfileDetailsView(this.profile,this.screensize);
 
@@ -26,7 +29,7 @@ class ProfileDetailsView extends StatelessWidget {
     return Column(
       children: [
         Center(
-            child: Text(profile.fullname,
+            child: Text(profile.fullname!,
                 style: getSemiBoldStyle(
                     fontSize: 16,
                     color: ColorManager.black))),
@@ -34,31 +37,37 @@ class ProfileDetailsView extends StatelessWidget {
           height: 1 / 825 * screensize.height * 4.0,
         ),
         Text(
-          profile.username,
+          profile.username!,
           style: getMediumStyle(
               fontSize: 12,
               color: ColorManager.black),
         ),
         SizedBox(
             height: 1 / 825 * screensize.height * 10),
-        BalanceWidget(profile.balance),
+        BalanceWidget(profile.balance!),
         SizedBox(
           height: 1 / 825 * screensize.height * 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment:
-              MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.leaderboard,
-                  color: ColorManager.darkPrimary,
-                  size: 25,
-                ),
-                Text(" Ranking")
-              ],
+            InkWell(
+    onTap: ()
+    {
+    pushNewScreen(context, screen: rankingView() ,withNavBar: true,pageTransitionAnimation: PageTransitionAnimation.cupertino);
+    },
+              child: Column(
+                mainAxisAlignment:
+                MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.leaderboard,
+                    color: ColorManager.darkPrimary,
+                    size: 25,
+                  ),
+                  Text(" Ranking")
+                ],
+              ),
             ),
             SizedBox(
               width: 100,
@@ -67,15 +76,10 @@ class ProfileDetailsView extends StatelessWidget {
               mainAxisAlignment:
               MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.star,
-                  color: ColorManager.darkPrimary,
-                  size: 25,
-                ),
+                Text(profile.points.toString(),style: getSemiBoldStyle(color: Colors.black),),
                 Text(" Points")
               ],
             ),
-
             //   Icon(Icons.email)
           ],
         ),
@@ -87,7 +91,7 @@ class ProfileDetailsView extends StatelessWidget {
           children: [
             SizedBox(
               child: Text(
-                profile.email,
+                profile.email!,
                 style: getMediumStyle(
                     fontSize: 18,
                     color: ColorManager.black),
